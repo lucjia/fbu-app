@@ -89,7 +89,7 @@
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
-            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+            alert.view.tintColor = [UIColor whiteColor];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
             // User registered successfully, automatically log in
