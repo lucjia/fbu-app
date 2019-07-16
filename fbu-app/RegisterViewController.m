@@ -15,7 +15,7 @@
 @property (strong, nonatomic) UITextField *emailField;
 @property (strong, nonatomic) UITextField *passwordField;
 @property (strong, nonatomic) UIButton *registerButton;
-@property (strong, nonatomic) UILabel *label;
+@property (strong, nonatomic) UILabel *registerLabel;
 
 @end
 
@@ -25,21 +25,21 @@
     [super viewDidLoad];
     
     // Create username field
-    self.usernameField = [[UITextField alloc] initWithFrame: CGRectMake(37.5f, 100.0f, 300.0f, 30.0f)];
+    self.usernameField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 240.0f, 215.0f, 30.0f)];
     self.usernameField.delegate = self;
     self.usernameField.borderStyle = UITextBorderStyleRoundedRect;
     self.usernameField.placeholder = @"Username";
     [self.view addSubview:self.usernameField];
     
     // Create email field
-    self.emailField = [[UITextField alloc] initWithFrame: CGRectMake(37.5f, 200.0f, 300.0f, 30.0f)];
+    self.emailField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 300.0f, 215.0f, 30.0f)];
     self.emailField.delegate = self;
     self.emailField.borderStyle = UITextBorderStyleRoundedRect;
     self.emailField.placeholder = @"Email";
     [self.view addSubview:self.emailField];
     
     // Create password field
-    self.passwordField = [[UITextField alloc] initWithFrame: CGRectMake(37.5f, 300.0f, 300.0f, 30.0f)];
+    self.passwordField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 360.0f, 215.0f, 30.0f)];
     self.passwordField.delegate = self;
     self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
     self.passwordField.placeholder = @"Password";
@@ -47,16 +47,18 @@
     
     // Create register button
     self.registerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.registerButton.frame = CGRectMake(137.5f, 400.0f, 100.0f, 30.0f);
-    self.registerButton.backgroundColor = [UIColor redColor];
+    self.registerButton.frame = CGRectMake(137.5f, 420.0f, 100.0f, 30.0f);
+    self.registerButton.backgroundColor = [UIColor lightGrayColor];
     [self.registerButton addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
     [self.registerButton setTitle:@"Press Me!" forState:UIControlStateNormal];
     [self.view addSubview:self.registerButton];
     
     // Create label
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(137.5f, 150.0f, 500.0f, 30.0f)];
-    self.label.text = @"Hello World!";
-    [self.view addSubview:self.label];
+    self.registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(37.5f, 150.0f, 300.0f, 30.0f)];
+    self.registerLabel.text = @"Register New User";
+    [[self registerLabel] setFont: [UIFont systemFontOfSize:24]];
+    self.registerLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.registerLabel];
 }
 
 - (void)registerUser {
@@ -104,7 +106,9 @@
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         // Display view controller that needs to be shown after successful login
-        [self performSegueWithIdentifier:@"toFeed" sender:self];
+//        HomeViewController *homeVC = [[HomeViewController alloc] init];
+//        // Any setup
+//        [self presentModalViewController:homeVC animated:YES];
     }];
 }
 
