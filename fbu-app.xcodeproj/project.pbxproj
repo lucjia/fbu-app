@@ -19,6 +19,7 @@
 		85E7A15822DD214E006C1F38 /* fbu_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A15722DD214E006C1F38 /* fbu_appTests.m */; };
 		85E7A16322DD214E006C1F38 /* fbu_appUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A16222DD214E006C1F38 /* fbu_appUITests.m */; };
 		85E7A17822DE3B24006C1F38 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A17722DE3B24006C1F38 /* RegisterViewController.m */; };
+		85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A17A22DE8060006C1F38 /* SettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		85E7A16422DD214E006C1F38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85E7A17622DE3B24006C1F38 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		85E7A17722DE3B24006C1F38 /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		85E7A17922DE8060006C1F38 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		85E7A17A22DE8060006C1F38 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		9ACABEB17CBA90FA88762331 /* Pods_fbu_appUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_appUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F897F31FD7CDA5199E2D8C59 /* Pods_fbu_appTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_appTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF11A48580BE19DA3BF44E01 /* Pods_fbu_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +135,8 @@
 				85E7A14D22DD214E006C1F38 /* main.m */,
 				85E7A17622DE3B24006C1F38 /* RegisterViewController.h */,
 				85E7A17722DE3B24006C1F38 /* RegisterViewController.m */,
+				85E7A17922DE8060006C1F38 /* SettingsViewController.h */,
+				85E7A17A22DE8060006C1F38 /* SettingsViewController.m */,
 			);
 			path = "fbu-app";
 			sourceTree = "<group>";
@@ -399,6 +404,7 @@
 			files = (
 				85E7A14322DD214D006C1F38 /* ViewController.m in Sources */,
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
+				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
 				85E7A17822DE3B24006C1F38 /* RegisterViewController.m in Sources */,
 			);

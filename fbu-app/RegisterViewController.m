@@ -7,6 +7,7 @@
 //
 
 #import "RegisterViewController.h"
+#import "SettingsViewController.h"
 #import "Parse/Parse.h"
 
 @interface RegisterViewController ()
@@ -110,9 +111,9 @@
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         // Display view controller that needs to be shown after successful login
-//        HomeViewController *homeVC = [[HomeViewController alloc] init];
-//        // Any setup
-//        [self presentModalViewController:homeVC animated:YES];
+        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
+        // Any setup
+        [self presentModalViewController:settingsVC animated:YES];
     }];
 }
 
