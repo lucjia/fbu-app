@@ -43,12 +43,16 @@
     self.passwordField.delegate = self;
     self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
     self.passwordField.placeholder = @"Password";
+    self.passwordField.secureTextEntry = YES;
     [self.view addSubview:self.passwordField];
     
     // Create register button
     self.registerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.registerButton.frame = CGRectMake(137.5f, 420.0f, 100.0f, 30.0f);
+    self.registerButton.frame = CGRectMake(137.5f, 480.0f, 100.0f, 30.0f);
     self.registerButton.backgroundColor = [UIColor lightGrayColor];
+    self.registerButton.tintColor = [UIColor whiteColor];
+    self.registerButton.layer.cornerRadius = 6;
+    self.registerButton.clipsToBounds = YES;
     [self.registerButton addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
     [self.registerButton setTitle:@"Press Me!" forState:UIControlStateNormal];
     [self.view addSubview:self.registerButton];
