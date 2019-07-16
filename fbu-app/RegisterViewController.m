@@ -28,23 +28,27 @@
     self.usernameField = [[UITextField alloc] initWithFrame: CGRectMake(37.5f, 100.0f, 300.0f, 30.0f)];
     self.usernameField.delegate = self;
     self.usernameField.borderStyle = UITextBorderStyleRoundedRect;
+    self.usernameField.placeholder = @"Username";
     [self.view addSubview:self.usernameField];
     
     // Create email field
     self.emailField = [[UITextField alloc] initWithFrame: CGRectMake(37.5f, 200.0f, 300.0f, 30.0f)];
     self.emailField.delegate = self;
     self.emailField.borderStyle = UITextBorderStyleRoundedRect;
+    self.emailField.placeholder = @"Email";
     [self.view addSubview:self.emailField];
     
     // Create password field
     self.passwordField = [[UITextField alloc] initWithFrame: CGRectMake(37.5f, 300.0f, 300.0f, 30.0f)];
     self.passwordField.delegate = self;
     self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
+    self.passwordField.placeholder = @"Password";
     [self.view addSubview:self.passwordField];
     
     // Create register button
     self.registerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.registerButton.frame = CGRectMake(137.5f, 400.0f, 100.0f, 30.0f);
+    self.registerButton.backgroundColor = [UIColor redColor];
     [self.registerButton addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
     [self.registerButton setTitle:@"Press Me!" forState:UIControlStateNormal];
     [self.view addSubview:self.registerButton];
@@ -68,8 +72,22 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error != nil) {
             // Create alert to display error
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Register"
+                                                                           message:@"Invalid username, email, or password."
+                                                                    preferredStyle:(UIAlertControllerStyleAlert)];
+            // Create a try again action
+            UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                    style:UIAlertActionStyleCancel
+                                                                  handler:^(UIAlertAction * _Nonnull action) {
+                                                                      // Handle cancel response here. Doing nothing will dismiss the view.
+                                                                  }];
+            // Add the cancel action to the alertController
+            [alert addAction:dismissAction];
+            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+            [self presentViewController:alert animated:YES completion:nil];
         } else {
             // User registered successfully, automatically log in
+            [self logInUser];
         }
     }];
 }
@@ -77,8 +95,17 @@
 // Dismiss keyboard after typing
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    
     return NO;
+}
+
+- (void)logInUser {
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+    
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+        // Display view controller that needs to be shown after successful login
+        [self performSegueWithIdentifier:@"toFeed" sender:self];
+    }];
 }
 
 /*
