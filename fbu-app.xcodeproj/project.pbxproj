@@ -139,8 +139,8 @@
 		85E7A13D22DD214D006C1F38 /* fbu-app */ = {
 			isa = PBXGroup;
 			children = (
-				64BBF3CF22DE401900FCCABD /* Cells */,
 				64BBF3CE22DE400E00FCCABD /* ViewControllers */,
+				64BBF3CF22DE401900FCCABD /* Cells */,
 				85E7A13E22DD214D006C1F38 /* AppDelegate.h */,
 				85E7A13F22DD214D006C1F38 /* AppDelegate.m */,
 				85E7A14422DD214D006C1F38 /* Main.storyboard */,

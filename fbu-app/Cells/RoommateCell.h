@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RoommateCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel *label;
+
 @end
 
 NS_ASSUME_NONNULL_END
