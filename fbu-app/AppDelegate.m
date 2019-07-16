@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import <Parse>
-
+#import "RegisterViewController.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -18,7 +18,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
+    self.window.rootViewController = registerVC;
+    [self.window makeKeyAndVisible]; 
     return YES;
 }
 
