@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RegisterViewController.h"
+#import "LogInViewController.h"
 #import <Parse/Parse.h>
 
 @interface AppDelegate ()
@@ -31,9 +32,12 @@
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
-    self.window.rootViewController = registerVC;
-    [self.window makeKeyAndVisible]; 
+//    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
+//    self.window.rootViewController = registerVC;
+    LogInViewController *logInVC = [[LogInViewController alloc] init];
+    self.window.rootViewController = logInVC;
+
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
