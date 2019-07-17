@@ -43,7 +43,6 @@
         if (users != nil) {
             // do something with the array of object returned by the call
             self.userArrray = users;
-            NSLog(@"C: %lu", self.userArrray.count);
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -72,7 +71,10 @@
     
     cell = [[RoommateCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    cell.label.text = @"Testing";
+    PFUser *user = self.userArrray[indexPath.row];
+    
+    [cell updateProperties:user];
+    
     return cell;
 }
 

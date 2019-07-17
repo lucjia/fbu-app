@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RoommateCell : UITableViewCell
 
-@property (strong, nonatomic) UILabel *label;
+- (void)updateProperties:(PFUser *)user;
 
 @end
 

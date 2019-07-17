@@ -7,12 +7,13 @@
 //
 
 #import "RoommateCell.h"
+#import <Parse/Parse.h>
 
-//@interface RoommateCell()
-//
-//
-//
-//@end
+@interface RoommateCell()
+
+@property (strong, nonatomic) UILabel *label;
+
+@end
 
 @implementation RoommateCell
 
@@ -28,18 +29,27 @@
 }
 
 @synthesize label = _label;
-- (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+
+    [self setUsernameLabel];
     
+    return self;
+}
+
+- (void)setUsernameLabel {
     if (self) {
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 300, 30)];
         self.label.textColor = [UIColor blackColor];
-        self.label.font = [UIFont fontWithName:@"Arial" size:12.0f];
+        self.label.font = [UIFont fontWithName:@"Arial" size:24.0f];
         
         [self addSubview:self.label];
     }
-    
-    return self;
+}
+
+- (void)updateProperties:(PFUser *)user {
+    //username label
+    self.label.text = [user objectForKey:@"username"];
 }
 
 @end
