@@ -57,13 +57,16 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-
+    
+    self.tableView.estimatedRowHeight = 100;
+    self.tableView.rowHeight = 150;
+    
     // allows for reusable cells
     [self.tableView registerClass:[RoommateCell class] forCellReuseIdentifier:@"RoommateCell"];
-
+    
     [self.view addSubview:self.tableView];
     
-    }
+}
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath { 
     static NSString *cellIdentifier = @"RoommateCell";
@@ -75,12 +78,22 @@
     
     [cell updateProperties:user];
     
+    //[cell updateConstraints];
+    
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section { 
     return self.userArrray.count;
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return UITableViewAutomaticDimension;
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return 100;
+//}
 
 
 @end
