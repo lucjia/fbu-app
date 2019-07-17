@@ -133,6 +133,7 @@
 				7794308222DE8F1A00D9FDDA /* RuleCell.m */,
 			);
 			path = Views;
+		};
 		640603B722DE942C00C24301 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
