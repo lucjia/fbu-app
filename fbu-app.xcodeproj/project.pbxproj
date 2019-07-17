@@ -22,7 +22,7 @@
 		85E7A16322DD214E006C1F38 /* fbu_appUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A16222DD214E006C1F38 /* fbu_appUITests.m */; };
 		85E7A17822DE3B24006C1F38 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A17722DE3B24006C1F38 /* RegisterViewController.m */; };
 		85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A17A22DE8060006C1F38 /* SettingsViewController.m */; };
-		85E7A17E22DE89B0006C1F38 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A17D22DE89B0006C1F38 /* LogInViewController.m */; };
+		85E7A18122DF9217006C1F38 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18022DF9217006C1F38 /* LogInViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,8 +73,8 @@
 		85E7A17722DE3B24006C1F38 /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		85E7A17922DE8060006C1F38 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		85E7A17A22DE8060006C1F38 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		85E7A17C22DE89B0006C1F38 /* LogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
-		85E7A17D22DE89B0006C1F38 /* LogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		85E7A17F22DF9217006C1F38 /* LogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		85E7A18022DF9217006C1F38 /* LogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		9ACABEB17CBA90FA88762331 /* Pods_fbu_appUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_appUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F897F31FD7CDA5199E2D8C59 /* Pods_fbu_appTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_appTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF11A48580BE19DA3BF44E01 /* Pods_fbu_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,8 +120,14 @@
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				85E7A17622DE3B24006C1F38 /* RegisterViewController.h */,
+				85E7A17722DE3B24006C1F38 /* RegisterViewController.m */,
+				85E7A17922DE8060006C1F38 /* SettingsViewController.h */,
+				85E7A17A22DE8060006C1F38 /* SettingsViewController.m */,
 				85E7A14122DD214D006C1F38 /* TimelineViewController.h */,
 				85E7A14222DD214D006C1F38 /* TimelineViewController.m */,
+				85E7A17F22DF9217006C1F38 /* LogInViewController.h */,
+				85E7A18022DF9217006C1F38 /* LogInViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -170,12 +176,6 @@
 				85E7A14922DD214E006C1F38 /* LaunchScreen.storyboard */,
 				85E7A14C22DD214E006C1F38 /* Info.plist */,
 				85E7A14D22DD214E006C1F38 /* main.m */,
-				85E7A17622DE3B24006C1F38 /* RegisterViewController.h */,
-				85E7A17722DE3B24006C1F38 /* RegisterViewController.m */,
-				85E7A17922DE8060006C1F38 /* SettingsViewController.h */,
-				85E7A17A22DE8060006C1F38 /* SettingsViewController.m */,
-				85E7A17C22DE89B0006C1F38 /* LogInViewController.h */,
-				85E7A17D22DE89B0006C1F38 /* LogInViewController.m */,
 			);
 			path = "fbu-app";
 			sourceTree = "<group>";
@@ -441,11 +441,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85E7A18122DF9217006C1F38 /* LogInViewController.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
 				64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */,
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
-				85E7A17E22DE89B0006C1F38 /* LogInViewController.m in Sources */,
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
 				85E7A17822DE3B24006C1F38 /* RegisterViewController.m in Sources */,
