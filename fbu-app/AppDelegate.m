@@ -19,6 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(  NSDictionary *)launchOptions {
+
     
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
@@ -31,7 +32,11 @@
     // set initial vc
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    RulesViewController *viewController = [[RulesViewController alloc] init];
+
+    // Override point for customization after application launch
+    self.window.backgroundColor = [UIColor redColor];
+    
+    TimelineViewController *viewController = [[TimelineViewController alloc] init];
     
     self.window.rootViewController = viewController;
     
