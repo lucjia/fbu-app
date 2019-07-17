@@ -10,6 +10,7 @@
 #import "RegisterViewController.h"
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
+#import "TimelineViewController.h"
 
 @interface AppDelegate ()
 
@@ -38,6 +39,18 @@
     self.window.rootViewController = logInVC;
 
     [self.window makeKeyAndVisible];
+
+//    // set initial vc
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//
+//    // Override point for customization after application launch
+//    self.window.backgroundColor = [UIColor redColor];
+//
+//    TimelineViewController *viewController = [[TimelineViewController alloc] init];
+//
+//    self.window.rootViewController = viewController;
+//
+//    [self.window makeKeyAndVisible];
     return YES;
 }
 
