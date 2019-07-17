@@ -11,6 +11,8 @@
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "TimelineViewController.h"
+@import GoogleMaps;
+@import GooglePlaces;
 
 @interface AppDelegate ()
 
@@ -28,6 +30,10 @@
     }];
     
     [Parse initializeWithConfiguration:config];
+    
+//    // Initialize Google Maps API
+//    [GMSServices provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
+//    [GMSPlacesClient provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
