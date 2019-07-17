@@ -63,6 +63,10 @@
     // Create User Bio text view
     self.bioTextView = [[UITextView alloc] initWithFrame:CGRectMake(125, 360, 200, 200)];
     self.bioTextView.text = [PFUser currentUser][@"bio"];
+    if ([self.bioTextView.text isEqualToString:@""]) {
+        self.bioTextView.text = @"Write a bio...";
+        self.bioTextView.textColor = [UIColor lightGrayColor];
+    }
     self.bioTextView.layer.borderWidth = 1.5f;
     self.bioTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.bioTextView.layer.cornerRadius = 6;
@@ -71,7 +75,7 @@
     
     // Create Change Bio button
     self.changeBioButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.changeBioButton.frame = CGRectMake(137.5f, 10, 100.0f, 30.0f);
+    self.changeBioButton.frame = CGRectMake(137.5f, 50, 100.0f, 30.0f);
     self.changeBioButton.backgroundColor = [UIColor lightGrayColor];
     self.changeBioButton.tintColor = [UIColor whiteColor];
     self.changeBioButton.layer.cornerRadius = 6;
@@ -206,6 +210,22 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
     }];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([self.bioTextView.text isEqualToString:@"Write a bio..."]) {
+        self.bioTextView.text = @"";
+        self.bioTextView.textColor = [UIColor blackColor];
+    }
+    [self.bioTextView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([self.bioTextView.text isEqualToString:@""]) {
+        self.bioTextView.text = @"Write a bio...";
+        self.bioTextView.textColor = [UIColor lightGrayColor];
+    }
+    [self.bioTextView resignFirstResponder];
 }
 
 /*
