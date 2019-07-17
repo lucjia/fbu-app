@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import <Parse>
-
+#import <Parse/Parse.h>
+#import "TimelineViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +18,28 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+        
+        configuration.applicationId = @"myAppId";
+        configuration.server = @"http://fbura.herokuapp.com/parse";
+    }];
+    
+    [Parse initializeWithConfiguration:config];
+    
+    // set initial vc
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    // Override point for customization after application launch
+    self.window.backgroundColor = [UIColor redColor];
+    
+    TimelineViewController *viewController = [[TimelineViewController alloc] init];
+    
+    self.window.rootViewController = viewController;
+    
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
