@@ -31,13 +31,11 @@
 
 - (void) fetchUserTimeline {
     // construct query
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"username"];
     [query includeKey:@"createdAt"];
-    [query includeKey:@"profilePicture"];
     
-    //[query whereKey:@"likesCount" greaterThan:@0];
     query.limit = 20;
     
     // fetch data asynchronously
@@ -53,18 +51,15 @@
     }];
 }
 
-- (void)initViewController {
-    UIViewController * timelineViewController = [[UIViewController alloc] init];
-    [self presentViewController:timelineViewController animated:YES completion:nil];
-}
-
+// creates table view
 - (void)initTableView {
+    // full screen
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.backgroundColor = [UIColor blueColor];
-    
+
+    // allows for reusable cells
     [self.tableView registerClass:[RoommateCell class] forCellReuseIdentifier:@"RoommateCell"];
 
     [self.view addSubview:self.tableView];

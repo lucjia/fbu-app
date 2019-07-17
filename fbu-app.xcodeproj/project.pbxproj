@@ -10,6 +10,7 @@
 		2C9EF8C9E32B8080FFEDB5EA /* Pods_fbu_appUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACABEB17CBA90FA88762331 /* Pods_fbu_appUITests.framework */; };
 		2FE7527FC2652EE81392E8AA /* Pods_fbu_appTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F897F31FD7CDA5199E2D8C59 /* Pods_fbu_appTests.framework */; };
 		53E8D164E2B20B3474018D41 /* Pods_fbu_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF11A48580BE19DA3BF44E01 /* Pods_fbu_app.framework */; };
+		640603BA22DE94BB00C24301 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 640603B922DE94BB00C24301 /* User.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
 		85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A13F22DD214D006C1F38 /* AppDelegate.m */; };
 		85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A14222DD214D006C1F38 /* TimelineViewController.m */; };
@@ -44,6 +45,8 @@
 		2796DB930A76B5A6DE33E60A /* Pods-fbu-appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-appTests.release.xcconfig"; path = "Target Support Files/Pods-fbu-appTests/Pods-fbu-appTests.release.xcconfig"; sourceTree = "<group>"; };
 		4EF909454152FB75BC0B3A70 /* Pods-fbu-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.release.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.release.xcconfig"; sourceTree = "<group>"; };
 		6289A0F149C268B67DEB7B98 /* Pods-fbu-appUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-appUITests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-appUITests/Pods-fbu-appUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		640603B822DE94BB00C24301 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		640603B922DE94BB00C24301 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
 		64BBF3D122DE406100FCCABD /* RoommateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoommateCell.m; sourceTree = "<group>"; };
 		7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.debug.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.debug.xcconfig"; sourceTree = "<group>"; };
@@ -96,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		640603B722DE942C00C24301 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				640603B822DE94BB00C24301 /* User.h */,
+				640603B922DE94BB00C24301 /* User.m */,
+			);
+			path = Subclasses;
+			sourceTree = "<group>";
+		};
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +151,7 @@
 		85E7A13D22DD214D006C1F38 /* fbu-app */ = {
 			isa = PBXGroup;
 			children = (
+				640603B722DE942C00C24301 /* Subclasses */,
 				64BBF3CE22DE400E00FCCABD /* ViewControllers */,
 				64BBF3CF22DE401900FCCABD /* Cells */,
 				85E7A13E22DD214D006C1F38 /* AppDelegate.h */,
@@ -413,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
 				64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */,
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
