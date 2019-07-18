@@ -61,9 +61,23 @@
                                                         <action selector="didTapSendRequest:" destination="KL1-ey-qQn" eventType="touchUpInside" id="tEd-FO-vDQ"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJC-hN-w1r">
+                                                    <rect key="frame" x="29" y="127" width="62" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="62" id="EJ6-dk-dfQ"/>
+                                                        <constraint firstAttribute="height" constant="22" id="yG2-vm-xi6"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                                    <state key="normal" title="Save roommate"/>
+                                                    <connections>
+                                                        <action selector="didTapSaveRoomate:" destination="KL1-ey-qQn" eventType="touchUpInside" id="e9s-Xk-h9Q"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="lJC-hN-w1r" firstAttribute="leading" secondItem="76J-Cf-fnf" secondAttribute="leading" constant="29" id="AfT-hr-4Lw"/>
                                                 <constraint firstItem="PQ7-AQ-tbj" firstAttribute="top" secondItem="76J-Cf-fnf" secondAttribute="top" constant="11" id="E3D-Rw-2oV"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="PQ7-AQ-tbj" secondAttribute="bottom" constant="62.5" id="GPl-wY-I35"/>
                                                 <constraint firstItem="PQ7-AQ-tbj" firstAttribute="leading" secondItem="76J-Cf-fnf" secondAttribute="leading" constant="20" id="Gch-Dh-JqT"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="top" secondItem="PQ7-AQ-tbj" secondAttribute="bottom" constant="8" id="Hwk-Rz-XV4"/>
                                                 <constraint firstItem="kyo-QC-6WI" firstAttribute="top" secondItem="dea-z6-EEa" secondAttribute="bottom" constant="9.5" id="N3q-Lv-FiI"/>
@@ -74,12 +88,14 @@
                                                 <constraint firstItem="dea-z6-EEa" firstAttribute="leading" secondItem="PQ7-AQ-tbj" secondAttribute="trailing" constant="8" id="gw3-Ns-bg4"/>
                                                 <constraint firstItem="kyo-QC-6WI" firstAttribute="trailing" secondItem="dea-z6-EEa" secondAttribute="trailing" id="k5u-9O-Xxc"/>
                                                 <constraint firstAttribute="trailing" secondItem="dea-z6-EEa" secondAttribute="trailing" constant="20" id="sqL-0g-iUV"/>
+                                                <constraint firstItem="lJC-hN-w1r" firstAttribute="top" secondItem="tAu-cL-Z46" secondAttribute="bottom" constant="8" id="uV6-wq-dat"/>
                                                 <constraint firstItem="kyo-QC-6WI" firstAttribute="leading" secondItem="dea-z6-EEa" secondAttribute="leading" id="v9p-tH-uAA"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="bioLabel" destination="kyo-QC-6WI" id="hVF-wM-7OY"/>
                                             <outlet property="profileImage" destination="PQ7-AQ-tbj" id="I3W-yD-3sm"/>
+                                            <outlet property="saveRoommateButton" destination="lJC-hN-w1r" id="BRx-La-gaw"/>
                                             <outlet property="sendRequestButton" destination="tAu-cL-Z46" id="MTb-DM-9Dd"/>
                                             <outlet property="usernameLabel" destination="dea-z6-EEa" id="Ons-bf-Bsh"/>
                                             <segue destination="Icw-0C-bzd" kind="show" identifier="timelineToDetailsSegue" id="N8j-jp-Paw"/>

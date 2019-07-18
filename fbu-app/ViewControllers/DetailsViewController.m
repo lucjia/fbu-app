@@ -8,6 +8,7 @@
 
 #import "DetailsViewController.h"
 #import <Parse/Parse.h>
+
 @interface DetailsViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;

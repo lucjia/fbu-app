@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveRoommateButton;
+@property (strong, nonatomic) PFUser *userInCell;
 
 @end
 
@@ -40,10 +42,25 @@
     
     self.usernameLabel.text = [user objectForKey:@"username"];
     self.bioLabel.text = [user objectForKey:@"bio"];
+    self.userInCell = user;
 }
 
 - (IBAction)didTapSendRequest:(id)sender {
+    NSMutableArray *requestsSent = [PFUser.currentUser objectForKey:@"requestsSent"];
+    NSMutableArray *requestsReceived = [self.userInCell objectForKey:@"requestsReceived"];
+    NSString *receiver = [self.userInCell objectForKey:@"objectId"];
+    
+    // if the user has not already sent a request to the user who they are trying to send a request to
+    if (![requestsSent containsObject:receiver]) {
+        [requestsSent insertObject:self.userInCell atIndex:0];
+        //[requestsReceived insertObject:PFUser.currentUser atIndex:0];
+    }
+    [[PFUser currentUser] saveInBackground];
+    [self.userInCell saveInBackground];
+}
 
+- (IBAction)didTapSaveRoomate:(id)sender {
+    
 }
 
 @end
