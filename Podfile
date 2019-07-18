@@ -10,10 +10,7 @@ target 'fbu-app' do
   pod 'DateTools'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-<<<<<<< HEAD
   pod 'DownPicker'
-=======
->>>>>>> 217f4e030bbeea10bb92b3739500a72249086612
 
   target 'fbu-appTests' do
     inherit! :search_paths
