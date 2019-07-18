@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  TimelineViewController.m
 //  fbu-app
 //
 //  Created by lucjia on 7/15/19.
@@ -44,7 +44,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if (users != nil) {
             // do something with the array of object returned by the call
-            self.userArrray = users;
+            self.userArray = users;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -55,7 +55,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomateCell"];
     
-    PFUser *user = self.userArrray[indexPath.row];
+    PFUser *user = self.userArray[indexPath.row];
     
     [cell updateProperties:user];
     
@@ -63,7 +63,7 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section { 
-    return self.userArrray.count;
+    return self.userArray.count;
 }
 
 #pragma mark - Navigation

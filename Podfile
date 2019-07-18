@@ -8,6 +8,9 @@ target 'fbu-app' do
   # Pods for fbu-app
   pod 'Parse'
   pod 'DateTools'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'DownPicker'
 
   target 'fbu-appTests' do
     inherit! :search_paths
