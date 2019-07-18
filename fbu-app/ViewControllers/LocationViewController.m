@@ -8,7 +8,6 @@
 
 #import "LocationViewController.h"
 #import "Parse/Parse.h"
-@import NMAKit;
 
 @interface LocationViewController ()
 
@@ -52,24 +51,36 @@
     
     // 37.4848, -122.1484
     
-    NSString *locationSearch = self.addressField.text;
-    NMAGeoCoordinates *fbCoordinate = [NMAGeoCoordinates geoCoordinatesWithLatitude:37.4848 longitude:-122.1484];
-    NMAGeocodeRequest *request = [[NMAGeocoder sharedGeocoder] createGeocodeRequestWithQuery:locationSearch searchRadius:5000 searchCenter:fbCoordinate];
-    [request startWithBlock:^(NMARequest* request, id data, NSError* error) {
-        NSString *resultString = @"";
-        
-        NSMutableArray* results = (NSMutableArray*)data;
-        // From the array of NMAGeocodeResult object,we retrieve the coordinate information and
-        // display to the screen.Please refer to HERE Android SDK doc for other supported APIs.
-        for (NMAGeocodeResult* result in results) {
-            NMAGeoCoordinates* position = result.location.position;
-            resultString = [resultString
-                            stringByAppendingString:[NSString stringWithFormat:@"%f,%f\n", position.latitude,
-                                                     position.longitude]];
-            NSLog(@"%@", resultString);
-        }
-    }];
+//    NSString *locationSearch = self.addressField.text;
+//    NMAGeoCoordinates *fbCoordinate = [NMAGeoCoordinates geoCoordinatesWithLatitude:37.4848 longitude:-122.1484];
+//    NMAGeocodeRequest *request = [[NMAGeocoder sharedGeocoder] createGeocodeRequestWithQuery:locationSearch searchRadius:5000 searchCenter:fbCoordinate];
+//    [request startWithBlock:^(NMARequest* request, id data, NSError* error) {
+//        NSString *resultString = @"";
+//
+//        NSMutableArray* results = (NSMutableArray*)data;
+//        // From the array of NMAGeocodeResult object,we retrieve the coordinate information and
+//        // display to the screen.Please refer to HERE Android SDK doc for other supported APIs.
+//        for (NMAGeocodeResult* result in results) {
+//            NMAGeoCoordinates* position = result.location.position;
+//            resultString = [resultString
+//                            stringByAppendingString:[NSString stringWithFormat:@"%f,%f\n", position.latitude,
+//                                                     position.longitude]];
+//            NSLog(@"%@", resultString);
+//        }
+//    }];
     
+//    NSString *addressFieldContent = [self.addressField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+//    NSString *urlstring = [[NSArray arrayWithObjects:@"https://maps.googleapis.com/maps/api/geocode/json?address=", addressFieldContent, @"&key=AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU", nil] componentsJoinedByString:@""];
+//    NSURL *url = [NSURL URLWithString:urlstring];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+//
+//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        self.locationDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        self.addressDictionary = self.locationDictionary[@"results"];
+//            NSLog(@"%@", self.addressDictionary[@"geometry"]);
+//    }];
+
     // THINGS TO DO:
     // create separate method to process the api request (see flix)
     // store information from request to a dictionary, and then store that as an array of "results" (see flix)

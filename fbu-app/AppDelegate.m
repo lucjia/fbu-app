@@ -14,10 +14,6 @@
 @import GoogleMaps;
 @import GooglePlaces;
 
-NSString* const appID = @"z4NMKPCmnbuXpbM1cBF4";
-NSString* const appCode = @"Ov375inKDjm_wAAfZRSAsA";
-NSString* const licenseKey = @"{YOUR_LICENSE_KEY}";
-
 @interface AppDelegate ()
 
 @end
