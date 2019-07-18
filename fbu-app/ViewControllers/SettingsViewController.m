@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 #import "LocationViewController.h"
 #import "PreferencesViewController.h"
+#import "LogInViewController.h"
 #import "Parse/Parse.h"
 
 @interface SettingsViewController () <UITextViewDelegate>
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) UIButton *userLocationButton;
 @property (strong, nonatomic) UITextView *bioTextView;
 @property (strong, nonatomic) UIButton *changeBioButton;
+@property (strong, nonatomic) UIButton *logOutButton;
 
 @end
 
@@ -95,6 +97,17 @@
     [self.changeBioButton addTarget:self action:@selector(setBio) forControlEvents:UIControlEventTouchUpInside];
     [self.changeBioButton setTitle:@"Change Bio" forState:UIControlStateNormal];
     [self.view addSubview:self.changeBioButton];
+    
+    // Create Log Out button
+    self.logOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.logOutButton.frame = CGRectMake(300, 800, 40, 30);
+    self.logOutButton.backgroundColor = [UIColor lightGrayColor];
+    self.logOutButton.tintColor = [UIColor whiteColor];
+    self.logOutButton.layer.cornerRadius = 6;
+    self.logOutButton.clipsToBounds = YES;
+    [self.logOutButton addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
+    [self.logOutButton setTitle:@"Log Out" forState:UIControlStateNormal];
+    [self.view addSubview:self.logOutButton];
 }
 
 // Dismiss keyboard after typing
@@ -244,13 +257,23 @@
 - (void)setLocation {
     LocationViewController *locationVC = [[LocationViewController alloc] init];
     // Any setup
-    [self presentModalViewController:locationVC animated:YES];
+    [self presentViewController:locationVC animated:YES completion:nil];
 }
 
 - (void)setPreferences {
     PreferencesViewController *preferencesVC = [[PreferencesViewController alloc] init];
     // Any setup
-    [self presentModalViewController:preferencesVC animated:YES];
+    [self presentViewController:preferencesVC animated:YES completion:nil];
+}
+
+- (void) logOut {
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        // PFUser.current() will now be nil
+    }];
+    
+    // Set root view controller to be log in screen
+    LogInViewController *logInVC = [[LogInViewController alloc] init];
+    [self presentViewController:logInVC animated:YES completion:nil];
 }
 
 /*

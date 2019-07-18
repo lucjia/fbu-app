@@ -67,7 +67,7 @@
         // Display view controller that needs to be shown after successful login
         SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
         // Any setup
-        [self presentModalViewController:settingsVC animated:YES];
+        [self presentViewController:settingsVC animated:YES completion:nil];
     }];
 }
 

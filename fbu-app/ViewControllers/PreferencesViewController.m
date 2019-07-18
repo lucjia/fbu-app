@@ -105,8 +105,6 @@
         [self.userPreferences addObject:[cell getChoice]];
     }
     
-    NSLog(@"%@", self.userPreferences);
-    
     [[PFUser currentUser] setObject:self.userPreferences forKey:@"preferences"];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
@@ -120,7 +118,7 @@
                                                                   handler:^(UIAlertAction * _Nonnull action) {
                                                                       // Go back to Settings
                                                                       SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-                                                                      [self presentModalViewController:settingsVC animated:YES];
+                                                                      [self presentViewController:settingsVC animated:YES completion:nil];
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];

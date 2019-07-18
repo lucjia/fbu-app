@@ -11,6 +11,7 @@
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "TimelineViewController.h"
+#import "SettingsViewController.h"
 @import GoogleMaps;
 @import GooglePlaces;
 
@@ -56,6 +57,13 @@
 //    self.window.rootViewController = viewController;
 //
 //    [self.window makeKeyAndVisible];
+    
+    // Cache logged in user for a persisting user session
+    if (PFUser.currentUser) {
+        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
+        self.window.rootViewController = settingsVC;
+    }
+    
     return YES;
 }
 
