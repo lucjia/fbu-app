@@ -13,7 +13,7 @@
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *userArrray;
+@property (strong, nonatomic) NSArray *userArray;
 
 @end
 
@@ -42,7 +42,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if (users != nil) {
             // do something with the array of object returned by the call
-            self.userArrray = users;
+            self.userArray = users;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -71,7 +71,7 @@
     
     cell = [[RoommateCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    PFUser *user = self.userArrray[indexPath.row];
+    PFUser *user = self.userArray[indexPath.row];
     
     [cell updateProperties:user];
     
@@ -79,7 +79,7 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section { 
-    return self.userArrray.count;
+    return self.userArray.count;
 }
 
 

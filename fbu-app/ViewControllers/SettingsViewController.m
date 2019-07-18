@@ -7,6 +7,8 @@
 //
 
 #import "SettingsViewController.h"
+#import "LocationViewController.h"
+#import "PreferencesViewController.h"
 #import "Parse/Parse.h"
 
 @interface SettingsViewController () <UITextViewDelegate>
@@ -15,7 +17,7 @@
 @property (strong, nonatomic) UIButton *changeProfileButton;
 @property (strong, nonatomic) UIImagePickerController *imagePickerVC;
 @property (strong, nonatomic) UIButton *userPreferencesButton;
-@property (strong, nonatomic) PFGeoPoint *userLocation;
+@property (strong, nonatomic) UIButton *userLocationButton;
 @property (strong, nonatomic) UITextView *bioTextView;
 @property (strong, nonatomic) UIButton *changeBioButton;
 
@@ -30,6 +32,8 @@
     
     // Create Profile image view
     self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(127.5f, 100, 120, 120)];
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
+    self.profileImageView.clipsToBounds = YES;
     [self getProfilePicture];
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.profileImageView setBackgroundColor:[UIColor redColor]];
@@ -53,12 +57,20 @@
     self.userPreferencesButton.tintColor = [UIColor whiteColor];
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
-    [self.userPreferencesButton addTarget:self action:@selector(setUserPreferences) forControlEvents:UIControlEventTouchUpInside];
+    [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
     [self.userPreferencesButton setTitle:@"Change User Preferences" forState:UIControlStateNormal];
     [self.view addSubview:self.userPreferencesButton];
     
     // Create User Location
-    self.userLocation = [PFGeoPoint geoPointWithLatitude:40.0 longitude:-30.0];
+    self.userLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.userLocationButton.frame = CGRectMake(137.5f, 600, 100.0f, 30.0f);
+    self.userLocationButton.backgroundColor = [UIColor lightGrayColor];
+    self.userLocationButton.tintColor = [UIColor whiteColor];
+    self.userLocationButton.layer.cornerRadius = 6;
+    self.userLocationButton.clipsToBounds = YES;
+    [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
+    [self.userLocationButton setTitle:@"Change Location" forState:UIControlStateNormal];
+    [self.view addSubview:self.userLocationButton];
     
     // Create User Bio text view
     self.bioTextView = [[UITextView alloc] initWithFrame:CGRectMake(125, 360, 200, 200)];
@@ -226,6 +238,19 @@
         self.bioTextView.textColor = [UIColor lightGrayColor];
     }
     [self.bioTextView resignFirstResponder];
+}
+
+// Set User Location
+- (void)setLocation {
+    LocationViewController *locationVC = [[LocationViewController alloc] init];
+    // Any setup
+    [self presentModalViewController:locationVC animated:YES];
+}
+
+- (void)setPreferences {
+    PreferencesViewController *preferencesVC = [[PreferencesViewController alloc] init];
+    // Any setup
+    [self presentModalViewController:preferencesVC animated:YES];
 }
 
 /*

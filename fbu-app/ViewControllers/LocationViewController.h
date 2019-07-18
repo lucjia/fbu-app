@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LocationViewController : UIViewController
+@interface LocationViewController : UIViewController <UITextFieldDelegate>
 
 @end
 

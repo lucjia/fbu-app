@@ -11,13 +11,18 @@
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "TimelineViewController.h"
+@import GoogleMaps;
+@import GooglePlaces;
+
+NSString* const appID = @"z4NMKPCmnbuXpbM1cBF4";
+NSString* const appCode = @"Ov375inKDjm_wAAfZRSAsA";
+NSString* const licenseKey = @"{YOUR_LICENSE_KEY}";
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize Parse to point to own server
@@ -28,6 +33,10 @@
     }];
     
     [Parse initializeWithConfiguration:config];
+    
+//    // Initialize Google Maps API
+//    [GMSServices provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
+//    [GMSPlacesClient provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
