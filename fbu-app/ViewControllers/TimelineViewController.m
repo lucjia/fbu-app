@@ -13,7 +13,7 @@
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) NSArray *userArrray;
+@property (strong, nonatomic) NSArray *userArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -72,7 +72,7 @@
     if ([[segue identifier] isEqualToString:@"timelineToDetailsSegue"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        PFUser *user = self.userArrray[indexPath.row];
+        PFUser *user = self.userArray[indexPath.row];
         
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.user = user;
