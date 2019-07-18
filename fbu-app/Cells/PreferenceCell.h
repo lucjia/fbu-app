@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)getChoice;
 
 @property (strong, nonatomic) NSString *preferenceQ;
-@property (strong, nonatomic) NSString *preferenceA;
 @property (strong, nonatomic) NSArray *answerArray;
 @property (strong, nonatomic) DownPicker *downPicker;
+@property (strong, nonatomic) NSString *userChoice;
 
 @end
 

@@ -24,8 +24,8 @@
     // Initialization code
     
     [self.downPicker addTarget:self
-                            action:@selector(pickerClicked)
-                  forControlEvents:UIControlEventValueChanged];
+                        action:@selector(getChoice)
+              forControlEvents:UIControlEventValueChanged];
 } 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -52,6 +52,7 @@
         self.answerField = [[UITextField alloc] initWithFrame:CGRectMake(300, 10, 200, 30)];
         self.answerField.textColor = [UIColor blackColor];
         self.answerField.font = [UIFont fontWithName:@"Arial" size:16.0f];
+        
         [self addSubview:self.downPicker];
         [self addSubview:self.answerField];
     }
@@ -60,6 +61,9 @@
 - (void)updateProperties {
     self.ruleLabel.text = self.preferenceQ;
     self.downPicker = [[DownPicker alloc] initWithTextField:self.answerField withData:self.answerArray];
+    if (![self.userChoice isEqualToString:@""]) {
+        [self.downPicker setText:self.userChoice];
+    }
 }
 
 - (NSString*)getChoice {

@@ -8,12 +8,13 @@
 
 #import "PreferencesViewController.h"
 #import "PreferenceCell.h"
+#import "SettingsViewController.h"
 #import "Parse/Parse.h"
 
 @interface PreferencesViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *preferences;
+@property (strong, nonatomic) NSMutableArray *preferences;
 @property (strong, nonatomic) NSDictionary *preferencesSmokeQ;
 @property (strong, nonatomic) NSDictionary *preferencesTimeQ;
 @property (strong, nonatomic) NSDictionary *preferencesCleanQ;
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) NSMutableArray *userPreferences;
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) UIButton *submitButton;
+@property (strong, nonatomic) NSMutableArray *currentPreferences;
 
 @end
 
@@ -52,6 +54,8 @@
     
     // Initialize UserPreferences array
     self.userPreferences = [[NSMutableArray alloc] init];
+    
+    [self getExistingData];
 }
 
 // creates table view
@@ -79,6 +83,7 @@
     NSString *prefQ = [currentPrefDictionary.allValues objectAtIndex:0];
     cell.preferenceQ = prefQ;
     cell.answerArray = [currentPrefDictionary.allKeys objectAtIndex:0];
+    cell.userChoice = [self.currentPreferences objectAtIndex:indexPath.row];
     [cell updateProperties];
     
     return cell;
@@ -87,6 +92,10 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    return self.userArray.count;
     return self.preferences.count;
+}
+
+- (void)getExistingData {
+    self.currentPreferences = [PFUser currentUser][@"preferences"];
 }
 
 - (void)setPreferences {
@@ -98,9 +107,27 @@
     
     NSLog(@"%@", self.userPreferences);
     
-    // Revisit this - set the content of the text field to be the preference on Parse
     [[PFUser currentUser] setObject:self.userPreferences forKey:@"preferences"];
-
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            // Create alert
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Preferences Changed"
+                                                                           message:@"Your preferences have been changed."
+                                                                    preferredStyle:(UIAlertControllerStyleAlert)];
+            // Create a dismiss action
+            UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                    style:UIAlertActionStyleCancel
+                                                                  handler:^(UIAlertAction * _Nonnull action) {
+                                                                      // Go back to Settings
+                                                                      SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
+                                                                      [self presentModalViewController:settingsVC animated:YES];
+                                                                  }];
+            // Add the cancel action to the alertController
+            [alert addAction:dismissAction];
+            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
