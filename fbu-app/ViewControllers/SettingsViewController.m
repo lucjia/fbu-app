@@ -31,8 +31,16 @@
     [super viewDidLoad];
     
     self.user = [PFUser currentUser];
-    
-    // Create Profile image view
+    [self createProfileImageView];
+    [self createChangeProfileButton];
+    [self createUserPreferencesButton];
+    [self createUserLocationButton];
+    [self createUserBioTextView];
+    [self createChangeBioButton];
+    [self createLogOutButton];
+}
+
+- (void) createProfileImageView {
     self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(127.5f, 100, 120, 120)];
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
@@ -40,8 +48,9 @@
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.profileImageView setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:self.profileImageView];
-    
-    // Create Change Profile button
+}
+
+- (void) createChangeProfileButton {
     self.changeProfileButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.changeProfileButton.frame = CGRectMake(137.5f, 240, 100.0f, 30.0f);
     self.changeProfileButton.backgroundColor = [UIColor lightGrayColor];
@@ -51,8 +60,9 @@
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
     [self.changeProfileButton setTitle:@"Change Profile Picture" forState:UIControlStateNormal];
     [self.view addSubview:self.changeProfileButton];
-    
-    // Create User Preferences button
+}
+
+- (void) createUserPreferencesButton {
     self.userPreferencesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.userPreferencesButton.frame = CGRectMake(137.5f, 300, 100.0f, 30.0f);
     self.userPreferencesButton.backgroundColor = [UIColor lightGrayColor];
@@ -62,8 +72,9 @@
     [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
     [self.userPreferencesButton setTitle:@"Change User Preferences" forState:UIControlStateNormal];
     [self.view addSubview:self.userPreferencesButton];
-    
-    // Create User Location
+}
+
+- (void) createUserLocationButton {
     self.userLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.userLocationButton.frame = CGRectMake(137.5f, 600, 100.0f, 30.0f);
     self.userLocationButton.backgroundColor = [UIColor lightGrayColor];
@@ -73,8 +84,9 @@
     [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
     [self.userLocationButton setTitle:@"Change Location" forState:UIControlStateNormal];
     [self.view addSubview:self.userLocationButton];
-    
-    // Create User Bio text view
+}
+
+- (void) createUserBioTextView {
     self.bioTextView = [[UITextView alloc] initWithFrame:CGRectMake(125, 360, 200, 200)];
     self.bioTextView.text = [PFUser currentUser][@"bio"];
     if ([self.bioTextView.text isEqualToString:@""]) {
@@ -86,8 +98,9 @@
     self.bioTextView.layer.cornerRadius = 6;
     self.bioTextView.delegate = self;
     [self.view addSubview:self.bioTextView];
-    
-    // Create Change Bio button
+}
+
+- (void) createChangeBioButton {
     self.changeBioButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.changeBioButton.frame = CGRectMake(137.5f, 50, 100.0f, 30.0f);
     self.changeBioButton.backgroundColor = [UIColor lightGrayColor];
@@ -97,8 +110,9 @@
     [self.changeBioButton addTarget:self action:@selector(setBio) forControlEvents:UIControlEventTouchUpInside];
     [self.changeBioButton setTitle:@"Change Bio" forState:UIControlStateNormal];
     [self.view addSubview:self.changeBioButton];
-    
-    // Create Log Out button
+}
+
+-(void) createLogOutButton {
     self.logOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.logOutButton.frame = CGRectMake(300, 800, 40, 30);
     self.logOutButton.backgroundColor = [UIColor lightGrayColor];
@@ -114,10 +128,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return NO;
-}
-
--(void)setUserPreferences {
-    // add code regarding segue to user preferences
 }
 
 // Change User Profile Picture

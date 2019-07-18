@@ -11,6 +11,7 @@ target 'fbu-app' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'DownPicker'
+  pod 'AFNetworking'
 
   target 'fbu-appTests' do
     inherit! :search_paths

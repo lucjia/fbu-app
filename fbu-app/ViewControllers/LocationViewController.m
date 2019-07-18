@@ -7,14 +7,16 @@
 //
 
 #import "LocationViewController.h"
+#import "UIImageView+AFNetworking.h"
 #import "Parse/Parse.h"
+
+static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
+static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ1X1S0RLYV";
 
 @interface LocationViewController ()
 
 @property (strong, nonatomic) PFGeoPoint *userLocation;
 @property (strong, nonatomic) NSArray *locationArray;
-@property (strong, nonatomic) NSArray *addressArray;
-@property (strong, nonatomic) UITextField *addressField;
 @property (strong, nonatomic) UIButton *addressButton;
 
 @end
@@ -23,28 +25,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    // Create address field
-    self.addressField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 240.0f, 215.0f, 30.0f)];
-    self.addressField.delegate = self;
-    self.addressField.borderStyle = UITextBorderStyleRoundedRect;
-    self.addressField.placeholder = @"Enter Your Address";
-    [self.view addSubview:self.addressField];
-    
-    // Create Address button
-    self.addressButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.addressButton.frame = CGRectMake(137.5f, 50, 100.0f, 30.0f);
-    self.addressButton.backgroundColor = [UIColor lightGrayColor];
-    self.addressButton.tintColor = [UIColor whiteColor];
-    self.addressButton.layer.cornerRadius = 6;
-    self.addressButton.clipsToBounds = YES;
-    [self.addressButton addTarget:self action:@selector(fetchCoordinates) forControlEvents:UIControlEventTouchUpInside];
-    [self.addressButton setTitle:@"Find Location" forState:UIControlStateNormal];
-    [self.view addSubview:self.addressButton];
+    [self findAddressButton];
 }
 
 - (void)fetchCoordinates {
+    
+    
+    
+    
 //    NSString *addressFieldContent = [self.addressField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
 //    NSString *urlstring = [[NSArray arrayWithObjects:@"https://geocoder.api.here.com/6.2/geocode.json?app_id={z4NMKPCmnbuXpbM1cBF4}&app_code={Ov375inKDjm_wAAfZRSAsA}", addressFieldContent, nil] componentsJoinedByString:@""];
 //    NSLog(@"%@", urlstring);
@@ -89,6 +77,19 @@
     
     //    self.userLocation = [PFGeoPoint geoPointWithLatitude:40.0 longitude:-30.0];
     //    [[PFUser currentUser] setObject:self.userLocation forKey:@"location"];
+}
+
+- (void) findAddressButton {
+    // Create Address button
+    self.addressButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.addressButton.frame = CGRectMake(137.5f, 50, 100.0f, 30.0f);
+    self.addressButton.backgroundColor = [UIColor lightGrayColor];
+    self.addressButton.tintColor = [UIColor whiteColor];
+    self.addressButton.layer.cornerRadius = 6;
+    self.addressButton.clipsToBounds = YES;
+    [self.addressButton addTarget:self action:@selector(fetchCoordinates) forControlEvents:UIControlEventTouchUpInside];
+    [self.addressButton setTitle:@"Find Location" forState:UIControlStateNormal];
+    [self.view addSubview:self.addressButton];
 }
 
 /*

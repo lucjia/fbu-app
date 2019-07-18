@@ -24,23 +24,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Create username field
+    [self createUsernameField];
+    [self createPasswordField];
+    [self createLogInButton];
+    [self createLabel];
+}
+
+- (void) createUsernameField {
     self.usernameField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 240.0f, 215.0f, 30.0f)];
     self.usernameField.delegate = self;
     self.usernameField.borderStyle = UITextBorderStyleRoundedRect;
     self.usernameField.placeholder = @"Username";
     [self.view addSubview:self.usernameField];
-    
-    // Create password field
+}
+
+- (void) createPasswordField {
     self.passwordField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 300.0f, 215.0f, 30.0f)];
     self.passwordField.delegate = self;
     self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
     self.passwordField.placeholder = @"Password";
     self.passwordField.secureTextEntry = YES;
     [self.view addSubview:self.passwordField];
-    
-    // Create log in button
+}
+
+- (void) createLogInButton {
     self.logInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.logInButton.frame = CGRectMake(137.5f, 480.0f, 100.0f, 30.0f);
     self.logInButton.backgroundColor = [UIColor lightGrayColor];
@@ -50,8 +57,9 @@
     [self.logInButton addTarget:self action:@selector(logInUser) forControlEvents:UIControlEventTouchUpInside];
     [self.logInButton setTitle:@"Press Me!" forState:UIControlStateNormal];
     [self.view addSubview:self.logInButton];
-    
-    // Create label
+}
+
+- (void) createLabel {
     self.logInLabel = [[UILabel alloc] initWithFrame:CGRectMake(37.5f, 150.0f, 300.0f, 30.0f)];
     self.logInLabel.text = @"Log In";
     [[self logInLabel] setFont: [UIFont systemFontOfSize:24]];
