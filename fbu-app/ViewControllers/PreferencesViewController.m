@@ -34,14 +34,7 @@
     [super viewDidLoad];
     [self initTableView];
     
-    // Create Dictionary of preferences
-    self.preferencesSmoke = [NSMutableArray arrayWithObjects: @"No", @"Yes", nil];
-    self.preferencesSmokeQ = [NSDictionary dictionaryWithObject:@"Do you smoke?" forKey:self.preferencesSmoke];
-    self.preferencesTime = [NSMutableArray arrayWithObjects:@"Early Bird", @"Night Owl", nil];
-    self.preferencesTimeQ = [NSDictionary dictionaryWithObject:@"Are you an early bird or night owl?" forKey:self.preferencesTime];
-    self.preferencesClean = [NSMutableArray arrayWithObjects:@"Neat", @"Messy", @"In Between", nil];
-    self.preferencesCleanQ = [NSDictionary dictionaryWithObject:@"Are you neat or messy?" forKey:self.preferencesClean];
-    self.preferences = [NSMutableArray arrayWithObjects:self.preferencesSmokeQ, self.preferencesTimeQ, self.preferencesCleanQ, nil];
+    [self createDictionary];
     
     // Create Set Preferences button
     self.footerView = [[UIView alloc] initWithFrame:CGRectMake(50, 70, 300, 45)];
@@ -94,6 +87,17 @@
     return self.preferences.count;
 }
 
+- (void) createDictionary {
+    // Create Dictionary of preferences
+    self.preferencesSmoke = [NSMutableArray arrayWithObjects: @"No", @"Yes", nil];
+    self.preferencesSmokeQ = [NSDictionary dictionaryWithObject:@"Do you smoke?" forKey:self.preferencesSmoke];
+    self.preferencesTime = [NSMutableArray arrayWithObjects:@"Early Bird", @"Night Owl", nil];
+    self.preferencesTimeQ = [NSDictionary dictionaryWithObject:@"Are you an early bird or night owl?" forKey:self.preferencesTime];
+    self.preferencesClean = [NSMutableArray arrayWithObjects:@"Neat", @"Messy", @"In Between", nil];
+    self.preferencesCleanQ = [NSDictionary dictionaryWithObject:@"Are you neat or messy?" forKey:self.preferencesClean];
+    self.preferences = [NSMutableArray arrayWithObjects:self.preferencesSmokeQ, self.preferencesTimeQ, self.preferencesCleanQ, nil];
+}
+
 - (void)getExistingData {
     self.currentPreferences = [PFUser currentUser][@"preferences"];
 }
@@ -128,6 +132,7 @@
     }];
 }
 
+// height of footer for submit button
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 50;
 }
