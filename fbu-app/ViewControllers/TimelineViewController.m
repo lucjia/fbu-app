@@ -12,8 +12,8 @@
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *userArrray;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -21,11 +21,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     
     [self fetchUserTimeline];
-    [self initTableView];
-    
 }
 
 
@@ -50,35 +50,12 @@
     }];
 }
 
-// creates table view
-- (void)initTableView {
-    // full screen
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    
-    self.tableView.estimatedRowHeight = 100;
-    self.tableView.rowHeight = 150;
-    
-    // allows for reusable cells
-    [self.tableView registerClass:[RoommateCell class] forCellReuseIdentifier:@"RoommateCell"];
-    
-    [self.view addSubview:self.tableView];
-    
-}
-
-- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath { 
-    static NSString *cellIdentifier = @"RoommateCell";
-    RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    
-    cell = [[RoommateCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomateCell"];
     
     PFUser *user = self.userArrray[indexPath.row];
     
     [cell updateProperties:user];
-    
-    //[cell updateConstraints];
     
     return cell;
 }
@@ -86,14 +63,5 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section { 
     return self.userArrray.count;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return UITableViewAutomaticDimension;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 100;
-//}
-
 
 @end

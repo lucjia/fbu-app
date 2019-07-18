@@ -15,9 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateProperties:(PFUser *)user;
 
-@property (strong, nonatomic) UILabel *usernameLabel;
-@property (strong, nonatomic) UILabel *bioLabel;
-
 @end
 
 NS_ASSUME_NONNULL_END

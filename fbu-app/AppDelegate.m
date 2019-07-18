@@ -27,18 +27,6 @@
     
     [Parse initializeWithConfiguration:config];
     
-    // set initial vc
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    // Override point for customization after application launch
-    self.window.backgroundColor = [UIColor redColor];
-    
-    TimelineViewController *viewController = [[TimelineViewController alloc] init];
-    
-    self.window.rootViewController = viewController;
-    
-    [self.window makeKeyAndVisible];
-    
     
     return YES;
 }
