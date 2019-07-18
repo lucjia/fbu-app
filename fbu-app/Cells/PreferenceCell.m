@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) UILabel *ruleLabel;
 @property (strong, nonatomic) UITextField *answerField;
-@property (strong, nonatomic) DownPicker *downPicker;
 
 @end
 
@@ -23,6 +22,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    [self.downPicker addTarget:self
+                            action:@selector(pickerClicked)
+                  forControlEvents:UIControlEventValueChanged];
 } 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -57,6 +60,11 @@
 - (void)updateProperties {
     self.ruleLabel.text = self.preferenceQ;
     self.downPicker = [[DownPicker alloc] initWithTextField:self.answerField withData:self.answerArray];
+}
+
+- (NSString*)getChoice {
+    NSString* selectedValue = [self.downPicker text];
+    return selectedValue;
 }
 
 @end

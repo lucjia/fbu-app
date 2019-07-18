@@ -20,6 +20,9 @@
 @property (strong, nonatomic) NSMutableArray *preferencesSmoke;
 @property (strong, nonatomic) NSMutableArray *preferencesTime;
 @property (strong, nonatomic) NSMutableArray *preferencesClean;
+@property (strong, nonatomic) NSMutableArray *userPreferences;
+@property (strong, nonatomic) UIView *footerView;
+@property (strong, nonatomic) UIButton *submitButton;
 
 @end
 
@@ -38,8 +41,17 @@
     self.preferencesCleanQ = [NSDictionary dictionaryWithObject:@"Are you neat or messy?" forKey:self.preferencesClean];
     self.preferences = [NSMutableArray arrayWithObjects:self.preferencesSmokeQ, self.preferencesTimeQ, self.preferencesCleanQ, nil];
     
-    // Revisit this - set the content of the text field to be the preference on Parse
-//    [[PFUser currentUser] setObject:self.preferencesA forKey:@"preferences"];
+    // Create Set Preferences button
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(50, 70, 300, 45)];
+    self.submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
+    [self.submitButton setFrame:CGRectMake(10, 15, 280, 44)];
+    [self.submitButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
+    [self.footerView addSubview:self.submitButton];
+    [self.tableView setTableFooterView:self.footerView];
+    
+    // Initialize UserPreferences array
+    self.userPreferences = [[NSMutableArray alloc] init];
 }
 
 // creates table view
@@ -65,10 +77,8 @@
     
     NSDictionary *currentPrefDictionary = [self.preferences objectAtIndex:indexPath.row];
     NSString *prefQ = [currentPrefDictionary.allValues objectAtIndex:0];
-    NSLog(@"%@", prefQ);
     cell.preferenceQ = prefQ;
-    cell.answerArray = currentPrefDictionary.allKeys;
-    NSLog(@"%@", currentPrefDictionary.allKeys);
+    cell.answerArray = [currentPrefDictionary.allKeys objectAtIndex:0];
     [cell updateProperties];
     
     return cell;
@@ -80,7 +90,21 @@
 }
 
 - (void)setPreferences {
+    [self.userPreferences removeAllObjects];
+    for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:0]; ++i) {
+        PreferenceCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        [self.userPreferences addObject:[cell getChoice]];
+    }
     
+    NSLog(@"%@", self.userPreferences);
+    
+    // Revisit this - set the content of the text field to be the preference on Parse
+    [[PFUser currentUser] setObject:self.userPreferences forKey:@"preferences"];
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 50;
 }
 
 /*

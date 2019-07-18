@@ -7,16 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DownPicker.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreferenceCell : UITableViewCell
 
 - (void)updateProperties;
+- (NSString*)getChoice;
 
 @property (strong, nonatomic) NSString *preferenceQ;
 @property (strong, nonatomic) NSString *preferenceA;
 @property (strong, nonatomic) NSArray *answerArray;
+@property (strong, nonatomic) DownPicker *downPicker;
 
 @end
 
