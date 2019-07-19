@@ -257,7 +257,7 @@
     }];
     
     // Set root view controller to be log in screen
-    LogInViewController *logInVC = [[LogInViewController alloc] init];
+    LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
     [self presentViewController:logInVC animated:YES completion:nil];
 }
 
