@@ -8,6 +8,7 @@
 
 #import "RoommateCell.h"
 #import <Parse/Parse.h>
+#import "Request.h"
 
 @interface RoommateCell()
 
@@ -47,40 +48,53 @@
 
 - (IBAction)didTapSendRequest:(id)sender {
     if (PFUser.currentUser) {
-        NSMutableArray *requestsSent = [PFUser.currentUser objectForKey:@"sentRequests"];
-        NSMutableArray *requestsReceived = [self.userInCell objectForKey:@"receivedRequests"];
+        NSMutableArray *requestsSent = [PFUser.currentUser objectForKey:@"requestsSent"];
         PFUser *receiver = self.userInCell;
         
          //BOOL b = [[PFUser currentUser] isAuthenticated];
-        
-        if (requestsReceived == nil) {
-            requestsReceived = [[NSMutableArray alloc] init];
-        }
         if (requestsSent == nil) {
             requestsSent = [[NSMutableArray alloc] init];
         }
         
         // if the user has not already sent a request to the user who they are trying to send a request to
-        if (![requestsSent containsObject:receiver]) {
-            [requestsSent insertObject:self.userInCell.objectId atIndex:0];
-            [requestsReceived insertObject:PFUser.currentUser atIndex:0];
+        if (![requestsSent containsObject:receiver.objectId]) {
+            
+//            [requestsSent insertObject:self.userInCell.objectId atIndex:0];
+//            [requestsReceived insertObject:PFUser.currentUser.objectId atIndex:0];
+//        }
+//        [[PFUser currentUser] setObject:requestsSent forKey:@"sentRequests"];
+//        [self.userInCell setObject:requestsReceived forKey:@"receivedRequests"];
+//        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//            if (error) {
+//                NSLog(@"CURR: %@", error.localizedDescription);
+//            } else {
+//                NSLog(@"CURR: YAAYYYY");
+//            }
+//        }];
+//        [self.userInCell saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//            if (error) {
+//                NSLog(@"SELF: %@", error.localizedDescription);
+//            } else {
+//                NSLog(@"SELF: YAAYYYY");
+//            }
+//        }];
+            
+            [requestsSent insertObject:receiver.objectId atIndex:0];
+            [[PFUser currentUser] setObject:requestsSent forKey:@"requestsSent"];
+            [Request createRequest:self.userInCell withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }];
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"CURR: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"CURR: YAAYYYY");
+                }
+
+            }];
         }
-        [[PFUser currentUser] setObject:requestsSent forKey:@"sentRequests"];
-        [self.userInCell setObject:requestsReceived forKey:@"receivedRequests"];
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"CURR: %@", error.localizedDescription);
-            } else {
-                NSLog(@"CURR: YAAYYYY");
-            }
-        }];
-        [self.userInCell saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"SELF: %@", error.localizedDescription);
-            } else {
-                NSLog(@"SELF: YAAYYYY");
-            }
-        }];
     }
 }
 
