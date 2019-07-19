@@ -12,7 +12,8 @@
 @interface LocationCell()
 
 @property (strong, nonatomic) NSDictionary *location;
-@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
 @end
 
@@ -30,8 +31,8 @@
 }
 
 - (void)updateWithLocation:(NSDictionary *)location {
-//    self.nameLabel.text = location[@"name"];
-//    self.addressLabel.text = [location valueForKeyPath:@"location.address"];
+    self.nameLabel.text = location[@"name"];
+    self.addressLabel.text = [location valueForKeyPath:@"location.address"];
     
     NSArray *categories = location[@"categories"];
     if (categories && categories.count > 0) {

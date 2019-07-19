@@ -8,16 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class LocationViewController;
-
-@protocol LocationViewControllerDelegate
-
-- (void)locationViewController:(LocationViewController *)controller didPickLocationWithLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude;
-
-@end
-
 @interface LocationViewController : UIViewController
 
-@property (weak, nonatomic) id<LocationViewControllerDelegate> delegate;
+- (void)locationViewController:(LocationViewController *)controller didPickLocationWithLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude;
 
 @end

@@ -242,8 +242,6 @@
 // Set User Location
 - (void)setLocation {
     LocationViewController *locationVC = [[LocationViewController alloc] init];
-    locationVC.delegate = self;
-    
     [self performSegueWithIdentifier:@"toLocation" sender:self];
 }
 

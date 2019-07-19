@@ -35,10 +35,31 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // This is the selected venue
     NSDictionary *venue = self.results[indexPath.row];
-    NSNumber *lat = [venue valueForKeyPath:@"location.lat"];
-    NSNumber *lng = [venue valueForKeyPath:@"location.lng"];
-    [self.delegate locationViewController:self didPickLocationWithLatitude:lat longitude:lng];
-    NSLog(@"%@, %@", lat, lng);
+    double lat = [[venue valueForKeyPath:@"location.lat"] doubleValue];
+    double lng = [[venue valueForKeyPath:@"location.lng"] doubleValue];
+    
+    // Set location in Parse
+    self.userLocation = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
+    [[PFUser currentUser] setObject:self.userLocation forKey:@"location"];
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            // Create alert
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location Changed"
+                                                                           message:@"Your location has been changed."
+                                                                    preferredStyle:(UIAlertControllerStyleAlert)];
+            // Create a dismiss action
+            UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                    style:UIAlertActionStyleCancel
+                                                                  handler:^(UIAlertAction * _Nonnull action) {
+                                                                      // Go back to Settings
+                                                                      [self performSegueWithIdentifier:@"toSettings" sender:self];
+                                                                  }];
+            // Add the cancel action to the alertController
+            [alert addAction:dismissAction];
+            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -63,7 +84,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSLog(@"response: %@", responseDictionary);
+            NSLog(@"%@", responseDictionary);
             self.results = [responseDictionary valueForKeyPath:@"response.venues"];
             [self.tableView reloadData];
         }
@@ -84,7 +105,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     return cell;
     
 }
-
 
 /*
 #pragma mark - Navigation
