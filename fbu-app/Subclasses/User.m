@@ -7,6 +7,8 @@
 //
 
 #import "User.h"
+#import "House.h"
+#import "Parse/Parse.h"
 
 @implementation User
 
@@ -16,5 +18,6 @@
 + (nonnull NSString *)parseClassName {
     return @"User"; 
 }
+
 
 @end
