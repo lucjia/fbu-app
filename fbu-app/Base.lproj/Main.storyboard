@@ -380,8 +380,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dy5-In-iWy">
+                                <rect key="frame" x="311" y="775" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Continue"/>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Sg-h8-mNo">
-                                <rect key="frame" x="168" y="756" width="79" height="30"/>
+                                <rect key="frame" x="162" y="591" width="79" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change Bio"/>
                             </button>
@@ -394,11 +399,13 @@
                         <outlet property="bioTextView" destination="XC3-rj-kb8" id="yhA-3X-Y5x"/>
                         <outlet property="changeBioButton" destination="4Sg-h8-mNo" id="FY3-5P-TBt"/>
                         <outlet property="changeProfileButton" destination="3xn-gE-IOK" id="K6I-fR-bPY"/>
+                        <outlet property="continueButton" destination="Dy5-In-iWy" id="h4Y-hM-qxK"/>
                         <outlet property="logOutButton" destination="2BC-hB-Dna" id="wiq-0K-APv"/>
                         <outlet property="profileImageView" destination="fay-Rl-Pi3" id="ame-fi-isU"/>
                         <outlet property="userLocationButton" destination="Y24-5j-YDu" id="5on-mn-6us"/>
                         <outlet property="userPreferencesButton" destination="Ual-aL-KJL" id="H0F-uO-ABh"/>
                         <segue destination="sg7-0I-vg5" kind="show" identifier="toLocation" id="PC2-ht-tZF"/>
+                        <segue destination="Tn6-3v-suY" kind="show" identifier="toTimeline" id="BKx-BS-alv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZI-zy-JfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -407,6 +414,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="PC2-ht-tZF"/>
         <segue reference="sAA-b7-1El"/>
     </inferredMetricsTieBreakers>
 </document>

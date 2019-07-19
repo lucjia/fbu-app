@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
 @property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
+@property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIButton *logOutButton;
 
 @end
@@ -37,6 +38,7 @@
     [self createUserLocationButton];
     [self createUserBioTextView];
     [self createChangeBioButton];
+    [self createContinueButton];
     [self createLogOutButton];
 }
 
@@ -90,6 +92,14 @@
     self.changeBioButton.layer.cornerRadius = 6;
     self.changeBioButton.clipsToBounds = YES;
     [self.changeBioButton addTarget:self action:@selector(setBio) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void) createContinueButton {
+    self.continueButton.backgroundColor = [UIColor lightGrayColor];
+    self.continueButton.tintColor = [UIColor whiteColor];
+    self.continueButton.layer.cornerRadius = 6;
+    self.continueButton.clipsToBounds = YES;
+    [self.continueButton addTarget:self action:@selector(goToTimeline) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) createLogOutButton {
@@ -247,6 +257,10 @@
 
 - (void)setPreferences {
     [self performSegueWithIdentifier:@"toPreferences" sender:self];
+}
+
+- (void)goToTimeline {
+    [self performSegueWithIdentifier:@"toTimeline" sender:self];
 }
 
 - (void) logOut {
