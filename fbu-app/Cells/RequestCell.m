@@ -12,7 +12,10 @@
 
 @interface RequestCell ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *senderProfileImage;
 @property (weak, nonatomic) IBOutlet UILabel *senderOfRequestLabel;
+@property (weak, nonatomic) IBOutlet UIButton *acceptButton;
+@property (weak, nonatomic) IBOutlet UIButton *rejectButton;
 
 
 @end
@@ -31,7 +34,11 @@
 }
 
 - (void)updateProperties:(Request *)request {
-    NSString *senderUsername = [[request objectForKey:@"requestSender"] objectForKey:@"username"];
+    PFUser *user = [request objectForKey:@"requestSender"];
+    NSData *imageData = [[user objectForKey:@"profileImage"] getData];
+    self.senderProfileImage.image = [[UIImage alloc] initWithData:imageData];
+    
+    NSString *senderUsername = [user objectForKey:@"username"];
     self.senderOfRequestLabel.text = [NSString stringWithFormat:@"%@ has sent you a request!", senderUsername];
 }
 
