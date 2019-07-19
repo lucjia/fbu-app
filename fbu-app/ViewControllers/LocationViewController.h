@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@interface LocationViewController : UIViewController
 
-@interface LocationViewController : UIViewController <UITextFieldDelegate>
+- (void)locationViewController:(LocationViewController *)controller didPickLocationWithLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude;
 
 @end
-
-NS_ASSUME_NONNULL_END

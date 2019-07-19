@@ -123,8 +123,7 @@
                                                                     style:UIAlertActionStyleCancel
                                                                   handler:^(UIAlertAction * _Nonnull action) {
                                                                       // Go back to Settings
-                                                                      SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-                                                                      [self presentViewController:settingsVC animated:YES completion:nil];
+                                                                      [self performSegueWithIdentifier:@"toSettings" sender:self];
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];

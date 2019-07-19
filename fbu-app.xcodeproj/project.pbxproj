@@ -13,6 +13,7 @@
 		640603BA22DE94BB00C24301 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 640603B922DE94BB00C24301 /* User.m */; };
 		640603BD22E1146500C24301 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640603BC22E1146500C24301 /* DetailsViewController.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
+		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
 		7794307B22DE7ADD00D9FDDA /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307A22DE7ADD00D9FDDA /* RulesViewController.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
@@ -68,6 +69,8 @@
 		7794308122DE8F1A00D9FDDA /* RuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleCell.h; sourceTree = "<group>"; };
 		7794308222DE8F1A00D9FDDA /* RuleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuleCell.m; sourceTree = "<group>"; };
 		7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.debug.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.debug.xcconfig"; sourceTree = "<group>"; };
+		85729DB622E141B7009AD717 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
+		85729DB722E141B7009AD717 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -172,6 +175,8 @@
 				64BBF3D122DE406100FCCABD /* RoommateCell.m */,
 				85E7A18E22DFDDF1006C1F38 /* PreferenceCell.h */,
 				85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */,
+				85729DB622E141B7009AD717 /* LocationCell.h */,
+				85729DB722E141B7009AD717 /* LocationCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -496,6 +501,7 @@
 			files = (
 				85E7A18122DF9217006C1F38 /* LogInViewController.m in Sources */,
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
+				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
 				64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */,
