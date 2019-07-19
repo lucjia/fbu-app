@@ -14,6 +14,7 @@
 #import <Parse/Parse.h>
 #import "TimelineViewController.h"
 #import "SettingsViewController.h"
+#import "House.h"
 @import GoogleMaps;
 @import GooglePlaces;
 

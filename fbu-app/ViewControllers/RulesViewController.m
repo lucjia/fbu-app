@@ -31,13 +31,12 @@
 
 
 - (void) fetchHouse {
-    self.house = [PFUser.currentUser objectForKey:@"house"];
+    self.house = [House getHouse];
 }
 
 
 - (void) fetchRules {
     self.rules = [self.house objectForKey:@"rules"];
-    
 }
 
 - (void)initViewController {

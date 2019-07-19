@@ -13,14 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface House : PFObject<PFSubclassing>
 
-@property (nonatomic, strong) NSString *houseID;
-@property (nonatomic, strong) NSArray *housemates;
-@property (nonatomic, strong) NSArray *rules;
-@property (nonatomic, strong) NSArray *reminders;
 
 + (void) createHouse;
 + (void) addToHouse: (House * _Nullable )house;
 + (void) removeFromHouse;
++ (House *)getHouse;
 
 @end
 

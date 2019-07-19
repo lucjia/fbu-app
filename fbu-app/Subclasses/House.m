@@ -11,11 +11,6 @@
 
 @implementation House
 
-@dynamic houseID;
-@dynamic housemates;
-@dynamic rules;
-@dynamic reminders;
-
 + (nonnull NSString *)parseClassName {
     return @"House";
 }
@@ -47,16 +42,21 @@
 + (void) removeFromHouse {
     
     PFUser *user = PFUser.currentUser;
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"House"];
-    [query whereKey:@"objectId" equalTo:[user objectForKey:@"houseId"]];
-    [query includeKey:@"housemates"];
-    House *house = [query getFirstObject];
+
+    House *house = [self getHouse];
     [house removeObjectsInArray:[NSArray arrayWithObjects:user.objectId, nil] forKey:@"housemates"];
     [house saveInBackground];
     
     [user removeObjectForKey:@"houseId"];
     [user saveInBackground];
+}
+
++ (House *)getHouse {
+    PFUser *user = PFUser.currentUser;
+    PFQuery *query = [PFQuery queryWithClassName:@"House"];
+    [query whereKey:@"objectId" equalTo:[user objectForKey:@"houseId"]];
+    [query includeKey:@"housemates"];
+    return [query getFirstObject];
 }
 
 
