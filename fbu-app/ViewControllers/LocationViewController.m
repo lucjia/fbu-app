@@ -8,16 +8,19 @@
 
 #import "LocationViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "LocationCell.h"
 #import "Parse/Parse.h"
 
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
 static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ1X1S0RLYV";
 
-@interface LocationViewController ()
+@interface LocationViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (strong, nonatomic) PFGeoPoint *userLocation;
 @property (strong, nonatomic) NSArray *locationArray;
-@property (strong, nonatomic) UIButton *addressButton;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *results;
 
 @end
 
@@ -25,14 +28,13 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self findAddressButton];
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.searchBar.delegate = self;
 }
 
-- (void)fetchCoordinates {
-    
-    
-    
-    
+//- (void)fetchCoordinates {
 //    NSString *addressFieldContent = [self.addressField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
 //    NSString *urlstring = [[NSArray arrayWithObjects:@"https://geocoder.api.here.com/6.2/geocode.json?app_id={z4NMKPCmnbuXpbM1cBF4}&app_code={Ov375inKDjm_wAAfZRSAsA}", addressFieldContent, nil] componentsJoinedByString:@""];
 //    NSLog(@"%@", urlstring);
@@ -77,20 +79,61 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     
     //    self.userLocation = [PFGeoPoint geoPointWithLatitude:40.0 longitude:-30.0];
     //    [[PFUser currentUser] setObject:self.userLocation forKey:@"location"];
+//}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // This is the selected venue
+    NSDictionary *venue = self.results[indexPath.row];
+    NSNumber *lat = [venue valueForKeyPath:@"location.lat"];
+    NSNumber *lng = [venue valueForKeyPath:@"location.lng"];
+    [self.delegate locationViewController:self didPickLocationWithLatitude:lat longitude:lng];
+    NSLog(@"%@, %@", lat, lng);
 }
 
-- (void) findAddressButton {
-    // Create Address button
-    self.addressButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.addressButton.frame = CGRectMake(137.5f, 50, 100.0f, 30.0f);
-    self.addressButton.backgroundColor = [UIColor lightGrayColor];
-    self.addressButton.tintColor = [UIColor whiteColor];
-    self.addressButton.layer.cornerRadius = 6;
-    self.addressButton.clipsToBounds = YES;
-    [self.addressButton addTarget:self action:@selector(fetchCoordinates) forControlEvents:UIControlEventTouchUpInside];
-    [self.addressButton setTitle:@"Find Location" forState:UIControlStateNormal];
-    [self.view addSubview:self.addressButton];
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
+    [self fetchLocationsWithQuery:newText nearCity:@"San Francisco"];
+    return true;
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self fetchLocationsWithQuery:searchBar.text nearCity:@"San Francisco"];
+}
+
+- (void)fetchLocationsWithQuery:(NSString *)query nearCity:(NSString *)city {
+    NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
+    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@,CA&query=%@", clientID, clientSecret, city, query];
+    queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"response: %@", responseDictionary);
+            self.results = [responseDictionary valueForKeyPath:@"response.venues"];
+            [self.tableView reloadData];
+        }
+    }];
+    [task resume];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.results.count;
+}
+
+// Determines which cell is at each row (returns an instance of the custom cell
+// with reuse identifier with the data that the index asked for
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LocationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCell" forIndexPath:indexPath];
+
+    [cell updateWithLocation:self.results[indexPath.row]];
+    return cell;
+    
+}
+
 
 /*
 #pragma mark - Navigation

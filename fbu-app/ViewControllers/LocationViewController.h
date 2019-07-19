@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class LocationViewController;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LocationViewController : UIViewController <UITextFieldDelegate>
+@protocol LocationViewControllerDelegate
+
+- (void)locationViewController:(LocationViewController *)controller didPickLocationWithLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude;
+
+@end
+
+@interface LocationViewController : UIViewController
+
+@property (weak, nonatomic) id<LocationViewControllerDelegate> delegate;
 
 @end
 

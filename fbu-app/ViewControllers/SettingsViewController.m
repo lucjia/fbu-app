@@ -266,13 +266,11 @@
 // Set User Location
 - (void)setLocation {
     LocationViewController *locationVC = [[LocationViewController alloc] init];
-    // Any setup
     [self presentViewController:locationVC animated:YES completion:nil];
 }
 
 - (void)setPreferences {
     PreferencesViewController *preferencesVC = [[PreferencesViewController alloc] init];
-    // Any setup
     [self presentViewController:preferencesVC animated:YES completion:nil];
 }
 
