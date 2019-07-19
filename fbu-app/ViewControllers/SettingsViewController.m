@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UIButton *changeProfileButton;
 @property (strong, nonatomic) UIImagePickerController *imagePickerVC;
+@property (weak, nonatomic) IBOutlet UITextField *fullNameField;
+@property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UIButton *userPreferencesButton;
 @property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
@@ -34,6 +36,8 @@
     self.user = [PFUser currentUser];
     [self createProfileImageView];
     [self createChangeProfileButton];
+    [self createFullNameField];
+    [self createCityField];
     [self createUserPreferencesButton];
     [self createUserLocationButton];
     [self createUserBioTextView];
@@ -56,6 +60,24 @@
     self.changeProfileButton.layer.cornerRadius = 6;
     self.changeProfileButton.clipsToBounds = YES;
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void) createFullNameField {
+    self.fullNameField.delegate = self;
+    self.fullNameField.borderStyle = UITextBorderStyleRoundedRect;
+    self.fullNameField.placeholder = @"Full Name";
+    NSString *firstName = [[PFUser currentUser][@"firstName"] stringByAppendingString:@" "];
+    NSString *fullName = [firstName stringByAppendingString:[PFUser currentUser][@"lastName"]];
+    self.fullNameField.text = fullName;
+}
+
+- (void) createCityField {
+    self.cityField.delegate = self;
+    self.cityField.borderStyle = UITextBorderStyleRoundedRect;
+    self.cityField.placeholder = @"City, State (ex: San Francisco, CA)";
+    NSString *existingCity = [[PFUser currentUser][@"city"] stringByAppendingString:@", "];
+    NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"state"]];
+    self.cityField.text = existingState;
 }
 
 - (void) createUserPreferencesButton {
@@ -251,7 +273,7 @@
 
 // Set User Location
 - (void)setLocation {
-    LocationViewController *locationVC = [[LocationViewController alloc] init];
+    [self setFieldInformation];
     [self performSegueWithIdentifier:@"toLocation" sender:self];
 }
 
@@ -260,7 +282,39 @@
 }
 
 - (void)goToTimeline {
+    [self setFieldInformation];
+    
     [self performSegueWithIdentifier:@"toTimeline" sender:self];
+}
+
+- (void)setFieldInformation {
+    // set Full name and City
+    // Make this robust by creating restrictions if the text field is empty, only one name, etc.
+    if (![self.fullNameField.text isEqualToString:@""]) {
+        NSArray *nameSections = [self.fullNameField.text componentsSeparatedByString:@" "];
+        NSString *firstName = [nameSections objectAtIndex:0];
+        NSString *lastName = [nameSections objectAtIndex:1];
+        [[PFUser currentUser] setObject:firstName forKey:@"firstName"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+        
+        [[PFUser currentUser] setObject:lastName forKey:@"lastName"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+    }
+    
+    if (![self.cityField.text isEqualToString:@""]) {
+        NSArray *citySections = [self.cityField.text componentsSeparatedByString:@", "];
+        NSString *city = [citySections objectAtIndex:0];
+        NSString *state = [citySections objectAtIndex:1];
+        [[PFUser currentUser] setObject:city forKey:@"city"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+        
+        [[PFUser currentUser] setObject:state forKey:@"state"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+    }
 }
 
 - (void) logOut {

@@ -19,6 +19,8 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray *results;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
 
 @end
 
@@ -30,6 +32,20 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.searchBar.delegate = self;
+    
+    [self setCity];
+}
+
+- (void) setCity {
+    if (![[PFUser currentUser][@"city"] isEqualToString:@""] && ![[PFUser currentUser][@"state"] isEqualToString:@""]) {
+        self.city = [PFUser currentUser][@"city"];
+        self.state = [PFUser currentUser][@"state"];
+        NSLog(@"%@", self.city);
+        NSLog(@"%@", self.state);
+    } else {
+        self.city = @"San Francisco";
+        self.state =@"CA";
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -64,18 +80,18 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
-    [self fetchLocationsWithQuery:newText nearCity:@"San Francisco"];
+    [self fetchLocationsWithQuery:newText];
     [self.tableView setContentOffset:CGPointZero animated:YES];
     return true;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [self fetchLocationsWithQuery:searchBar.text nearCity:@"San Francisco"];
+    [self fetchLocationsWithQuery:searchBar.text];
 }
 
-- (void)fetchLocationsWithQuery:(NSString *)query nearCity:(NSString *)city {
+- (void)fetchLocationsWithQuery:(NSString *)query {
     NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
-    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@,CA&query=%@", clientID, clientSecret, city, query];
+    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@,=%@&query=%@", clientID, clientSecret, self.city, self.state, query];
     queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
