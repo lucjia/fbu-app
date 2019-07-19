@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 #import "RulesViewController.h"
+#import "TimelineViewController.h"
 
 
 @interface AppDelegate ()

@@ -9,6 +9,8 @@
 #import "TimelineViewController.h"
 #import <Parse/Parse.h>
 #import "RoommateCell.h"
+#import "User.h"
+#import "House.h"
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -20,6 +22,7 @@
 @implementation TimelineViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     

@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *rules;
 @property (nonatomic, strong) NSArray *reminders;
 
++ (void) createHouse;
++ (void) addToHouse: (House * _Nullable )house;
++ (void) removeFromHouse;
 
 @end
 

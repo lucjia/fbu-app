@@ -32,7 +32,6 @@
 
 - (void) fetchHouse {
     self.house = [PFUser.currentUser objectForKey:@"house"];
-    
 }
 
 
