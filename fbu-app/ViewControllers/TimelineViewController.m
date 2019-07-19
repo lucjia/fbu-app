@@ -9,6 +9,9 @@
 #import "TimelineViewController.h"
 #import <Parse/Parse.h>
 #import "RoommateCell.h"
+#import "User.h"
+#import "House.h"
+
 #import "DetailsViewController.h"
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -21,6 +24,7 @@
 @implementation TimelineViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.tableView.dataSource = self;

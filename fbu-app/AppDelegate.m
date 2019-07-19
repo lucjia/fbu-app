@@ -7,19 +7,24 @@
 //
 
 #import "AppDelegate.h"
+#import "Parse/Parse.h"
+#import "RulesViewController.h"
 #import "RegisterViewController.h"
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "TimelineViewController.h"
 #import "SettingsViewController.h"
+#import "House.h"
 @import GoogleMaps;
 @import GooglePlaces;
+
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize Parse to point to own server

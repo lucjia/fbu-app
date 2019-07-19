@@ -14,6 +14,9 @@
 		640603BD22E1146500C24301 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640603BC22E1146500C24301 /* DetailsViewController.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
 		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
+		7794307B22DE7ADD00D9FDDA /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307A22DE7ADD00D9FDDA /* RulesViewController.m */; };
+		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
+		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
 		85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A13F22DD214D006C1F38 /* AppDelegate.m */; };
 		85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A14222DD214D006C1F38 /* TimelineViewController.m */; };
 		85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85E7A14422DD214D006C1F38 /* Main.storyboard */; };
@@ -59,6 +62,12 @@
 		640603BC22E1146500C24301 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
 		64BBF3D122DE406100FCCABD /* RoommateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoommateCell.m; sourceTree = "<group>"; };
+		7794307922DE7ADD00D9FDDA /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
+		7794307A22DE7ADD00D9FDDA /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
+		7794307E22DE7E2A00D9FDDA /* House.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
+		7794307F22DE7E2A00D9FDDA /* House.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = House.m; sourceTree = "<group>"; };
+		7794308122DE8F1A00D9FDDA /* RuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleCell.h; sourceTree = "<group>"; };
+		7794308222DE8F1A00D9FDDA /* RuleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuleCell.m; sourceTree = "<group>"; };
 		7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.debug.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.debug.xcconfig"; sourceTree = "<group>"; };
 		85729DB622E141B7009AD717 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		85729DB722E141B7009AD717 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
@@ -126,6 +135,8 @@
 		640603B722DE942C00C24301 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				7794307E22DE7E2A00D9FDDA /* House.h */,
+				7794307F22DE7E2A00D9FDDA /* House.m */,
 				640603B822DE94BB00C24301 /* User.h */,
 				640603B922DE94BB00C24301 /* User.m */,
 			);
@@ -135,6 +146,8 @@
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7794307922DE7ADD00D9FDDA /* RulesViewController.h */,
+				7794307A22DE7ADD00D9FDDA /* RulesViewController.m */,
 				85E7A17622DE3B24006C1F38 /* RegisterViewController.h */,
 				85E7A17722DE3B24006C1F38 /* RegisterViewController.m */,
 				85E7A17922DE8060006C1F38 /* SettingsViewController.h */,
@@ -156,6 +169,8 @@
 		64BBF3CF22DE401900FCCABD /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7794308122DE8F1A00D9FDDA /* RuleCell.h */,
+				7794308222DE8F1A00D9FDDA /* RuleCell.m */,
 				64BBF3D022DE406100FCCABD /* RoommateCell.h */,
 				64BBF3D122DE406100FCCABD /* RoommateCell.m */,
 				85E7A18E22DFDDF1006C1F38 /* PreferenceCell.h */,
@@ -493,6 +508,10 @@
 				640603BD22E1146500C24301 /* DetailsViewController.m in Sources */,
 				85E7A19022DFDDF1006C1F38 /* PreferenceCell.m in Sources */,
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
+				7794307B22DE7ADD00D9FDDA /* RulesViewController.m in Sources */,
+				7794308022DE7E2A00D9FDDA /* House.m in Sources */,
+				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
+				7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */,
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
