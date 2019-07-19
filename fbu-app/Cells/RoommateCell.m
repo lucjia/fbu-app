@@ -11,13 +11,13 @@
 
 @interface RoommateCell()
 
-
+@property (strong, nonatomic) PFUser *userInCell;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveRoommateButton;
-@property (strong, nonatomic) PFUser *userInCell;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @end
 
@@ -51,7 +51,7 @@
         NSMutableArray *requestsReceived = [self.userInCell objectForKey:@"receivedRequests"];
         PFUser *receiver = self.userInCell;
         
-         BOOL b = [[PFUser currentUser] isAuthenticated];
+         //BOOL b = [[PFUser currentUser] isAuthenticated];
         
         if (requestsReceived == nil) {
             requestsReceived = [[NSMutableArray alloc] init];

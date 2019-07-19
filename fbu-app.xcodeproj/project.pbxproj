@@ -129,23 +129,39 @@
 			path = Subclasses;
 			sourceTree = "<group>";
 		};
-		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
+		64293FFC22E2615E00961F29 /* Setup */ = {
 			isa = PBXGroup;
 			children = (
 				85E7A17622DE3B24006C1F38 /* RegisterViewController.h */,
 				85E7A17722DE3B24006C1F38 /* RegisterViewController.m */,
 				85E7A17922DE8060006C1F38 /* SettingsViewController.h */,
 				85E7A17A22DE8060006C1F38 /* SettingsViewController.m */,
+				85E7A18822DFD3F2006C1F38 /* PreferencesViewController.h */,
+				85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */,
+				85E7A17F22DF9217006C1F38 /* LogInViewController.h */,
+				85E7A18022DF9217006C1F38 /* LogInViewController.m */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		64293FFD22E2618700961F29 /* Home Screens */ = {
+			isa = PBXGroup;
+			children = (
 				85E7A14122DD214D006C1F38 /* TimelineViewController.h */,
 				85E7A14222DD214D006C1F38 /* TimelineViewController.m */,
 				640603BB22E1146500C24301 /* DetailsViewController.h */,
 				640603BC22E1146500C24301 /* DetailsViewController.m */,
-				85E7A17F22DF9217006C1F38 /* LogInViewController.h */,
-				85E7A18022DF9217006C1F38 /* LogInViewController.m */,
+			);
+			path = "Home Screens";
+			sourceTree = "<group>";
+		};
+		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
 				85E7A18222DF9DA1006C1F38 /* LocationViewController.h */,
 				85E7A18322DF9DA1006C1F38 /* LocationViewController.m */,
-				85E7A18822DFD3F2006C1F38 /* PreferencesViewController.h */,
-				85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */,
+				64293FFC22E2615E00961F29 /* Setup */,
+				64293FFD22E2618700961F29 /* Home Screens */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
