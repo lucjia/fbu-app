@@ -8,16 +8,17 @@
 
 #import "RoommateCell.h"
 #import <Parse/Parse.h>
+#import "Request.h"
 
 @interface RoommateCell()
 
-
+@property (strong, nonatomic) PFUser *userInCell;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveRoommateButton;
-@property (strong, nonatomic) PFUser *userInCell;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @end
 
@@ -46,18 +47,37 @@
 }
 
 - (IBAction)didTapSendRequest:(id)sender {
-    NSMutableArray *requestsSent = [PFUser.currentUser objectForKey:@"requestsSent"];
-    NSMutableArray *requestsReceived = [self.userInCell objectForKey:@"requestsReceived"];
-    NSString *receiver = [self.userInCell objectForKey:@"objectId"];
-    
-    // if the user has not already sent a request to the user who they are trying to send a request to
-    if (![requestsSent containsObject:receiver]) {
-        [requestsSent insertObject:self.userInCell atIndex:0];
-        //[requestsReceived insertObject:PFUser.currentUser atIndex:0];
+    if (PFUser.currentUser) {
+        NSMutableArray *requestsSent = [PFUser.currentUser objectForKey:@"requestsSent"];
+        PFUser *receiver = self.userInCell;
+        
+         //BOOL b = [[PFUser currentUser] isAuthenticated];
+        if (requestsSent == nil) {
+            requestsSent = [[NSMutableArray alloc] init];
+        }
+        
+        // if the user has not already sent a request to the user who they are trying to send a request to
+        if (![requestsSent containsObject:receiver.objectId]) {
+            [requestsSent insertObject:receiver.objectId atIndex:0];
+            [[PFUser currentUser] setObject:requestsSent forKey:@"requestsSent"];
+            [Request createRequest:self.userInCell withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }];
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"CURR: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"CURR: YAAYYYY");
+                }
+
+            }];
+        }
     }
-    [[PFUser currentUser] saveInBackground];
-    [self.userInCell saveInBackground];
 }
+
+
 
 - (IBAction)didTapSaveRoomate:(id)sender {
     
