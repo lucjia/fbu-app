@@ -10,8 +10,6 @@
 
 @class LocationViewController;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol LocationViewControllerDelegate
 
 - (void)locationViewController:(LocationViewController *)controller didPickLocationWithLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude;
@@ -23,5 +21,3 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<LocationViewControllerDelegate> delegate;
 
 @end
-
-NS_ASSUME_NONNULL_END

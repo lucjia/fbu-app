@@ -7,6 +7,7 @@
 //
 
 #import "LocationCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface LocationCell()
 

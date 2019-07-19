@@ -14,14 +14,14 @@
 
 @interface SettingsViewController () <UITextViewDelegate>
 
-@property (strong, nonatomic) UIImageView *profileImageView;
-@property (strong, nonatomic) UIButton *changeProfileButton;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UIButton *changeProfileButton;
 @property (strong, nonatomic) UIImagePickerController *imagePickerVC;
-@property (strong, nonatomic) UIButton *userPreferencesButton;
-@property (strong, nonatomic) UIButton *userLocationButton;
-@property (strong, nonatomic) UITextView *bioTextView;
-@property (strong, nonatomic) UIButton *changeBioButton;
-@property (strong, nonatomic) UIButton *logOutButton;
+@property (weak, nonatomic) IBOutlet UIButton *userPreferencesButton;
+@property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
+@property (weak, nonatomic) IBOutlet UITextView *bioTextView;
+@property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
+@property (weak, nonatomic) IBOutlet UIButton *logOutButton;
 
 @end
 
@@ -41,53 +41,38 @@
 }
 
 - (void) createProfileImageView {
-    self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(127.5f, 100, 120, 120)];
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
     [self getProfilePicture];
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.profileImageView setBackgroundColor:[UIColor redColor]];
-    [self.view addSubview:self.profileImageView];
 }
 
 - (void) createChangeProfileButton {
-    self.changeProfileButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.changeProfileButton.frame = CGRectMake(137.5f, 240, 100.0f, 30.0f);
     self.changeProfileButton.backgroundColor = [UIColor lightGrayColor];
     self.changeProfileButton.tintColor = [UIColor whiteColor];
     self.changeProfileButton.layer.cornerRadius = 6;
     self.changeProfileButton.clipsToBounds = YES;
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
-    [self.changeProfileButton setTitle:@"Change Profile Picture" forState:UIControlStateNormal];
-    [self.view addSubview:self.changeProfileButton];
 }
 
 - (void) createUserPreferencesButton {
-    self.userPreferencesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.userPreferencesButton.frame = CGRectMake(137.5f, 300, 100.0f, 30.0f);
     self.userPreferencesButton.backgroundColor = [UIColor lightGrayColor];
     self.userPreferencesButton.tintColor = [UIColor whiteColor];
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
     [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
-    [self.userPreferencesButton setTitle:@"Change User Preferences" forState:UIControlStateNormal];
-    [self.view addSubview:self.userPreferencesButton];
 }
 
 - (void) createUserLocationButton {
-    self.userLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.userLocationButton.frame = CGRectMake(137.5f, 600, 100.0f, 30.0f);
     self.userLocationButton.backgroundColor = [UIColor lightGrayColor];
     self.userLocationButton.tintColor = [UIColor whiteColor];
     self.userLocationButton.layer.cornerRadius = 6;
     self.userLocationButton.clipsToBounds = YES;
     [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
-    [self.userLocationButton setTitle:@"Change Location" forState:UIControlStateNormal];
-    [self.view addSubview:self.userLocationButton];
 }
 
 - (void) createUserBioTextView {
-    self.bioTextView = [[UITextView alloc] initWithFrame:CGRectMake(125, 360, 200, 200)];
     self.bioTextView.text = [PFUser currentUser][@"bio"];
     if ([self.bioTextView.text isEqualToString:@""]) {
         self.bioTextView.text = @"Write a bio...";
@@ -97,31 +82,22 @@
     self.bioTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.bioTextView.layer.cornerRadius = 6;
     self.bioTextView.delegate = self;
-    [self.view addSubview:self.bioTextView];
 }
 
 - (void) createChangeBioButton {
-    self.changeBioButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.changeBioButton.frame = CGRectMake(137.5f, 50, 100.0f, 30.0f);
     self.changeBioButton.backgroundColor = [UIColor lightGrayColor];
     self.changeBioButton.tintColor = [UIColor whiteColor];
     self.changeBioButton.layer.cornerRadius = 6;
     self.changeBioButton.clipsToBounds = YES;
     [self.changeBioButton addTarget:self action:@selector(setBio) forControlEvents:UIControlEventTouchUpInside];
-    [self.changeBioButton setTitle:@"Change Bio" forState:UIControlStateNormal];
-    [self.view addSubview:self.changeBioButton];
 }
 
 -(void) createLogOutButton {
-    self.logOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.logOutButton.frame = CGRectMake(300, 800, 40, 30);
     self.logOutButton.backgroundColor = [UIColor lightGrayColor];
     self.logOutButton.tintColor = [UIColor whiteColor];
     self.logOutButton.layer.cornerRadius = 6;
     self.logOutButton.clipsToBounds = YES;
     [self.logOutButton addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
-    [self.logOutButton setTitle:@"Log Out" forState:UIControlStateNormal];
-    [self.view addSubview:self.logOutButton];
 }
 
 // Dismiss keyboard after typing
@@ -266,12 +242,13 @@
 // Set User Location
 - (void)setLocation {
     LocationViewController *locationVC = [[LocationViewController alloc] init];
-    [self presentViewController:locationVC animated:YES completion:nil];
+    locationVC.delegate = self;
+    
+    [self performSegueWithIdentifier:@"toLocation" sender:self];
 }
 
 - (void)setPreferences {
-    PreferencesViewController *preferencesVC = [[PreferencesViewController alloc] init];
-    [self presentViewController:preferencesVC animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"toPreferences" sender:self];
 }
 
 - (void) logOut {

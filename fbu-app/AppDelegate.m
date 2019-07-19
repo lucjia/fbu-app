@@ -36,7 +36,7 @@
 //    [GMSPlacesClient provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
 //    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
@@ -60,8 +60,9 @@
     
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
-        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-        self.window.rootViewController = settingsVC;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SettingsNavigationController"];
     }
     
     return YES;
