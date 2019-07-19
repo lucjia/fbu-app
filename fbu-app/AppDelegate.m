@@ -7,19 +7,24 @@
 //
 
 #import "AppDelegate.h"
+#import "Parse/Parse.h"
+#import "RulesViewController.h"
 #import "RegisterViewController.h"
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "TimelineViewController.h"
 #import "SettingsViewController.h"
+#import "House.h"
 @import GoogleMaps;
 @import GooglePlaces;
+
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize Parse to point to own server
@@ -35,33 +40,9 @@
 //    [GMSServices provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
 //    [GMSPlacesClient provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-//    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
-//    self.window.rootViewController = registerVC;
-    LogInViewController *logInVC = [[LogInViewController alloc] init];
-    self.window.rootViewController = logInVC;
-
-    [self.window makeKeyAndVisible];
-
-//    // set initial vc
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//
-//    // Override point for customization after application launch
-//    self.window.backgroundColor = [UIColor redColor];
-//
-//    TimelineViewController *viewController = [[TimelineViewController alloc] init];
-//
-//    self.window.rootViewController = viewController;
-//
-//    [self.window makeKeyAndVisible];
-    
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingTabBarController"];
     }
     

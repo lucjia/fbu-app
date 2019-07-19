@@ -15,7 +15,11 @@
 		6429400022E26F7F00961F29 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 64293FFF22E26F7F00961F29 /* Request.m */; };
 		6429400322E277D600961F29 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400222E277D600961F29 /* RequestsViewController.m */; };
 		6429400622E2781200961F29 /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400522E2781200961F29 /* RequestCell.m */; };
+		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
+		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
+		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
+		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
 		85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A13F22DD214D006C1F38 /* AppDelegate.m */; };
 		85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A14222DD214D006C1F38 /* TimelineViewController.m */; };
 		85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85E7A14422DD214D006C1F38 /* Main.storyboard */; };
@@ -65,9 +69,17 @@
 		6429400222E277D600961F29 /* RequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		6429400422E2781200961F29 /* RequestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestCell.h; sourceTree = "<group>"; };
 		6429400522E2781200961F29 /* RequestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
+		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
+		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
 		64BBF3D122DE406100FCCABD /* RoommateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoommateCell.m; sourceTree = "<group>"; };
+		7794307E22DE7E2A00D9FDDA /* House.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
+		7794307F22DE7E2A00D9FDDA /* House.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = House.m; sourceTree = "<group>"; };
+		7794308122DE8F1A00D9FDDA /* RuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleCell.h; sourceTree = "<group>"; };
+		7794308222DE8F1A00D9FDDA /* RuleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuleCell.m; sourceTree = "<group>"; };
 		7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.debug.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.debug.xcconfig"; sourceTree = "<group>"; };
+		85729DB622E141B7009AD717 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
+		85729DB722E141B7009AD717 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -132,6 +144,8 @@
 		640603B722DE942C00C24301 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				7794307E22DE7E2A00D9FDDA /* House.h */,
+				7794307F22DE7E2A00D9FDDA /* House.m */,
 				640603B822DE94BB00C24301 /* User.h */,
 				640603B922DE94BB00C24301 /* User.m */,
 				64293FFE22E26F7F00961F29 /* Request.h */,
@@ -151,6 +165,8 @@
 				85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */,
 				85E7A17F22DF9217006C1F38 /* LogInViewController.h */,
 				85E7A18022DF9217006C1F38 /* LogInViewController.m */,
+				6497FFAD22E28B5D002D1996 /* RulesViewController.h */,
+				6497FFAE22E28B5D002D1996 /* RulesViewController.m */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -182,12 +198,16 @@
 		64BBF3CF22DE401900FCCABD /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7794308122DE8F1A00D9FDDA /* RuleCell.h */,
+				7794308222DE8F1A00D9FDDA /* RuleCell.m */,
 				64BBF3D022DE406100FCCABD /* RoommateCell.h */,
 				64BBF3D122DE406100FCCABD /* RoommateCell.m */,
 				85E7A18E22DFDDF1006C1F38 /* PreferenceCell.h */,
 				85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */,
 				6429400422E2781200961F29 /* RequestCell.h */,
 				6429400522E2781200961F29 /* RequestCell.m */,
+				85729DB622E141B7009AD717 /* LocationCell.h */,
+				85729DB722E141B7009AD717 /* LocationCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -512,6 +532,7 @@
 			files = (
 				85E7A18122DF9217006C1F38 /* LogInViewController.m in Sources */,
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
+				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
 				6429400322E277D600961F29 /* RequestsViewController.m in Sources */,
@@ -519,8 +540,12 @@
 				640603BD22E1146500C24301 /* DetailsViewController.m in Sources */,
 				85E7A19022DFDDF1006C1F38 /* PreferenceCell.m in Sources */,
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
+				6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */,
 				6429400022E26F7F00961F29 /* Request.m in Sources */,
 				6429400622E2781200961F29 /* RequestCell.m in Sources */,
+				7794308022DE7E2A00D9FDDA /* House.m in Sources */,
+				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
+				7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */,
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,

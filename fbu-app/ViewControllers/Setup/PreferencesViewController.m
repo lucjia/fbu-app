@@ -33,17 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initTableView];
-    
     [self createDictionary];
-    
-    // Create Set Preferences button
-    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(50, 70, 300, 45)];
-    self.submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
-    [self.submitButton setFrame:CGRectMake(10, 15, 280, 44)];
-    [self.submitButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
-    [self.footerView addSubview:self.submitButton];
-    [self.tableView setTableFooterView:self.footerView];
+    [self createSetPreferencesButton];
     
     // Initialize UserPreferences array
     self.userPreferences = [[NSMutableArray alloc] init];
@@ -98,6 +89,17 @@
     self.preferences = [NSMutableArray arrayWithObjects:self.preferencesSmokeQ, self.preferencesTimeQ, self.preferencesCleanQ, nil];
 }
 
+- (void) createSetPreferencesButton {
+    // Create Set Preferences button
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(50, 70, 300, 45)];
+    self.submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
+    [self.submitButton setFrame:CGRectMake(10, 15, 280, 44)];
+    [self.submitButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
+    [self.footerView addSubview:self.submitButton];
+    [self.tableView setTableFooterView:self.footerView];
+}
+
 - (void)getExistingData {
     self.currentPreferences = [PFUser currentUser][@"preferences"];
 }
@@ -121,8 +123,7 @@
                                                                     style:UIAlertActionStyleCancel
                                                                   handler:^(UIAlertAction * _Nonnull action) {
                                                                       // Go back to Settings
-                                                                      SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-                                                                      [self presentViewController:settingsVC animated:YES completion:nil];
+                                                                      [self performSegueWithIdentifier:@"toSettings" sender:self];
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];

@@ -24,30 +24,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Create username field
+    [self createUsernameField];
+    [self createEmailField];
+    [self createPasswordField];
+    [self createRegisterButton];
+    [self createLabel];
+}
+
+- (void) createUsernameField {
     self.usernameField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 240.0f, 215.0f, 30.0f)];
     self.usernameField.delegate = self;
     self.usernameField.borderStyle = UITextBorderStyleRoundedRect;
     self.usernameField.placeholder = @"Username";
     [self.view addSubview:self.usernameField];
-    
-    // Create email field
+}
+
+- (void) createEmailField {
     self.emailField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 300.0f, 215.0f, 30.0f)];
     self.emailField.delegate = self;
     self.emailField.borderStyle = UITextBorderStyleRoundedRect;
     self.emailField.placeholder = @"Email";
     [self.view addSubview:self.emailField];
-    
-    // Create password field
+}
+
+- (void) createPasswordField {
     self.passwordField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 360.0f, 215.0f, 30.0f)];
     self.passwordField.delegate = self;
     self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
     self.passwordField.placeholder = @"Password";
     self.passwordField.secureTextEntry = YES;
     [self.view addSubview:self.passwordField];
-    
-    // Create register button
+}
+
+- (void) createRegisterButton {
     self.registerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.registerButton.frame = CGRectMake(137.5f, 480.0f, 100.0f, 30.0f);
     self.registerButton.backgroundColor = [UIColor lightGrayColor];
@@ -57,8 +66,9 @@
     [self.registerButton addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
     [self.registerButton setTitle:@"Press Me!" forState:UIControlStateNormal];
     [self.view addSubview:self.registerButton];
-    
-    // Create label
+}
+
+- (void) createLabel {
     self.registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(37.5f, 150.0f, 300.0f, 30.0f)];
     self.registerLabel.text = @"Register New User";
     [[self registerLabel] setFont: [UIFont systemFontOfSize:24]];

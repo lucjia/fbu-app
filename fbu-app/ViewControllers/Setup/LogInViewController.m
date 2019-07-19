@@ -13,10 +13,10 @@
 
 @interface LogInViewController ()
 
-@property (strong, nonatomic) UITextField *usernameField;
-@property (strong, nonatomic) UITextField *passwordField;
-@property (strong, nonatomic) UIButton *logInButton;
-@property (strong, nonatomic) UILabel *logInLabel;
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UILabel *logInLabel;
+@property (weak, nonatomic) IBOutlet UIButton *logInButton;
 
 @end
 
@@ -24,39 +24,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Create username field
-    self.usernameField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 240.0f, 215.0f, 30.0f)];
+    [self createUsernameField];
+    [self createPasswordField];
+    [self createLogInButton];
+    [self createLabel];
+}
+
+- (void) createUsernameField {
     self.usernameField.delegate = self;
     self.usernameField.borderStyle = UITextBorderStyleRoundedRect;
     self.usernameField.placeholder = @"Username";
-    [self.view addSubview:self.usernameField];
-    
-    // Create password field
-    self.passwordField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 300.0f, 215.0f, 30.0f)];
+}
+
+- (void) createPasswordField {
     self.passwordField.delegate = self;
     self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
     self.passwordField.placeholder = @"Password";
     self.passwordField.secureTextEntry = YES;
-    [self.view addSubview:self.passwordField];
-    
-    // Create log in button
-    self.logInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.logInButton.frame = CGRectMake(137.5f, 480.0f, 100.0f, 30.0f);
+}
+
+- (void) createLogInButton {
     self.logInButton.backgroundColor = [UIColor lightGrayColor];
     self.logInButton.tintColor = [UIColor whiteColor];
     self.logInButton.layer.cornerRadius = 6;
     self.logInButton.clipsToBounds = YES;
     [self.logInButton addTarget:self action:@selector(logInUser) forControlEvents:UIControlEventTouchUpInside];
-    [self.logInButton setTitle:@"Press Me!" forState:UIControlStateNormal];
-    [self.view addSubview:self.logInButton];
-    
-    // Create label
-    self.logInLabel = [[UILabel alloc] initWithFrame:CGRectMake(37.5f, 150.0f, 300.0f, 30.0f)];
-    self.logInLabel.text = @"Log In";
+}
+
+- (void) createLabel {
     [[self logInLabel] setFont: [UIFont systemFontOfSize:24]];
     self.logInLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.logInLabel];
 }
 
 - (void)logInUser {
@@ -64,10 +61,25 @@
     NSString *password = self.passwordField.text;
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
-        // Display view controller that needs to be shown after successful login
-        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-        // Any setup
-        [self presentViewController:settingsVC animated:YES completion:nil];
+        if (error != nil) {
+            // Create alert
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Incorrect Username or Password"
+                                                                           message:@"Please reenter username or password."
+                                                                    preferredStyle:(UIAlertControllerStyleAlert)];
+            // Create a dismiss action
+            UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                    style:UIAlertActionStyleCancel
+                                                                  handler:^(UIAlertAction * _Nonnull action) {
+                                                                      // Handle cancel response here. Doing nothing will dismiss the view.
+                                                                  }];
+            // Add the cancel action to the alertController
+            [alert addAction:dismissAction];
+            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            // Display view controller that needs to be shown after successful login
+            [self performSegueWithIdentifier:@"toMain" sender:self];
+        }
     }];
 }
 
