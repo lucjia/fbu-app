@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  TimelineViewController.m
 //  fbu-app
 //
 //  Created by lucjia on 7/15/19.
@@ -12,10 +12,12 @@
 #import "User.h"
 #import "House.h"
 
+#import "DetailsViewController.h"
+
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *userArrray;
+@property (strong, nonatomic) NSArray *userArray;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -24,17 +26,18 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     
     [self fetchUserTimeline];
-    [self initTableView];
-    
 }
 
 
 - (void) fetchUserTimeline {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    //[query whereKey:@"objectId" notEqualTo:PFUser.currentUser];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"username"];
     [query includeKey:@"createdAt"];
@@ -45,7 +48,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if (users != nil) {
             // do something with the array of object returned by the call
-            self.userArrray = users;
+            self.userArray = users;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -53,28 +56,10 @@
     }];
 }
 
-// creates table view
-- (void)initTableView {
-    // full screen
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomateCell"];
     
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-
-    // allows for reusable cells
-    [self.tableView registerClass:[RoommateCell class] forCellReuseIdentifier:@"RoommateCell"];
-
-    [self.view addSubview:self.tableView];
-    
-    }
-
-- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath { 
-    static NSString *cellIdentifier = @"RoommateCell";
-    RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    
-    cell = [[RoommateCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    
-    PFUser *user = self.userArrray[indexPath.row];
+    PFUser *user = self.userArray[indexPath.row];
     
     [cell updateProperties:user];
     
@@ -82,8 +67,22 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section { 
-    return self.userArrray.count;
+    return self.userArray.count;
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"timelineToDetailsSegue"]){
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        PFUser *user = self.userArray[indexPath.row];
+        
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.user = user;
+    } else {
+        // do nothing
+    }
+}
 
 @end

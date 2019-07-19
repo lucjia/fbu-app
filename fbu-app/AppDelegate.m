@@ -9,7 +9,13 @@
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 #import "RulesViewController.h"
+#import "RegisterViewController.h"
+#import "LogInViewController.h"
+#import <Parse/Parse.h>
 #import "TimelineViewController.h"
+#import "SettingsViewController.h"
+@import GoogleMaps;
+@import GooglePlaces;
 
 
 @interface AppDelegate ()
@@ -19,29 +25,49 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(  NSDictionary *)launchOptions {
-
-    
-    ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Initialize Parse to point to own server
+    ParseClientConfiguration *config = [ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = @"myAppId";
-        configuration.server = @"http://fbura.herokuapp.com/parse";
+        configuration.server = @"https://fbura.herokuapp.com/parse";
     }];
     
     [Parse initializeWithConfiguration:config];
     
-    // set initial vc
+//    // Initialize Google Maps API
+//    [GMSServices provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
+//    [GMSPlacesClient provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+//    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
+//    self.window.rootViewController = registerVC;
+    LogInViewController *logInVC = [[LogInViewController alloc] init];
+    self.window.rootViewController = logInVC;
 
-    // Override point for customization after application launch
-    self.window.backgroundColor = [UIColor redColor];
-    
-    TimelineViewController *viewController = [[TimelineViewController alloc] init];
-    
-    self.window.rootViewController = viewController;
-    
     [self.window makeKeyAndVisible];
+
+//    // set initial vc
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//
+//    // Override point for customization after application launch
+//    self.window.backgroundColor = [UIColor redColor];
+//
+//    TimelineViewController *viewController = [[TimelineViewController alloc] init];
+//
+//    self.window.rootViewController = viewController;
+//
+//    [self.window makeKeyAndVisible];
+    
+
+    // Cache logged in user for a persisting user session
+    if (PFUser.currentUser) {
+        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
+        self.window.rootViewController = settingsVC;
+    }
     
     return YES;
 }

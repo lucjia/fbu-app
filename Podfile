@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+  platform :ios, '9.0'
 
 target 'fbu-app' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -8,6 +8,10 @@ target 'fbu-app' do
   # Pods for fbu-app
   pod 'Parse'
   pod 'DateTools'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'DownPicker'
+  pod 'AFNetworking'
 
   target 'fbu-appTests' do
     inherit! :search_paths
