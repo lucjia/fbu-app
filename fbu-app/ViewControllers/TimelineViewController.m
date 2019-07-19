@@ -33,7 +33,7 @@
 - (void) fetchUserTimeline {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    //[query whereKey:@"objectId" notEqualTo:PFUser.currentUser];
+    [query whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"username"];
     [query includeKey:@"createdAt"];

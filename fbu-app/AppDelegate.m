@@ -60,8 +60,9 @@
     
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
-        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-        self.window.rootViewController = settingsVC;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"TimelineNavigationController"];
     }
     
     return YES;
