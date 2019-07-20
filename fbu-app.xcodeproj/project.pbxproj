@@ -184,6 +184,15 @@
 			path = "Home Screens";
 			sourceTree = "<group>";
 		};
+		6497FFB022E2AFA0002D1996 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				85E7A13E22DD214D006C1F38 /* AppDelegate.h */,
+				85E7A13F22DD214D006C1F38 /* AppDelegate.m */,
+			);
+			path = "App Delegate";
+			sourceTree = "<group>";
+		};
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,8 +249,7 @@
 				640603B722DE942C00C24301 /* Subclasses */,
 				64BBF3CE22DE400E00FCCABD /* ViewControllers */,
 				64BBF3CF22DE401900FCCABD /* Cells */,
-				85E7A13E22DD214D006C1F38 /* AppDelegate.h */,
-				85E7A13F22DD214D006C1F38 /* AppDelegate.m */,
+				6497FFB022E2AFA0002D1996 /* App Delegate */,
 				85E7A14422DD214D006C1F38 /* Main.storyboard */,
 				85E7A14722DD214E006C1F38 /* Assets.xcassets */,
 				85E7A14922DD214E006C1F38 /* LaunchScreen.storyboard */,

@@ -11,9 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol RequestCellDelegate
+
+- (void)declineRequest:(Request *)request;
+
+@end
+
 @interface RequestCell : UITableViewCell
 
 - (void)updateProperties:(Request *)request;
+
+@property (nonatomic, weak) id<RequestCellDelegate> delegate;
 
 @end
 

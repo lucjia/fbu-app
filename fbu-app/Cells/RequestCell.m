@@ -9,14 +9,15 @@
 #import "RequestCell.h"
 #import <Parse/Parse.h>
 #import "Request.h"
+#import "RequestsViewController.h"
 
 @interface RequestCell ()
 
+@property (strong, nonatomic) Request *currentRequest;
 @property (weak, nonatomic) IBOutlet UIImageView *senderProfileImage;
 @property (weak, nonatomic) IBOutlet UILabel *senderOfRequestLabel;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
 @property (weak, nonatomic) IBOutlet UIButton *rejectButton;
-
 
 @end
 
@@ -34,6 +35,8 @@
 }
 
 - (void)updateProperties:(Request *)request {
+    self.currentRequest = request;
+    
     PFUser *user = [request objectForKey:@"requestSender"];
     NSData *imageData = [[user objectForKey:@"profileImage"] getData];
     self.senderProfileImage.image = [[UIImage alloc] initWithData:imageData];
@@ -42,6 +45,13 @@
     self.senderOfRequestLabel.text = [NSString stringWithFormat:@"%@ has sent you a request!", senderUsername];
 }
 
+- (IBAction)didTapAccept:(id)sender {
+    //procede to create household
+}
 
+- (IBAction)didTapDecline:(id)sender {
+    
+    [self.delegate declineRequest:self.currentRequest];
+}
 
 @end
