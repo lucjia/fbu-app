@@ -73,6 +73,17 @@
                 }
 
             }];
+        // if the current user has already sent a request to the specific
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error sending request" message:@"You've already sent this user a request!" preferredStyle:(UIAlertControllerStyleAlert)];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                // handle response here.
+            }];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            
+            [self.delegate showAlertOnTimeline:alert];
         }
     }
 }

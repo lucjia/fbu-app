@@ -14,7 +14,7 @@
 
 #import "DetailsViewController.h"
 
-@interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource, RoommateCellDelegate>
 
 @property (strong, nonatomic) NSArray *userArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -64,8 +64,15 @@
     }];
 }
 
+- (void)showAlertOnTimeline:(nonnull UIAlertController *)alert {
+    [self presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+    }];
+}
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomateCell"];
+    cell.delegate = self;
     
     PFUser *user = self.userArray[indexPath.row];
     
