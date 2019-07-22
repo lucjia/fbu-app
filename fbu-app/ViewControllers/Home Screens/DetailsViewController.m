@@ -29,6 +29,7 @@
     
 }
 
+// sets properties to values corresponding to user
 - (void)updateProperties{
     NSData *imageData = [[self.user objectForKey:@"profileImage"] getData];
     self.profileImage.image = [[UIImage alloc] initWithData:imageData];

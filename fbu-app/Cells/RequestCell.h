@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol RequestCellDelegate
 
+- (void)acceptRequest:(Request *)request;
 - (void)declineRequest:(Request *)request;
 
 @end

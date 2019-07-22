@@ -37,6 +37,7 @@
 - (void) fetchUserTimeline {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    // query excludes current user
     [query whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
     
     PFGeoPoint *userGeoPoint = [[PFUser currentUser] objectForKey:@"location"];

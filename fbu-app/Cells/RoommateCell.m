@@ -58,6 +58,7 @@
         
         // if the user has not already sent a request to the user who they are trying to send a request to
         if (![requestsSent containsObject:receiver.objectId]) {
+            //add userId to array
             [requestsSent insertObject:receiver.objectId atIndex:0];
             [[PFUser currentUser] setObject:requestsSent forKey:@"requestsSent"];
             [Request createRequest:self.userInCell withCompletion:^(BOOL succeeded, NSError * _Nullable error) {

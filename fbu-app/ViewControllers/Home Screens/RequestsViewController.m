@@ -33,11 +33,12 @@
 - (void) fetchRequestTimeline {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Request"];
-    [query whereKey:@"requestReceiver" equalTo:[PFUser currentUser]];
+    [query whereKey:@"requestReceiver" equalTo:[PFUser currentUser]]; // requests sent to current user
     
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"requestSender"];
     [query includeKey:@"requestReceiver"];
+    [query includeKey:@"acceptedRequests"];
     
     query.limit = 20;
     
@@ -70,9 +71,49 @@
     }
 }
 
+- (void)acceptRequest:(nonnull Request *)request {
+    // add to accepted requests array
+    NSMutableArray *acceptedRequests = [NSMutableArray arrayWithArray:[PFUser.currentUser objectForKey:@"acceptedRequests"]];
+    
+    if (acceptedRequests == nil) {
+        acceptedRequests = [[NSMutableArray alloc] init];
+    }
+    
+    PFUser *requestSender = [request objectForKey:@"requestSender"];
+    PFUser *requestReceiver = [request objectForKey:@"requestReceiver"];
+    NSMutableArray *senderAcceptedRequests = [NSMutableArray arrayWithArray:[requestSender objectForKey:@"acceptedRequests"]];
+    
+    if (senderAcceptedRequests == nil) {
+        senderAcceptedRequests = [[NSMutableArray alloc] init];
+    }
+    
+    [acceptedRequests insertObject:requestSender.objectId atIndex:0];
+    
+    [[PFUser currentUser] setObject:acceptedRequests forKey:@"acceptedRequests"];
+    
+    [senderAcceptedRequests insertObject:requestReceiver.objectId atIndex:0];
+    [requestSender setObject:senderAcceptedRequests forKey:@"acceptedRequests"];
+    
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"CURR: %@", error.localizedDescription);
+        }
+    }];
+    
+    [requestSender saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"SEND: %@", error.localizedDescription);
+        }
+    }];
+    
+    // remove from table view
+    [self declineRequest:request];
+}
+
+// removes request sent to current user from tableView
 - (void)declineRequest:(nonnull Request *)request {
     [self.sendersArray removeObject:request];
-    [request deleteInBackground];
+    [request deleteInBackground]; // removes from parse
     [self.tableView reloadData];
 }
 

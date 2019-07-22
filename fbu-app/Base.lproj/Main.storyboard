@@ -22,11 +22,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RoomateCell" rowHeight="183" id="KL1-ey-qQn" customClass="RoommateCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="183"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RoomateCell" rowHeight="154" id="KL1-ey-qQn" customClass="RoommateCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="154"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KL1-ey-qQn" id="76J-Cf-fnf">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="182.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="153.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PQ7-AQ-tbj">
@@ -62,19 +62,10 @@
                                                         <action selector="didTapSendRequest:" destination="KL1-ey-qQn" eventType="touchUpInside" id="tEd-FO-vDQ"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJC-hN-w1r">
-                                                    <rect key="frame" x="29" y="149" width="62" height="22"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                                    <state key="normal" title="Save roommate"/>
-                                                    <connections>
-                                                        <action selector="didTapSaveRoomate:" destination="KL1-ey-qQn" eventType="touchUpInside" id="e9s-Xk-h9Q"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tAu-cL-Z46" secondAttribute="bottom" constant="12.5" id="1yV-rD-cpT"/>
                                                 <constraint firstItem="Lzg-SQ-Tb4" firstAttribute="centerX" secondItem="PQ7-AQ-tbj" secondAttribute="centerX" id="56I-eZ-mR3"/>
-                                                <constraint firstItem="lJC-hN-w1r" firstAttribute="centerX" secondItem="PQ7-AQ-tbj" secondAttribute="centerX" id="6c2-Cr-pWG"/>
-                                                <constraint firstItem="lJC-hN-w1r" firstAttribute="top" secondItem="tAu-cL-Z46" secondAttribute="bottom" constant="8" id="9Zl-Rf-8eM"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="top" secondItem="Lzg-SQ-Tb4" secondAttribute="bottom" constant="8" id="B7y-f2-EEX"/>
                                                 <constraint firstItem="Lzg-SQ-Tb4" firstAttribute="top" secondItem="PQ7-AQ-tbj" secondAttribute="bottom" constant="8" id="CTH-ug-gUz"/>
                                                 <constraint firstItem="PQ7-AQ-tbj" firstAttribute="top" secondItem="76J-Cf-fnf" secondAttribute="top" constant="11" id="E3D-Rw-2oV"/>
@@ -82,8 +73,6 @@
                                                 <constraint firstItem="kyo-QC-6WI" firstAttribute="top" secondItem="dea-z6-EEa" secondAttribute="bottom" constant="9.5" id="N3q-Lv-FiI"/>
                                                 <constraint firstItem="dea-z6-EEa" firstAttribute="top" secondItem="PQ7-AQ-tbj" secondAttribute="top" id="Nn7-62-0M0"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kyo-QC-6WI" secondAttribute="bottom" constant="91.5" id="SVN-Jq-ZES"/>
-                                                <constraint firstItem="lJC-hN-w1r" firstAttribute="leading" secondItem="76J-Cf-fnf" secondAttribute="leading" constant="29" id="Ts0-Xe-ahF"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lJC-hN-w1r" secondAttribute="bottom" constant="11.5" id="XZl-Gr-HOY"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="leading" secondItem="76J-Cf-fnf" secondAttribute="leading" constant="29.5" id="bUz-ek-dMo"/>
                                                 <constraint firstItem="Lzg-SQ-Tb4" firstAttribute="leading" secondItem="76J-Cf-fnf" secondAttribute="leading" constant="42" id="g75-lT-Ax2"/>
                                                 <constraint firstItem="dea-z6-EEa" firstAttribute="leading" secondItem="PQ7-AQ-tbj" secondAttribute="trailing" constant="8" id="gw3-Ns-bg4"/>
@@ -97,7 +86,6 @@
                                             <outlet property="bioLabel" destination="kyo-QC-6WI" id="hVF-wM-7OY"/>
                                             <outlet property="locationLabel" destination="Lzg-SQ-Tb4" id="WqF-Ph-9oa"/>
                                             <outlet property="profileImage" destination="PQ7-AQ-tbj" id="I3W-yD-3sm"/>
-                                            <outlet property="saveRoommateButton" destination="lJC-hN-w1r" id="BRx-La-gaw"/>
                                             <outlet property="sendRequestButton" destination="tAu-cL-Z46" id="MTb-DM-9Dd"/>
                                             <outlet property="usernameLabel" destination="dea-z6-EEa" id="Ons-bf-Bsh"/>
                                             <segue destination="Icw-0C-bzd" kind="show" identifier="timelineToDetailsSegue" id="N8j-jp-Paw"/>
@@ -122,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-617" y="2087"/>
+            <point key="canvasLocation" x="-617.39130434782612" y="2086.6071428571427"/>
         </scene>
         <!--Requests Received-->
         <scene sceneID="Ubu-BY-eQJ">
@@ -277,7 +265,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EVi-hz-QNv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="2877"/>
+            <point key="canvasLocation" x="-246" y="2862"/>
         </scene>
         <!--Location View Controller-->
         <scene sceneID="ZjV-GF-Cft">
@@ -342,11 +330,11 @@
             </objects>
             <point key="canvasLocation" x="3676.811594202899" y="114.50892857142857"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Home-->
         <scene sceneID="jk8-fQ-sLe">
             <objects>
                 <navigationController storyboardIdentifier="TimelineNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Tn6-3v-suY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="Mbd-Bs-Qnp"/>
+                    <tabBarItem key="tabBarItem" title="Home" id="Mbd-Bs-Qnp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PfY-bu-NUR">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -361,11 +349,11 @@
             </objects>
             <point key="canvasLocation" x="-617" y="1298"/>
         </scene>
-        <!--Item-->
+        <!--Received-->
         <scene sceneID="NKj-uH-twK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="idW-sO-RGO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="BQ9-CM-4Wp"/>
+                    <tabBarItem key="tabBarItem" title="Received" id="BQ9-CM-4Wp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jW6-9H-pN8">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -455,8 +443,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="Tn6-3v-suY" kind="relationship" relationship="viewControllers" id="p1c-OD-bjk"/>
-                        <segue destination="dvj-cT-oNK" kind="relationship" relationship="viewControllers" id="FrM-Bw-ujW"/>
                         <segue destination="idW-sO-RGO" kind="relationship" relationship="viewControllers" id="GRl-77-1sW"/>
+                        <segue destination="dvj-cT-oNK" kind="relationship" relationship="viewControllers" id="FrM-Bw-ujW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o40-9L-T04" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -639,11 +627,11 @@
             </objects>
             <point key="canvasLocation" x="3676.811594202899" y="-597.32142857142856"/>
         </scene>
-        <!--Item-->
+        <!--Sent-->
         <scene sceneID="Jia-eM-K0Z">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dvj-cT-oNK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="mrO-gh-6HT"/>
+                    <tabBarItem key="tabBarItem" title="Sent" id="mrO-gh-6HT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Jdm-z7-gO0">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -662,6 +650,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="sAA-b7-1El"/>
         <segue reference="p1c-OD-bjk"/>
-        <segue reference="kil-6z-1zJ"/>
+        <segue reference="N8j-jp-Paw"/>
     </inferredMetricsTieBreakers>
 </document>
