@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jOV-Eg-dHQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0dj-6j-6FU">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -115,7 +115,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="FeS-1c-2Wi"/>
+                    <navigationItem key="navigationItem" id="FeS-1c-2Wi">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="6P0-Um-IGC">
+                            <connections>
+                                <segue destination="qmT-Kq-rNQ" kind="show" id="YiT-MX-4JD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="f1E-vC-oGD" id="Wph-Co-2Dt"/>
                     </connections>
@@ -321,7 +327,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="meT-kk-RCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3676.811594202899" y="114.50892857142857"/>
+            <point key="canvasLocation" x="3509" y="157"/>
         </scene>
         <!--Item-->
         <scene sceneID="jk8-fQ-sLe">
@@ -391,12 +397,12 @@
                         <viewLayoutGuide key="safeArea" id="dzU-sz-ss1"/>
                     </view>
                     <connections>
-                        <segue destination="qmT-Kq-rNQ" kind="presentation" identifier="toSettings" id="qbh-0r-9Aw"/>
+                        <segue destination="qmT-Kq-rNQ" kind="show" identifier="toSettings" id="qbh-0r-9Aw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPK-g6-Afh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2893" y="-597"/>
+            <point key="canvasLocation" x="2623" y="-473"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="wvM-hB-RmF">
@@ -466,7 +472,7 @@
             </objects>
             <point key="canvasLocation" x="3677" y="-1288"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="CDq-iV-MRx">
             <objects>
                 <viewController storyboardIdentifier="SettingsVC" id="qmT-Kq-rNQ" customClass="SettingsViewController" sceneMemberID="viewController">
@@ -507,9 +513,6 @@
                                 <rect key="frame" x="125" y="448" width="176" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change User Preferences"/>
-                                <connections>
-                                    <segue destination="ICJ-2f-0xn" kind="presentation" identifier="toPreferences" id="xQ6-9z-tdc"/>
-                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="hi" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XC3-rj-kb8">
                                 <rect key="frame" x="87" y="558" width="240" height="128"/>
@@ -536,7 +539,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sSa-oF-ssc"/>
                     </view>
-                    <navigationItem key="navigationItem" id="fVy-eC-jgq"/>
+                    <navigationItem key="navigationItem" title="Settings" id="fVy-eC-jgq"/>
                     <connections>
                         <outlet property="bioTextView" destination="XC3-rj-kb8" id="yhA-3X-Y5x"/>
                         <outlet property="changeBioButton" destination="4Sg-h8-mNo" id="FY3-5P-TBt"/>
@@ -550,16 +553,16 @@
                         <outlet property="userPreferencesButton" destination="Ual-aL-KJL" id="H0F-uO-ABh"/>
                         <segue destination="sg7-0I-vg5" kind="show" identifier="toLocation" id="PC2-ht-tZF"/>
                         <segue destination="Tn6-3v-suY" kind="show" identifier="toTimeline" id="BKx-BS-alv"/>
+                        <segue destination="ICJ-2f-0xn" kind="show" identifier="toPreferences" id="ySp-Fv-BP2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZI-zy-JfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3676.811594202899" y="-597.32142857142856"/>
+            <point key="canvasLocation" x="4291" y="-581"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="PC2-ht-tZF"/>
-        <segue reference="sAA-b7-1El"/>
+        <segue reference="YiT-MX-4JD"/>
         <segue reference="BKx-BS-alv"/>
     </inferredMetricsTieBreakers>
 </document>

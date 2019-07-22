@@ -35,8 +35,6 @@
     
     self.user = [PFUser currentUser];
     [self createProfileImageView];
-    
-    [self getProfilePicture];
     [self createChangeProfileButton];
     [self createFullNameField];
     [self createCityField];
@@ -51,6 +49,8 @@
 - (void) createProfileImageView {
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
+    NSData *imageData = [[[PFUser currentUser] objectForKey:@"profileImage"] getData];
+    self.profileImageView.image = [[UIImage alloc] initWithData:imageData];
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.profileImageView setBackgroundColor:[UIColor redColor]];
 }
@@ -202,17 +202,6 @@
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             self.profileImageView.image = self.resizedImage;
-            [self getProfilePicture];
-        }
-    }];
-}
-
--(void)getProfilePicture {
-    [[PFUser currentUser][@"profilePicture"] getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
-        if (!error && imageData) {
-            //If there was no error with the internet request and some kind of data was returned, use that data to form the profile image with the handy method of UIImage.
-            // Set the image view to the image with the data returned from Parse.
-            self.profileImageView.image = [UIImage imageWithData:imageData];
         } else {
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Photo Not Changed"
