@@ -67,28 +67,27 @@
             }];
             [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (error) {
-                    NSLog(@"CURR: %@", error.localizedDescription);
-                } else {
-                    NSLog(@"CURR: YAAYYYY");
+                    NSLog(@"%@", error.localizedDescription);
                 }
-
             }];
         // if the current user has already sent a request to the specific
         } else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error sending request" message:@"You've already sent this user a request!" preferredStyle:(UIAlertControllerStyleAlert)];
-            
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                // handle response here.
-            }];
-            // add the OK action to the alert controller
-            [alert addAction:okAction];
-            
-            [self.delegate showAlertOnTimeline:alert];
+            [self createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
         }
     }
 }
 
-
+-(void)createAlertController:(NSString *)title message:(NSString *)msg {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // handle response here.
+    }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    
+    [self.delegate showAlertOnTimeline:alert];
+}
 
 - (IBAction)didTapSaveRoomate:(id)sender {
     

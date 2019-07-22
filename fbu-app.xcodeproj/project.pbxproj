@@ -16,6 +16,8 @@
 		6429400322E277D600961F29 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400222E277D600961F29 /* RequestsViewController.m */; };
 		6429400622E2781200961F29 /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400522E2781200961F29 /* RequestCell.m */; };
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
+		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
+		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
@@ -71,6 +73,10 @@
 		6429400522E2781200961F29 /* RequestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
 		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
 		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
+		6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsViewController.h; sourceTree = "<group>"; };
+		6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsViewController.m; sourceTree = "<group>"; };
+		6497FFB422E61F17002D1996 /* SentRequestsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsCell.h; sourceTree = "<group>"; };
+		6497FFB522E61F17002D1996 /* SentRequestsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsCell.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
 		64BBF3D122DE406100FCCABD /* RoommateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoommateCell.m; sourceTree = "<group>"; };
 		7794307E22DE7E2A00D9FDDA /* House.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
@@ -180,6 +186,8 @@
 				640603BC22E1146500C24301 /* DetailsViewController.m */,
 				6429400122E277D600961F29 /* RequestsViewController.h */,
 				6429400222E277D600961F29 /* RequestsViewController.m */,
+				6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */,
+				6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */,
 			);
 			path = "Home Screens";
 			sourceTree = "<group>";
@@ -215,6 +223,8 @@
 				85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */,
 				6429400422E2781200961F29 /* RequestCell.h */,
 				6429400522E2781200961F29 /* RequestCell.m */,
+				6497FFB422E61F17002D1996 /* SentRequestsCell.h */,
+				6497FFB522E61F17002D1996 /* SentRequestsCell.m */,
 				85729DB622E141B7009AD717 /* LocationCell.h */,
 				85729DB722E141B7009AD717 /* LocationCell.m */,
 			);
@@ -542,12 +552,14 @@
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
+				6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
 				6429400322E277D600961F29 /* RequestsViewController.m in Sources */,
 				64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */,
 				640603BD22E1146500C24301 /* DetailsViewController.m in Sources */,
 				85E7A19022DFDDF1006C1F38 /* PreferenceCell.m in Sources */,
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
+				6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */,
 				6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */,
 				6429400022E26F7F00961F29 /* Request.m in Sources */,
 				6429400622E2781200961F29 /* RequestCell.m in Sources */,
