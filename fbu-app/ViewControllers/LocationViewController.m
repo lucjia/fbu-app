@@ -68,8 +68,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
             UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
                                                                     style:UIAlertActionStyleCancel
                                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                                      // Go back to Settings
-                                                                      [self performSegueWithIdentifier:@"toSettings" sender:self];
+                                                                      [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
