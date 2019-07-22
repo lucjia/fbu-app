@@ -35,6 +35,8 @@
     
     self.user = [PFUser currentUser];
     [self createProfileImageView];
+    
+    [self getProfilePicture];
     [self createChangeProfileButton];
     [self createFullNameField];
     [self createCityField];
@@ -49,7 +51,6 @@
 - (void) createProfileImageView {
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
-    [self getProfilePicture];
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.profileImageView setBackgroundColor:[UIColor redColor]];
 }
@@ -210,8 +211,7 @@
     [[PFUser currentUser][@"profilePicture"] getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
         if (!error && imageData) {
             //If there was no error with the internet request and some kind of data was returned, use that data to form the profile image with the handy method of UIImage.
-            
-            //Set the image view to the image with the data returned from Parse.
+            // Set the image view to the image with the data returned from Parse.
             self.profileImageView.image = [UIImage imageWithData:imageData];
         } else {
             // Create alert
@@ -283,7 +283,6 @@
 
 - (void)goToTimeline {
     [self setFieldInformation];
-    
     [self performSegueWithIdentifier:@"toTimeline" sender:self];
 }
 

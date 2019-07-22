@@ -10,6 +10,7 @@
 #import "LocationCell.h"
 #import "Parse/Parse.h"
 
+// Foursquare API
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
 static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ1X1S0RLYV";
 

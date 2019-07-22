@@ -323,7 +323,7 @@
             </objects>
             <point key="canvasLocation" x="3676.811594202899" y="114.50892857142857"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="jk8-fQ-sLe">
             <objects>
                 <navigationController storyboardIdentifier="TimelineNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Tn6-3v-suY" sceneMemberID="viewController">
@@ -367,6 +367,7 @@
                 <tabBarController storyboardIdentifier="SearchingTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="jOV-Eg-dHQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RUd-UT-egg">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -559,5 +560,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="PC2-ht-tZF"/>
         <segue reference="sAA-b7-1El"/>
+        <segue reference="BKx-BS-alv"/>
     </inferredMetricsTieBreakers>
 </document>

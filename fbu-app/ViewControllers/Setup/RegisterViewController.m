@@ -9,6 +9,9 @@
 #import "RegisterViewController.h"
 #import "SettingsViewController.h"
 #import "Parse/Parse.h"
+#import "CustomTextField.h"
+#import "CustomButton.h"
+#import "CustomLabel.h"
 
 @interface RegisterViewController ()
 
@@ -24,55 +27,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createUsernameField];
-    [self createEmailField];
-    [self createPasswordField];
+    [self createUsernameEmailPasswordFields];
     [self createRegisterButton];
     [self createLabel];
 }
 
-- (void) createUsernameField {
-    self.usernameField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 240.0f, 215.0f, 30.0f)];
+- (void) createUsernameEmailPasswordFields {
+    CustomTextField *textField = [[CustomTextField alloc] init];
+    
+    self.usernameField = [textField styledTextFieldWithOrigin:CGPointMake(80, 240) placeholder:@"Username"];
     self.usernameField.delegate = self;
-    self.usernameField.borderStyle = UITextBorderStyleRoundedRect;
-    self.usernameField.placeholder = @"Username";
     [self.view addSubview:self.usernameField];
-}
-
-- (void) createEmailField {
-    self.emailField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 300.0f, 215.0f, 30.0f)];
+    
+    self.emailField = [textField styledTextFieldWithOrigin:CGPointMake(80, 300) placeholder:@"Email"];
     self.emailField.delegate = self;
-    self.emailField.borderStyle = UITextBorderStyleRoundedRect;
-    self.emailField.placeholder = @"Email";
     [self.view addSubview:self.emailField];
-}
-
-- (void) createPasswordField {
-    self.passwordField = [[UITextField alloc] initWithFrame: CGRectMake(80.0f, 360.0f, 215.0f, 30.0f)];
+    
+    self.passwordField = [textField styledTextFieldWithOrigin:CGPointMake(80, 360) placeholder:@"Password"];
     self.passwordField.delegate = self;
-    self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
-    self.passwordField.placeholder = @"Password";
     self.passwordField.secureTextEntry = YES;
     [self.view addSubview:self.passwordField];
 }
 
 - (void) createRegisterButton {
-    self.registerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.registerButton.frame = CGRectMake(137.5f, 480.0f, 100.0f, 30.0f);
-    self.registerButton.backgroundColor = [UIColor lightGrayColor];
-    self.registerButton.tintColor = [UIColor whiteColor];
-    self.registerButton.layer.cornerRadius = 6;
-    self.registerButton.clipsToBounds = YES;
+    CustomButton *button = [[CustomButton alloc] init];
+    self.registerButton = [button styledBackgroundButtonWithOrigin:CGPointMake(150, 420) text:@"Register User"];
     [self.registerButton addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
-    [self.registerButton setTitle:@"Press Me!" forState:UIControlStateNormal];
     [self.view addSubview:self.registerButton];
 }
 
 - (void) createLabel {
-    self.registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(37.5f, 150.0f, 300.0f, 30.0f)];
-    self.registerLabel.text = @"Register New User";
-    [[self registerLabel] setFont: [UIFont systemFontOfSize:24]];
-    self.registerLabel.textAlignment = NSTextAlignmentCenter;
+    CustomLabel *label = [[CustomLabel alloc] init];
+    self.registerLabel = [label styledLabelWithOrigin:CGPointMake(80, 120) text:@"Register New User" textSize:24];
     [self.view addSubview:self.registerLabel];
 }
 
@@ -100,7 +86,7 @@
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
-            alert.view.tintColor = [UIColor whiteColor];
+            alert.view.tintColor = [UIColor redColor];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
             // User registered successfully, automatically log in

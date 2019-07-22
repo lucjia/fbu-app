@@ -20,6 +20,9 @@
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
 		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
+		85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DBD22E62A59009AD717 /* CustomTextField.m */; };
+		85729DC122E62ED5009AD717 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC022E62ED5009AD717 /* CustomButton.m */; };
+		85729DC422E652A7009AD717 /* CustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC322E652A7009AD717 /* CustomLabel.m */; };
 		85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A13F22DD214D006C1F38 /* AppDelegate.m */; };
 		85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A14222DD214D006C1F38 /* TimelineViewController.m */; };
 		85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85E7A14422DD214D006C1F38 /* Main.storyboard */; };
@@ -80,6 +83,12 @@
 		7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.debug.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.debug.xcconfig"; sourceTree = "<group>"; };
 		85729DB622E141B7009AD717 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		85729DB722E141B7009AD717 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
+		85729DBC22E62A59009AD717 /* CustomTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
+		85729DBD22E62A59009AD717 /* CustomTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
+		85729DBF22E62ED5009AD717 /* CustomButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
+		85729DC022E62ED5009AD717 /* CustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
+		85729DC222E652A7009AD717 /* CustomLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomLabel.h; sourceTree = "<group>"; };
+		85729DC322E652A7009AD717 /* CustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomLabel.m; sourceTree = "<group>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -150,6 +159,12 @@
 				640603B922DE94BB00C24301 /* User.m */,
 				64293FFE22E26F7F00961F29 /* Request.h */,
 				64293FFF22E26F7F00961F29 /* Request.m */,
+				85729DBC22E62A59009AD717 /* CustomTextField.h */,
+				85729DBD22E62A59009AD717 /* CustomTextField.m */,
+				85729DBF22E62ED5009AD717 /* CustomButton.h */,
+				85729DC022E62ED5009AD717 /* CustomButton.m */,
+				85729DC222E652A7009AD717 /* CustomLabel.h */,
+				85729DC322E652A7009AD717 /* CustomLabel.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -530,9 +545,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85729DC422E652A7009AD717 /* CustomLabel.m in Sources */,
 				85E7A18122DF9217006C1F38 /* LogInViewController.m in Sources */,
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
+				85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
+				85729DC122E62ED5009AD717 /* CustomButton.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
 				6429400322E277D600961F29 /* RequestsViewController.m in Sources */,
