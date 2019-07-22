@@ -54,6 +54,9 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     double lat = [[venue valueForKeyPath:@"location.lat"] doubleValue];
     double lng = [[venue valueForKeyPath:@"location.lng"] doubleValue];
     
+    PFGeoPoint *geo = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
+    [[PFUser currentUser] setObject:geo forKey:@"location"];
+    
     // Set location in Parse
     self.userLocation = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
     [[PFUser currentUser] setObject:self.userLocation forKey:@"location"];

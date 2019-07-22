@@ -18,6 +18,7 @@
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
+		6497FFB922E66030002D1996 /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB822E66030002D1996 /* Persona.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
@@ -77,6 +78,8 @@
 		6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsViewController.m; sourceTree = "<group>"; };
 		6497FFB422E61F17002D1996 /* SentRequestsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsCell.h; sourceTree = "<group>"; };
 		6497FFB522E61F17002D1996 /* SentRequestsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsCell.m; sourceTree = "<group>"; };
+		6497FFB722E66030002D1996 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
+		6497FFB822E66030002D1996 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
 		64BBF3D122DE406100FCCABD /* RoommateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoommateCell.m; sourceTree = "<group>"; };
 		7794307E22DE7E2A00D9FDDA /* House.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				640603B922DE94BB00C24301 /* User.m */,
 				64293FFE22E26F7F00961F29 /* Request.h */,
 				64293FFF22E26F7F00961F29 /* Request.m */,
+				6497FFB722E66030002D1996 /* Persona.h */,
+				6497FFB822E66030002D1996 /* Persona.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -561,6 +566,7 @@
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
 				6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */,
 				6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */,
+				6497FFB922E66030002D1996 /* Persona.m in Sources */,
 				6429400022E26F7F00961F29 /* Request.m in Sources */,
 				6429400622E2781200961F29 /* RequestCell.m in Sources */,
 				7794308022DE7E2A00D9FDDA /* House.m in Sources */,

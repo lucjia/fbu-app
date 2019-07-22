@@ -11,7 +11,7 @@
 #import "RoommateCell.h"
 #import "User.h"
 #import "House.h"
-
+#import "Persona.h"
 #import "DetailsViewController.h"
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource, RoommateCellDelegate>
@@ -36,13 +36,13 @@
 
 - (void) fetchUserTimeline {
     // construct query
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    PFQuery *query = [PFQuery queryWithClassName:@"Persona"];
     // query excludes current user
     [query whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
     
     PFGeoPoint *userGeoPoint = [[PFUser currentUser] objectForKey:@"location"];
     // limit to users that are near current user
-    [query whereKey:@"location" nearGeoPoint:userGeoPoint withinMiles:12.0];
+    //[query whereKey:@"location" nearGeoPoint:userGeoPoint withinMiles:12.0];
     
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"firstName"];

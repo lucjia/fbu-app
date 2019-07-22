@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
-@property (weak, nonatomic) IBOutlet UIButton *saveRoommateButton;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @end
@@ -88,10 +87,6 @@
     [alert addAction:okAction];
     
     [self.delegate showAlertOnTimeline:alert];
-}
-
-- (IBAction)didTapSaveRoomate:(id)sender {
-    
 }
 
 @end
