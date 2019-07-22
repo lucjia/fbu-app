@@ -46,7 +46,10 @@
     newPersona.geoPoint = loc;
     newPersona.preferences = [[NSMutableArray alloc] init];
     
+    [[PFUser currentUser] setObject:newPersona forKey:@"persona"];
+    
     [newPersona saveInBackgroundWithBlock:completion];
+    [[PFUser currentUser] saveInBackgroundWithBlock:completion];
 }
 
 - (void) updatePreferences:(NSArray *)preferences {

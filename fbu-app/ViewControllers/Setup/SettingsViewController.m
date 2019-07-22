@@ -284,7 +284,7 @@
 - (void)goToTimeline {
     [self setFieldInformation];
     
-    [self performSegueWithIdentifier:@"toTimeline" sender:self];
+    [self performSegueWithIdentifier:@"toTimelineTabBar" sender:self];
 }
 
 - (void)setFieldInformation {

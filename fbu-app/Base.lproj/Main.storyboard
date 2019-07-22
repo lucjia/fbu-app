@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jOV-Eg-dHQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0dj-6j-6FU">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -563,6 +563,9 @@
                                 <rect key="frame" x="311" y="775" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Continue"/>
+                                <connections>
+                                    <segue destination="jOV-Eg-dHQ" kind="presentation" identifier="toTimelineTabBar" id="r8G-HW-CLB"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y24-5j-YDu">
                                 <rect key="frame" x="155" y="502" width="116" height="30"/>
@@ -620,7 +623,6 @@
                         <outlet property="userLocationButton" destination="Y24-5j-YDu" id="5on-mn-6us"/>
                         <outlet property="userPreferencesButton" destination="Ual-aL-KJL" id="H0F-uO-ABh"/>
                         <segue destination="sg7-0I-vg5" kind="show" identifier="toLocation" id="PC2-ht-tZF"/>
-                        <segue destination="Tn6-3v-suY" kind="show" identifier="toTimeline" id="BKx-BS-alv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZI-zy-JfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -648,8 +650,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="PC2-ht-tZF"/>
         <segue reference="sAA-b7-1El"/>
-        <segue reference="p1c-OD-bjk"/>
         <segue reference="N8j-jp-Paw"/>
     </inferredMetricsTieBreakers>
 </document>
