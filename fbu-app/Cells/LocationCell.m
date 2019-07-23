@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSDictionary *location;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *categoryImageView;
 
 @end
 
@@ -33,7 +34,7 @@
 - (void)updateWithLocation:(NSDictionary *)location {
     self.nameLabel.text = location[@"name"];
     self.addressLabel.text = [location valueForKeyPath:@"location.address"];
-    
+
     NSArray *categories = location[@"categories"];
     if (categories && categories.count > 0) {
         NSDictionary *category = categories[0];
@@ -41,8 +42,8 @@
         NSString *urlSuffix = [category valueForKeyPath:@"icon.suffix"];
         NSString *urlString = [NSString stringWithFormat:@"%@bg_32%@", urlPrefix, urlSuffix];
         
-//        NSURL *url = [NSURL URLWithString:urlString];
-//        [self.categoryImageView setImageWithURL:url];
+        NSURL *url = [NSURL URLWithString:urlString];
+        [self.categoryImageView setImageWithURL:url];
     }
 }
 

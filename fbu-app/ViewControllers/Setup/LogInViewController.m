@@ -9,14 +9,17 @@
 #import "LogInViewController.h"
 #import "RegisterViewController.h"
 #import "SettingsViewController.h"
+#import "TimelineViewController.h"
 #import "Parse/Parse.h"
+#import "CustomButton.h"
 
 @interface LogInViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UILabel *logInLabel;
-@property (weak, nonatomic) IBOutlet UIButton *logInButton;
+@property (strong, nonatomic) UIButton *logInButton;
+@property (strong, nonatomic) UIButton *registerButton;
 
 @end
 
@@ -26,7 +29,7 @@
     [super viewDidLoad];
     [self createUsernameField];
     [self createPasswordField];
-    [self createLogInButton];
+    [self createLogInRegisterButtons];
     [self createLabel];
 }
 
@@ -43,12 +46,15 @@
     self.passwordField.secureTextEntry = YES;
 }
 
-- (void) createLogInButton {
-    self.logInButton.backgroundColor = [UIColor lightGrayColor];
-    self.logInButton.tintColor = [UIColor whiteColor];
-    self.logInButton.layer.cornerRadius = 6;
-    self.logInButton.clipsToBounds = YES;
+- (void) createLogInRegisterButtons {
+    CustomButton *button = [[CustomButton alloc] init];
+    self.logInButton = [button styledBackgroundButtonWithOrigin:CGPointMake(160, 500) text:@"Log In"];
     [self.logInButton addTarget:self action:@selector(logInUser) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.logInButton];
+    
+    self.registerButton = [button styledBackgroundButtonWithOrigin:CGPointMake(160, 600) text:@"Register Here"];
+    [self.registerButton addTarget:self action:@selector(segueToRegister) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.registerButton];
 }
 
 - (void) createLabel {
@@ -81,6 +87,10 @@
             [self performSegueWithIdentifier:@"toMain" sender:self];
         }
     }];
+}
+
+- (void)segueToRegister {
+    [self performSegueWithIdentifier:@"toRegister" sender:self];
 }
 
 // Dismiss keyboard after typing

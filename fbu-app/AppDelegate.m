@@ -36,14 +36,13 @@
     
     [Parse initializeWithConfiguration:config];
     
-//    // Initialize Google Maps API
-//    [GMSServices provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
-//    [GMSPlacesClient provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
-    
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingTabBarController"];
+//        self.window.backgroundColor = [UIColor whiteColor];
+//        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
+//        self.window.rootViewController = settingsVC;
     }
     
     return YES;
