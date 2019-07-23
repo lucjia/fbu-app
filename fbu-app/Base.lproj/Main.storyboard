@@ -310,6 +310,52 @@
                                             <outlet property="addressLabel" destination="wXZ-al-OBv" id="Qcw-v6-z03"/>
                                             <outlet property="categoryImageView" destination="EDE-t3-8xO" id="xTp-te-9cL"/>
                                             <outlet property="nameLabel" destination="GdH-7Z-wmY" id="Izb-Ux-aBk"/>
+        <!--Housemates View Controller-->
+        <scene sceneID="HjP-HW-dWn">
+            <objects>
+                <viewController id="ea6-rB-Z5q" customClass="HousematesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6Zm-fh-GfX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EOA-0o-M1s">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainRoomateCell" rowHeight="236" id="l6h-PD-M3Z" customClass="PlainRoomateCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="236"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l6h-PD-M3Z" id="ao9-HY-hKK">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="235.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-Gb-lN8">
+                                                    <rect key="frame" x="28" y="19" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="Dyo-W1-Rqr"/>
+                                                        <constraint firstAttribute="height" constant="60" id="pvc-mH-VP8"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxh-br-iJj">
+                                                    <rect key="frame" x="96" y="37" width="290" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="nxh-br-iJj" secondAttribute="trailing" constant="8" id="Btd-80-o4N"/>
+                                                <constraint firstItem="nxh-br-iJj" firstAttribute="centerY" secondItem="9ba-Gb-lN8" secondAttribute="centerY" id="Ze4-Ho-ZD1"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="9ba-Gb-lN8" secondAttribute="bottom" constant="8" id="cpC-ur-xjg"/>
+                                                <constraint firstItem="nxh-br-iJj" firstAttribute="leading" secondItem="9ba-Gb-lN8" secondAttribute="trailing" constant="8" id="dRn-SC-ZXd"/>
+                                                <constraint firstItem="9ba-Gb-lN8" firstAttribute="top" secondItem="ao9-HY-hKK" secondAttribute="topMargin" constant="8" id="iXF-0m-Fv3"/>
+                                                <constraint firstItem="9ba-Gb-lN8" firstAttribute="leading" secondItem="ao9-HY-hKK" secondAttribute="leadingMargin" constant="8" id="us7-CE-9Wx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="nxh-br-iJj" id="dMu-yV-med"/>
+                                            <outlet property="profileView" destination="9ba-Gb-lN8" id="yfa-k3-fkJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -335,6 +381,19 @@
             <point key="canvasLocation" x="3508.6956521739135" y="156.69642857142856"/>
         </scene>
         <!--Item-->
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="GVu-Ad-OMf"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="EOA-0o-M1s" id="OPv-0S-LJj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bfF-Vg-Ymy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1943.4782608695655" y="864.50892857142856"/>
+        </scene>
+        <!--Navigation Controller-->
         <scene sceneID="jk8-fQ-sLe">
             <objects>
                 <navigationController storyboardIdentifier="TimelineNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Tn6-3v-suY" sceneMemberID="viewController">
