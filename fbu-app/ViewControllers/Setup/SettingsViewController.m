@@ -10,6 +10,7 @@
 #import "LocationViewController.h"
 #import "PreferencesViewController.h"
 #import "LogInViewController.h"
+//#import "Persona.h"
 #import "Parse/Parse.h"
 
 @interface SettingsViewController () <UITextViewDelegate>
@@ -25,6 +26,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIButton *logOutButton;
+
+@property (strong, nonatomic) NSString *firstName;
+@property (strong, nonatomic) NSString *lastName;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
+@property (strong, nonatomic) PFGeoPoint *location;
 
 @end
 
@@ -75,7 +82,7 @@
 - (void) createCityField {
     self.cityField.delegate = self;
     self.cityField.borderStyle = UITextBorderStyleRoundedRect;
-    self.cityField.placeholder = @"City, State (ex: San Francisco, CA)";
+    self.cityField.placeholder = @"City, State (ex: Seattle, WA)";
     NSString *existingCity = [[PFUser currentUser][@"city"] stringByAppendingString:@", "];
     NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"state"]];
     self.cityField.text = existingState;
@@ -271,37 +278,71 @@
 }
 
 - (void)goToTimeline {
+    // set information in User
     [self setFieldInformation];
+    // set information in Persona
+//    Persona *persona = [[Persona alloc] init];
+//    [persona createPersona:self.firstName, self.lastName, self.resizedImage, self.city, self.state, [PFUser currentUser][@"location"]];
     [self performSegueWithIdentifier:@"toTimeline" sender:self];
 }
 
 - (void)setFieldInformation {
     // set Full name and City
     // Make this robust by creating restrictions if the text field is empty, only one name, etc.
-    if (![self.fullNameField.text isEqualToString:@""]) {
+    if (![self.fullNameField.text isEqualToString:@""] && [[self.fullNameField.text componentsSeparatedByString:@" "] count] == 2) {
         NSArray *nameSections = [self.fullNameField.text componentsSeparatedByString:@" "];
-        NSString *firstName = [nameSections objectAtIndex:0];
-        NSString *lastName = [nameSections objectAtIndex:1];
-        [[PFUser currentUser] setObject:firstName forKey:@"firstName"];
+        self.firstName = [nameSections objectAtIndex:0];
+        self.lastName = [nameSections objectAtIndex:1];
+        [[PFUser currentUser] setObject:self.firstName forKey:@"firstName"];
         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         }];
         
-        [[PFUser currentUser] setObject:lastName forKey:@"lastName"];
+        [[PFUser currentUser] setObject:self.lastName forKey:@"lastName"];
         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         }];
+    } else {
+        // Create alert
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid Name"
+                                                                       message:@"Please enter your first and last name."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        // Create a dismiss action
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     
-    if (![self.cityField.text isEqualToString:@""]) {
+    if (![self.cityField.text isEqualToString:@""] && [[self.cityField.text componentsSeparatedByString:@", "] count] == 2) {
         NSArray *citySections = [self.cityField.text componentsSeparatedByString:@", "];
-        NSString *city = [citySections objectAtIndex:0];
-        NSString *state = [citySections objectAtIndex:1];
-        [[PFUser currentUser] setObject:city forKey:@"city"];
+        self.city = [citySections objectAtIndex:0];
+        self.state = [citySections objectAtIndex:1];
+        [[PFUser currentUser] setObject:self.city forKey:@"city"];
         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         }];
         
-        [[PFUser currentUser] setObject:state forKey:@"state"];
+        [[PFUser currentUser] setObject:self.state forKey:@"state"];
         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         }];
+    } else {
+        // Create alert
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid City"
+                                                                       message:@"Please enter a city (ex: Seattle, WA)."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        // Create a dismiss action
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
