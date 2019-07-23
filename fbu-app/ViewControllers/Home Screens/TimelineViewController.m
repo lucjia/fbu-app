@@ -83,7 +83,7 @@
     RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomateCell"];
     cell.delegate = self;
     
-    PFUser *user = self.userArray[indexPath.row];
+    Persona *user = self.userArray[indexPath.row];
     
     [cell updateProperties:user];
     

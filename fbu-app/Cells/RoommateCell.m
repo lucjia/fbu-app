@@ -9,10 +9,11 @@
 #import "RoommateCell.h"
 #import <Parse/Parse.h>
 #import "Request.h"
+#import "Persona.h"
 
 @interface RoommateCell()
 
-@property (strong, nonatomic) PFUser *userInCell;
+@property (strong, nonatomic) Persona *userInCell;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
@@ -36,19 +37,21 @@
     // Configure the view for the selected state
 }
 
-- (void)updateProperties:(PFUser *)user {
-    NSData *imageData = [[user objectForKey:@"profileImage"] getData];
+- (void)updateProperties:(Persona *)persona {
+    NSData *imageData = [[persona objectForKey:@"profileImage"] getData];
     self.profileImage.image = [[UIImage alloc] initWithData:imageData];
     
-    self.usernameLabel.text = [user objectForKey:@"username"];
-    self.bioLabel.text = [user objectForKey:@"bio"];
-    self.userInCell = user;
+    self.usernameLabel.text = [persona objectForKey:@"username"];
+    self.bioLabel.text = [persona objectForKey:@"bio"];
+    self.userInCell = persona;
 }
 
 - (IBAction)didTapSendRequest:(id)sender {
     if (PFUser.currentUser) {
-        NSMutableArray *requestsSent = [PFUser.currentUser objectForKey:@"requestsSent"];
-        PFUser *receiver = self.userInCell;
+        Persona *senderPersona = [[PFUser currentUser] objectForKey:@"persona"];
+        NSMutableArray *requestsSent = [senderPersona objectForKey:@"requestsSent"];
+        Persona *receiverPersona = self.userInCell;
+        [receiverPersona fetchIfNeeded];
         
          //BOOL b = [[PFUser currentUser] isAuthenticated];
         if (requestsSent == nil) {
@@ -56,16 +59,16 @@
         }
         
         // if the user has not already sent a request to the user who they are trying to send a request to
-        if (![requestsSent containsObject:receiver.objectId]) {
+        if (![requestsSent containsObject:receiverPersona]) {
             //add userId to array
-            [requestsSent insertObject:receiver.objectId atIndex:0];
-            [[PFUser currentUser] setObject:requestsSent forKey:@"requestsSent"];
-            [Request createRequest:self.userInCell withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            [requestsSent insertObject:receiverPersona atIndex:0];
+            [senderPersona setObject:requestsSent forKey:@"requestsSent"];
+            [Request createRequest:receiverPersona withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (error) {
                     NSLog(@"%@", error.localizedDescription);
                 }
             }];
-            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            [senderPersona saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (error) {
                     NSLog(@"%@", error.localizedDescription);
                 }
