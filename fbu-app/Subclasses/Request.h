@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) PFUser *requestSender;
 @property (strong, nonatomic) PFUser *requestReceiver;
 
-+ (void) createRequest:(PFUser *)receiver withCompletion:(PFBooleanResultBlock  _Nullable)completion;
++ (void) createRequest:(PFUser *)receiver withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

@@ -498,7 +498,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fay-Rl-Pi3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="fay-Rl-Pi3">
                                 <rect key="frame" x="143" y="125" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -508,9 +508,9 @@
                                 <state key="normal" title="Change Profile Picture"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dy5-In-iWy">
-                                <rect key="frame" x="311" y="775" width="62" height="30"/>
+                                <rect key="frame" x="293" y="775" width="98" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Continue"/>
+                                <state key="normal" title="Save Changes"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y24-5j-YDu">
                                 <rect key="frame" x="155" y="502" width="116" height="30"/>
@@ -579,8 +579,11 @@
             <point key="canvasLocation" x="4291" y="-581"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="profileImage" width="1246" height="1164"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RhC-Gh-GBW"/>
+        <segue reference="YiT-MX-4JD"/>
         <segue reference="dbJ-VM-uVd"/>
     </inferredMetricsTieBreakers>
 </document>

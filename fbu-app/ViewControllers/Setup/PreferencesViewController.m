@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initTableView];
-    [self createDictionary];
+    [self createUserPreferencesDictionary];
     [self createSetPreferencesButton];
     
     // Initialize UserPreferences array
@@ -80,7 +80,7 @@
     return self.preferences.count;
 }
 
-- (void) createDictionary {
+- (void) createUserPreferencesDictionary {
     // Create Dictionary of preferences
     self.preferencesSmoke = [NSMutableArray arrayWithObjects: @"No", @"Yes", nil];
     self.preferencesSmokeQ = [NSDictionary dictionaryWithObject:@"Do you smoke?" forKey:self.preferencesSmoke];
@@ -133,6 +133,11 @@
             alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
             [self presentViewController:alert animated:YES completion:nil];
         }
+    }];
+    
+    // Save in persona
+    [[PFUser currentUser][@"persona"] setObject:self.userPreferences forKey:@"preferences"];
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     }];
 }
 

@@ -33,22 +33,31 @@
  send and receive requests
  */
 
-+ (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion {
++ (void) createPersonaWithCompletion:(PFBooleanResultBlock  _Nullable)completion {
     Persona *newPersona = [Persona new];
     newPersona.user = [PFUser currentUser];
-    newPersona.username = [PFUser currentUser][@"username"];
-    newPersona.firstName = first;
-    newPersona.lastName = last;
-    newPersona.bio = bio;
-    newPersona.profileImage = [self getPFFileFromImage:image];
-    newPersona.city = city;
-    newPersona.state = state;
-    newPersona.geoPoint = loc;
-    newPersona.preferences = [[NSMutableArray alloc] init];
-    
     [[PFUser currentUser] setObject:newPersona forKey:@"persona"];
     
     [newPersona saveInBackgroundWithBlock:completion];
+    [[PFUser currentUser] saveInBackgroundWithBlock:completion];
+}
+
++ (void) setPersona:(NSString *)first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion {
+    Persona *updatedPersona = [PFUser currentUser][@"persona"];
+    updatedPersona.user = [PFUser currentUser];
+    updatedPersona.username = [PFUser currentUser][@"username"];
+    updatedPersona.firstName = first;
+    updatedPersona.lastName = last;
+    updatedPersona.bio = bio;
+    updatedPersona.profileImage = [self getPFFileFromImage:image];
+    updatedPersona.city = city;
+    updatedPersona.state = state;
+    updatedPersona.geoPoint = loc;
+    updatedPersona.preferences = [[NSMutableArray alloc] init];
+    
+    [[PFUser currentUser][@"persona"] setObject:updatedPersona forKey:@"persona"];
+    
+    [updatedPersona saveInBackgroundWithBlock:completion];
     [[PFUser currentUser] saveInBackgroundWithBlock:completion];
 }
 

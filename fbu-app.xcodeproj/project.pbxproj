@@ -24,6 +24,7 @@
 		85729DC122E62ED5009AD717 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC022E62ED5009AD717 /* CustomButton.m */; };
 		85729DC422E652A7009AD717 /* CustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC322E652A7009AD717 /* CustomLabel.m */; };
 		85729DC722E68BE0009AD717 /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC622E68BE0009AD717 /* Persona.m */; };
+		85729DCA22E76EFA009AD717 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC922E76EFA009AD717 /* Reminder.m */; };
 		85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A13F22DD214D006C1F38 /* AppDelegate.m */; };
 		85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A14222DD214D006C1F38 /* TimelineViewController.m */; };
 		85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85E7A14422DD214D006C1F38 /* Main.storyboard */; };
@@ -92,6 +93,8 @@
 		85729DC322E652A7009AD717 /* CustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomLabel.m; sourceTree = "<group>"; };
 		85729DC522E68BE0009AD717 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
 		85729DC622E68BE0009AD717 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
+		85729DC822E76EFA009AD717 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
+		85729DC922E76EFA009AD717 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -170,6 +173,8 @@
 				85729DC322E652A7009AD717 /* CustomLabel.m */,
 				85729DC522E68BE0009AD717 /* Persona.h */,
 				85729DC622E68BE0009AD717 /* Persona.m */,
+				85729DC822E76EFA009AD717 /* Reminder.h */,
+				85729DC922E76EFA009AD717 /* Reminder.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -573,6 +578,7 @@
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
+				85729DCA22E76EFA009AD717 /* Reminder.m in Sources */,
 				85E7A17822DE3B24006C1F38 /* RegisterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
