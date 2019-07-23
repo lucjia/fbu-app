@@ -11,10 +11,10 @@
 #import "RoommateCell.h"
 #import "User.h"
 #import "House.h"
-
+#import "Persona.h"
 #import "DetailsViewController.h"
 
-@interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource, RoommateCellDelegate>
 
 @property (strong, nonatomic) NSArray *userArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -36,12 +36,19 @@
 
 - (void) fetchUserTimeline {
     // construct query
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    [query whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
+    PFQuery *query = [PFQuery queryWithClassName:@"Persona"];
     
-    PFGeoPoint *userGeoPoint = [[PFUser currentUser] objectForKey:@"location"];
+    [query includeKey:@"persona"];
+    [query includeKey:@"geoPoint"];
+    
+    Persona *persona = [PFUser currentUser][@"persona"];
+    [persona fetchIfNeeded];
+    // query excludes current user
+    [query whereKey:@"objectId" notEqualTo:persona.objectId];
+    
+    PFGeoPoint *userGeoPoint = [persona objectForKey:@"geoPoint"];
     // limit to users that are near current user
-    [query whereKey:@"location" nearGeoPoint:userGeoPoint withinMiles:12.0];
+    [query whereKey:@"geoPoint" nearGeoPoint:userGeoPoint withinMiles:12.0];
     
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"firstName"];
@@ -49,6 +56,8 @@
     [query includeKey:@"username"];
     [query includeKey:@"createdAt"];
     [query includeKey:@"location"];
+    [query includeKey:@"persona"];
+    [query includeKey:@"geoPoint"];
     
     query.limit = 20;
     
@@ -64,10 +73,17 @@
     }];
 }
 
+- (void)showAlertOnTimeline:(nonnull UIAlertController *)alert {
+    [self presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+    }];
+}
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomateCell"];
+    cell.delegate = self;
     
-    PFUser *user = self.userArray[indexPath.row];
+    Persona *user = self.userArray[indexPath.row];
     
     [cell updateProperties:user];
     

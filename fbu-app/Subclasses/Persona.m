@@ -6,6 +6,11 @@
 //  Copyright © 2019 lucjia. All rights reserved.
 //
 
+/*
+ The purpose of this class is to allow for a reference to the user
+ to be maintained without directly including any sensitive information
+ */
+
 #import "Persona.h"
 #import "House.h"
 
@@ -22,6 +27,9 @@
 @dynamic geoPoint;
 @dynamic preferences;
 @dynamic house;
+@dynamic requestsSent;
+@dynamic requestsReceived;
+@dynamic acceptedRequests;
 
 + (nonnull NSString *)parseClassName {
     return @"Persona";
@@ -45,6 +53,9 @@
     newPersona.state = state;
     newPersona.geoPoint = loc;
     newPersona.preferences = [[NSMutableArray alloc] init];
+    newPersona.requestsSent = [[NSMutableArray alloc] init];
+    newPersona.requestsReceived = [[NSMutableArray alloc] init];
+    newPersona.acceptedRequests = [[NSMutableArray alloc] init];
     
     [[PFUser currentUser] setObject:newPersona forKey:@"persona"];
     
@@ -71,5 +82,5 @@
     
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
-
+                               
 @end

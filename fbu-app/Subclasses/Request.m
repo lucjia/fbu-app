@@ -7,20 +7,21 @@
 //
 
 #import "Request.h"
+#import "Persona.h"
 
 @implementation Request
 
-@dynamic requestSender;
-@dynamic requestReceiver;
+@dynamic sender;
+@dynamic receiver;
 
 + (nonnull NSString *)parseClassName {
     return @"Request";
 }
 
-+ (void) createRequest:(PFUser *)receiver withCompletion:(PFBooleanResultBlock  _Nullable)completion {
++ (void) createRequest:(Persona *)receiver withCompletion:(PFBooleanResultBlock  _Nullable)completion {
     Request *newRequest = [Request new];
-    newRequest.requestSender = [PFUser currentUser];
-    newRequest.requestReceiver = receiver;
+    newRequest.sender = [[PFUser currentUser] objectForKey:@"persona"];
+    newRequest.receiver = receiver;
     
     [newRequest saveInBackgroundWithBlock:completion];
 }
