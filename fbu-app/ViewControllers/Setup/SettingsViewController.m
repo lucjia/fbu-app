@@ -10,18 +10,30 @@
 #import "LocationViewController.h"
 #import "PreferencesViewController.h"
 #import "LogInViewController.h"
+#import "Persona.h"
 #import "Parse/Parse.h"
 
 @interface SettingsViewController () <UITextViewDelegate>
 
-@property (strong, nonatomic) UIImageView *profileImageView;
-@property (strong, nonatomic) UIButton *changeProfileButton;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UIButton *changeProfileButton;
 @property (strong, nonatomic) UIImagePickerController *imagePickerVC;
-@property (strong, nonatomic) UIButton *userPreferencesButton;
-@property (strong, nonatomic) UIButton *userLocationButton;
-@property (strong, nonatomic) UITextView *bioTextView;
-@property (strong, nonatomic) UIButton *changeBioButton;
-@property (strong, nonatomic) UIButton *logOutButton;
+@property (weak, nonatomic) IBOutlet UITextField *fullNameField;
+@property (weak, nonatomic) IBOutlet UITextField *cityField;
+@property (weak, nonatomic) IBOutlet UIButton *userPreferencesButton;
+@property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
+@property (weak, nonatomic) IBOutlet UITextView *bioTextView;
+@property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
+@property (weak, nonatomic) IBOutlet UIButton *continueButton;
+@property (weak, nonatomic) IBOutlet UIButton *logOutButton;
+
+// For saving in Persona via persona method
+@property (strong, nonatomic) NSString *firstName;
+@property (strong, nonatomic) NSString *lastName;
+@property (strong, nonatomic) NSString *bio;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
+@property (strong, nonatomic) PFGeoPoint *location;
 
 @end
 
@@ -33,61 +45,68 @@
     self.user = [PFUser currentUser];
     [self createProfileImageView];
     [self createChangeProfileButton];
+    [self createFullNameField];
+    [self createCityField];
     [self createUserPreferencesButton];
     [self createUserLocationButton];
     [self createUserBioTextView];
     [self createChangeBioButton];
+    [self createContinueButton];
     [self createLogOutButton];
 }
 
 - (void) createProfileImageView {
-    self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(127.5f, 100, 120, 120)];
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
-    [self getProfilePicture];
+    NSData *imageData = [[[PFUser currentUser] objectForKey:@"profileImage"] getData];
+    self.profileImageView.image = [[UIImage alloc] initWithData:imageData];
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.profileImageView setBackgroundColor:[UIColor redColor]];
-    [self.view addSubview:self.profileImageView];
 }
 
 - (void) createChangeProfileButton {
-    self.changeProfileButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.changeProfileButton.frame = CGRectMake(137.5f, 240, 100.0f, 30.0f);
     self.changeProfileButton.backgroundColor = [UIColor lightGrayColor];
     self.changeProfileButton.tintColor = [UIColor whiteColor];
     self.changeProfileButton.layer.cornerRadius = 6;
     self.changeProfileButton.clipsToBounds = YES;
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
-    [self.changeProfileButton setTitle:@"Change Profile Picture" forState:UIControlStateNormal];
-    [self.view addSubview:self.changeProfileButton];
+}
+
+- (void) createFullNameField {
+    self.fullNameField.delegate = self;
+    self.fullNameField.borderStyle = UITextBorderStyleRoundedRect;
+    self.fullNameField.placeholder = @"Full Name";
+    NSString *firstName = [[PFUser currentUser][@"firstName"] stringByAppendingString:@" "];
+    NSString *fullName = [firstName stringByAppendingString:[PFUser currentUser][@"lastName"]];
+    self.fullNameField.text = fullName;
+}
+
+- (void) createCityField {
+    self.cityField.delegate = self;
+    self.cityField.borderStyle = UITextBorderStyleRoundedRect;
+    self.cityField.placeholder = @"City, State (ex: Seattle, WA)";
+    NSString *existingCity = [[PFUser currentUser][@"city"] stringByAppendingString:@", "];
+    NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"state"]];
+    self.cityField.text = existingState;
 }
 
 - (void) createUserPreferencesButton {
-    self.userPreferencesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.userPreferencesButton.frame = CGRectMake(137.5f, 300, 100.0f, 30.0f);
     self.userPreferencesButton.backgroundColor = [UIColor lightGrayColor];
     self.userPreferencesButton.tintColor = [UIColor whiteColor];
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
     [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
-    [self.userPreferencesButton setTitle:@"Change User Preferences" forState:UIControlStateNormal];
-    [self.view addSubview:self.userPreferencesButton];
 }
 
 - (void) createUserLocationButton {
-    self.userLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.userLocationButton.frame = CGRectMake(137.5f, 600, 100.0f, 30.0f);
     self.userLocationButton.backgroundColor = [UIColor lightGrayColor];
     self.userLocationButton.tintColor = [UIColor whiteColor];
     self.userLocationButton.layer.cornerRadius = 6;
     self.userLocationButton.clipsToBounds = YES;
     [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
-    [self.userLocationButton setTitle:@"Change Location" forState:UIControlStateNormal];
-    [self.view addSubview:self.userLocationButton];
 }
 
 - (void) createUserBioTextView {
-    self.bioTextView = [[UITextView alloc] initWithFrame:CGRectMake(125, 360, 200, 200)];
     self.bioTextView.text = [PFUser currentUser][@"bio"];
     if ([self.bioTextView.text isEqualToString:@""]) {
         self.bioTextView.text = @"Write a bio...";
@@ -97,31 +116,30 @@
     self.bioTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.bioTextView.layer.cornerRadius = 6;
     self.bioTextView.delegate = self;
-    [self.view addSubview:self.bioTextView];
 }
 
 - (void) createChangeBioButton {
-    self.changeBioButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.changeBioButton.frame = CGRectMake(137.5f, 50, 100.0f, 30.0f);
     self.changeBioButton.backgroundColor = [UIColor lightGrayColor];
     self.changeBioButton.tintColor = [UIColor whiteColor];
     self.changeBioButton.layer.cornerRadius = 6;
     self.changeBioButton.clipsToBounds = YES;
     [self.changeBioButton addTarget:self action:@selector(setBio) forControlEvents:UIControlEventTouchUpInside];
-    [self.changeBioButton setTitle:@"Change Bio" forState:UIControlStateNormal];
-    [self.view addSubview:self.changeBioButton];
+}
+
+- (void) createContinueButton {
+    self.continueButton.backgroundColor = [UIColor lightGrayColor];
+    self.continueButton.tintColor = [UIColor whiteColor];
+    self.continueButton.layer.cornerRadius = 6;
+    self.continueButton.clipsToBounds = YES;
+    [self.continueButton addTarget:self action:@selector(goToTimeline) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) createLogOutButton {
-    self.logOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.logOutButton.frame = CGRectMake(300, 800, 40, 30);
     self.logOutButton.backgroundColor = [UIColor lightGrayColor];
     self.logOutButton.tintColor = [UIColor whiteColor];
     self.logOutButton.layer.cornerRadius = 6;
     self.logOutButton.clipsToBounds = YES;
     [self.logOutButton addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
-    [self.logOutButton setTitle:@"Log Out" forState:UIControlStateNormal];
-    [self.view addSubview:self.logOutButton];
 }
 
 // Dismiss keyboard after typing
@@ -193,18 +211,6 @@
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             self.profileImageView.image = self.resizedImage;
-            [self getProfilePicture];
-        }
-    }];
-}
-
--(void)getProfilePicture {
-    [[PFUser currentUser][@"profilePicture"] getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
-        if (!error && imageData) {
-            //If there was no error with the internet request and some kind of data was returned, use that data to form the profile image with the handy method of UIImage.
-            
-            //Set the image view to the image with the data returned from Parse.
-            self.profileImageView.image = [UIImage imageWithData:imageData];
         } else {
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Photo Not Changed"
@@ -229,6 +235,8 @@
     [[PFUser currentUser] setObject:self.bioTextView.text forKey:@"bio"];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
+            self.bio = self.bioTextView.text;
+            
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Bio Changed"
                                                                            message:@"Your bio has been changed."
@@ -265,15 +273,80 @@
 
 // Set User Location
 - (void)setLocation {
-    LocationViewController *locationVC = [[LocationViewController alloc] init];
-    // Any setup
-    [self presentViewController:locationVC animated:YES completion:nil];
+    [self setFieldInformation];
+    [self performSegueWithIdentifier:@"toLocation" sender:self];
 }
 
 - (void)setPreferences {
-    PreferencesViewController *preferencesVC = [[PreferencesViewController alloc] init];
-    // Any setup
-    [self presentViewController:preferencesVC animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"toPreferences" sender:self];
+}
+
+- (void)goToTimeline {
+    // set information in User
+    [self setFieldInformation];
+    // set information in Persona
+    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.resizedImage city:self.city state:self.state location:[PFUser currentUser][@"location"] withCompletion:nil];
+    [self performSegueWithIdentifier:@"toTimeline" sender:self];
+}
+
+- (void)setFieldInformation {
+    // set Full name and City
+    // Make this robust by creating restrictions if the text field is empty, only one name, etc.
+    if (![self.fullNameField.text isEqualToString:@""] && [[self.fullNameField.text componentsSeparatedByString:@" "] count] == 2) {
+        NSArray *nameSections = [self.fullNameField.text componentsSeparatedByString:@" "];
+        self.firstName = [nameSections objectAtIndex:0];
+        self.lastName = [nameSections objectAtIndex:1];
+        [[PFUser currentUser] setObject:self.firstName forKey:@"firstName"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+        
+        [[PFUser currentUser] setObject:self.lastName forKey:@"lastName"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+    } else {
+        // Create alert
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid Name"
+                                                                       message:@"Please enter your first and last name."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        // Create a dismiss action
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
+    if (![self.cityField.text isEqualToString:@""] && [[self.cityField.text componentsSeparatedByString:@", "] count] == 2) {
+        NSArray *citySections = [self.cityField.text componentsSeparatedByString:@", "];
+        self.city = [citySections objectAtIndex:0];
+        self.state = [citySections objectAtIndex:1];
+        [[PFUser currentUser] setObject:self.city forKey:@"city"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+        
+        [[PFUser currentUser] setObject:self.state forKey:@"state"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+    } else {
+        // Create alert
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid City"
+                                                                       message:@"Please enter a city (ex: Seattle, WA)."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        // Create a dismiss action
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void) logOut {
@@ -282,7 +355,7 @@
     }];
     
     // Set root view controller to be log in screen
-    LogInViewController *logInVC = [[LogInViewController alloc] init];
+    LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
     [self presentViewController:logInVC animated:YES completion:nil];
 }
 

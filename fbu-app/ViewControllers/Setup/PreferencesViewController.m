@@ -18,9 +18,11 @@
 @property (strong, nonatomic) NSDictionary *preferencesSmokeQ;
 @property (strong, nonatomic) NSDictionary *preferencesTimeQ;
 @property (strong, nonatomic) NSDictionary *preferencesCleanQ;
+@property (strong, nonatomic) NSDictionary *preferencesHouseQ;
 @property (strong, nonatomic) NSMutableArray *preferencesSmoke;
 @property (strong, nonatomic) NSMutableArray *preferencesTime;
 @property (strong, nonatomic) NSMutableArray *preferencesClean;
+@property (strong, nonatomic) NSMutableArray *preferencesHouse;
 @property (strong, nonatomic) NSMutableArray *userPreferences;
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) UIButton *submitButton;
@@ -86,7 +88,9 @@
     self.preferencesTimeQ = [NSDictionary dictionaryWithObject:@"Are you an early bird or night owl?" forKey:self.preferencesTime];
     self.preferencesClean = [NSMutableArray arrayWithObjects:@"Neat", @"Messy", @"In Between", nil];
     self.preferencesCleanQ = [NSDictionary dictionaryWithObject:@"Are you neat or messy?" forKey:self.preferencesClean];
-    self.preferences = [NSMutableArray arrayWithObjects:self.preferencesSmokeQ, self.preferencesTimeQ, self.preferencesCleanQ, nil];
+    self.preferencesHouse = [NSMutableArray arrayWithObjects:@"Yes", @"No", nil];
+    self.preferencesHouseQ = [NSDictionary dictionaryWithObject:@"Are you looking for a house?" forKey:self.preferencesHouse];
+    self.preferences = [NSMutableArray arrayWithObjects:self.preferencesSmokeQ, self.preferencesTimeQ, self.preferencesCleanQ, self.preferencesHouseQ, nil];
 }
 
 - (void) createSetPreferencesButton {
@@ -122,9 +126,7 @@
             UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
                                                                     style:UIAlertActionStyleCancel
                                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                                      // Go back to Settings
-                                                                      SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-                                                                      [self presentViewController:settingsVC animated:YES completion:nil];
+                                                                      [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];

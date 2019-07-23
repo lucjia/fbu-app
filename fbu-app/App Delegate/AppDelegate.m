@@ -36,38 +36,13 @@
     
     [Parse initializeWithConfiguration:config];
     
-//    // Initialize Google Maps API
-//    [GMSServices provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
-//    [GMSPlacesClient provideAPIKey:@"AIzaSyBii9SGFD6Hih4gd4PINM_tUKLjmETAmUU"];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-//    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
-//    self.window.rootViewController = registerVC;
-    LogInViewController *logInVC = [[LogInViewController alloc] init];
-    self.window.rootViewController = logInVC;
-
-    [self.window makeKeyAndVisible];
-
-//    // set initial vc
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//
-//    // Override point for customization after application launch
-//    self.window.backgroundColor = [UIColor redColor];
-//
-//    TimelineViewController *viewController = [[TimelineViewController alloc] init];
-//
-//    self.window.rootViewController = viewController;
-//
-//    [self.window makeKeyAndVisible];
-    
-
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
-        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-        self.window.rootViewController = settingsVC;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingTabBarController"];
+//        self.window.backgroundColor = [UIColor whiteColor];
+//        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
+//        self.window.rootViewController = settingsVC;
     }
     
     return YES;
