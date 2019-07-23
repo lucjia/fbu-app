@@ -50,8 +50,6 @@
             // do something with the array of object returned by the call
             self.sendersArray = [NSMutableArray arrayWithArray:requests];
             [self.tableView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
         }
     }];
 }
@@ -83,16 +81,19 @@
     Persona *receiverPersona = [[PFUser currentUser] objectForKey:@"persona"];
     NSMutableArray *acceptedRequests = [NSMutableArray arrayWithArray:[receiverPersona objectForKey:@"acceptedRequests"]];
     
-    [senderAcceptedRequests insertObject:receiverPersona atIndex:0];
-    senderPersona.acceptedRequests = senderAcceptedRequests;
-    [senderPersona saveInBackground];
-    
-    [acceptedRequests insertObject:senderPersona atIndex:0];
-    receiverPersona.acceptedRequests = acceptedRequests;
-    [receiverPersona saveInBackground];
+    if (receiverPersona) {
+        [senderAcceptedRequests insertObject:receiverPersona atIndex:0];
+        senderPersona.acceptedRequests = senderAcceptedRequests;
+        [senderPersona saveInBackground];
+    }
+    if (senderPersona) {
+        [acceptedRequests insertObject:senderPersona atIndex:0];
+        receiverPersona.acceptedRequests = acceptedRequests;
+        [receiverPersona saveInBackground];
+    }
     
     // remove from table view
-    //[self declineRequest:request];
+    [self declineRequest:request];
 }
 
 // removes request sent to current user from tableView
