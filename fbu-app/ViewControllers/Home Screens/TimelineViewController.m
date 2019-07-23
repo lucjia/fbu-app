@@ -37,13 +37,18 @@
 - (void) fetchUserTimeline {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Persona"];
-    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    
+    [query includeKey:@"persona"];
+    [query includeKey:@"geoPoint"];
+    
+    Persona *persona = [PFUser currentUser][@"persona"];
+    [persona fetchIfNeeded];
     // query excludes current user
     [query whereKey:@"objectId" notEqualTo:persona.objectId];
     
-    //PFGeoPoint *userGeoPoint = [[[PFUser currentUser] objectForKey:@"persona"] objectForKey:@"geoPoint"];
+    PFGeoPoint *userGeoPoint = [persona objectForKey:@"geoPoint"];
     // limit to users that are near current user
-    //[query whereKey:@"geoPoint" nearGeoPoint:userGeoPoint withinMiles:12.0];
+    [query whereKey:@"geoPoint" nearGeoPoint:userGeoPoint withinMiles:12.0];
     
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"firstName"];
@@ -52,6 +57,7 @@
     [query includeKey:@"createdAt"];
     [query includeKey:@"location"];
     [query includeKey:@"persona"];
+    [query includeKey:@"geoPoint"];
     
     query.limit = 20;
     
