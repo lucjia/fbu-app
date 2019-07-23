@@ -11,6 +11,7 @@
 #import "Request.h"
 #import "RequestCell.h"
 #import "DetailsViewController.h"
+#import "Persona.h"
 
 @interface RequestsViewController () <UITableViewDelegate, UITableViewDataSource, RequestCellDelegate>
 
@@ -39,6 +40,7 @@
     [query includeKey:@"requestSender"];
     [query includeKey:@"requestReceiver"];
     [query includeKey:@"acceptedRequests"];
+    [query includeKey:@"persona"];
     
     query.limit = 20;
     
@@ -72,42 +74,25 @@
 }
 
 - (void)acceptRequest:(nonnull Request *)request {
-    // add to accepted requests array
-    NSMutableArray *acceptedRequests = [NSMutableArray arrayWithArray:[PFUser.currentUser objectForKey:@"acceptedRequests"]];
-    
-    if (acceptedRequests == nil) {
-        acceptedRequests = [[NSMutableArray alloc] init];
-    }
-    
+    // sender of Request
     PFUser *requestSender = [request objectForKey:@"requestSender"];
-    PFUser *requestReceiver = [request objectForKey:@"requestReceiver"];
-    NSMutableArray *senderAcceptedRequests = [NSMutableArray arrayWithArray:[requestSender objectForKey:@"acceptedRequests"]];
+    Persona *senderPersona = [requestSender objectForKey:@"persona"];
+    [senderPersona fetchIfNeeded];
+    NSMutableArray *senderAcceptedRequests = [NSMutableArray arrayWithArray:[senderPersona objectForKey:@"acceptedRequests"]];
     
-    if (senderAcceptedRequests == nil) {
-        senderAcceptedRequests = [[NSMutableArray alloc] init];
-    }
+    Persona *receiverPersona = [[PFUser currentUser] objectForKey:@"persona"];
+    NSMutableArray *acceptedRequests = [NSMutableArray arrayWithArray:[receiverPersona objectForKey:@"acceptedRequests"]];
     
-    [acceptedRequests insertObject:requestSender.objectId atIndex:0];
+    [senderAcceptedRequests insertObject:receiverPersona atIndex:0];
+    senderPersona.acceptedRequests = senderAcceptedRequests;
+    [senderPersona saveInBackground];
     
-    [[PFUser currentUser] setObject:acceptedRequests forKey:@"acceptedRequests"];
-    
-    [senderAcceptedRequests insertObject:requestReceiver.objectId atIndex:0];
-    [requestSender setObject:senderAcceptedRequests forKey:@"acceptedRequests"];
-    
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"CURR: %@", error.localizedDescription);
-        }
-    }];
-    
-    [requestSender saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"SEND: %@", error.localizedDescription);
-        }
-    }];
+    [acceptedRequests insertObject:senderPersona atIndex:0];
+    receiverPersona.acceptedRequests = acceptedRequests;
+    [receiverPersona saveInBackground];
     
     // remove from table view
-    [self declineRequest:request];
+    //[self declineRequest:request];
 }
 
 // removes request sent to current user from tableView

@@ -49,15 +49,7 @@
 - (IBAction)didTapAccept:(id)sender {
     // procede to create household
     // call to delegate method in RequestsViewController
-    //[self.delegate acceptRequest:self.currentRequest];
-    PFGeoPoint *geo = [PFGeoPoint geoPointWithLatitude:12.0 longitude:11.0];
-    NSData *data = [[PFUser currentUser][@"profileImage"] getData];
-    UIImage *image = [UIImage imageWithData:data];
-    [Persona createPersona:@"raa" lastName:@"raa"  bio:@"raa" profileImage:image city:@"raa"  state:@"raa"  location:geo withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
+    [self.delegate acceptRequest:self.currentRequest];
 }
 
 - (IBAction)didTapDecline:(id)sender {
