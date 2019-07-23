@@ -10,7 +10,7 @@
 #import "LocationViewController.h"
 #import "PreferencesViewController.h"
 #import "LogInViewController.h"
-//#import "Persona.h"
+#import "Persona.h"
 #import "Parse/Parse.h"
 
 @interface SettingsViewController () <UITextViewDelegate>
@@ -27,8 +27,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIButton *logOutButton;
 
+// For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
+@property (strong, nonatomic) NSString *bio;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) PFGeoPoint *location;
@@ -233,6 +235,8 @@
     [[PFUser currentUser] setObject:self.bioTextView.text forKey:@"bio"];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
+            self.bio = self.bioTextView.text;
+            
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Bio Changed"
                                                                            message:@"Your bio has been changed."
@@ -281,8 +285,7 @@
     // set information in User
     [self setFieldInformation];
     // set information in Persona
-//    Persona *persona = [[Persona alloc] init];
-//    [persona createPersona:self.firstName, self.lastName, self.resizedImage, self.city, self.state, [PFUser currentUser][@"location"]];
+    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.resizedImage city:self.city state:self.state location:[PFUser currentUser][@"location"] withCompletion:nil];
     [self performSegueWithIdentifier:@"toTimeline" sender:self];
 }
 
