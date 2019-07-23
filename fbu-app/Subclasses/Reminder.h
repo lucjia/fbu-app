@@ -10,8 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Reminder : PFObject
-//<PFSubclassing>
+@interface Reminder : PFObject<PFSubclassing>
 
 @property (strong, nonatomic) PFUser *reminderSender;
 @property (strong, nonatomic) PFUser *reminderReceiver;
@@ -20,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSDate *reminderDueDate;
 
 // Make sure this is for the Persona
++ (void) createReminder:(PFUser *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

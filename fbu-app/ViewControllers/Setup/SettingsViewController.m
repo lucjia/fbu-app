@@ -371,9 +371,7 @@
 }
 
 - (void) logOut {
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        // PFUser.current() will now be nil
-    }];
+    [PFUser logOutInBackground];
     
     // Set root view controller to be log in screen
     LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];

@@ -7,6 +7,7 @@
 //
 
 #import "TimelineViewController.h"
+#import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "RoommateCell.h"
 #import "User.h"
@@ -76,6 +77,14 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section { 
     return self.userArray.count;
+}
+
+- (IBAction)didPressLogOut:(id)sender {
+    [PFUser logOutInBackground];
+    
+    // Set root view controller to be log in screen
+    LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
+    [self presentViewController:logInVC animated:YES completion:nil];
 }
 
 #pragma mark - Navigation

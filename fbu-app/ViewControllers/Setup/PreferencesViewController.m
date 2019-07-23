@@ -115,8 +115,9 @@
         [self.userPreferences addObject:[cell getChoice]];
     }
     
-    [[PFUser currentUser] setObject:self.userPreferences forKey:@"preferences"];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    // Save in persona, NOT user
+    [[PFUser currentUser][@"persona"] setObject:self.userPreferences forKey:@"preferences"];
+    [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Preferences Changed"
@@ -133,11 +134,6 @@
             alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
             [self presentViewController:alert animated:YES completion:nil];
         }
-    }];
-    
-    // Save in persona
-    [[PFUser currentUser][@"persona"] setObject:self.userPreferences forKey:@"preferences"];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     }];
 }
 
