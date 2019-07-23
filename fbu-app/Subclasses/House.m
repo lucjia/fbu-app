@@ -29,20 +29,20 @@
     }];
 }
 
-+ (void) addToHouse: (House * _Nullable )house {
+- (void) addToHouse: (House *)house {
     
     PFUser *user = PFUser.currentUser;
-    [house addUniqueObject:user.objectId forKey:@"housemates"];
-    [house saveInBackground];
+    [self addUniqueObject:user.objectId forKey:@"housemates"];
+    [self saveInBackground];
     
     [user setObject:house.objectId forKey:@"houseId"];
     [PFUser.currentUser saveInBackground];
 }
 
-+ (void) removeFromHouse {
+- (void) removeFromHouse {
     
     PFUser *user = PFUser.currentUser;
-
+    
     House *house = [self getHouse];
     [house removeObjectsInArray:[NSArray arrayWithObjects:user.objectId, nil] forKey:@"housemates"];
     [house saveInBackground];
@@ -58,6 +58,7 @@
     [query includeKey:@"housemates"];
     return [query getFirstObject];
 }
+
 
 
 @end
