@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "Persona.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RoommateCell : UITableViewCell
 
-- (void)updateProperties:(PFUser *)user;
+- (void)updateProperties:(Persona *)user;
 
 @property (nonatomic, weak) id<RoommateCellDelegate> delegate;
 
