@@ -7,15 +7,16 @@
 //
 
 #import <Parse/Parse.h>
+#import "Persona.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Request : PFObject<PFSubclassing>
 
-@property (strong, nonatomic) PFUser *requestSender;
-@property (strong, nonatomic) PFUser *requestReceiver;
+@property (strong, nonatomic) Persona *sender;
+@property (strong, nonatomic) Persona *receiver;
 
-+ (void) createRequest:(PFUser *)receiver withCompletion:(PFBooleanResultBlock _Nullable)completion;
++ (void) createRequest:(Persona *)receiver withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 
 @end
 

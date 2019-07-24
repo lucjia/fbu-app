@@ -19,11 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) PFFileObject *profileImage;
 @property (strong, nonatomic) NSString *bio;
-@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *city; // city they are looking for roommates in
 @property (strong, nonatomic) NSString *state;
-@property (strong, nonatomic) PFGeoPoint *geoPoint;
+@property (strong, nonatomic) PFGeoPoint *geoPoint; // longitude and latitude
 @property (strong, nonatomic) NSMutableArray *preferences;
 @property (strong, nonatomic) House *house;
+@property (strong, nonatomic) NSMutableArray *requestsSent; // by the user
+@property (strong, nonatomic) NSMutableArray *requestsReceived; // to the user
+@property (strong, nonatomic) NSMutableArray *acceptedRequests;
 
 + (void) createPersonaWithCompletion:(PFBooleanResultBlock  _Nullable)completion;
 

@@ -11,9 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol RoommateCellDelegate
+
+-(void)showAlertOnTimeline:(UIAlertController *)alert;
+
+@end
+
 @interface RoommateCell : UITableViewCell
 
 - (void)updateProperties:(PFUser *)user;
+
+@property (nonatomic, weak) id<RoommateCellDelegate> delegate;
 
 @end
 
