@@ -42,7 +42,14 @@
  */
 
 + (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion {
-    Persona *newPersona = [Persona new];
+    Persona *newPersona;
+    
+    if ([[PFUser currentUser] objectForKey:@"persona"] == nil) {
+        newPersona = [Persona new];
+    } else {
+        newPersona = [[PFUser currentUser] objectForKey:@"persona"];
+    }
+    
     newPersona.user = [PFUser currentUser];
     newPersona.username = [PFUser currentUser][@"username"];
     newPersona.firstName = first;
@@ -82,5 +89,14 @@
     
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
-                               
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[Persona class]]) {
+        Persona *persona = object;
+        return [self.objectId isEqual:persona.objectId];
+    } else {
+        return NO;
+    }
+}
+
 @end

@@ -44,7 +44,8 @@
     Persona *persona = [PFUser currentUser][@"persona"];
     [persona fetchIfNeeded];
     // query excludes current user
-    [query whereKey:@"objectId" notEqualTo:persona.objectId];
+    [query whereKey:@"username" notEqualTo:persona.username];
+    
     
     PFGeoPoint *userGeoPoint = [persona objectForKey:@"geoPoint"];
     // limit to users that are near current user
@@ -100,7 +101,7 @@
     if ([[segue identifier] isEqualToString:@"timelineToDetailsSegue"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        PFUser *user = self.userArray[indexPath.row];
+        Persona *user = self.userArray[indexPath.row];
         
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.user = user;

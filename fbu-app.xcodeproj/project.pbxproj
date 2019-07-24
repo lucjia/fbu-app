@@ -79,8 +79,8 @@
 		6429400222E277D600961F29 /* RequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		6429400422E2781200961F29 /* RequestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestCell.h; sourceTree = "<group>"; };
 		6429400522E2781200961F29 /* RequestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
-		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
-		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
+		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RulesViewController.h; path = Setup/RulesViewController.h; sourceTree = "<group>"; };
+		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RulesViewController.m; path = Setup/RulesViewController.m; sourceTree = "<group>"; };
 		6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsViewController.h; sourceTree = "<group>"; };
 		6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsViewController.m; sourceTree = "<group>"; };
 		6497FFB422E61F17002D1996 /* SentRequestsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsCell.h; sourceTree = "<group>"; };
@@ -205,13 +205,13 @@
 				85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */,
 				85E7A17F22DF9217006C1F38 /* LogInViewController.h */,
 				85E7A18022DF9217006C1F38 /* LogInViewController.m */,
-				6497FFAD22E28B5D002D1996 /* RulesViewController.h */,
-				6497FFAE22E28B5D002D1996 /* RulesViewController.m */,
+				85E7A18222DF9DA1006C1F38 /* LocationViewController.h */,
+				85E7A18322DF9DA1006C1F38 /* LocationViewController.m */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
 		};
-		64293FFD22E2618700961F29 /* Home Screens */ = {
+		64293FFD22E2618700961F29 /* HomeScreens */ = {
 			isa = PBXGroup;
 			children = (
 				85E7A14122DD214D006C1F38 /* TimelineViewController.h */,
@@ -223,7 +223,7 @@
 				6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */,
 				6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */,
 			);
-			path = "Home Screens";
+			path = HomeScreens;
 			sourceTree = "<group>";
 		};
 		6497FFB022E2AFA0002D1996 /* App Delegate */ = {
@@ -238,14 +238,14 @@
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				85E7A18222DF9DA1006C1F38 /* LocationViewController.h */,
-				85E7A18322DF9DA1006C1F38 /* LocationViewController.m */,
+				6497FFAD22E28B5D002D1996 /* RulesViewController.h */,
+				6497FFAE22E28B5D002D1996 /* RulesViewController.m */,
 				64293FFC22E2615E00961F29 /* Setup */,
-				64293FFD22E2618700961F29 /* Home Screens */,
 				85E7A18822DFD3F2006C1F38 /* PreferencesViewController.h */,
 				85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */,
 				774B123322E62AA9000764BD /* HousematesViewController.h */,
 				774B123422E62AA9000764BD /* HousematesViewController.m */,
+				64293FFD22E2618700961F29 /* HomeScreens */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
