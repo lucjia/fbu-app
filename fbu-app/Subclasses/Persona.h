@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class House;
+
 @interface Persona : PFObject<PFSubclassing>
 
 @property (strong, nonatomic) PFUser *user;
