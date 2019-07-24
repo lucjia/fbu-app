@@ -59,29 +59,33 @@
             requestsSent = [[NSMutableArray alloc] init];
         }
         
-        // if the user has not already sent a request to the user who they are trying to send a request to
-        if ([requestsSent containsObject:receiverPersona] == NO) {
-            //add userId to array
-            [requestsSent insertObject:receiverPersona atIndex:0];
-            [senderPersona setObject:requestsSent forKey:@"requestsSent"];
-            [Request createRequest:receiverPersona withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                if (error) {
-                    NSLog(@"%@", error.localizedDescription);
-                }
-            }];
-            [senderPersona saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if (error) {
-                    NSLog(@"%@", error.localizedDescription);
-                }
-            }];
-        // if the current user has already sent a request to the specific
-        } else {
-            [self createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
-        }
+        [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
     }
 }
 
--(void)createAlertController:(NSString *)title message:(NSString *)msg {
++ (void)sendRequestToPersona:(Persona *)receiverPersona  sender:(Persona *)senderPersona requestsSentToUsers:(NSMutableArray *)requestsSent allertReceiver:(id)receiver {
+    // if the user has not already sent a request to the user who they are trying to send a request to
+    if ([requestsSent containsObject:receiverPersona] == NO) {
+        //add userId to array
+        [requestsSent insertObject:receiverPersona atIndex:0];
+        [senderPersona setObject:requestsSent forKey:@"requestsSent"];
+        [Request createRequest:receiverPersona withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
+        [senderPersona saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
+        // if the current user has already sent a request to the specific
+    } else {
+        [receiver createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
+    }
+}
+
+- (void)createAlertController:(NSString *)title message:(NSString *)msg {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:(UIAlertControllerStyleAlert)];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

@@ -8,6 +8,7 @@
 
 #import "DetailsViewController.h"
 #import <Parse/Parse.h>
+#import "RoommateCell.h"
 
 @interface DetailsViewController ()
 
@@ -54,7 +55,12 @@
 }
 */
 - (IBAction)didTapSendRequest:(id)sender {
+    Persona *senderPersona = [[PFUser currentUser] objectForKey:@"persona"];
+    NSMutableArray *requestsSent = [senderPersona objectForKey:@"requestsSent"];
+    Persona *receiverPersona = self.user;
+    [receiverPersona fetchIfNeeded];
     
+    [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
 }
 
 @end
