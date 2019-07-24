@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Parse/Parse.h"
+#import "Persona.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void) createHouse;
-- (void) addToHouse;
-- (void) removeFromHouse;
-+ (House *) getHouse: (PFUser *) user;
+- (void) addToHouse: (Persona *) persona;
+- (void) removeFromHouse: (Persona *) persona;
++ (House *) getHouse: (Persona *) persona;
 - (void) deleteHouse;
 
 @end
