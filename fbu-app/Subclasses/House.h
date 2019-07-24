@@ -15,9 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void) createHouse;
-+ (void) addToHouse: (House * _Nullable )house;
-+ (void) removeFromHouse;
-+ (House *)getHouse;
+- (void) addToHouse;
+- (void) removeFromHouse;
++ (House *) getHouse: (PFUser *) user;
+- (void) deleteHouse;
 
 @end
 
