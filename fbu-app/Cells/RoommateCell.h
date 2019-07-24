@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RoommateCell : UITableViewCell
 
 - (void)updateProperties:(Persona *)user;
++ (void)sendRequestToPersona:(Persona *)receiverPersona  sender:(Persona *)senderPersona requestsSentToUsers:(NSMutableArray *)requestsSent allertReceiver:(id)receiver;
 
 @property (nonatomic, weak) id<RoommateCellDelegate> delegate;
 

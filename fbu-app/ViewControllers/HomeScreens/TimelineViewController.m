@@ -44,7 +44,8 @@
     Persona *persona = [PFUser currentUser][@"persona"];
     [persona fetchIfNeeded];
     // query excludes current user
-    [query whereKey:@"objectId" notEqualTo:persona.objectId];
+    [query whereKey:@"username" notEqualTo:persona.username];
+    
     
     PFGeoPoint *userGeoPoint = [persona objectForKey:@"geoPoint"];
     // limit to users that are near current user
