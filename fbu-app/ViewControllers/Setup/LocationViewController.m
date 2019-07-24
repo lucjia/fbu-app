@@ -38,9 +38,12 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 }
 
 - (void) setCity {
-    if (![[PFUser currentUser][@"city"] isEqualToString:@""] && ![[PFUser currentUser][@"state"] isEqualToString:@""]) {
-        self.city = [PFUser currentUser][@"city"];
-        self.state = [PFUser currentUser][@"state"];
+
+    NSString *city = [[PFUser currentUser] objectForKey:@"city"];
+    NSString *state = [[PFUser currentUser] objectForKey:@"state"];
+    if (![city isEqualToString:@""] && ![state isEqualToString:@""]) {
+        self.city = city;
+        self.state = state;
     } else {
         self.city = @"San Francisco";
         self.state =@"CA";
@@ -53,14 +56,11 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     double lat = [[venue valueForKeyPath:@"location.lat"] doubleValue];
     double lng = [[venue valueForKeyPath:@"location.lng"] doubleValue];
     
-    PFGeoPoint *geo = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
-    [[PFUser currentUser] setObject:geo forKey:@"location"];
-    
     // Set location in Parse
     self.userLocation = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
     [[PFUser currentUser] setObject:self.userLocation forKey:@"location"];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
+        if (!error) { 
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location Changed"
                                                                            message:@"Your location has been changed."
@@ -75,6 +75,8 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
             [alert addAction:dismissAction];
             alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
             [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            NSLog(@"ERR: %@", error.localizedDescription);
         }
     }];
 }

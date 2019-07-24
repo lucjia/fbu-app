@@ -41,34 +41,19 @@
  send and receive requests
  */
 
-+ (void) createPersonaWithCompletion:(PFBooleanResultBlock  _Nullable)completion {
-    Persona *newPersona = [Persona new];
++ (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion {
+    Persona *newPersona;
+    
+    if ([[PFUser currentUser] objectForKey:@"persona"] == nil) {
+        newPersona = [Persona new];
+    } else {
+        newPersona = [[PFUser currentUser] objectForKey:@"persona"];
+    }
+    
     newPersona.user = [PFUser currentUser];
     [[PFUser currentUser] setObject:newPersona forKey:@"persona"];
     
     [newPersona saveInBackgroundWithBlock:completion];
-    [[PFUser currentUser] saveInBackgroundWithBlock:completion];
-}
-
-+ (void) setPersona:(NSString *)first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion {
-    Persona *updatedPersona = [PFUser currentUser][@"persona"];
-    updatedPersona.user = [PFUser currentUser];
-    updatedPersona.username = [PFUser currentUser][@"username"];
-    updatedPersona.firstName = first;
-    updatedPersona.lastName = last;
-    updatedPersona.bio = bio;
-    updatedPersona.profileImage = [self getPFFileFromImage:image];
-    updatedPersona.city = city;
-    updatedPersona.state = state;
-    updatedPersona.geoPoint = loc;
-    updatedPersona.preferences = [[NSMutableArray alloc] init];
-    updatedPersona.requestsSent = [[NSMutableArray alloc] init];
-    updatedPersona.requestsReceived = [[NSMutableArray alloc] init];
-    updatedPersona.acceptedRequests = [[NSMutableArray alloc] init];
-    
-    [[PFUser currentUser][@"persona"] setObject:updatedPersona forKey:@"persona"];
-    
-    [updatedPersona saveInBackgroundWithBlock:completion];
     [[PFUser currentUser] saveInBackgroundWithBlock:completion];
 }
 
@@ -91,5 +76,14 @@
     
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
-                               
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[Persona class]]) {
+        Persona *persona = object;
+        return [self.objectId isEqual:persona.objectId];
+    } else {
+        return NO;
+    }
+}
+
 @end

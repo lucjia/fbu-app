@@ -47,7 +47,7 @@
 }
 
 - (IBAction)didTapAccept:(id)sender {
-    // procede to create household
+    // proceed to create household
     // call to delegate method in RequestsViewController
     [self.delegate acceptRequest:self.currentRequest];
 }

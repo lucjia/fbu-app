@@ -8,12 +8,14 @@
 
 #import "DetailsViewController.h"
 #import <Parse/Parse.h>
+#import "RoommateCell.h"
 
 @interface DetailsViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *fullNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
 @property (weak, nonatomic) IBOutlet UILabel *preferencesLabel;
@@ -39,6 +41,7 @@
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
     self.fullNameLabel.text = fullName;
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", [self.user objectForKey:@"username"]];
+    self.locationLabel.text = [self.user objectForKey:@"city"];
     self.bioLabel.text = [self.user objectForKey:@"bio"];
 }
 
@@ -52,6 +55,12 @@
 }
 */
 - (IBAction)didTapSendRequest:(id)sender {
+    Persona *senderPersona = [[PFUser currentUser] objectForKey:@"persona"];
+    NSMutableArray *requestsSent = [senderPersona objectForKey:@"requestsSent"];
+    Persona *receiverPersona = self.user;
+    [receiverPersona fetchIfNeeded];
+    
+    [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
 }
 
 @end
