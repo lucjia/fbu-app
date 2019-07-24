@@ -15,10 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface House : PFObject<PFSubclassing>
 
 
-+ (void) createHouse;
-- (void) addToHouse: (Persona *) persona;
-- (void) removeFromHouse: (Persona *) persona;
-+ (House *) getHouse: (Persona *) persona;
++ (void)createHouse:(Persona *)persona;
+- (void)addToHouse:(Persona *)persona;
+- (void)removeFromHouse:(Persona *)persona;
++ (House *)getHouse:(Persona *)persona;
 - (void) deleteHouse;
 
 @end
