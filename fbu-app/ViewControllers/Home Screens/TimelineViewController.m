@@ -100,7 +100,7 @@
     if ([[segue identifier] isEqualToString:@"timelineToDetailsSegue"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        PFUser *user = self.userArray[indexPath.row];
+        Persona *user = self.userArray[indexPath.row];
         
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.user = user;

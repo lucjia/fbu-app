@@ -43,6 +43,7 @@
     
     self.usernameLabel.text = [persona objectForKey:@"username"];
     self.bioLabel.text = [persona objectForKey:@"bio"];
+    self.locationLabel.text = [persona objectForKey:@"city"];
     self.userInCell = persona;
 }
 
