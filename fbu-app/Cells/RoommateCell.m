@@ -43,6 +43,7 @@
     
     self.usernameLabel.text = [persona objectForKey:@"username"];
     self.bioLabel.text = [persona objectForKey:@"bio"];
+    self.locationLabel.text = [persona objectForKey:@"city"];
     self.userInCell = persona;
 }
 
@@ -59,7 +60,7 @@
         }
         
         // if the user has not already sent a request to the user who they are trying to send a request to
-        if (![requestsSent containsObject:receiverPersona]) {
+        if ([requestsSent containsObject:receiverPersona] == NO) {
             //add userId to array
             [requestsSent insertObject:receiverPersona atIndex:0];
             [senderPersona setObject:requestsSent forKey:@"requestsSent"];

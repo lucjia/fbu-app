@@ -62,7 +62,7 @@
     if ([[segue identifier] isEqualToString:@"requestToDetailsSegue"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        PFUser *user = [self.sendersArray[indexPath.row] objectForKey:@"requestSender"];
+        Persona *user = [self.sendersArray[indexPath.row] objectForKey:@"requestSender"];
         
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.user = user;

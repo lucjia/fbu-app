@@ -82,5 +82,14 @@
     
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
-                               
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[Persona class]]) {
+        Persona *persona = object;
+        return [self.objectId isEqual:persona.objectId];
+    } else {
+        return NO;
+    }
+}
+
 @end
