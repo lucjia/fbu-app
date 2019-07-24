@@ -16,10 +16,7 @@
     return @"House";
 }
 
-+ (void) createHouse {
-    
-    PFUser *user = PFUser.currentUser;
-    Persona *persona = [user objectForKey:@"persona"];
++ (void) createHouse: (Persona *) persona {
     
     House *house = [House objectWithClassName:@"House"];
     NSMutableArray *housemates =  [[NSMutableArray alloc] init];
@@ -31,10 +28,7 @@
     }];
 }
 
-- (void) addToHouse {
-    
-    PFUser *user = PFUser.currentUser;
-    Persona *persona = [user objectForKey:@"persona"];
+- (void) addToHouse: (Persona *) persona {
     
     [self addUniqueObject:persona forKey:@"housemates"];
     [self saveInBackground];
@@ -43,11 +37,7 @@
     [PFUser.currentUser saveInBackground];
 }
 
-- (void) removeFromHouse {
-    
-    PFUser *user = PFUser.currentUser;
-    Persona *persona = [user objectForKey:@"persona"];
-    [persona fetchIfNeeded];
+- (void) removeFromHouse: (Persona *) persona {
     
     [self removeObjectsInArray:[NSArray arrayWithObjects:persona, nil] forKey:@"housemates"];
     [self saveInBackground];
@@ -62,9 +52,7 @@
     
 }
 
-+ (House *) getHouse: (PFUser *) user {
-    Persona *persona = [user objectForKey:@"persona"];
-    [persona fetchIfNeeded];
++ (House *) getHouse: (Persona *) persona {
     House *house = [persona objectForKey:@"house"];
     [house fetchIfNeeded];
     return house;
