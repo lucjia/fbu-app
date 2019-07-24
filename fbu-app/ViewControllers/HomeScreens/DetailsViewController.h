@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "Persona.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DetailsViewController : UIViewController
 
-@property (strong, nonatomic) PFUser *user;
+@property (strong, nonatomic) Persona *user;
 
 @end
 
