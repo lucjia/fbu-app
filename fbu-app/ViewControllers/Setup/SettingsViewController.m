@@ -377,6 +377,12 @@
     [self presentViewController:logInVC animated:YES completion:nil];
 }
 
+// Dismiss keyboard after typing
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
 /*
 #pragma mark - Navigation
 
