@@ -41,8 +41,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     if (![[PFUser currentUser][@"city"] isEqualToString:@""] && ![[PFUser currentUser][@"state"] isEqualToString:@""]) {
         self.city = [PFUser currentUser][@"city"];
         self.state = [PFUser currentUser][@"state"];
-        NSLog(@"%@", self.city);
-        NSLog(@"%@", self.state);
     } else {
         self.city = @"San Francisco";
         self.state =@"CA";
@@ -104,7 +102,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSLog(@"%@", responseDictionary);
             self.results = [responseDictionary valueForKeyPath:@"response.venues"];
             [self.tableView reloadData];
         }
