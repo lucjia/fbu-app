@@ -8,6 +8,7 @@
 
 #import "House.h"
 #import "Parse/Parse.h"
+#import "Persona.h"
 
 @implementation House
 
@@ -18,46 +19,57 @@
 + (void) createHouse {
     
     PFUser *user = PFUser.currentUser;
+    Persona *persona = [user objectForKey:@"persona"];
     
     House *house = [House objectWithClassName:@"House"];
     NSMutableArray *housemates =  [[NSMutableArray alloc] init];
-    [housemates addObject:user.objectId];
+    [housemates addObject:persona];
     house[@"housemates"] = housemates;
     [house saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        [user setObject:house.objectId forKey:@"houseId"];
-        [user saveInBackground];
+        [persona setObject:house forKey:@"house"];
+        [persona saveInBackground];
     }];
 }
 
-+ (void) addToHouse: (House * _Nullable )house {
+- (void) addToHouse {
     
     PFUser *user = PFUser.currentUser;
-    [house addUniqueObject:user.objectId forKey:@"housemates"];
-    [house saveInBackground];
+    Persona *persona = [user objectForKey:@"persona"];
     
-    [user setObject:house.objectId forKey:@"houseId"];
+    [self addUniqueObject:persona forKey:@"housemates"];
+    [self saveInBackground];
+    
+    [persona setObject:self forKey:@"house"];
     [PFUser.currentUser saveInBackground];
 }
 
-+ (void) removeFromHouse {
+- (void) removeFromHouse {
     
     PFUser *user = PFUser.currentUser;
-
-    House *house = [self getHouse];
-    [house removeObjectsInArray:[NSArray arrayWithObjects:user.objectId, nil] forKey:@"housemates"];
-    [house saveInBackground];
+    Persona *persona = [user objectForKey:@"persona"];
+    [persona fetchIfNeeded];
     
-    [user removeObjectForKey:@"houseId"];
-    [user saveInBackground];
+    [self removeObjectsInArray:[NSArray arrayWithObjects:persona, nil] forKey:@"housemates"];
+    [self saveInBackground];
+    
+    [persona removeObjectForKey:@"house"];
+    [persona saveInBackground];
 }
 
-+ (House *)getHouse {
-    PFUser *user = PFUser.currentUser;
-    PFQuery *query = [PFQuery queryWithClassName:@"House"];
-    [query whereKey:@"objectId" equalTo:[user objectForKey:@"houseId"]];
-    [query includeKey:@"housemates"];
-    return [query getFirstObject];
+- (void) deleteHouse {
+    
+    [self deleteInBackground];
+    
 }
+
++ (House *) getHouse: (PFUser *) user {
+    Persona *persona = [user objectForKey:@"persona"];
+    [persona fetchIfNeeded];
+    House *house = [persona objectForKey:@"house"];
+    [house fetchIfNeeded];
+    return house;
+}
+
 
 
 @end
