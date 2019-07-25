@@ -43,6 +43,10 @@
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", [self.user objectForKey:@"username"]];
     self.locationLabel.text = [self.user objectForKey:@"city"];
     self.bioLabel.text = [self.user objectForKey:@"bio"];
+    NSArray *preferencesArray = [self.user objectForKey:@"preferences"];;
+    NSString *preferencesString = [preferencesArray componentsJoinedByString:@", \n"];
+    
+    self.preferencesLabel.text = preferencesString;
 }
 
 /*

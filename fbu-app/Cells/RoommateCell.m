@@ -51,18 +51,17 @@
     if (PFUser.currentUser) {
         Persona *senderPersona = [[PFUser currentUser] objectForKey:@"persona"];
         NSMutableArray *requestsSent = [senderPersona objectForKey:@"requestsSent"];
+        NSMutableArray *acceptedRequests = [senderPersona objectForKey:@"acceptedRequests"];
         Persona *receiverPersona = self.userInCell;
         [receiverPersona fetchIfNeeded];
         
-         //BOOL b = [[PFUser currentUser] isAuthenticated];
         if (requestsSent == nil) {
             requestsSent = [[NSMutableArray alloc] init];
         }
-        if ([requestsSent containsObject:receiverPersona] == NO) {
+        if ([requestsSent containsObject:receiverPersona] == NO && [acceptedRequests containsObject:receiverPersona] == NO) {
             [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
-            // if the current user has already sent a request to the specific
         } else {
-            [self createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
+            [self createAlertController:@"Cannot Send request" message:@"You've already sent this user a request!"];
         }
     }
 }

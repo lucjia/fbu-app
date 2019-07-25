@@ -77,13 +77,14 @@
     [senderPersona fetchIfNeeded];
     
     Persona *receiverPersona = [[PFUser currentUser] objectForKey:@"persona"];
+    [receiverPersona fetchIfNeeded];
     
     if (receiverPersona && senderPersona) {
         [receiverPersona addToAcceptedRequests:senderPersona];
     }
     
     // remove from table view
-    //[self declineRequest:request];
+    [self declineRequest:request];
 }
 
 // removes request sent to current user from tableView
