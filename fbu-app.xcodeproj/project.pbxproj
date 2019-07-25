@@ -195,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				85E7A17622DE3B24006C1F38 /* RegisterViewController.h */,
-				64BBF3D122DE406100FCCABD /* RoommateCell.m */,
 				85E7A17722DE3B24006C1F38 /* RegisterViewController.m */,
 				85E7A17922DE8060006C1F38 /* SettingsViewController.h */,
 				85E7A17A22DE8060006C1F38 /* SettingsViewController.m */,
@@ -252,6 +251,7 @@
 				7794308122DE8F1A00D9FDDA /* RuleCell.h */,
 				7794308222DE8F1A00D9FDDA /* RuleCell.m */,
 				64BBF3D022DE406100FCCABD /* RoommateCell.h */,
+				64BBF3D122DE406100FCCABD /* RoommateCell.m */,
 				85E7A18E22DFDDF1006C1F38 /* PreferenceCell.h */,
 				85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */,
 				6429400422E2781200961F29 /* RequestCell.h */,
