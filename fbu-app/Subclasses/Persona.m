@@ -41,11 +41,24 @@
  send and receive requests
  */
 
++ (void) createPersonaUponRegistrationWithCompletion:(PFBooleanResultBlock _Nullable)completion {
+    Persona *newRegisterPersona = [Persona new];
+    // Initialize some properties which are later set elsewhere
+    [self initializeArrayPropertiesWithPersona:newRegisterPersona];
+    
+    [[PFUser currentUser] setObject:newRegisterPersona forKey:@"persona"];
+    [newRegisterPersona saveInBackgroundWithBlock:completion];
+    [[PFUser currentUser] saveInBackgroundWithBlock:completion];
+}
+
 + (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion {
     Persona *newPersona;
     
     if ([[PFUser currentUser] objectForKey:@"persona"] == nil) {
         newPersona = [Persona new];
+        
+        // Initialize some properties which are later set elsewhere
+        [self initializeArrayPropertiesWithPersona:newPersona];
     } else {
         newPersona = [[PFUser currentUser] objectForKey:@"persona"];
     }
@@ -59,19 +72,11 @@
     newPersona.city = city;
     newPersona.state = state;
     newPersona.geoPoint = loc;
-    newPersona.preferences = [[NSMutableArray alloc] init];
-    newPersona.requestsSent = [[NSMutableArray alloc] init];
-    newPersona.requestsReceived = [[NSMutableArray alloc] init];
-    newPersona.acceptedRequests = [[NSMutableArray alloc] init];
     
     [[PFUser currentUser] setObject:newPersona forKey:@"persona"];
     
     [newPersona saveInBackgroundWithBlock:completion];
     [[PFUser currentUser] saveInBackgroundWithBlock:completion];
-}
-
-- (void) updatePreferences:(NSArray *)preferences {
-    self.preferences = [NSMutableArray arrayWithArray:preferences];
 }
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
@@ -105,6 +110,13 @@
     }
 }
 
++ (void) initializeArrayPropertiesWithPersona:(Persona *)persona {
+    persona.preferences = [[NSMutableArray alloc] init];
+    persona.requestsSent = [[NSMutableArray alloc] init];
+    persona.requestsReceived = [[NSMutableArray alloc] init];
+    persona.acceptedRequests = [[NSMutableArray alloc] init];
+}
+  
 - (void)addToAcceptedRequests:(Persona *)persona {
     
     [persona addObject:self forKey:@"acceptedRequests"];

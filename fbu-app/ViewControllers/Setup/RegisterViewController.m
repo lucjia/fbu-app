@@ -12,6 +12,7 @@
 #import "CustomTextField.h"
 #import "CustomButton.h"
 #import "CustomLabel.h"
+#import "Persona.h"
 
 @interface RegisterViewController ()
 

@@ -7,6 +7,7 @@
 //
 
 #import "TimelineViewController.h"
+#import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "RoommateCell.h"
 #import "User.h"
