@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIButton *logOutButton;
+@property (weak, nonatomic) IBOutlet UIButton *featuresButton;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
@@ -388,6 +389,10 @@
     // Set root view controller to be log in screen
     LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
     [self presentViewController:logInVC animated:YES completion:nil];
+}
+
+- (IBAction)didPressFeatures:(id)sender {
+    [self performSegueWithIdentifier:@"toFeatures" sender:self];
 }
 
 /*

@@ -1,5 +1,5 @@
 //
-//  RemindersViewController.h
+//  ReminderCell.h
 //  fbu-app
 //
 //  Created by lucjia on 7/25/19.
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RemindersViewController : UIViewController
+@interface ReminderCell : UITableViewCell
+
+- (void) updateReminderCell;
 
 @end
 
