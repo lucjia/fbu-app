@@ -10,8 +10,9 @@
 #import "PlainRoomateCell.h"
 #import "Parse/Parse.h"
 #import "House.h"
+#import "Persona.h"
 
-@interface HousematesViewController ()
+@interface HousematesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *housemates;
 
@@ -22,24 +23,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
     [self fetchHousemates];
     // Do any additional setup after loading the view.
 }
 
 - (void)fetchHousemates {
-    
-    self.housemates = nil; //need to fill in
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeeded];
+    House *house = [House getHouse:persona];
+    self.housemates = [house objectForKey:@"housemates"];
+    [self.tableView reloadData];
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     
-    PlainRoomateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
+    PlainRoomateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainRoomateCell"];
     
-    PFUser *user = self.housemates[indexPath.section];
-    cell.nameLabel.text = nil; //[user.lastName stringByAppendingString:firstName];
+    Persona *persona = self.housemates[indexPath.row];
+    [persona fetchIfNeeded];
+    cell.nameLabel.text = [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
     
-    PFFileObject *imageFile = nil; //need to fill in
+    PFFileObject *imageFile = persona.profileImage;
     [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);

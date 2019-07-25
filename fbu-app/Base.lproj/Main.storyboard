@@ -361,10 +361,34 @@
                                             <outlet property="addressLabel" destination="wXZ-al-OBv" id="Qcw-v6-z03"/>
                                             <outlet property="categoryImageView" destination="EDE-t3-8xO" id="xTp-te-9cL"/>
                                             <outlet property="nameLabel" destination="GdH-7Z-wmY" id="Izb-Ux-aBk"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ti4-2O-tA7">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="oA3-hz-8KE"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="V3D-Fd-8MX"/>
+                    <connections>
+                        <outlet property="searchBar" destination="ti4-2O-tA7" id="jVo-Iz-BKm"/>
+                        <outlet property="tableView" destination="FJ9-2G-SeT" id="M3X-gc-590"/>
+                        <segue destination="qmT-Kq-rNQ" kind="show" identifier="toSettings" id="sAA-b7-1El"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="meT-kk-RCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3508.6956521739135" y="156.69642857142856"/>
+        </scene>
         <!--Housemates View Controller-->
         <scene sceneID="HjP-HW-dWn">
             <objects>
-                <viewController id="ea6-rB-Z5q" customClass="HousematesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HousematesViewController" id="ea6-rB-Z5q" customClass="HousematesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Zm-fh-GfX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -374,11 +398,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainRoomateCell" rowHeight="236" id="l6h-PD-M3Z" customClass="PlainRoomateCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="236"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainRoomateCell" rowHeight="150" id="l6h-PD-M3Z" customClass="PlainRoomateCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l6h-PD-M3Z" id="ao9-HY-hKK">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="235.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="149.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-Gb-lN8">
@@ -411,28 +435,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ti4-2O-tA7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="oA3-hz-8KE"/>
+                        <viewLayoutGuide key="safeArea" id="GVu-Ad-OMf"/>
                     </view>
-                    <navigationItem key="navigationItem" id="V3D-Fd-8MX"/>
                     <connections>
-                        <outlet property="searchBar" destination="ti4-2O-tA7" id="jVo-Iz-BKm"/>
-                        <outlet property="tableView" destination="FJ9-2G-SeT" id="M3X-gc-590"/>
-                        <segue destination="qmT-Kq-rNQ" kind="show" identifier="toSettings" id="sAA-b7-1El"/>
+                        <outlet property="tableView" destination="EOA-0o-M1s" id="OPv-0S-LJj"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="meT-kk-RCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bfF-Vg-Ymy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3508.6956521739135" y="156.69642857142856"/>
+            <point key="canvasLocation" x="2942" y="1550"/>
         </scene>
         <!--Home-->
-
         <scene sceneID="jk8-fQ-sLe">
             <objects>
                 <navigationController storyboardIdentifier="TimelineNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Tn6-3v-suY" sceneMemberID="viewController">
