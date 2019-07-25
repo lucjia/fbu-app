@@ -57,8 +57,8 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     
     // Set location in Parse
     self.userLocation = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
-    [[PFUser currentUser] setObject:self.userLocation forKey:@"location"];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [[PFUser currentUser][@"persona"] setObject:self.userLocation forKey:@"geoPoint"];
+    [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) { 
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location Changed"
@@ -68,14 +68,12 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
             UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
                                                                     style:UIAlertActionStyleCancel
                                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                                      [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+                                                                      [self.navigationController popViewControllerAnimated:YES];
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
             alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
             [self presentViewController:alert animated:YES completion:nil];
-        } else {
-            NSLog(@"ERR: %@", error.localizedDescription);
         }
     }];
 }
@@ -83,7 +81,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     [self fetchLocationsWithQuery:newText];
-    [self.tableView setContentOffset:CGPointZero animated:YES];
     return true;
 }
 

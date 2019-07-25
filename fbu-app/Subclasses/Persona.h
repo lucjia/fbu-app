@@ -30,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray *requestsReceived; // to the user
 @property (strong, nonatomic) NSMutableArray *acceptedRequests;
 
-+ (void) createPersonaWithCompletion:(PFBooleanResultBlock  _Nullable)completion;
++ (void) createPersonaUponRegistrationWithCompletion:(PFBooleanResultBlock _Nullable)completion;
 
-+ (void) setPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion;
++ (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 
 @end
 
