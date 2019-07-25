@@ -43,6 +43,9 @@
 
 + (void) createPersonaUponRegistrationWithCompletion:(PFBooleanResultBlock _Nullable)completion {
     Persona *newRegisterPersona = [Persona new];
+    // Initialize some properties which are later set elsewhere
+    [self initializeArrayPropertiesWithPersona:newRegisterPersona];
+    
     [[PFUser currentUser] setObject:newRegisterPersona forKey:@"persona"];
     [newRegisterPersona saveInBackgroundWithBlock:completion];
     [[PFUser currentUser] saveInBackgroundWithBlock:completion];
@@ -55,10 +58,7 @@
         newPersona = [Persona new];
         
         // Initialize some properties which are later set elsewhere
-        newPersona.preferences = [[NSMutableArray alloc] init];
-        newPersona.requestsSent = [[NSMutableArray alloc] init];
-        newPersona.requestsReceived = [[NSMutableArray alloc] init];
-        newPersona.acceptedRequests = [[NSMutableArray alloc] init];
+        [self initializeArrayPropertiesWithPersona:newPersona];
     } else {
         newPersona = [[PFUser currentUser] objectForKey:@"persona"];
     }
@@ -102,6 +102,13 @@
     } else {
         return NO;
     }
+}
+
++ (void) initializeArrayPropertiesWithPersona:(Persona *)persona {
+    persona.preferences = [[NSMutableArray alloc] init];
+    persona.requestsSent = [[NSMutableArray alloc] init];
+    persona.requestsReceived = [[NSMutableArray alloc] init];
+    persona.acceptedRequests = [[NSMutableArray alloc] init];
 }
 
 @end

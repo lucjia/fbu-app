@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 
++ (void) initializeArrayPropertiesWithPersona:(Persona *)persona;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -38,8 +38,8 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 }
 
 - (void) setCity {
-    NSString *city = [[PFUser currentUser] objectForKey:@"city"];
-    NSString *state = [[PFUser currentUser] objectForKey:@"state"];
+    NSString *city = [[PFUser currentUser][@"persona"] objectForKey:@"city"];
+    NSString *state = [[PFUser currentUser][@"persona"] objectForKey:@"state"];
     if (![city isEqualToString:@""] && ![state isEqualToString:@""]) {
         self.city = city;
         self.state = state;

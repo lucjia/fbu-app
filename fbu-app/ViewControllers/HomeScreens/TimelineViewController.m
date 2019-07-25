@@ -96,14 +96,6 @@
     return self.userArray.count;
 }
 
-- (IBAction)didPressLogOut:(id)sender {
-    [PFUser logOutInBackground];
-    
-    // Set root view controller to be log in screen
-    LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
-    [self presentViewController:logInVC animated:YES completion:nil];
-}
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

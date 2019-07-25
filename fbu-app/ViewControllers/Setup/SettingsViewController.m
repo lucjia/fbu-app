@@ -44,8 +44,9 @@
     [super viewDidLoad];
     
     self.user = [PFUser currentUser];
-    [Persona createPersonaUponRegistrationWithCompletion:nil];
-    
+    if (self.user[@"persona"] == nil) {
+        [Persona createPersonaUponRegistrationWithCompletion:nil];
+    }
     [self createProfileImageView];
     [self createChangeProfileButton];
     [self createFullNameField];
@@ -296,8 +297,9 @@
         [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         }];
     }
+    self.location = [PFUser currentUser][@"persona"][@"geoPoint"];
     // set information in Persona
-    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.profileImage city:self.city state:self.state location:[PFUser currentUser][@"persona"][@"location"] withCompletion:nil];
+    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.profileImage city:self.city state:self.state location:self.location withCompletion:nil];
     [self performSegueWithIdentifier:@"toTimeline" sender:self];
 }
 
