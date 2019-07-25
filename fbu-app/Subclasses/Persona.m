@@ -95,6 +95,12 @@
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
 
++ (UIImage *)getImageFromPFFile:(PFFileObject *)file {
+    NSData *data = [file getData];
+    UIImage *image = [UIImage imageWithData:data];
+    return image;
+}
+
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[Persona class]]) {
         Persona *persona = object;
@@ -109,6 +115,17 @@
     persona.requestsSent = [[NSMutableArray alloc] init];
     persona.requestsReceived = [[NSMutableArray alloc] init];
     persona.acceptedRequests = [[NSMutableArray alloc] init];
+}
+  
+- (void)addToAcceptedRequests:(Persona *)persona {
+    
+    [persona addObject:self forKey:@"acceptedRequests"];
+    
+    [self addObject:persona forKey:@"acceptedRequests"];
+    
+   
+    [self saveInBackground];
+    [persona saveInBackground];
 }
 
 @end

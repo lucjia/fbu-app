@@ -32,11 +32,11 @@
 - (void) fetchSentRequestTimeline {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Request"];
-    [query whereKey:@"requestSender" equalTo:[PFUser currentUser]]; // requests sent by current user
+    [query whereKey:@"sender" equalTo:[PFUser currentUser]]; // requests sent by current user
     
     [query orderByDescending:@"createdAt"];
-    [query includeKey:@"requestSender"];
-    [query includeKey:@"requestReceiver"];
+    [query includeKey:@"sender"];
+    [query includeKey:@"receiver"];
     
     query.limit = 20;
     

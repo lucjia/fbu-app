@@ -38,7 +38,7 @@
 - (void)updateProperties:(Request *)request {
     self.currentRequest = request;
     
-    PFUser *user = [request objectForKey:@"requestSender"];
+    PFUser *user = [request objectForKey:@"sender"];
     NSData *imageData = [[user objectForKey:@"profileImage"] getData];
     self.senderProfileImage.image = [[UIImage alloc] initWithData:imageData];
     

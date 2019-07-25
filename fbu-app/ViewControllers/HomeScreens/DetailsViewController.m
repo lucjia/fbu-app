@@ -60,7 +60,24 @@
     Persona *receiverPersona = self.user;
     [receiverPersona fetchIfNeeded];
     
-    [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
+    if ([requestsSent containsObject:receiverPersona] == NO) {
+        [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
+    } else {
+        [self createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
+    }
+    
+}
+
+- (void)createAlertController:(NSString *)title message:(NSString *)msg {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // handle response here.
+    }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:^{}];
 }
 
 @end
