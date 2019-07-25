@@ -7,6 +7,7 @@
 //
 
 #import "TimelineViewController.h"
+#import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "RoommateCell.h"
 #import "User.h"
@@ -18,6 +19,7 @@
 
 @property (strong, nonatomic) NSArray *userArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -31,6 +33,11 @@
     self.tableView.delegate = self;
     
     [self fetchUserTimeline];
+    
+    // Refresh control for "pull to refresh"
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchUserTimeline) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 
@@ -71,6 +78,7 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
 }
 

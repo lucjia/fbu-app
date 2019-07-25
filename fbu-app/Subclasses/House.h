@@ -8,16 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "Parse/Parse.h"
+#import "Persona.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class Persona;
 
 @interface House : PFObject<PFSubclassing>
 
 
-+ (void) createHouse;
-+ (void) addToHouse: (House * _Nullable )house;
-+ (void) removeFromHouse;
-+ (House *)getHouse;
++ (void)createHouse:(Persona *)persona;
+- (void)addToHouse:(Persona *)persona;
+- (void)removeFromHouse:(Persona *)persona;
++ (House *)getHouse:(Persona *)persona;
+- (void) deleteHouse;
 
 @end
 

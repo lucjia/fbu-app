@@ -10,6 +10,4 @@
 
 @interface LocationViewController : UIViewController
 
-- (void)locationViewController:(LocationViewController *)controller didPickLocationWithLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude;
-
 @end

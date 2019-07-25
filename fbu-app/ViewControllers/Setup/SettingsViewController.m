@@ -30,6 +30,7 @@
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
+@property (strong, nonatomic) UIImage *profileImage;
 @property (strong, nonatomic) NSString *bio;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
@@ -43,6 +44,9 @@
     [super viewDidLoad];
     
     self.user = [PFUser currentUser];
+    if (self.user[@"persona"] == nil) {
+        [Persona createPersonaUponRegistrationWithCompletion:nil];
+    }
     [self createProfileImageView];
     [self createChangeProfileButton];
     [self createFullNameField];
@@ -58,10 +62,15 @@
 - (void) createProfileImageView {
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
-    NSData *imageData = [[[PFUser currentUser] objectForKey:@"profileImage"] getData];
+    NSData *imageData = [[[PFUser currentUser][@"persona"] objectForKey:@"profileImage"] getData];
     self.profileImageView.image = [[UIImage alloc] initWithData:imageData];
+    if (self.profileImageView.image != nil) {
+        self.profileImage = self.profileImageView.image;
+    } else {
+        self.profileImage = [UIImage imageNamed:@"profileImage"];
+        self.profileImageView.image = [UIImage imageNamed:@"profileImage"];
+    }
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
-    [self.profileImageView setBackgroundColor:[UIColor redColor]];
 }
 
 - (void) createChangeProfileButton {
@@ -76,8 +85,8 @@
     self.fullNameField.delegate = self;
     self.fullNameField.borderStyle = UITextBorderStyleRoundedRect;
     self.fullNameField.placeholder = @"Full Name";
-    NSString *firstName = [[PFUser currentUser][@"firstName"] stringByAppendingString:@" "];
-    NSString *fullName = [firstName stringByAppendingString:[PFUser currentUser][@"lastName"]];
+    NSString *firstName = [[PFUser currentUser][@"persona"][@"firstName"] stringByAppendingString:@" "];
+    NSString *fullName = [firstName stringByAppendingString:[PFUser currentUser][@"persona"][@"lastName"]];
     self.fullNameField.text = fullName;
 }
 
@@ -85,8 +94,8 @@
     self.cityField.delegate = self;
     self.cityField.borderStyle = UITextBorderStyleRoundedRect;
     self.cityField.placeholder = @"City, State (ex: Seattle, WA)";
-    NSString *existingCity = [[PFUser currentUser][@"city"] stringByAppendingString:@", "];
-    NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"state"]];
+    NSString *existingCity = [[PFUser currentUser][@"persona"][@"city"] stringByAppendingString:@", "];
+    NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"persona"][@"state"]];
     self.cityField.text = existingState;
 }
 
@@ -107,7 +116,7 @@
 }
 
 - (void) createUserBioTextView {
-    self.bioTextView.text = [PFUser currentUser][@"bio"];
+    self.bioTextView.text = [PFUser currentUser][@"persona"][@"bio"];
     if ([self.bioTextView.text isEqualToString:@""]) {
         self.bioTextView.text = @"Write a bio...";
         self.bioTextView.textColor = [UIColor lightGrayColor];
@@ -181,7 +190,6 @@
     
     // Do something with the images (based on your use case)
     self.resizedImage = [self resizeImage:originalImage withSize:CGSizeMake(400, 400)];
-    NSLog(@"Resized image");
     
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:^{
@@ -207,10 +215,11 @@
     NSData *imageData = UIImagePNGRepresentation(self.resizedImage);
     PFFileObject *imageFile = [PFFileObject fileObjectWithName:@"image.png" data:imageData];
     
-    [[PFUser currentUser] setObject:imageFile forKey:@"profileImage"];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [[PFUser currentUser][@"persona"] setObject:imageFile forKey:@"profileImage"];
+    [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             self.profileImageView.image = self.resizedImage;
+            self.profileImage = self.resizedImage;
         } else {
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Photo Not Changed"
@@ -232,11 +241,9 @@
 
 // Change User Bio / About Me
 - (void)setBio {
-    [[PFUser currentUser] setObject:self.bioTextView.text forKey:@"bio"];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [[PFUser currentUser][@"persona"] setObject:self.bioTextView.text forKey:@"bio"];
+    [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            self.bio = self.bioTextView.text;
-            
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Bio Changed"
                                                                            message:@"Your bio has been changed."
@@ -284,25 +291,30 @@
 - (void)goToTimeline {
     // set information in User
     [self setFieldInformation];
+    // set user bio if changed
+    if (![self.bioTextView.text isEqualToString:[PFUser currentUser][@"persona"][@"bio"]]) {
+        [[PFUser currentUser][@"persona"] setObject:self.bioTextView.text forKey:@"bio"];
+        [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+    }
+    self.location = [PFUser currentUser][@"persona"][@"geoPoint"];
     // set information in Persona
-    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.resizedImage city:self.city state:self.state location:[PFUser currentUser][@"location"] withCompletion:nil];
+    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.profileImage city:self.city state:self.state location:self.location withCompletion:nil];
     [self performSegueWithIdentifier:@"toTimeline" sender:self];
 }
 
 - (void)setFieldInformation {
     // set Full name and City
-    // Make this robust by creating restrictions if the text field is empty, only one name, etc.
+    // Robust: alert if the text field is empty, only one name, etc.
     if (![self.fullNameField.text isEqualToString:@""] && [[self.fullNameField.text componentsSeparatedByString:@" "] count] == 2) {
         NSArray *nameSections = [self.fullNameField.text componentsSeparatedByString:@" "];
         self.firstName = [nameSections objectAtIndex:0];
         self.lastName = [nameSections objectAtIndex:1];
-        [[PFUser currentUser] setObject:self.firstName forKey:@"firstName"];
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        }];
+        [[PFUser currentUser][@"persona"] setObject:self.firstName forKey:@"firstName"];
+        [[PFUser currentUser][@"persona"] saveInBackground];
         
-        [[PFUser currentUser] setObject:self.lastName forKey:@"lastName"];
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        }];
+        [[PFUser currentUser][@"persona"] setObject:self.lastName forKey:@"lastName"];
+        [[PFUser currentUser][@"persona"] saveInBackground];
     } else {
         // Create alert
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid Name"
@@ -324,13 +336,11 @@
         NSArray *citySections = [self.cityField.text componentsSeparatedByString:@", "];
         self.city = [citySections objectAtIndex:0];
         self.state = [citySections objectAtIndex:1];
-        [[PFUser currentUser] setObject:self.city forKey:@"city"];
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        }];
+        [[PFUser currentUser][@"persona"] setObject:self.city forKey:@"city"];
+        [[PFUser currentUser][@"persona"] saveInBackground];
         
-        [[PFUser currentUser] setObject:self.state forKey:@"state"];
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        }];
+        [[PFUser currentUser][@"persona"] setObject:self.state forKey:@"state"];
+        [[PFUser currentUser][@"persona"] saveInBackground];
     } else {
         // Create alert
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid City"
@@ -347,12 +357,17 @@
         alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
         [self presentViewController:alert animated:YES completion:nil];
     }
+    
+    // Set bio
+    if ([self.bioTextView.text isEqualToString:@"Write a bio..."] && self.bioTextView.textColor == [UIColor lightGrayColor]) {
+        self.bio = @"";
+    } else {
+        self.bio = self.bioTextView.text;
+    }
 }
 
 - (void) logOut {
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        // PFUser.current() will now be nil
-    }];
+    [PFUser logOutInBackground];
     
     // Set root view controller to be log in screen
     LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
