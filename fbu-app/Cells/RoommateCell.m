@@ -58,14 +58,17 @@
         if (requestsSent == nil) {
             requestsSent = [[NSMutableArray alloc] init];
         }
-        
-        [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
+        if ([requestsSent containsObject:receiverPersona] == NO) {
+            [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
+            // if the current user has already sent a request to the specific
+        } else {
+            [self createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
+        }
     }
 }
 
 + (void)sendRequestToPersona:(Persona *)receiverPersona  sender:(Persona *)senderPersona requestsSentToUsers:(NSMutableArray *)requestsSent allertReceiver:(id)receiver {
     // if the user has not already sent a request to the user who they are trying to send a request to
-    if ([requestsSent containsObject:receiverPersona] == NO) {
         //add userId to array
         [requestsSent insertObject:receiverPersona atIndex:0];
         [senderPersona setObject:requestsSent forKey:@"requestsSent"];
@@ -79,10 +82,6 @@
                 NSLog(@"%@", error.localizedDescription);
             }
         }];
-        // if the current user has already sent a request to the specific
-    } else {
-        [receiver createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
-    }
 }
 
 - (void)createAlertController:(NSString *)title message:(NSString *)msg {
