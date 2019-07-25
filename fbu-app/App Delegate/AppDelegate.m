@@ -37,8 +37,8 @@
     [Parse initializeWithConfiguration:config];
     
     
-    NSString *username = @"elon";
-    NSString *password = @"elon";
+    NSString *username = @"Carlos";
+    NSString *password = @"carlos";
     [PFUser logInWithUsername:username password:password];
 
   

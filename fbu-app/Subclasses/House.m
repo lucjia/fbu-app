@@ -31,11 +31,14 @@
 
 - (void) addToHouse: (Persona *) persona {
     
-    [self addUniqueObject:persona forKey:@"housemates"];
-    [self saveInBackground];
-    
-    [persona setObject:self forKey:@"house"];
-    [PFUser.currentUser saveInBackground];
+    House *house = [persona objectForKey:@"house"];
+    if (house == nil){
+        [self addUniqueObject:persona forKey:@"housemates"];
+        [self saveInBackground];
+        
+        [persona setObject:self forKey:@"house"];
+        [PFUser.currentUser saveInBackground];
+    }
 }
 
 
@@ -49,7 +52,10 @@
 }
 
 - (void) deleteHouse {
-    
+    NSArray *housemates = [self objectForKey:@"housemates"];
+    for(Persona *housemate in housemates){
+        [self removeFromHouse:housemate];
+    }
     [self deleteInBackground];
     
 }

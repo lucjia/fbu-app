@@ -402,7 +402,7 @@
             </objects>
             <point key="canvasLocation" x="1674" y="1298"/>
         </scene>
-        <!--Modify House View Controller-->
+        <!--House-->
         <scene sceneID="HjP-HW-dWn">
             <objects>
                 <viewController storyboardIdentifier="HousematesViewController" id="ea6-rB-Z5q" customClass="ModifyHouseViewController" sceneMemberID="viewController">
@@ -452,30 +452,27 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UP5-Gi-dw0">
-                                <rect key="frame" x="296" y="93" width="110" height="30"/>
+                                <rect key="frame" x="283" y="96" width="123" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Add Housemate"/>
+                                <connections>
+                                    <segue destination="hqy-69-VI0" kind="show" id="UOV-MN-CXb"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Housemates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4J-3N-brc">
-                                <rect key="frame" x="8" y="96" width="190" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="o4J-3N-brc" firstAttribute="leading" secondItem="GVu-Ad-OMf" secondAttribute="leading" constant="8" id="6cS-Tr-gvv"/>
+                            <constraint firstItem="EOA-0o-M1s" firstAttribute="top" secondItem="GVu-Ad-OMf" secondAttribute="top" constant="40" id="0Nm-f8-mZS"/>
                             <constraint firstItem="EOA-0o-M1s" firstAttribute="trailing" secondItem="GVu-Ad-OMf" secondAttribute="trailing" id="A7l-YD-3i0"/>
-                            <constraint firstItem="EOA-0o-M1s" firstAttribute="top" secondItem="o4J-3N-brc" secondAttribute="bottom" constant="8" id="DAp-uw-rNq"/>
+                            <constraint firstItem="UP5-Gi-dw0" firstAttribute="top" secondItem="GVu-Ad-OMf" secondAttribute="top" constant="8" id="EJM-1T-M7s"/>
                             <constraint firstItem="GVu-Ad-OMf" firstAttribute="trailing" secondItem="UP5-Gi-dw0" secondAttribute="trailing" constant="8" id="KDI-Cb-imd"/>
-                            <constraint firstItem="o4J-3N-brc" firstAttribute="top" secondItem="GVu-Ad-OMf" secondAttribute="top" constant="8" id="MRA-Y6-Sl7"/>
                             <constraint firstItem="EOA-0o-M1s" firstAttribute="leading" secondItem="GVu-Ad-OMf" secondAttribute="leading" id="V3z-ax-mvO"/>
-                            <constraint firstItem="UP5-Gi-dw0" firstAttribute="centerY" secondItem="o4J-3N-brc" secondAttribute="centerY" id="c9g-Er-vco"/>
                             <constraint firstAttribute="bottom" secondItem="EOA-0o-M1s" secondAttribute="bottom" id="h7l-fx-rKi"/>
+                            <constraint firstAttribute="bottom" secondItem="EOA-0o-M1s" secondAttribute="bottom" id="rJo-5G-YQz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GVu-Ad-OMf"/>
                     </view>
-                    <navigationItem key="navigationItem" id="zOj-T1-IzO"/>
+                    <navigationItem key="navigationItem" title="House" id="zOj-T1-IzO"/>
                     <connections>
                         <outlet property="tableView" destination="EOA-0o-M1s" id="3q6-y0-UiM"/>
                     </connections>
@@ -483,6 +480,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfF-Vg-Ymy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1673.913043478261" y="2086.6071428571427"/>
+        </scene>
+        <!--Add Housemate View Controller-->
+        <scene sceneID="tRh-c3-Rdj">
+            <objects>
+                <viewController id="hqy-69-VI0" customClass="AddHousemateViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="z8f-WO-20E">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wz6-gf-0jz">
+                                <rect key="frame" x="142" y="762" width="132" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Add Housemates"/>
+                                <connections>
+                                    <action selector="tapAddHousemates:" destination="hqy-69-VI0" eventType="touchUpInside" id="YmZ-rW-nZ0"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4pM-Oo-Meh">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="754"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainRoomateCell" rowHeight="89" id="61a-1y-oyc" customClass="PlainRoomateCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="89"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="61a-1y-oyc" id="CXV-hM-Wu1">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="88.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6kX-xj-pdD">
+                                                    <rect key="frame" x="28" y="19" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="EiY-6e-WCR"/>
+                                                        <constraint firstAttribute="width" constant="40" id="L05-U2-N8x"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTy-OF-9MQ">
+                                                    <rect key="frame" x="80" y="29" width="306" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6kX-xj-pdD" firstAttribute="leading" secondItem="CXV-hM-Wu1" secondAttribute="leadingMargin" constant="8" id="3Wv-Rq-qHT"/>
+                                                <constraint firstItem="NTy-OF-9MQ" firstAttribute="leading" secondItem="6kX-xj-pdD" secondAttribute="trailing" constant="12" id="EBf-7k-ry4"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6kX-xj-pdD" secondAttribute="bottom" constant="8" id="I5S-ST-Usu"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="NTy-OF-9MQ" secondAttribute="trailing" constant="8" id="Olb-HV-0E2"/>
+                                                <constraint firstItem="6kX-xj-pdD" firstAttribute="top" secondItem="CXV-hM-Wu1" secondAttribute="topMargin" constant="8" id="Qwp-uw-vvV"/>
+                                                <constraint firstItem="NTy-OF-9MQ" firstAttribute="centerY" secondItem="6kX-xj-pdD" secondAttribute="centerY" id="cri-6h-7Ca"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="NTy-OF-9MQ" id="v3d-sK-fON"/>
+                                            <outlet property="profileView" destination="6kX-xj-pdD" id="eSh-Pm-LNo"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="0Ew-tu-c7e"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="4pM-Oo-Meh" id="T46-gu-keR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fNs-x5-lFT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1673.913043478261" y="2753.5714285714284"/>
         </scene>
         <!--Home-->
         <scene sceneID="jk8-fQ-sLe">
