@@ -24,6 +24,7 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (3.1.0):
     - GoogleMaps/Base (= 3.1.0)
+  - LGSideMenuController (2.1.1)
   - Parse (1.17.2):
     - Parse/Core (= 1.17.2)
   - Parse/Core (1.17.2):
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - DownPicker
   - GoogleMaps
   - GooglePlaces
+  - LGSideMenuController
   - Parse
 
 SPEC REPOS:
@@ -45,6 +47,7 @@ SPEC REPOS:
     - DownPicker
     - GoogleMaps
     - GooglePlaces
+    - LGSideMenuController
     - Parse
 
 SPEC CHECKSUMS:
@@ -54,8 +57,9 @@ SPEC CHECKSUMS:
   DownPicker: c00ea63f08ae82116cc93d0eba74e86bf3d4c68e
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
+  LGSideMenuController: ae40c80983ab8b8801c7cef0a6804d43aaa72d45
   Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
 
-PODFILE CHECKSUM: da20f5720ac1ce6fec5e149f15e53989d72f0c2d
+PODFILE CHECKSUM: 2a97b6944e51297200107ce91447d7344ef43ee0
 
 COCOAPODS: 1.7.2
