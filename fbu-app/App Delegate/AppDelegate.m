@@ -40,7 +40,7 @@
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingTabBarController"];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
     }
     
     
