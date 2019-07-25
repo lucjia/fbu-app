@@ -13,6 +13,7 @@
 
 #import "Persona.h"
 #import "House.h"
+#import <Parse/Parse.h>
 
 @implementation Persona
 
@@ -106,14 +107,35 @@
 }
 
 - (void)addToAcceptedRequests:(Persona *)persona {
+    if (self.acceptedRequests == nil) {
+        self.acceptedRequests = [NSMutableArray new];
+    }
+    if (persona.acceptedRequests == nil) {
+        persona.acceptedRequests = [NSMutableArray new];
+    }
     
-    [persona addObject:self forKey:@"acceptedRequests"];
-    
-    [self addObject:persona forKey:@"acceptedRequests"];
-    
-   
     [self saveInBackground];
     [persona saveInBackground];
+    
+    [self queryPersonaUpdateArrayKey:persona.objectId keyToUpdate:@"acceptedRequests" valueForKey:persona.acceptedRequests valueInArray:self];
+    
+    [self queryPersonaUpdateArrayKey:self.objectId keyToUpdate:@"acceptedRequests" valueForKey:self.acceptedRequests valueInArray:persona];
+}
+
+// makes a query for a persona object with the matching objectId
+// inserts an object (arrValue) into the array (value) for the key (key)
+- (void)queryPersonaUpdateArrayKey:(NSString *)objectId keyToUpdate:(NSString *)key valueForKey:(id)value valueInArray:(id)arrValue {
+    // Create the PFQuery
+    PFQuery *query = [PFQuery queryWithClassName:@"Persona"];
+    
+    // Retrieve the object by id
+    [query getObjectInBackgroundWithId:objectId block:^(PFObject *pfobject, NSError *error) {
+
+        Persona *persona = (Persona *)pfobject;
+        [value insertObject:arrValue atIndex:0];
+        [persona setObject:value forKey:key];
+        [persona saveInBackground];
+    }];
 }
 
 @end
