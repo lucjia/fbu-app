@@ -1,24 +1,24 @@
 //
-//  HousematesViewController.m
+//  ModifyHouseViewController.m
 //  fbu-app
 //
-//  Created by sophiakaz on 7/22/19.
+//  Created by sophiakaz on 7/25/19.
 //  Copyright © 2019 lucjia. All rights reserved.
 //
 
-#import "HousematesViewController.h"
+#import "ModifyHouseViewController.h"
 #import "PlainRoomateCell.h"
 #import "Parse/Parse.h"
 #import "House.h"
 #import "Persona.h"
 
-@interface HousematesViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ModifyHouseViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *housemates;
 
 @end
 
-@implementation HousematesViewController
+@implementation ModifyHouseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,7 +27,10 @@
     self.tableView.delegate = self;
     
     [self fetchHousemates];
+    [self.tableView reloadData];
     // Do any additional setup after loading the view.
+    self.tableView.tableFooterView = [[UIView alloc]
+                                      initWithFrame:CGRectZero];
 }
 
 - (void)fetchHousemates {
@@ -35,7 +38,6 @@
     [persona fetchIfNeeded];
     House *house = [House getHouse:persona];
     self.housemates = [house objectForKey:@"housemates"];
-    [self.tableView reloadData];
     
 }
 
