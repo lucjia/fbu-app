@@ -103,12 +103,10 @@
 		85729DC022E62ED5009AD717 /* CustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		85729DC222E652A7009AD717 /* CustomLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomLabel.h; sourceTree = "<group>"; };
 		85729DC322E652A7009AD717 /* CustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomLabel.m; sourceTree = "<group>"; };
-		85729DC522E68BE0009AD717 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
-		85729DC622E68BE0009AD717 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
-		85729DC822E76EFA009AD717 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
-		85729DC922E76EFA009AD717 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
 		85729DC522E68BE0009AD717 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Persona.h; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/Subclasses/Persona.h"; sourceTree = "<absolute>"; };
 		85729DC622E68BE0009AD717 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Persona.m; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/Subclasses/Persona.m"; sourceTree = "<absolute>"; };
+		85729DC822E76EFA009AD717 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
+		85729DC922E76EFA009AD717 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -189,8 +187,6 @@
 				85729DC622E68BE0009AD717 /* Persona.m */,
 				85729DC822E76EFA009AD717 /* Reminder.h */,
 				85729DC922E76EFA009AD717 /* Reminder.m */,
-				6497FFB722E66030002D1996 /* Persona.h */,
-				6497FFB822E66030002D1996 /* Persona.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -199,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				85E7A17622DE3B24006C1F38 /* RegisterViewController.h */,
+				64BBF3D122DE406100FCCABD /* RoommateCell.m */,
 				85E7A17722DE3B24006C1F38 /* RegisterViewController.m */,
 				85E7A17922DE8060006C1F38 /* SettingsViewController.h */,
 				85E7A17A22DE8060006C1F38 /* SettingsViewController.m */,
@@ -255,7 +252,6 @@
 				7794308122DE8F1A00D9FDDA /* RuleCell.h */,
 				7794308222DE8F1A00D9FDDA /* RuleCell.m */,
 				64BBF3D022DE406100FCCABD /* RoommateCell.h */,
-				64BBF3D122DE406100FCCABD /* RoommateCell.m */,
 				85E7A18E22DFDDF1006C1F38 /* PreferenceCell.h */,
 				85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */,
 				6429400422E2781200961F29 /* RequestCell.h */,
