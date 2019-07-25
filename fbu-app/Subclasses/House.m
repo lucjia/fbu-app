@@ -28,6 +28,7 @@
     }];
 }
 
+
 - (void) addToHouse: (Persona *) persona {
     
     [self addUniqueObject:persona forKey:@"housemates"];
@@ -36,6 +37,7 @@
     [persona setObject:self forKey:@"house"];
     [PFUser.currentUser saveInBackground];
 }
+
 
 - (void) removeFromHouse: (Persona *) persona {
     

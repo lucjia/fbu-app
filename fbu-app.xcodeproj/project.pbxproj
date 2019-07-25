@@ -18,8 +18,9 @@
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
-		6497FFB922E66030002D1996 /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB822E66030002D1996 /* Persona.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
+		774B123222E62954000764BD /* PlainRoomateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123122E62954000764BD /* PlainRoomateCell.m */; };
+		774B123522E62AA9000764BD /* HousematesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123422E62AA9000764BD /* HousematesViewController.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
 		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
@@ -76,16 +77,18 @@
 		6429400222E277D600961F29 /* RequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		6429400422E2781200961F29 /* RequestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestCell.h; sourceTree = "<group>"; };
 		6429400522E2781200961F29 /* RequestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
-		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RulesViewController.h; path = Setup/RulesViewController.h; sourceTree = "<group>"; };
-		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RulesViewController.m; path = Setup/RulesViewController.m; sourceTree = "<group>"; };
+		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
+		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
 		6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsViewController.h; sourceTree = "<group>"; };
 		6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsViewController.m; sourceTree = "<group>"; };
 		6497FFB422E61F17002D1996 /* SentRequestsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsCell.h; sourceTree = "<group>"; };
 		6497FFB522E61F17002D1996 /* SentRequestsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsCell.m; sourceTree = "<group>"; };
-		6497FFB722E66030002D1996 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
-		6497FFB822E66030002D1996 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
 		64BBF3D122DE406100FCCABD /* RoommateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoommateCell.m; sourceTree = "<group>"; };
+		774B123022E62954000764BD /* PlainRoomateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlainRoomateCell.h; sourceTree = "<group>"; };
+		774B123122E62954000764BD /* PlainRoomateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlainRoomateCell.m; sourceTree = "<group>"; };
+		774B123322E62AA9000764BD /* HousematesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HousematesViewController.h; sourceTree = "<group>"; };
+		774B123422E62AA9000764BD /* HousematesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HousematesViewController.m; sourceTree = "<group>"; };
 		7794307E22DE7E2A00D9FDDA /* House.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
 		7794307F22DE7E2A00D9FDDA /* House.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = House.m; sourceTree = "<group>"; };
 		7794308122DE8F1A00D9FDDA /* RuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleCell.h; sourceTree = "<group>"; };
@@ -99,8 +102,8 @@
 		85729DC022E62ED5009AD717 /* CustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		85729DC222E652A7009AD717 /* CustomLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomLabel.h; sourceTree = "<group>"; };
 		85729DC322E652A7009AD717 /* CustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomLabel.m; sourceTree = "<group>"; };
-		85729DC522E68BE0009AD717 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
-		85729DC622E68BE0009AD717 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
+		85729DC522E68BE0009AD717 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Persona.h; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/Subclasses/Persona.h"; sourceTree = "<absolute>"; };
+		85729DC622E68BE0009AD717 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Persona.m; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/Subclasses/Persona.m"; sourceTree = "<absolute>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -179,8 +182,6 @@
 				85729DC322E652A7009AD717 /* CustomLabel.m */,
 				85729DC522E68BE0009AD717 /* Persona.h */,
 				85729DC622E68BE0009AD717 /* Persona.m */,
-				6497FFB722E66030002D1996 /* Persona.h */,
-				6497FFB822E66030002D1996 /* Persona.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -192,12 +193,14 @@
 				85E7A17722DE3B24006C1F38 /* RegisterViewController.m */,
 				85E7A17922DE8060006C1F38 /* SettingsViewController.h */,
 				85E7A17A22DE8060006C1F38 /* SettingsViewController.m */,
-				85E7A18822DFD3F2006C1F38 /* PreferencesViewController.h */,
-				85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */,
 				85E7A17F22DF9217006C1F38 /* LogInViewController.h */,
 				85E7A18022DF9217006C1F38 /* LogInViewController.m */,
 				85E7A18222DF9DA1006C1F38 /* LocationViewController.h */,
 				85E7A18322DF9DA1006C1F38 /* LocationViewController.m */,
+				85E7A18822DFD3F2006C1F38 /* PreferencesViewController.h */,
+				85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */,
+				6497FFAD22E28B5D002D1996 /* RulesViewController.h */,
+				6497FFAE22E28B5D002D1996 /* RulesViewController.m */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -213,6 +216,8 @@
 				6429400222E277D600961F29 /* RequestsViewController.m */,
 				6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */,
 				6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */,
+				774B123322E62AA9000764BD /* HousematesViewController.h */,
+				774B123422E62AA9000764BD /* HousematesViewController.m */,
 			);
 			path = HomeScreens;
 			sourceTree = "<group>";
@@ -229,8 +234,6 @@
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				6497FFAD22E28B5D002D1996 /* RulesViewController.h */,
-				6497FFAE22E28B5D002D1996 /* RulesViewController.m */,
 				64293FFC22E2615E00961F29 /* Setup */,
 				64293FFD22E2618700961F29 /* HomeScreens */,
 			);
@@ -252,6 +255,8 @@
 				6497FFB522E61F17002D1996 /* SentRequestsCell.m */,
 				85729DB622E141B7009AD717 /* LocationCell.h */,
 				85729DB722E141B7009AD717 /* LocationCell.m */,
+				774B123022E62954000764BD /* PlainRoomateCell.h */,
+				774B123122E62954000764BD /* PlainRoomateCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -579,6 +584,7 @@
 				85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
 				85729DC122E62ED5009AD717 /* CustomButton.m in Sources */,
+				774B123522E62AA9000764BD /* HousematesViewController.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
@@ -590,9 +596,9 @@
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
 				6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */,
 				6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */,
-				6497FFB922E66030002D1996 /* Persona.m in Sources */,
 				6429400022E26F7F00961F29 /* Request.m in Sources */,
 				6429400622E2781200961F29 /* RequestCell.m in Sources */,
+				774B123222E62954000764BD /* PlainRoomateCell.m in Sources */,
 				7794308022DE7E2A00D9FDDA /* House.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
 				7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */,
