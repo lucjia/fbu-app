@@ -19,6 +19,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 @property (strong, nonatomic) PFGeoPoint *userLocation;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UILabel *currentLocationLabel;
 @property (strong, nonatomic) NSArray *results;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
@@ -32,8 +33,15 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.searchBar.delegate = self;
     
+    
+    if ([[PFUser currentUser][@"persona"] objectForKey:@"venue"] == nil) {
+        self.currentLocationLabel.text = @"Choose a location close to where you wish to live!";
+    } else {
+        self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
+    }
     [self setCity];
 }
 
@@ -52,6 +60,9 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // This is the selected venue
     NSDictionary *venue = self.results[indexPath.row];
+    [[PFUser currentUser][@"persona"] setObject:[venue valueForKey:@"name"] forKey:@"venue"];
+    [[PFUser currentUser][@"persona"] saveInBackground];
+    
     double lat = [[venue valueForKeyPath:@"location.lat"] doubleValue];
     double lng = [[venue valueForKeyPath:@"location.lng"] doubleValue];
     

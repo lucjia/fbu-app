@@ -45,6 +45,8 @@
     Persona *newRegisterPersona = [Persona new];
     // Initialize some properties which are later set elsewhere
     [self initializeArrayPropertiesWithPersona:newRegisterPersona];
+    newRegisterPersona.user = [PFUser currentUser];
+    newRegisterPersona.username = [PFUser currentUser][@"username"];
     
     [[PFUser currentUser] setObject:newRegisterPersona forKey:@"persona"];
     [newRegisterPersona saveInBackgroundWithBlock:completion];
