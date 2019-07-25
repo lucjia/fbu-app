@@ -125,6 +125,17 @@
     self.bioTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.bioTextView.layer.cornerRadius = 6;
     self.bioTextView.delegate = self;
+    
+    UIToolbar *keyboardToolbar = [[UIToolbar alloc] init];
+    [keyboardToolbar sizeToFit];
+    UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                      target:nil action:nil];
+    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                      target:self action:@selector(yourTextViewDoneButtonPressed)];
+    keyboardToolbar.items = @[flexBarButton, doneBarButton];
+    self.bioTextView.inputAccessoryView = keyboardToolbar;
 }
 
 - (void) createChangeBioButton {
@@ -155,6 +166,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return NO;
+}
+
+// Dismiss keyboard by pressing "done"
+-(void)yourTextViewDoneButtonPressed {
+    [self.bioTextView resignFirstResponder];
 }
 
 // Change User Profile Picture
