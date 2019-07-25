@@ -259,7 +259,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferences:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrm-td-qdk">
-                                                <rect key="frame" x="8" y="559" width="97" height="20.5"/>
+                                                <rect key="frame" x="8" y="559" width="58" height="41"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -901,7 +901,7 @@
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sAA-b7-1El"/>
+        <segue reference="YiT-MX-4JD"/>
         <segue reference="r8G-HW-CLB"/>
         <segue reference="N8j-jp-Paw"/>
     </inferredMetricsTieBreakers>
