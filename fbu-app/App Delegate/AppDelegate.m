@@ -35,19 +35,12 @@
     }];
     
     [Parse initializeWithConfiguration:config];
-    
-    
-    NSString *username = @"elon";
-    NSString *password = @"elon";
-    [PFUser logInWithUsername:username password:password];
-
   
 
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        //self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingTabBarController"];
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"HousematesViewController"];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingTabBarController"];
 //        self.window.backgroundColor = [UIColor whiteColor];
 //        SettingsVierwController *settingsVC = [[SettingsViewController alloc] init];
 //        self.window.rootViewController = settingsVC;
