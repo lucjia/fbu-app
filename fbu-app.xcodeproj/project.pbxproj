@@ -27,8 +27,8 @@
 		85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DBD22E62A59009AD717 /* CustomTextField.m */; };
 		85729DC122E62ED5009AD717 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC022E62ED5009AD717 /* CustomButton.m */; };
 		85729DC422E652A7009AD717 /* CustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC322E652A7009AD717 /* CustomLabel.m */; };
-		85729DC722E68BE0009AD717 /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC622E68BE0009AD717 /* Persona.m */; };
 		85729DCA22E76EFA009AD717 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC922E76EFA009AD717 /* Reminder.m */; };
+		85CB809F22EA20000070AC4E /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB809E22EA20000070AC4E /* Persona.m */; };
 		85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A13F22DD214D006C1F38 /* AppDelegate.m */; };
 		85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A14222DD214D006C1F38 /* TimelineViewController.m */; };
 		85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85E7A14422DD214D006C1F38 /* Main.storyboard */; };
@@ -103,12 +103,10 @@
 		85729DC022E62ED5009AD717 /* CustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		85729DC222E652A7009AD717 /* CustomLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomLabel.h; sourceTree = "<group>"; };
 		85729DC322E652A7009AD717 /* CustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomLabel.m; sourceTree = "<group>"; };
-		85729DC522E68BE0009AD717 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
-		85729DC622E68BE0009AD717 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		85729DC822E76EFA009AD717 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
 		85729DC922E76EFA009AD717 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
-		85729DC522E68BE0009AD717 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Persona.h; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/Subclasses/Persona.h"; sourceTree = "<absolute>"; };
-		85729DC622E68BE0009AD717 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Persona.m; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/Subclasses/Persona.m"; sourceTree = "<absolute>"; };
+		85CB809E22EA20000070AC4E /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
+		85CB80A022EA20340070AC4E /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -185,12 +183,10 @@
 				85729DC022E62ED5009AD717 /* CustomButton.m */,
 				85729DC222E652A7009AD717 /* CustomLabel.h */,
 				85729DC322E652A7009AD717 /* CustomLabel.m */,
-				85729DC522E68BE0009AD717 /* Persona.h */,
-				85729DC622E68BE0009AD717 /* Persona.m */,
+				85CB80A022EA20340070AC4E /* Persona.h */,
+				85CB809E22EA20000070AC4E /* Persona.m */,
 				85729DC822E76EFA009AD717 /* Reminder.h */,
 				85729DC922E76EFA009AD717 /* Reminder.m */,
-				6497FFB722E66030002D1996 /* Persona.h */,
-				6497FFB822E66030002D1996 /* Persona.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -587,6 +583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85CB809F22EA20000070AC4E /* Persona.m in Sources */,
 				85729DC422E652A7009AD717 /* CustomLabel.m in Sources */,
 				85E7A18122DF9217006C1F38 /* LogInViewController.m in Sources */,
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
@@ -601,7 +598,6 @@
 				64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */,
 				640603BD22E1146500C24301 /* DetailsViewController.m in Sources */,
 				85E7A19022DFDDF1006C1F38 /* PreferenceCell.m in Sources */,
-				85729DC722E68BE0009AD717 /* Persona.m in Sources */,
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
 				6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */,
 				6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */,
