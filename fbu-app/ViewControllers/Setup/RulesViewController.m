@@ -32,6 +32,7 @@
 
 - (void) fetchHouse {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeeded];
     self.house = [House getHouse:persona];
 }
 
