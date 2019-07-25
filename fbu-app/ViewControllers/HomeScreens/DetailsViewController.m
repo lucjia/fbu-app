@@ -12,6 +12,7 @@
 
 @interface DetailsViewController ()
 
+@property (strong, nonatomic) NSMutableArray *preferenceQuestionsAsked;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *fullNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -19,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
 @property (weak, nonatomic) IBOutlet UILabel *preferencesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *answerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *questionLabel;
+
 
 @end
 
@@ -44,9 +48,32 @@
     self.locationLabel.text = [self.user objectForKey:@"city"];
     self.bioLabel.text = [self.user objectForKey:@"bio"];
     NSArray *preferencesArray = [self.user objectForKey:@"preferences"];;
-    NSString *preferencesString = [preferencesArray componentsJoinedByString:@", \n"];
+    NSString *preferencesString = [preferencesArray componentsJoinedByString:@" \n"];
     
-    self.preferencesLabel.text = preferencesString;
+    [self getQuestionsAsked];
+    self.answerLabel.text = preferencesString;
+}
+
+- (void)getQuestionsAsked {
+    // construct query
+    PFQuery *query = [PFQuery queryWithClassName:@"Questions"];
+    
+    [query includeKey:@"questionsAsked"];
+    
+    [query orderByDescending:@"createdAt"];
+    
+    query.limit = 20;
+    
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *questions, NSError *error) {
+        if (questions != nil) {
+            // do something with the array of object returned by the call
+            self.preferenceQuestionsAsked = questions[0][@"questionsAsked"];
+            
+            NSString *preferencesQuestionsString = [self.preferenceQuestionsAsked componentsJoinedByString:@" \n"];
+            self.questionLabel.text = preferencesQuestionsString;
+        }
+    }];
 }
 
 /*
