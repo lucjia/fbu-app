@@ -264,11 +264,24 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ey-yN-v1w">
+                                                <rect key="frame" x="8" y="584" width="47.5" height="13.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SI2-gq-aqM">
+                                                <rect key="frame" x="67" y="584" width="39" height="13.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="YV3-MR-e8X" secondAttribute="trailing" id="2or-NN-1NV"/>
                                             <constraint firstItem="uao-79-zFT" firstAttribute="top" secondItem="YV3-MR-e8X" secondAttribute="bottom" constant="8" id="67i-xQ-KQ1"/>
+                                            <constraint firstItem="SI2-gq-aqM" firstAttribute="top" secondItem="zrm-td-qdk" secondAttribute="bottom" constant="4.5" id="DBQ-x5-GJL"/>
                                             <constraint firstItem="YV3-MR-e8X" firstAttribute="top" secondItem="muR-al-Nub" secondAttribute="top" id="Ora-5O-SLo"/>
                                             <constraint firstAttribute="trailing" secondItem="wgl-Pk-Z67" secondAttribute="trailing" constant="8" id="U2k-7P-mA3"/>
                                             <constraint firstItem="mts-XV-UWG" firstAttribute="top" secondItem="c5g-yK-W8N" secondAttribute="bottom" constant="8" id="X2K-R8-z5j"/>
@@ -276,9 +289,12 @@
                                             <constraint firstItem="uao-79-zFT" firstAttribute="leading" secondItem="muR-al-Nub" secondAttribute="leading" constant="8" id="Yh6-0o-BVY"/>
                                             <constraint firstItem="zrm-td-qdk" firstAttribute="leading" secondItem="mts-XV-UWG" secondAttribute="leading" id="Yox-t6-D4s"/>
                                             <constraint firstItem="YV3-MR-e8X" firstAttribute="leading" secondItem="muR-al-Nub" secondAttribute="leading" id="ayP-GP-krf"/>
+                                            <constraint firstItem="1Ey-yN-v1w" firstAttribute="leading" secondItem="zrm-td-qdk" secondAttribute="leading" id="ezj-i1-tYE"/>
+                                            <constraint firstItem="1Ey-yN-v1w" firstAttribute="top" secondItem="zrm-td-qdk" secondAttribute="bottom" constant="4.5" id="g09-cu-goo"/>
                                             <constraint firstItem="zrm-td-qdk" firstAttribute="top" secondItem="mts-XV-UWG" secondAttribute="bottom" constant="40.5" id="gka-VP-cmh"/>
                                             <constraint firstItem="mts-XV-UWG" firstAttribute="leading" secondItem="uao-79-zFT" secondAttribute="leading" id="gyO-rW-sRw"/>
                                             <constraint firstAttribute="trailing" secondItem="zrm-td-qdk" secondAttribute="trailing" constant="309" id="hbT-91-Ymo"/>
+                                            <constraint firstItem="SI2-gq-aqM" firstAttribute="leading" secondItem="1Ey-yN-v1w" secondAttribute="trailing" constant="11.5" id="lwa-iV-Ekc"/>
                                             <constraint firstItem="fmL-M8-GKp" firstAttribute="top" secondItem="uao-79-zFT" secondAttribute="bottom" constant="3.5" id="nPZ-DG-JcW"/>
                                             <constraint firstItem="c5g-yK-W8N" firstAttribute="top" secondItem="fmL-M8-GKp" secondAttribute="bottom" constant="8" id="njF-dQ-iee"/>
                                             <constraint firstItem="fmL-M8-GKp" firstAttribute="leading" secondItem="uao-79-zFT" secondAttribute="leading" id="qiT-H5-RRn"/>
@@ -306,11 +322,13 @@
                         <viewLayoutGuide key="safeArea" id="cON-8z-clP"/>
                     </view>
                     <connections>
+                        <outlet property="answerLabel" destination="SI2-gq-aqM" id="nFw-nh-Cwo"/>
                         <outlet property="bioLabel" destination="mts-XV-UWG" id="QpZ-S5-YUM"/>
                         <outlet property="fullNameLabel" destination="uao-79-zFT" id="Jmm-JW-9c5"/>
                         <outlet property="locationLabel" destination="c5g-yK-W8N" id="IdH-X9-FdI"/>
                         <outlet property="preferencesLabel" destination="zrm-td-qdk" id="pky-Tf-mzJ"/>
                         <outlet property="profileImage" destination="YV3-MR-e8X" id="j9t-iU-ekl"/>
+                        <outlet property="questionLabel" destination="1Ey-yN-v1w" id="xXk-ih-Ixd"/>
                         <outlet property="sendRequestButton" destination="wgl-Pk-Z67" id="UST-YW-3xG"/>
                         <outlet property="usernameLabel" destination="fmL-M8-GKp" id="AEo-yu-mab"/>
                     </connections>

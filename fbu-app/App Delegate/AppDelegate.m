@@ -40,9 +40,6 @@
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingTabBarController"];
-//        self.window.backgroundColor = [UIColor whiteColor];
-//        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-//        self.window.rootViewController = settingsVC;
     }
     
     return YES;
