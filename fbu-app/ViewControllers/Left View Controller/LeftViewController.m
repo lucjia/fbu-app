@@ -11,6 +11,7 @@
 #import "MainViewController.h"
 #import "TimelineViewController.h"
 #import "SettingsViewController.h"
+#import "ReminderViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
@@ -34,7 +35,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.titlesArray = @[@"Create a House",
-                         @"Settings"];
+                         @"Settings",
+                         @"Features"];
 }
 
 #pragma mark - Table view data source
@@ -61,7 +63,16 @@
     // Settings
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Settings"]) {
         SettingsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsVC"];
-        //viewController.view.backgroundColor = [UIColor whiteColor];
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [currentController pushViewController:viewController animated:YES];
+    
+    // Features (Separate mode)
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Features"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        ReminderViewController *viewController = [postSearch instantiateInitialViewController];
         
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;

@@ -395,10 +395,6 @@
     [self presentViewController:logInVC animated:YES completion:nil];
 }
 
-- (IBAction)didPressFeatures:(id)sender {
-    [self performSegueWithIdentifier:@"toFeatures" sender:self];
-}
-
 /*
 #pragma mark - Navigation
 
