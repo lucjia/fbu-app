@@ -16,8 +16,9 @@
 @interface AddHousemateViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)tapAddHousemates:(id)sender;
-@property (nonatomic, strong) NSArray *potentialHousemates;
+@property (nonatomic, strong) NSMutableArray *potentialHousemates;
 @property (nonatomic, strong) NSMutableArray *housematesToAdd;
+@property (weak, nonatomic) IBOutlet UIButton *houseButton;
 
 @end
 
@@ -31,6 +32,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    [self setButtonLabel];
+    
     [self fetchPotentialHousemates];
     [self.tableView reloadData];
     // Do any additional setup after loading the view.
@@ -38,16 +41,37 @@
                                       initWithFrame:CGRectZero];
 }
 
+- (void) setButtonLabel {
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeeded];
+    House *house = [House getHouse:persona];
+    if(house == nil){
+        [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
+    }
+    else{
+        [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
 - (void)fetchPotentialHousemates {
+    [PFUser.currentUser fetchIfNeeded];
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
     [persona fetchIfNeeded];
     NSMutableArray *acceptedRequests = [persona objectForKey:@"acceptedRequests"];
-    for (Persona *persona in acceptedRequests){
-        [persona fetchIfNeeded];
+    NSMutableArray *potentials = [[NSMutableArray alloc] init];
+    [potentials addObjectsFromArray:acceptedRequests];
+    for (Persona *housemate in acceptedRequests){
+        [housemate fetchIfNeeded];
+        [housemate fetch];
+        if([housemate objectForKey:@"house"] != nil){
+            [potentials removeObject:housemate];
+        }
     }
-    NSArray *housemates = [self fetchHousemates];
-    [acceptedRequests removeObjectsInArray:housemates];
-    self.potentialHousemates = acceptedRequests;
+    self.potentialHousemates = potentials;
 }
 
 - (NSArray *)fetchHousemates {
@@ -101,21 +125,24 @@
 
 
 - (IBAction)tapAddHousemates:(id)sender {
-    if(self.housematesToAdd.count != 0){
-        Persona *persona = [PFUser.currentUser objectForKey:@"persona"];
-        [persona fetchIfNeeded];
-        House *house = [persona objectForKey:@"house"];
-        if (house == nil){
-            [House createHouse:persona];
-            house = [persona objectForKey:@"house"];
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeeded];
+    House *house = [House getHouse:persona];
+    if(house == nil){
+        [House createHouse:persona];
+        house = [persona objectForKey:@"house"];
+        if(self.housematesToAdd.count == 0){
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
+    }
+    if(self.housematesToAdd.count != 0){
         [house fetchIfNeeded];
-        
         for(Persona *housemate in self.housematesToAdd){
             [house addToHouse:housemate];
         }
-        
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
+
+
 @end
