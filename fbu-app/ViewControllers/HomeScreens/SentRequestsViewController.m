@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 #import "Request.h"
 #import "SentRequestsCell.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface SentRequestsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -50,6 +52,10 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+- (IBAction)didTapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 /*

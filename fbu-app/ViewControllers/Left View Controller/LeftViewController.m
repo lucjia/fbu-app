@@ -64,10 +64,9 @@
         //viewController.view.backgroundColor = [UIColor whiteColor];
         
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
-        NSArray *childControllers = tabBarController.childViewControllers;
-        UINavigationController *timeline = (UINavigationController *)childControllers[0];
+        UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [timeline pushViewController:viewController animated:YES];
+        [currentController pushViewController:viewController animated:YES];
     }
 
     [mainViewController hideLeftViewAnimated:YES delay:0.0 completionHandler:nil];

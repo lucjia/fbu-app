@@ -14,6 +14,8 @@
 #import "House.h"
 #import "Persona.h"
 #import "DetailsViewController.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource, RoommateCellDelegate>
 
@@ -116,6 +118,9 @@
     } else {
         // do nothing
     }
+}
+- (IBAction)didTapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 @end
