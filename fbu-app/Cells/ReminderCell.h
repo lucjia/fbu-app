@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reminder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ReminderCell : UITableViewCell
 
-- (void) updateReminderCell;
+- (void) updateReminderCellWithReminder:(Reminder *)rem;
 
 @end
 

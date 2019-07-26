@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *reminderTextView;
 @property (weak, nonatomic) IBOutlet UIButton *addReminderButton;
 @property (strong, nonatomic) Persona *receiver;
+@property (strong, nonatomic) NSString *dueDateString;
 
 @end
 
@@ -53,9 +54,10 @@
 }
 
 - (void) showSelectedDate {
-    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
-    self.dateSelectionTextField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
+    self.dueDateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
+    self.dateSelectionTextField.text = self.dueDateString;
     [self.dateSelectionTextField resignFirstResponder];
 }
 
@@ -87,7 +89,7 @@
         [query findObjectsInBackgroundWithBlock:^(NSArray *recipient, NSError *error) {
             if (recipient != nil) {
                 self.receiver = [recipient objectAtIndex:0];
-                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:self.datePicker.date withCompletion:nil];
+                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:self.datePicker.date dueDateString:self.dueDateString withCompletion:nil];
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }

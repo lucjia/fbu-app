@@ -7,10 +7,12 @@
 //
 
 #import "ReminderCell.h"
+#import "Reminder.h"
 
 @interface ReminderCell()
 
 @property (weak, nonatomic) IBOutlet UILabel *reminderTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *reminderDateLabel;
 
 @end
 
@@ -27,8 +29,11 @@
     // Configure the view for the selected state
 }
 
-- (void) updateReminderCell {
-    self.reminderTextLabel.text = @"hi";
+- (void) updateReminderCellWithReminder:(Reminder *)rem {
+    self.reminderTextLabel.text = rem.reminderText;
+    
+    NSString *dueDateString = rem.dueDateString;
+    self.reminderDateLabel.text = dueDateString;
 }
 
 @end

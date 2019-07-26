@@ -18,9 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *reminderText;
 @property (strong, nonatomic) NSDate *reminderSentDate;
 @property (strong, nonatomic) NSDate *reminderDueDate;
+@property (strong, nonatomic) NSString *dueDateString;
 
 // Make sure this is for the Persona
-+ (void) createReminder:(Persona *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate withCompletion:(PFBooleanResultBlock _Nullable)completion;
++ (void) createReminder:(Persona *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate dueDateString:(NSString *)dueDateString withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

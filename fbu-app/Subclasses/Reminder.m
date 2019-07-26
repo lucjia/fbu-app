@@ -16,18 +16,20 @@
 @dynamic reminderText;
 @dynamic reminderSentDate;
 @dynamic reminderDueDate;
+@dynamic dueDateString;
 
 + (nonnull NSString *)parseClassName {
     return @"Reminder";
 }
 
-+ (void) createReminder:(Persona *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate withCompletion:(PFBooleanResultBlock _Nullable)completion {
++ (void) createReminder:(Persona *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate dueDateString:(NSString *)dueDateString withCompletion:(PFBooleanResultBlock _Nullable)completion {
     Reminder *newReminder = [Reminder new];
     newReminder.reminderSender = [PFUser currentUser][@"persona"];
     newReminder.reminderReceiver = receiver;
     newReminder.reminderText = text;
     newReminder.reminderSentDate = newReminder.createdAt;
     newReminder.reminderDueDate = dueDate;
+    newReminder.dueDateString = dueDateString;
     
     [newReminder saveInBackgroundWithBlock:completion];
 }
