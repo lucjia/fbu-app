@@ -663,13 +663,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="UFr-Le-e8x"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="PLg-Q3-t09" appends="YES" id="IP3-tu-KKR"/>
+                        </connections>
                     </view>
                     <connections>
                         <segue destination="Sqn-Gz-HnV" kind="presentation" identifier="toSettings" id="nD8-mx-BYa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GaA-5I-sl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="PLg-Q3-t09">
+                    <connections>
+                        <action selector="didTap:" destination="lEk-wg-XeG" id="nTZ-zg-Ljh"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-618" y="-1075"/>
         </scene>
@@ -704,7 +713,11 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="NBf-OI-8R7"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="q0I-MA-OWE" appends="YES" id="dEO-9O-JkJ"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="logInLabel" destination="23M-fV-uUq" id="gEk-vy-BNi"/>
@@ -715,6 +728,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="evP-Qx-rT8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="q0I-MA-OWE">
+                    <connections>
+                        <action selector="didTap:" destination="0dj-6j-6FU" id="dLo-za-kCy"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1370" y="-1075"/>
         </scene>
@@ -841,6 +859,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="aji-eh-h7t" firstAttribute="top" secondItem="3xn-gE-IOK" secondAttribute="bottom" constant="12" id="9gO-P1-JDh"/>
                             <constraint firstItem="3xn-gE-IOK" firstAttribute="top" secondItem="fay-Rl-Pi3" secondAttribute="bottom" constant="14" id="C4t-1j-Uyh"/>
@@ -868,6 +887,9 @@
                             <constraint firstItem="w5c-G0-0tl" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="zYL-Vv-uZr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sSa-oF-ssc"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="OaV-Jr-dBa" appends="YES" id="rEC-Bt-3Nr"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="fVy-eC-jgq"/>
                     <connections>
@@ -889,6 +911,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZI-zy-JfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="OaV-Jr-dBa">
+                    <connections>
+                        <action selector="didTap:" destination="qmT-Kq-rNQ" id="pFu-jZ-oHc"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="132" y="-300"/>
         </scene>
@@ -1061,7 +1088,8 @@
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YiT-MX-4JD"/>
+        <segue reference="ySp-Fv-BP2"/>
+        <segue reference="qbh-0r-9Aw"/>
         <segue reference="dbJ-VM-uVd"/>
         <segue reference="N8j-jp-Paw"/>
     </inferredMetricsTieBreakers>

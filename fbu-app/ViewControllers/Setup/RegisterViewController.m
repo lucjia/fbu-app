@@ -34,6 +34,10 @@
     [self createLabel];
 }
 
+- (IBAction)didTap:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (void) createUsernameEmailPasswordFields {
     CustomTextField *textField = [[CustomTextField alloc] init];
     

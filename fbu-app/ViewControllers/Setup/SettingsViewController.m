@@ -60,6 +60,10 @@
     [self createLogOutButton];
 }
 
+- (IBAction)didTap:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (void) createProfileImageView {
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
