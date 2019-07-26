@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *housemates;
 @property (weak, nonatomic) IBOutlet UIButton *houseButton;
+@property (weak, nonatomic) IBOutlet UIButton *removeButton;
+- (IBAction)tapRemove:(id)sender;
 
 @end
 
@@ -27,9 +29,7 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    [self setButtonLabel];
-    [self fetchHousemates];
-    [self.tableView reloadData];
+    [self reloadView];
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc]
                                       initWithFrame:CGRectZero];
@@ -37,9 +37,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self reloadView];
+}
+
+- (void) reloadView {
     [self setButtonLabel];
     [self fetchHousemates];
-    [self.tableView reloadData]; // to reload selected cell
+    [self.tableView reloadData];
 }
 
 
@@ -49,9 +53,11 @@
     House *house = [House getHouse:persona];
     if(house == nil){
         [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
+        self.removeButton.hidden = YES;
     }
     else{
         [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
+        self.removeButton.hidden = NO;
     }
 }
 
@@ -107,4 +113,15 @@
     }
 }
 
+- (IBAction)tapRemove:(id)sender {
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeeded];
+    House *house = [House getHouse:persona];
+    [house removeFromHouse:persona];
+    NSArray *housemates = [house objectForKey:@"housemates"];
+    if(housemates.count == 0){
+        [house deleteHouse];
+    }
+    [self reloadView];
+}
 @end
