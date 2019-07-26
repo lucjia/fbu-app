@@ -36,8 +36,10 @@
     self.currentRequest = request;
     
     PFUser *user = [request objectForKey:@"receiver"];
-    NSData *imageData = [[user objectForKey:@"profileImage"] getData];
-    self.profileImage.image = [[UIImage alloc] initWithData:imageData];
+    [[user objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        NSData *imageData = data;
+        self.profileImage.image = [[UIImage alloc] initWithData:imageData];
+    }];
     
     self.waitingLabel.text = [NSString stringWithFormat:@"Waiting for %@ to respond", [user objectForKey:@"username"]];
 }

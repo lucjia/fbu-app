@@ -730,6 +730,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="Tn6-3v-suY" kind="relationship" relationship="viewControllers" id="p1c-OD-bjk"/>
+                        <segue destination="idW-sO-RGO" kind="relationship" relationship="viewControllers" id="GRl-77-1sW"/>
+                        <segue destination="dvj-cT-oNK" kind="relationship" relationship="viewControllers" id="FrM-Bw-ujW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o40-9L-T04" userLabel="First Responder" sceneMemberID="firstResponder"/>
