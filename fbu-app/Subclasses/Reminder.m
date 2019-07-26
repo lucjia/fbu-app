@@ -7,6 +7,7 @@
 //
 
 #import "Reminder.h"
+#import "Persona.h"
 
 @implementation Reminder
 
@@ -20,9 +21,9 @@
     return @"Reminder";
 }
 
-+ (void) createReminder:(PFUser *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate withCompletion:(PFBooleanResultBlock _Nullable)completion {
++ (void) createReminder:(Persona *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate withCompletion:(PFBooleanResultBlock _Nullable)completion {
     Reminder *newReminder = [Reminder new];
-    newReminder.reminderSender = [PFUser currentUser];
+    newReminder.reminderSender = [PFUser currentUser][@"persona"];
     newReminder.reminderReceiver = receiver;
     newReminder.reminderText = text;
     newReminder.reminderSentDate = newReminder.createdAt;

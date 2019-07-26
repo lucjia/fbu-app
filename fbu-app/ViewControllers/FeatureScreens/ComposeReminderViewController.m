@@ -7,6 +7,8 @@
 //
 
 #import "ComposeReminderViewController.h"
+#import "Reminder.h"
+#import "Persona.h"
 
 @interface ComposeReminderViewController ()
 
@@ -14,6 +16,8 @@
 @property (strong, nonatomic) UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UITextField *recipientTextField;
 @property (weak, nonatomic) IBOutlet UITextView *reminderTextView;
+@property (weak, nonatomic) IBOutlet UIButton *addReminderButton;
+@property (strong, nonatomic) Persona *receiver;
 
 @end
 
@@ -53,6 +57,44 @@
     [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
     self.dateSelectionTextField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
     [self.dateSelectionTextField resignFirstResponder];
+}
+
+- (IBAction)didPressAdd:(id)sender {
+    // Check if fields are empty OR invalid
+    if ([self.recipientTextField.text isEqualToString:@""] || [self.reminderTextView.text isEqualToString:@""]) {
+        // Create alert to display error
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Add Reminder"
+                                                                       message:@"Please enter a username or reminder."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        // Create a try again action
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [UIColor redColor];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        // query for persona of the user with the given username IN THE HOUSE
+        // store text, due date, and recipient, and sender into the Reminder
+        PFQuery *query = [PFQuery queryWithClassName:@"Persona"];
+        [query includeKey:@"persona"];
+        
+        // query for Persona that is the recipient
+        [query whereKey:@"username" equalTo:self.recipientTextField.text];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *recipient, NSError *error) {
+            if (recipient != nil) {
+                self.receiver = [recipient objectAtIndex:0];
+                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:self.datePicker.date withCompletion:nil];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 /*

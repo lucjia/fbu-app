@@ -1020,7 +1020,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="zHr-Yl-L4e"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Reminders" id="JYG-kR-1hA"/>
+                    <navigationItem key="navigationItem" title="Reminders" id="JYG-kR-1hA">
+                        <barButtonItem key="rightBarButtonItem" title="+" id="HVa-Id-uHc">
+                            <connections>
+                                <segue destination="GIn-6m-RgP" kind="show" id="ITx-3f-Y4I"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="HOj-G4-xCQ" id="Fak-6W-dlA"/>
                         <outlet property="tableView" destination="nnw-Io-TMx" id="Hn6-lK-ihe"/>
@@ -1039,13 +1045,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write a reminder..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zz7-dK-43n">
-                                <rect key="frame" x="67" y="99" width="240" height="128"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipient" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dwg-dY-Cz9">
+                                <rect key="frame" x="96" y="269" width="183" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reminder Date and Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sqp-Ag-vFd">
                                 <rect key="frame" x="96" y="338" width="183" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1053,13 +1059,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipient" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dwg-dY-Cz9">
-                                <rect key="frame" x="139" y="269" width="97" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGd-1I-had">
+                                <rect key="frame" x="139" y="559" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
+                                <state key="normal" title="Add Reminder"/>
+                                <connections>
+                                    <action selector="didPressAdd:" destination="GIn-6m-RgP" eventType="touchUpInside" id="Oo1-WK-HSU"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write a reminder..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zz7-dK-43n">
+                                <rect key="frame" x="67" y="99" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -1069,6 +1083,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="addReminderButton" destination="tGd-1I-had" id="Ak1-IZ-V7f"/>
                         <outlet property="dateSelectionTextField" destination="sqp-Ag-vFd" id="qAO-NZ-DEi"/>
                         <outlet property="recipientTextField" destination="dwg-dY-Cz9" id="1du-cs-gJq"/>
                         <outlet property="reminderTextView" destination="zz7-dK-43n" id="yTC-iD-yff"/>
@@ -1081,14 +1096,14 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3664.8000000000002" y="517.6911544227886"/>
+            <point key="canvasLocation" x="3639" y="518"/>
         </scene>
     </scenes>
     <resources>
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ySp-Fv-BP2"/>
+        <segue reference="5bp-tn-He8"/>
         <segue reference="qbh-0r-9Aw"/>
         <segue reference="dbJ-VM-uVd"/>
         <segue reference="N8j-jp-Paw"/>
