@@ -8,6 +8,12 @@
 
 #import "CalendarCell.h"
 
+@interface CalendarCell()
+
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
+@end
+
 @implementation CalendarCell
 
 @end
