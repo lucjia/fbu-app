@@ -12,6 +12,8 @@
 #import "RequestCell.h"
 #import "DetailsViewController.h"
 #import "Persona.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface RequestsViewController () <UITableViewDelegate, UITableViewDataSource, RequestCellDelegate>
 
@@ -107,6 +109,10 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.sendersArray.count;
+}
+
+- (IBAction)didTapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 @end
