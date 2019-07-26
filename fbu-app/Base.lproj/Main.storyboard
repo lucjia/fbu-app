@@ -351,7 +351,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FJ9-2G-SeT">
-                                <rect key="frame" x="0.0" y="144" width="414" height="665.5"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="709.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" rowHeight="74" id="rP5-8S-IR0" customClass="LocationCell">
@@ -409,7 +409,7 @@
                                 </prototypes>
                             </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ti4-2O-tA7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pQ-bU-sL9">
@@ -649,7 +649,6 @@
         <!--Left View Controller-->
         <scene sceneID="7vK-rC-fZ8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qJ5-lq-J4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="cf4-zE-U2p" customClass="LeftViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Uxw-uw-fZC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -691,13 +690,13 @@
                         <segue destination="Sqn-Gz-HnV" kind="show" identifier="leftToSettingsNav" id="gWT-7N-jNe"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qJ5-lq-J4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1310.144927536232" y="493.52678571428567"/>
         </scene>
         <!--Side Menu Controller-->
         <scene sceneID="tfG-or-PZv">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G3L-BT-leN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SearchingSideMenuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uya-kf-udz" customClass="LGSideMenuController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xOz-P3-Vvr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -715,6 +714,7 @@
                         <segue destination="jOV-Eg-dHQ" kind="custom" identifier="root" customClass="LGSideMenuSegue" id="jds-2Y-IW3"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G3L-BT-leN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="494"/>
         </scene>
@@ -730,8 +730,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="Tn6-3v-suY" kind="relationship" relationship="viewControllers" id="p1c-OD-bjk"/>
-                        <segue destination="idW-sO-RGO" kind="relationship" relationship="viewControllers" id="GRl-77-1sW"/>
-                        <segue destination="dvj-cT-oNK" kind="relationship" relationship="viewControllers" id="FrM-Bw-ujW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o40-9L-T04" userLabel="First Responder" sceneMemberID="firstResponder"/>
