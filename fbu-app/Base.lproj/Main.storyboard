@@ -692,7 +692,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qJ5-lq-J4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1310.144927536232" y="493.52678571428567"/>
+            <point key="canvasLocation" x="-620" y="494"/>
         </scene>
         <!--Side Menu Controller-->
         <scene sceneID="tfG-or-PZv">
@@ -717,14 +717,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G3L-BT-leN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="494"/>
-        </scene>
-        <!--PostSearch-->
-        <scene sceneID="4Fu-yp-OT7">
-            <objects>
-                <viewControllerPlaceholder storyboardName="PostSearch" id="3I1-bh-UZU" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oEK-2e-4CJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="901" y="173"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="IIv-Dx-GJG">

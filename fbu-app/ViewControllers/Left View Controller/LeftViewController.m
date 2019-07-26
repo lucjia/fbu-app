@@ -77,8 +77,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        
-        [currentController pushViewController:viewController animated:YES];
+        [currentController presentViewController:viewController animated:YES completion:nil];
     }
 
     [mainViewController hideLeftViewAnimated:YES delay:0.0 completionHandler:nil];
