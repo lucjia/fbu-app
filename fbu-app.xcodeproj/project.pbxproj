@@ -18,6 +18,7 @@
 		645088BF22EA788400319C93 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088BE22EA788400319C93 /* LeftViewController.m */; };
 		645088C322EA7B2800319C93 /* LeftViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088C222EA7B2800319C93 /* LeftViewCell.m */; };
 		645088C722EA827300319C93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088C622EA827300319C93 /* MainViewController.m */; };
+		645088C922EB987000319C93 /* PostSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645088C822EB987000319C93 /* PostSearch.storyboard */; };
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
@@ -87,6 +88,7 @@
 		645088C222EA7B2800319C93 /* LeftViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftViewCell.m; sourceTree = "<group>"; };
 		645088C522EA827300319C93 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		645088C622EA827300319C93 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		645088C822EB987000319C93 /* PostSearch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostSearch.storyboard; sourceTree = "<group>"; };
 		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
 		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
 		6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsViewController.h; sourceTree = "<group>"; };
@@ -327,10 +329,11 @@
 				64BBF3CF22DE401900FCCABD /* Cells */,
 				6497FFB022E2AFA0002D1996 /* App Delegate */,
 				85E7A14422DD214D006C1F38 /* Main.storyboard */,
-				85E7A14722DD214E006C1F38 /* Assets.xcassets */,
 				85E7A14922DD214E006C1F38 /* LaunchScreen.storyboard */,
+				85E7A14722DD214E006C1F38 /* Assets.xcassets */,
 				85E7A14C22DD214E006C1F38 /* Info.plist */,
 				85E7A14D22DD214E006C1F38 /* main.m */,
+				645088C822EB987000319C93 /* PostSearch.storyboard */,
 			);
 			path = "fbu-app";
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				645088C922EB987000319C93 /* PostSearch.storyboard in Resources */,
 				85E7A14B22DD214E006C1F38 /* LaunchScreen.storyboard in Resources */,
 				85E7A14822DD214E006C1F38 /* Assets.xcassets in Resources */,
 				85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */,
