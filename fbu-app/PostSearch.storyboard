@@ -39,11 +39,11 @@
                                 <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderCell" rowHeight="117" id="4vw-ym-31Y" customClass="ReminderCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="117"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderCell" rowHeight="116" id="4vw-ym-31Y" customClass="ReminderCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="116"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4vw-ym-31Y" id="Q2b-9o-vlN">
-                                            <rect key="frame" x="0.0" y="0.0" width="376" height="116.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="115.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-5h-6f4">
@@ -79,6 +79,7 @@
                                                 <constraint firstItem="cXE-sE-55K" firstAttribute="trailing" secondItem="u4r-5h-6f4" secondAttribute="trailing" id="E1b-Ib-8Ik"/>
                                                 <constraint firstItem="unf-cZ-idd" firstAttribute="leading" secondItem="Xja-eP-1VR" secondAttribute="trailing" id="IdO-dO-HSV"/>
                                                 <constraint firstItem="unf-cZ-idd" firstAttribute="bottom" secondItem="Xja-eP-1VR" secondAttribute="bottom" id="NjX-fo-e3f"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="unf-cZ-idd" secondAttribute="bottom" constant="7.5" id="Q6J-rX-7sB"/>
                                                 <constraint firstItem="U40-Qu-HXY" firstAttribute="leading" secondItem="Q2b-9o-vlN" secondAttribute="leadingMargin" constant="8" id="Vbq-DM-Mlt"/>
                                                 <constraint firstItem="cXE-sE-55K" firstAttribute="leading" secondItem="U40-Qu-HXY" secondAttribute="trailing" constant="24" id="Ve0-8K-LOq"/>
                                                 <constraint firstItem="unf-cZ-idd" firstAttribute="top" secondItem="cXE-sE-55K" secondAttribute="bottom" constant="8" id="WVc-dK-z12"/>
@@ -215,6 +216,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="XI9-Fg-tv7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="o0C-WO-zrh">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

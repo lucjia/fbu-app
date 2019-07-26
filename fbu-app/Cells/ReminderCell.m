@@ -37,7 +37,8 @@
     self.reminderDateLabel.text = dueDateString;
     
     NSString *firstName = rem.reminderSender[@"firstName"];
-    NSString *fullName = [firstName stringByAppendingString:rem.reminderSender[@"lastName"]];
+    NSString *lastName = [@" " stringByAppendingString:rem.reminderSender[@"lastName"]];
+    NSString *fullName = [firstName stringByAppendingString:lastName];
     self.reminderSenderLabel.text = fullName;
     
     
