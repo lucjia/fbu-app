@@ -8,12 +8,13 @@
 
 #import "ReminderViewController.h"
 #import "ReminderCell.h"
+#import "CustomButton.h"
 
 @interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
+@property (nonatomic, assign) NSInteger totalRowCount;
 
 @end
 
@@ -27,19 +28,31 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.searchBar.delegate = self;
     
+    self.totalRowCount = 4;
     self.receivedReminderArray = [[NSMutableArray alloc] init];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ReminderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReminderCell" forIndexPath:indexPath];
-    
-    [cell updateReminderCell];
+    if (indexPath.row == self.totalRowCount - 1) {
+        CustomButton *button = [[CustomButton alloc] init];
+        UIButton *createReminderButton = [button styledBackgroundButtonWithOrigin:CGPointMake(20, 20) text:@"Create Reminder"];
+        [createReminderButton addTarget:self action:@selector(segueToCompose) forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:createReminderButton];
+    } else {
+        [cell updateReminderCell];
+    }
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    self.totalRowCount = 4;
+    return self.totalRowCount;
+}
+
+- (void) segueToCompose {
+    [self performSegueWithIdentifier:@"toCompose" sender:self];
 }
 
 /*
