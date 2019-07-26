@@ -39,8 +39,10 @@
     self.currentRequest = request;
     
     PFUser *user = [request objectForKey:@"sender"];
-    NSData *imageData = [[user objectForKey:@"profileImage"] getData];
-    self.senderProfileImage.image = [[UIImage alloc] initWithData:imageData];
+    [[user objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        NSData *imageData = data;
+        self.senderProfileImage.image = [[UIImage alloc] initWithData:imageData];
+    }];
     
     NSString *senderUsername = [user objectForKey:@"username"];
     self.senderOfRequestLabel.text = [NSString stringWithFormat:@"%@ has sent you a request!", senderUsername];

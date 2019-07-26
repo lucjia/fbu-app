@@ -67,8 +67,10 @@
 - (void) createProfileImageView {
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
-    NSData *imageData = [[[PFUser currentUser][@"persona"] objectForKey:@"profileImage"] getData];
-    self.profileImageView.image = [[UIImage alloc] initWithData:imageData];
+    [[[PFUser currentUser][@"persona"] objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        NSData *imageData = data;
+        self.profileImageView.image = [[UIImage alloc] initWithData:imageData];
+    }];
     if (self.profileImageView.image != nil) {
         self.profileImage = self.profileImageView.image;
     } else {

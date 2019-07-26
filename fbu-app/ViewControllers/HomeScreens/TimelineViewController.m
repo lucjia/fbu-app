@@ -34,24 +34,29 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    [self fetchUserTimeline];
+    
+    Persona *persona = [PFUser currentUser][@"persona"];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if (object) {
+            [self fetchUserTimelineWithPersona:(Persona *)object];
+        }
+    }];
     
     // Refresh control for "pull to refresh"
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(fetchUserTimeline) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(fetchUserTimelineWithPersona:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 
-- (void) fetchUserTimeline {
+- (void) fetchUserTimelineWithPersona:(Persona *)persona {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Persona"];
     
     [query includeKey:@"persona"];
     [query includeKey:@"geoPoint"];
     
-    Persona *persona = [PFUser currentUser][@"persona"];
-    [persona fetchIfNeeded];
+    
     // query excludes current user
     [query whereKey:@"username" notEqualTo:persona.username];
     
