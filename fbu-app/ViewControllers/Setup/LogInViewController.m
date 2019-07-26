@@ -33,6 +33,10 @@
     [self createLabel];
 }
 
+- (IBAction)didTap:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (void) createUsernameField {
     self.usernameField.delegate = self;
     self.usernameField.borderStyle = UITextBorderStyleRoundedRect;

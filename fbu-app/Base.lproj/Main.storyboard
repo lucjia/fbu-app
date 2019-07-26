@@ -351,7 +351,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FJ9-2G-SeT">
-                                <rect key="frame" x="0.0" y="144" width="414" height="665.5"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="709.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" rowHeight="74" id="rP5-8S-IR0" customClass="LocationCell">
@@ -409,7 +409,7 @@
                                 </prototypes>
                             </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ti4-2O-tA7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pQ-bU-sL9">
@@ -649,7 +649,6 @@
         <!--Left View Controller-->
         <scene sceneID="7vK-rC-fZ8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qJ5-lq-J4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="cf4-zE-U2p" customClass="LeftViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Uxw-uw-fZC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -691,13 +690,13 @@
                         <segue destination="Sqn-Gz-HnV" kind="show" identifier="leftToSettingsNav" id="gWT-7N-jNe"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qJ5-lq-J4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1310.144927536232" y="493.52678571428567"/>
+            <point key="canvasLocation" x="-620" y="494"/>
         </scene>
         <!--Side Menu Controller-->
         <scene sceneID="tfG-or-PZv">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G3L-BT-leN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SearchingSideMenuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uya-kf-udz" customClass="LGSideMenuController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xOz-P3-Vvr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -715,6 +714,7 @@
                         <segue destination="jOV-Eg-dHQ" kind="custom" identifier="root" customClass="LGSideMenuSegue" id="jds-2Y-IW3"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G3L-BT-leN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="494"/>
         </scene>
@@ -764,13 +764,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="UFr-Le-e8x"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="PLg-Q3-t09" appends="YES" id="IP3-tu-KKR"/>
+                        </connections>
                     </view>
                     <connections>
                         <segue destination="Sqn-Gz-HnV" kind="presentation" identifier="toSettings" id="nD8-mx-BYa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GaA-5I-sl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="PLg-Q3-t09">
+                    <connections>
+                        <action selector="didTap:" destination="lEk-wg-XeG" id="nTZ-zg-Ljh"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-618" y="-1075"/>
         </scene>
@@ -805,7 +814,11 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="NBf-OI-8R7"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="q0I-MA-OWE" appends="YES" id="dEO-9O-JkJ"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="logInLabel" destination="23M-fV-uUq" id="gEk-vy-BNi"/>
@@ -816,6 +829,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="evP-Qx-rT8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="q0I-MA-OWE">
+                    <connections>
+                        <action selector="didTap:" destination="0dj-6j-6FU" id="dLo-za-kCy"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1370" y="-1075"/>
         </scene>
@@ -840,13 +858,13 @@
         <!--Settings-->
         <scene sceneID="CDq-iV-MRx">
             <objects>
-                <viewController storyboardIdentifier="SettingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qmT-Kq-rNQ" customClass="SettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsVC" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qmT-Kq-rNQ" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qtk-ga-Wzm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="fay-Rl-Pi3">
-                                <rect key="frame" x="147" y="118" width="120" height="120"/>
+                                <rect key="frame" x="147" y="74" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="YCP-Cu-JRa"/>
                                     <constraint firstAttribute="width" secondItem="fay-Rl-Pi3" secondAttribute="height" multiplier="1:1" id="j4y-Tt-LQp"/>
@@ -854,7 +872,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xn-gE-IOK">
-                                <rect key="frame" x="130" y="252" width="154" height="30"/>
+                                <rect key="frame" x="130" y="208" width="154" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ExJ-P4-bTv"/>
                                     <constraint firstAttribute="width" constant="154" id="mdz-sL-gpz"/>
@@ -879,14 +897,14 @@
                                 <state key="normal" title="Change Bio"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ual-aL-KJL">
-                                <rect key="frame" x="119" y="420" width="176" height="30"/>
+                                <rect key="frame" x="119" y="376" width="176" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="s1X-la-siD"/>
                                 </constraints>
                                 <state key="normal" title="Change User Preferences"/>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" text="hi" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XC3-rj-kb8">
-                                <rect key="frame" x="87" y="462" width="240" height="300"/>
+                                <rect key="frame" x="87" y="418" width="240" height="344"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Cqo-5P-vFU"/>
@@ -896,7 +914,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aji-eh-h7t">
-                                <rect key="frame" x="117" y="294" width="180" height="30"/>
+                                <rect key="frame" x="117" y="250" width="180" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="9Ki-gr-fvo"/>
                                     <constraint firstAttribute="height" constant="30" id="y0u-B4-KOv"/>
@@ -906,7 +924,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w5c-G0-0tl">
-                                <rect key="frame" x="117" y="336" width="180" height="30"/>
+                                <rect key="frame" x="117" y="292" width="180" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="Aqf-tR-k4e"/>
                                     <constraint firstAttribute="height" constant="30" id="Bfd-6s-ieT"/>
@@ -923,7 +941,7 @@
                                 <state key="normal" title="Log Out"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y24-5j-YDu">
-                                <rect key="frame" x="149" y="378" width="116" height="30"/>
+                                <rect key="frame" x="149" y="334" width="116" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Xmo-Uv-grs"/>
                                 </constraints>
@@ -931,6 +949,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="aji-eh-h7t" firstAttribute="top" secondItem="3xn-gE-IOK" secondAttribute="bottom" constant="12" id="9gO-P1-JDh"/>
                             <constraint firstItem="3xn-gE-IOK" firstAttribute="top" secondItem="fay-Rl-Pi3" secondAttribute="bottom" constant="14" id="C4t-1j-Uyh"/>
@@ -956,6 +975,9 @@
                             <constraint firstItem="w5c-G0-0tl" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="zYL-Vv-uZr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sSa-oF-ssc"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="OaV-Jr-dBa" appends="YES" id="rEC-Bt-3Nr"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="fVy-eC-jgq"/>
                     <connections>
@@ -971,12 +993,17 @@
                         <outlet property="userPreferencesButton" destination="Ual-aL-KJL" id="H0F-uO-ABh"/>
                         <segue destination="sg7-0I-vg5" kind="show" identifier="toLocation" id="PC2-ht-tZF"/>
                         <segue destination="ICJ-2f-0xn" kind="show" identifier="toPreferences" id="ySp-Fv-BP2"/>
-                        <segue destination="Uya-kf-udz" kind="presentation" identifier="toTimeline" id="6cj-Hr-rfx"/>
+                        <segue destination="jOV-Eg-dHQ" kind="presentation" identifier="toTimeline" id="dbJ-VM-uVd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZI-zy-JfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="OaV-Jr-dBa">
+                    <connections>
+                        <action selector="didTap:" destination="qmT-Kq-rNQ" id="pFu-jZ-oHc"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="132" y="-300"/>
+            <point key="canvasLocation" x="131.8840579710145" y="-300"/>
         </scene>
         <!--Sent-->
         <scene sceneID="Jia-eM-K0Z">
@@ -1002,9 +1029,11 @@
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RhC-Gh-GBW"/>
+        <segue reference="ySp-Fv-BP2"/>
+        <segue reference="qbh-0r-9Aw"/>
         <segue reference="gWT-7N-jNe"/>
-        <segue reference="6cj-Hr-rfx"/>
-        <segue reference="kil-6z-1zJ"/>
+        <segue reference="dbJ-VM-uVd"/>
+        <segue reference="kFA-SJ-iRa"/>
+        <segue reference="N8j-jp-Paw"/>
     </inferredMetricsTieBreakers>
 </document>

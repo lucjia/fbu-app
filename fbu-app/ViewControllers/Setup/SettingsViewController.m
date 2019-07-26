@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIButton *logOutButton;
+@property (weak, nonatomic) IBOutlet UIButton *featuresButton;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
@@ -57,6 +58,10 @@
     [self createChangeBioButton];
     [self createContinueButton];
     [self createLogOutButton];
+}
+
+- (IBAction)didTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 - (void) createProfileImageView {
@@ -125,6 +130,17 @@
     self.bioTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.bioTextView.layer.cornerRadius = 6;
     self.bioTextView.delegate = self;
+    
+    UIToolbar *keyboardToolbar = [[UIToolbar alloc] init];
+    [keyboardToolbar sizeToFit];
+    UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                      target:nil action:nil];
+    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                      target:self action:@selector(yourTextViewDoneButtonPressed)];
+    keyboardToolbar.items = @[flexBarButton, doneBarButton];
+    self.bioTextView.inputAccessoryView = keyboardToolbar;
 }
 
 - (void) createChangeBioButton {
@@ -155,6 +171,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return NO;
+}
+
+// Dismiss keyboard by pressing "done"
+-(void)yourTextViewDoneButtonPressed {
+    [self.bioTextView resignFirstResponder];
 }
 
 // Change User Profile Picture
