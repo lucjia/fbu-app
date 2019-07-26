@@ -253,7 +253,7 @@
 			path = HomeScreens;
 			sourceTree = "<group>";
 		};
-		645088BC22EA783900319C93 /* Left View Controller */ = {
+		645088BC22EA783900319C93 /* LeftViewController */ = {
 			isa = PBXGroup;
 			children = (
 				645088BD22EA788400319C93 /* LeftViewController.h */,
@@ -261,26 +261,26 @@
 				645088C122EA7B2800319C93 /* LeftViewCell.h */,
 				645088C222EA7B2800319C93 /* LeftViewCell.m */,
 			);
-			path = "Left View Controller";
+			path = LeftViewController;
 			sourceTree = "<group>";
 		};
-		645088C422EA823D00319C93 /* Main View Controller */ = {
+		645088C422EA823D00319C93 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
 				645088C522EA827300319C93 /* MainViewController.h */,
 				645088C622EA827300319C93 /* MainViewController.m */,
 			);
-			path = "Main View Controller";
+			path = MainViewController;
 			sourceTree = "<group>";
 		};
-		645088D322EBA23F00319C93 /* Post Search */ = {
+		645088D322EBA23F00319C93 /* PostSearch */ = {
 			isa = PBXGroup;
 			children = (
 				645088D422EBA25C00319C93 /* ViewControllers */,
 				645088D522EBA26800319C93 /* Cells */,
 				645088C822EB987000319C93 /* PostSearch.storyboard */,
 			);
-			path = "Post Search";
+			path = PostSearch;
 			sourceTree = "<group>";
 		};
 		645088D422EBA25C00319C93 /* ViewControllers */ = {
@@ -301,21 +301,21 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		6497FFB022E2AFA0002D1996 /* App Delegate */ = {
+		6497FFB022E2AFA0002D1996 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
 				85E7A13E22DD214D006C1F38 /* AppDelegate.h */,
 				85E7A13F22DD214D006C1F38 /* AppDelegate.m */,
 			);
-			path = "App Delegate";
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				85CB80A222EA4DE90070AC4E /* FeatureScreens */,
-				645088C422EA823D00319C93 /* Main View Controller */,
-				645088BC22EA783900319C93 /* Left View Controller */,
+				645088C422EA823D00319C93 /* MainViewController */,
+				645088BC22EA783900319C93 /* LeftViewController */,
 				64293FFC22E2615E00961F29 /* Setup */,
 				64293FFD22E2618700961F29 /* HomeScreens */,
 			);
@@ -384,8 +384,8 @@
 				640603B722DE942C00C24301 /* Subclasses */,
 				64BBF3CE22DE400E00FCCABD /* ViewControllers */,
 				64BBF3CF22DE401900FCCABD /* Cells */,
-				6497FFB022E2AFA0002D1996 /* App Delegate */,
-				645088D322EBA23F00319C93 /* Post Search */,
+				6497FFB022E2AFA0002D1996 /* AppDelegate */,
+				645088D322EBA23F00319C93 /* PostSearch */,
 				85E7A14422DD214D006C1F38 /* Main.storyboard */,
 				85E7A14922DD214E006C1F38 /* LaunchScreen.storyboard */,
 				85E7A14722DD214E006C1F38 /* Assets.xcassets */,
