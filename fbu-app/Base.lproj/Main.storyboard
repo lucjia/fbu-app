@@ -866,7 +866,7 @@
         <!--Settings-->
         <scene sceneID="CDq-iV-MRx">
             <objects>
-                <viewController storyboardIdentifier="SettingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qmT-Kq-rNQ" customClass="SettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsVC" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qmT-Kq-rNQ" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qtk-ga-Wzm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -955,18 +955,6 @@
                                 </constraints>
                                 <state key="normal" title="Change Location"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="85s-e1-4Oe">
-                                <rect key="frame" x="368" y="74" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="ZpG-xe-eBj"/>
-                                    <constraint firstAttribute="height" constant="30" id="eS2-Bt-GnX"/>
-                                </constraints>
-                                <state key="normal" title="&gt;"/>
-                                <connections>
-                                    <action selector="didPressFeatures:" destination="qmT-Kq-rNQ" eventType="touchUpInside" id="S9u-yo-tZK"/>
-                                    <segue destination="3I1-bh-UZU" kind="show" identifier="toFeatures" id="vuI-dS-5fM"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -979,7 +967,6 @@
                             <constraint firstItem="fay-Rl-Pi3" firstAttribute="top" secondItem="sSa-oF-ssc" secondAttribute="top" constant="30" id="MQa-Wd-Dgw"/>
                             <constraint firstItem="Y24-5j-YDu" firstAttribute="top" secondItem="w5c-G0-0tl" secondAttribute="bottom" constant="12" id="NVb-ae-b4f"/>
                             <constraint firstItem="aji-eh-h7t" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="PB2-Vg-Qxk"/>
-                            <constraint firstItem="sSa-oF-ssc" firstAttribute="trailing" secondItem="85s-e1-4Oe" secondAttribute="trailing" constant="16" id="Rbc-Wf-D8I"/>
                             <constraint firstItem="Ual-aL-KJL" firstAttribute="top" secondItem="Y24-5j-YDu" secondAttribute="bottom" constant="12" id="bN1-jX-zhh"/>
                             <constraint firstItem="Y24-5j-YDu" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="dIv-xS-1ab"/>
                             <constraint firstItem="w5c-G0-0tl" firstAttribute="top" secondItem="aji-eh-h7t" secondAttribute="bottom" constant="12" id="ffY-zs-gEo"/>
@@ -993,7 +980,6 @@
                             <constraint firstItem="Ual-aL-KJL" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="oOI-1Q-ppl"/>
                             <constraint firstItem="Ual-aL-KJL" firstAttribute="top" secondItem="Y24-5j-YDu" secondAttribute="bottom" constant="12" id="pMf-qs-EbE"/>
                             <constraint firstItem="fay-Rl-Pi3" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="sT2-en-9kB"/>
-                            <constraint firstItem="85s-e1-4Oe" firstAttribute="top" secondItem="fay-Rl-Pi3" secondAttribute="top" id="xql-V0-o1T"/>
                             <constraint firstItem="w5c-G0-0tl" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="zYL-Vv-uZr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sSa-oF-ssc"/>
@@ -1008,7 +994,6 @@
                         <outlet property="changeProfileButton" destination="3xn-gE-IOK" id="K6I-fR-bPY"/>
                         <outlet property="cityField" destination="w5c-G0-0tl" id="HcT-d8-bej"/>
                         <outlet property="continueButton" destination="Dy5-In-iWy" id="h4Y-hM-qxK"/>
-                        <outlet property="featuresButton" destination="85s-e1-4Oe" id="fuH-u0-x9r"/>
                         <outlet property="fullNameField" destination="aji-eh-h7t" id="8dO-vq-g5h"/>
                         <outlet property="logOutButton" destination="2BC-hB-Dna" id="wiq-0K-APv"/>
                         <outlet property="profileImageView" destination="fay-Rl-Pi3" id="ame-fi-isU"/>
@@ -1026,7 +1011,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="132" y="-300"/>
+            <point key="canvasLocation" x="131.8840579710145" y="-300"/>
         </scene>
         <!--Sent-->
         <scene sceneID="Jia-eM-K0Z">
@@ -1052,6 +1037,7 @@
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="ySp-Fv-BP2"/>
         <segue reference="qbh-0r-9Aw"/>
         <segue reference="gWT-7N-jNe"/>
         <segue reference="dbJ-VM-uVd"/>
