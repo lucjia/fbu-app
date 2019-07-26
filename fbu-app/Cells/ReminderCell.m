@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *reminderTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reminderDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *reminderSenderLabel;
 
 @end
 
@@ -34,6 +35,12 @@
     
     NSString *dueDateString = rem.dueDateString;
     self.reminderDateLabel.text = dueDateString;
+    
+    NSString *firstName = rem.reminderSender[@"firstName"];
+    NSString *fullName = [firstName stringByAppendingString:rem.reminderSender[@"lastName"]];
+    self.reminderSenderLabel.text = fullName;
+    
+    
 }
 
 @end
