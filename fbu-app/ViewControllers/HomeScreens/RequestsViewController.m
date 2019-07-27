@@ -76,17 +76,17 @@
 - (void)acceptRequest:(nonnull Request *)request {
     // sender of Request
     Persona *senderPersona = [request objectForKey:@"sender"];
-    [senderPersona fetchIfNeeded];
-    
-    Persona *receiverPersona = [[PFUser currentUser] objectForKey:@"persona"];
-    [receiverPersona fetchIfNeeded];
-    
-    if (receiverPersona && senderPersona) {
-        [receiverPersona addToAcceptedRequests:senderPersona];
-    }
-    
-    // remove from table view
-    [self declineRequest:request];
+    [senderPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable sender, NSError * _Nullable error) {
+        Persona *receiverPersona = [[PFUser currentUser] objectForKey:@"persona"];
+        [receiverPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable receiver, NSError * _Nullable error) {
+            if (sender && receiver) {
+                [(Persona *) receiver addToAcceptedRequests:(Persona *) sender];
+            }
+            
+            // remove from table view
+            [self declineRequest:request];
+        }];
+    }];
 }
 
 // removes request sent to current user from tableView
