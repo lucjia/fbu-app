@@ -34,8 +34,7 @@
         configuration.server = @"https://fbura.herokuapp.com/parse";
     }];
     
-    [Parse initializeWithConfiguration:config];
-  
+    [Parse initializeWithConfiguration:config];  
 
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {

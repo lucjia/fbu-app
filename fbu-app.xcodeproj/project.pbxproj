@@ -25,8 +25,9 @@
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
+		7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04922EA4FB600F59BCF /* ModifyHouseViewController.m */; };
+		7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04C22EA592500F59BCF /* AddHousemateViewController.m */; };
 		774B123222E62954000764BD /* PlainRoomateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123122E62954000764BD /* PlainRoomateCell.m */; };
-		774B123522E62AA9000764BD /* HousematesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123422E62AA9000764BD /* HousematesViewController.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
 		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
@@ -106,10 +107,12 @@
 		6497FFB522E61F17002D1996 /* SentRequestsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsCell.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
 		64BBF3D122DE406100FCCABD /* RoommateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoommateCell.m; sourceTree = "<group>"; };
+		7705B04822EA4FB600F59BCF /* ModifyHouseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyHouseViewController.h; sourceTree = "<group>"; };
+		7705B04922EA4FB600F59BCF /* ModifyHouseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyHouseViewController.m; sourceTree = "<group>"; };
+		7705B04B22EA592500F59BCF /* AddHousemateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddHousemateViewController.h; sourceTree = "<group>"; };
+		7705B04C22EA592500F59BCF /* AddHousemateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddHousemateViewController.m; sourceTree = "<group>"; };
 		774B123022E62954000764BD /* PlainRoomateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlainRoomateCell.h; sourceTree = "<group>"; };
 		774B123122E62954000764BD /* PlainRoomateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlainRoomateCell.m; sourceTree = "<group>"; };
-		774B123322E62AA9000764BD /* HousematesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HousematesViewController.h; sourceTree = "<group>"; };
-		774B123422E62AA9000764BD /* HousematesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HousematesViewController.m; sourceTree = "<group>"; };
 		7794307E22DE7E2A00D9FDDA /* House.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
 		7794307F22DE7E2A00D9FDDA /* House.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = House.m; sourceTree = "<group>"; };
 		7794308122DE8F1A00D9FDDA /* RuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleCell.h; sourceTree = "<group>"; };
@@ -247,8 +250,10 @@
 				6429400222E277D600961F29 /* RequestsViewController.m */,
 				6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */,
 				6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */,
-				774B123322E62AA9000764BD /* HousematesViewController.h */,
-				774B123422E62AA9000764BD /* HousematesViewController.m */,
+				7705B04822EA4FB600F59BCF /* ModifyHouseViewController.h */,
+				7705B04922EA4FB600F59BCF /* ModifyHouseViewController.m */,
+				7705B04B22EA592500F59BCF /* AddHousemateViewController.h */,
+				7705B04C22EA592500F59BCF /* AddHousemateViewController.m */,
 			);
 			path = HomeScreens;
 			sourceTree = "<group>";
@@ -684,9 +689,9 @@
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
 				85CB80A822EA5AD60070AC4E /* ReminderCell.m in Sources */,
 				85729DC122E62ED5009AD717 /* CustomButton.m in Sources */,
-				774B123522E62AA9000764BD /* HousematesViewController.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */,
+				7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
 				6429400322E277D600961F29 /* RequestsViewController.m in Sources */,
 				645088C322EA7B2800319C93 /* LeftViewCell.m in Sources */,
@@ -700,6 +705,7 @@
 				645088C722EA827300319C93 /* MainViewController.m in Sources */,
 				6429400022E26F7F00961F29 /* Request.m in Sources */,
 				6429400622E2781200961F29 /* RequestCell.m in Sources */,
+				7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */,
 				645088DB22EBA2BB00319C93 /* CalendarViewController.m in Sources */,
 				774B123222E62954000764BD /* PlainRoomateCell.m in Sources */,
 				645088BF22EA788400319C93 /* LeftViewController.m in Sources */,
