@@ -44,13 +44,15 @@
 - (void) setButtonLabel {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        House *house = [House getHouse:persona];
-        if(house == nil){
-            [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
-        }
-        else{
-            [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
-        }
+        House *house = [object objectForKey:@"house"];
+        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            if(house == nil){
+                [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
+            }
+            else{
+                [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
+            }
+        }];
     }];
 }
 
@@ -91,19 +93,16 @@
     Persona *persona = self.potentialHousemates[indexPath.row];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         cell.nameLabel.text = [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+        
+        PFFileObject *imageFile = persona.profileImage;
+        [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+            if (!error) {
+                cell.profileView.image = [UIImage imageWithData:data];
+            }
+        }];
+        cell.profileView.layer.cornerRadius = cell.profileView.frame.size.height /2;
+        cell.profileView.layer.masksToBounds = YES;
     }];
-    
-    PFFileObject *imageFile = persona.profileImage;
-    [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        } else {
-            NSLog(@"Image found successfully");
-            cell.profileView.image = [UIImage imageWithData:data];
-        }
-    }];
-    cell.profileView.layer.cornerRadius = cell.profileView.frame.size.height /2;
-    cell.profileView.layer.masksToBounds = YES;
     
     return cell;
     
@@ -130,7 +129,7 @@
 - (IBAction)tapAddHousemates:(id)sender {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        House *house = [House getHouse:persona];
+        House *house = [object objectForKey:@"house"];
         if(house == nil){
             [House createHouse:persona];
             house = [persona objectForKey:@"house"];
