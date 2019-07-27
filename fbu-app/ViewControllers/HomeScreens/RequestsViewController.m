@@ -12,6 +12,8 @@
 #import "RequestCell.h"
 #import "DetailsViewController.h"
 #import "Persona.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface RequestsViewController () <UITableViewDelegate, UITableViewDataSource, RequestCellDelegate>
 
@@ -34,11 +36,11 @@
 - (void) fetchRequestTimeline {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Request"];
-    [query whereKey:@"requestReceiver" equalTo:[PFUser currentUser]]; // requests sent to current user
+    [query whereKey:@"receiver" equalTo:[PFUser currentUser][@"persona"]]; // requests sent to current user
     
     [query orderByDescending:@"createdAt"];
-    [query includeKey:@"requestSender"];
-    [query includeKey:@"requestReceiver"];
+    [query includeKey:@"sender"];
+    [query includeKey:@"receiver"];
     [query includeKey:@"acceptedRequests"];
     [query includeKey:@"persona"];
     
@@ -62,7 +64,7 @@
     if ([[segue identifier] isEqualToString:@"requestToDetailsSegue"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        Persona *user = [self.sendersArray[indexPath.row] objectForKey:@"requestSender"];
+        Persona *user = [self.sendersArray[indexPath.row] objectForKey:@"sender"];
         
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.user = user;
@@ -73,23 +75,14 @@
 
 - (void)acceptRequest:(nonnull Request *)request {
     // sender of Request
-    PFUser *requestSender = [request objectForKey:@"requestSender"];
-    Persona *senderPersona = [requestSender objectForKey:@"persona"];
+    Persona *senderPersona = [request objectForKey:@"sender"];
     [senderPersona fetchIfNeeded];
-    NSMutableArray *senderAcceptedRequests = [NSMutableArray arrayWithArray:[senderPersona objectForKey:@"acceptedRequests"]];
     
     Persona *receiverPersona = [[PFUser currentUser] objectForKey:@"persona"];
-    NSMutableArray *acceptedRequests = [NSMutableArray arrayWithArray:[receiverPersona objectForKey:@"acceptedRequests"]];
+    [receiverPersona fetchIfNeeded];
     
-    if (receiverPersona) {
-        [senderAcceptedRequests insertObject:receiverPersona atIndex:0];
-        senderPersona.acceptedRequests = senderAcceptedRequests;
-        [senderPersona saveInBackground];
-    }
-    if (senderPersona) {
-        [acceptedRequests insertObject:senderPersona atIndex:0];
-        receiverPersona.acceptedRequests = acceptedRequests;
-        [receiverPersona saveInBackground];
+    if (receiverPersona && senderPersona) {
+        [receiverPersona addToAcceptedRequests:senderPersona];
     }
     
     // remove from table view
@@ -116,6 +109,10 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.sendersArray.count;
+}
+
+- (IBAction)didTapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 @end

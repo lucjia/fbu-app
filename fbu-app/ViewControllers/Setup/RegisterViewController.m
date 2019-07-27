@@ -12,6 +12,7 @@
 #import "CustomTextField.h"
 #import "CustomButton.h"
 #import "CustomLabel.h"
+#import "Persona.h"
 
 @interface RegisterViewController ()
 
@@ -19,6 +20,7 @@
 @property (strong, nonatomic) UITextField *emailField;
 @property (strong, nonatomic) UITextField *passwordField;
 @property (strong, nonatomic) UIButton *registerButton;
+@property (strong, nonatomic) UIButton *backButton;
 @property (strong, nonatomic) UILabel *registerLabel;
 
 @end
@@ -30,6 +32,10 @@
     [self createUsernameEmailPasswordFields];
     [self createRegisterButton];
     [self createLabel];
+}
+
+- (IBAction)didTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 - (void) createUsernameEmailPasswordFields {
@@ -54,6 +60,10 @@
     self.registerButton = [button styledBackgroundButtonWithOrigin:CGPointMake(150, 420) text:@"Register User"];
     [self.registerButton addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.registerButton];
+    
+    self.backButton = [button styledBackgroundButtonWithOrigin:CGPointMake(150, 500) text:@"Back to Log In"];
+    [self.backButton addTarget:self action:@selector(segueToLogIn) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backButton];
 }
 
 - (void) createLabel {
@@ -109,6 +119,10 @@
         // Display view controller that needs to be shown after successful login
         [self performSegueWithIdentifier:@"toSettings" sender:self];
     }];
+}
+
+- (void)segueToLogIn {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

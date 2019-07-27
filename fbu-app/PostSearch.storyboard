@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XI9-Fg-tv7">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Reminders-->
+        <scene sceneID="1R3-Nk-gVa">
+            <objects>
+                <navigationController id="tKa-yE-DZb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Reminders" id="eMG-Fa-EL1"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yay-z8-kqB">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Chh-qG-mv2" kind="relationship" relationship="rootViewController" id="JFu-eg-u1E"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jvd-V9-L2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2811.594202898551" y="518.97321428571422"/>
+        </scene>
+        <!--Reminders-->
+        <scene sceneID="cow-dJ-c8g">
+            <objects>
+                <viewController id="Chh-qG-mv2" customClass="ReminderViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1hZ-HJ-pam">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Fv-2H-3Ux">
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderCell" rowHeight="151" id="4vw-ym-31Y" customClass="ReminderCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="151"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4vw-ym-31Y" id="Q2b-9o-vlN">
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="150.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reminder Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-5h-6f4">
+                                                    <rect key="frame" x="57" y="54" width="277" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXE-sE-55K">
+                                                    <rect key="frame" x="57" y="104" width="277" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="reminderDateLabel" destination="cXE-sE-55K" id="d9B-sh-hf5"/>
+                                            <outlet property="reminderTextLabel" destination="u4r-5h-6f4" id="Nup-Tf-8oO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="vew-Q0-833">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vew-Q0-833" firstAttribute="trailing" secondItem="uWT-oZ-2qf" secondAttribute="trailing" id="0SC-vY-rj0"/>
+                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="leading" secondItem="uWT-oZ-2qf" secondAttribute="leading" id="3xf-c1-csy"/>
+                            <constraint firstItem="uWT-oZ-2qf" firstAttribute="bottom" secondItem="5Fv-2H-3Ux" secondAttribute="bottom" id="5eZ-JN-nxb"/>
+                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="top" secondItem="vew-Q0-833" secondAttribute="bottom" id="9UV-TV-ggr"/>
+                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="top" secondItem="vew-Q0-833" secondAttribute="bottom" id="MJm-fV-tpl"/>
+                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="bottom" secondItem="uWT-oZ-2qf" secondAttribute="bottom" id="OMr-Vi-lmO"/>
+                            <constraint firstItem="vew-Q0-833" firstAttribute="top" secondItem="1hZ-HJ-pam" secondAttribute="topMargin" id="SfD-lG-DPR"/>
+                            <constraint firstItem="uWT-oZ-2qf" firstAttribute="trailing" secondItem="5Fv-2H-3Ux" secondAttribute="trailing" id="eTv-Je-0hi"/>
+                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="leading" secondItem="uWT-oZ-2qf" secondAttribute="leading" id="eec-oQ-i0o"/>
+                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="trailing" secondItem="uWT-oZ-2qf" secondAttribute="trailing" id="hXj-Uh-ZJ3"/>
+                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="top" secondItem="vew-Q0-833" secondAttribute="bottom" id="ib4-WF-omS"/>
+                            <constraint firstItem="vew-Q0-833" firstAttribute="leading" secondItem="uWT-oZ-2qf" secondAttribute="leading" id="oF5-VZ-ypg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uWT-oZ-2qf"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Reminders" id="jDd-Na-Iov">
+                        <barButtonItem key="rightBarButtonItem" title="+" id="JeS-mf-1LT">
+                            <connections>
+                                <segue destination="ujh-aS-Dwn" kind="show" id="Z8E-ft-L7f"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="vew-Q0-833" id="Qz3-1b-veD"/>
+                        <outlet property="tableView" destination="5Fv-2H-3Ux" id="Z9B-ka-gQl"/>
+                        <segue destination="ujh-aS-Dwn" kind="show" identifier="toCompose" id="Jj8-V1-jEP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S9s-d9-jW3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3697.1014492753625" y="517.63392857142856"/>
+        </scene>
+        <!--Compose Reminder View Controller-->
+        <scene sceneID="eaA-UE-JtZ">
+            <objects>
+                <viewController id="ujh-aS-Dwn" customClass="ComposeReminderViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B5J-Pz-jX1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipient" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6da-2v-JCN">
+                                <rect key="frame" x="96" y="269" width="183" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reminder Date and Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WSo-MA-D8c">
+                                <rect key="frame" x="96" y="338" width="183" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYz-np-17l">
+                                <rect key="frame" x="139" y="559" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Reminder"/>
+                                <connections>
+                                    <action selector="didPressAdd:" destination="ujh-aS-Dwn" eventType="touchUpInside" id="axN-IL-oFU"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write a reminder..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hip-7w-Mb6">
+                                <rect key="frame" x="67" y="99" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <viewLayoutGuide key="safeArea" id="bNO-nG-JJF"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="lK9-Gb-e3X" appends="YES" id="XZy-oR-va8"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="addReminderButton" destination="bYz-np-17l" id="R0X-vU-Nki"/>
+                        <outlet property="dateSelectionTextField" destination="WSo-MA-D8c" id="Ujk-Bb-kqe"/>
+                        <outlet property="recipientTextField" destination="6da-2v-JCN" id="Gbn-5X-dsB"/>
+                        <outlet property="reminderTextView" destination="hip-7w-Mb6" id="9eR-bE-yrD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yMI-Aq-3LD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="lK9-Gb-e3X">
+                    <connections>
+                        <action selector="onTap:" destination="ujh-aS-Dwn" id="5AZ-op-xPc"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="4547.826086956522" y="517.63392857142856"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="4db-CV-2KJ">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="XI9-Fg-tv7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="o0C-WO-zrh">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="tKa-yE-DZb" kind="relationship" relationship="viewControllers" id="Wgs-d1-Q7k"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HMK-vX-A2S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1901.449275362319" y="518.97321428571422"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Jj8-V1-jEP"/>
+    </inferredMetricsTieBreakers>
+</document>

@@ -34,23 +34,12 @@
         configuration.server = @"https://fbura.herokuapp.com/parse";
     }];
     
-    [Parse initializeWithConfiguration:config];
-    
-    
-    NSString *username = @"Carlos";
-    NSString *password = @"carlos";
-    [PFUser logInWithUsername:username password:password];
-
-  
+    [Parse initializeWithConfiguration:config];  
 
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingTabBarController"];
-        //self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"HousematesViewController"];
-//        self.window.backgroundColor = [UIColor whiteColor];
-//        SettingsVierwController *settingsVC = [[SettingsViewController alloc] init];
-//        self.window.rootViewController = settingsVC;
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
     }
     
     

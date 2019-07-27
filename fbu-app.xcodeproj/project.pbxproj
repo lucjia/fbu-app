@@ -15,6 +15,12 @@
 		6429400022E26F7F00961F29 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 64293FFF22E26F7F00961F29 /* Request.m */; };
 		6429400322E277D600961F29 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400222E277D600961F29 /* RequestsViewController.m */; };
 		6429400622E2781200961F29 /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400522E2781200961F29 /* RequestCell.m */; };
+		645088BF22EA788400319C93 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088BE22EA788400319C93 /* LeftViewController.m */; };
+		645088C322EA7B2800319C93 /* LeftViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088C222EA7B2800319C93 /* LeftViewCell.m */; };
+		645088C722EA827300319C93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088C622EA827300319C93 /* MainViewController.m */; };
+		645088C922EB987000319C93 /* PostSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645088C822EB987000319C93 /* PostSearch.storyboard */; };
+		645088D822EBA29F00319C93 /* CalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088D722EBA29F00319C93 /* CalendarCell.m */; };
+		645088DB22EBA2BB00319C93 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088DA22EBA2BB00319C93 /* CalendarViewController.m */; };
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
@@ -28,7 +34,11 @@
 		85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DBD22E62A59009AD717 /* CustomTextField.m */; };
 		85729DC122E62ED5009AD717 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC022E62ED5009AD717 /* CustomButton.m */; };
 		85729DC422E652A7009AD717 /* CustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC322E652A7009AD717 /* CustomLabel.m */; };
-		85729DC722E68BE0009AD717 /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC622E68BE0009AD717 /* Persona.m */; };
+		85729DCA22E76EFA009AD717 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC922E76EFA009AD717 /* Reminder.m */; };
+		85CB809F22EA20000070AC4E /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB809E22EA20000070AC4E /* Persona.m */; };
+		85CB80A522EA4E010070AC4E /* ReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80A422EA4E010070AC4E /* ReminderViewController.m */; };
+		85CB80A822EA5AD60070AC4E /* ReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80A722EA5AD60070AC4E /* ReminderCell.m */; };
+		85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80AA22EA80CC0070AC4E /* ComposeReminderViewController.m */; };
 		85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A13F22DD214D006C1F38 /* AppDelegate.m */; };
 		85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A14222DD214D006C1F38 /* TimelineViewController.m */; };
 		85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85E7A14422DD214D006C1F38 /* Main.storyboard */; };
@@ -78,6 +88,17 @@
 		6429400222E277D600961F29 /* RequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		6429400422E2781200961F29 /* RequestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestCell.h; sourceTree = "<group>"; };
 		6429400522E2781200961F29 /* RequestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
+		645088BD22EA788400319C93 /* LeftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
+		645088BE22EA788400319C93 /* LeftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
+		645088C122EA7B2800319C93 /* LeftViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftViewCell.h; sourceTree = "<group>"; };
+		645088C222EA7B2800319C93 /* LeftViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftViewCell.m; sourceTree = "<group>"; };
+		645088C522EA827300319C93 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		645088C622EA827300319C93 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		645088C822EB987000319C93 /* PostSearch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostSearch.storyboard; sourceTree = "<group>"; };
+		645088D622EBA29F00319C93 /* CalendarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarCell.h; sourceTree = "<group>"; };
+		645088D722EBA29F00319C93 /* CalendarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarCell.m; sourceTree = "<group>"; };
+		645088D922EBA2BB00319C93 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		645088DA22EBA2BB00319C93 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
 		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
 		6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsViewController.h; sourceTree = "<group>"; };
@@ -105,8 +126,16 @@
 		85729DC022E62ED5009AD717 /* CustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		85729DC222E652A7009AD717 /* CustomLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomLabel.h; sourceTree = "<group>"; };
 		85729DC322E652A7009AD717 /* CustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomLabel.m; sourceTree = "<group>"; };
-		85729DC522E68BE0009AD717 /* Persona.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Persona.h; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/Subclasses/Persona.h"; sourceTree = "<absolute>"; };
-		85729DC622E68BE0009AD717 /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Persona.m; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/Subclasses/Persona.m"; sourceTree = "<absolute>"; };
+		85729DC822E76EFA009AD717 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
+		85729DC922E76EFA009AD717 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
+		85CB809E22EA20000070AC4E /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
+		85CB80A022EA20340070AC4E /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
+		85CB80A322EA4E010070AC4E /* ReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderViewController.h; sourceTree = "<group>"; };
+		85CB80A422EA4E010070AC4E /* ReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderViewController.m; sourceTree = "<group>"; };
+		85CB80A622EA5AD60070AC4E /* ReminderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderCell.h; sourceTree = "<group>"; };
+		85CB80A722EA5AD60070AC4E /* ReminderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderCell.m; sourceTree = "<group>"; };
+		85CB80A922EA80CC0070AC4E /* ComposeReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeReminderViewController.h; sourceTree = "<group>"; };
+		85CB80AA22EA80CC0070AC4E /* ComposeReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeReminderViewController.m; sourceTree = "<group>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -183,8 +212,10 @@
 				85729DC022E62ED5009AD717 /* CustomButton.m */,
 				85729DC222E652A7009AD717 /* CustomLabel.h */,
 				85729DC322E652A7009AD717 /* CustomLabel.m */,
-				85729DC522E68BE0009AD717 /* Persona.h */,
-				85729DC622E68BE0009AD717 /* Persona.m */,
+				85CB80A022EA20340070AC4E /* Persona.h */,
+				85CB809E22EA20000070AC4E /* Persona.m */,
+				85729DC822E76EFA009AD717 /* Reminder.h */,
+				85729DC922E76EFA009AD717 /* Reminder.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -227,18 +258,69 @@
 			path = HomeScreens;
 			sourceTree = "<group>";
 		};
-		6497FFB022E2AFA0002D1996 /* App Delegate */ = {
+		645088BC22EA783900319C93 /* LeftViewController */ = {
+			isa = PBXGroup;
+			children = (
+				645088BD22EA788400319C93 /* LeftViewController.h */,
+				645088BE22EA788400319C93 /* LeftViewController.m */,
+				645088C122EA7B2800319C93 /* LeftViewCell.h */,
+				645088C222EA7B2800319C93 /* LeftViewCell.m */,
+			);
+			path = LeftViewController;
+			sourceTree = "<group>";
+		};
+		645088C422EA823D00319C93 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				645088C522EA827300319C93 /* MainViewController.h */,
+				645088C622EA827300319C93 /* MainViewController.m */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		645088D322EBA23F00319C93 /* PostSearch */ = {
+			isa = PBXGroup;
+			children = (
+				645088D422EBA25C00319C93 /* ViewControllers */,
+				645088D522EBA26800319C93 /* Cells */,
+				645088C822EB987000319C93 /* PostSearch.storyboard */,
+			);
+			path = PostSearch;
+			sourceTree = "<group>";
+		};
+		645088D422EBA25C00319C93 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				645088D922EBA2BB00319C93 /* CalendarViewController.h */,
+				645088DA22EBA2BB00319C93 /* CalendarViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		645088D522EBA26800319C93 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				645088D622EBA29F00319C93 /* CalendarCell.h */,
+				645088D722EBA29F00319C93 /* CalendarCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		6497FFB022E2AFA0002D1996 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
 				85E7A13E22DD214D006C1F38 /* AppDelegate.h */,
 				85E7A13F22DD214D006C1F38 /* AppDelegate.m */,
 			);
-			path = "App Delegate";
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				85CB80A222EA4DE90070AC4E /* FeatureScreens */,
+				645088C422EA823D00319C93 /* MainViewController */,
+				645088BC22EA783900319C93 /* LeftViewController */,
 				64293FFC22E2615E00961F29 /* Setup */,
 				64293FFD22E2618700961F29 /* HomeScreens */,
 			);
@@ -262,8 +344,21 @@
 				85729DB722E141B7009AD717 /* LocationCell.m */,
 				774B123022E62954000764BD /* PlainRoomateCell.h */,
 				774B123122E62954000764BD /* PlainRoomateCell.m */,
+				85CB80A622EA5AD60070AC4E /* ReminderCell.h */,
+				85CB80A722EA5AD60070AC4E /* ReminderCell.m */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		85CB80A222EA4DE90070AC4E /* FeatureScreens */ = {
+			isa = PBXGroup;
+			children = (
+				85CB80A322EA4E010070AC4E /* ReminderViewController.h */,
+				85CB80A422EA4E010070AC4E /* ReminderViewController.m */,
+				85CB80A922EA80CC0070AC4E /* ComposeReminderViewController.h */,
+				85CB80AA22EA80CC0070AC4E /* ComposeReminderViewController.m */,
+			);
+			path = FeatureScreens;
 			sourceTree = "<group>";
 		};
 		85E7A13222DD214C006C1F38 = {
@@ -294,10 +389,11 @@
 				640603B722DE942C00C24301 /* Subclasses */,
 				64BBF3CE22DE400E00FCCABD /* ViewControllers */,
 				64BBF3CF22DE401900FCCABD /* Cells */,
-				6497FFB022E2AFA0002D1996 /* App Delegate */,
+				6497FFB022E2AFA0002D1996 /* AppDelegate */,
+				645088D322EBA23F00319C93 /* PostSearch */,
 				85E7A14422DD214D006C1F38 /* Main.storyboard */,
-				85E7A14722DD214E006C1F38 /* Assets.xcassets */,
 				85E7A14922DD214E006C1F38 /* LaunchScreen.storyboard */,
+				85E7A14722DD214E006C1F38 /* Assets.xcassets */,
 				85E7A14C22DD214E006C1F38 /* Info.plist */,
 				85E7A14D22DD214E006C1F38 /* main.m */,
 			);
@@ -453,6 +549,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				645088C922EB987000319C93 /* PostSearch.storyboard in Resources */,
 				85E7A14B22DD214E006C1F38 /* LaunchScreen.storyboard in Resources */,
 				85E7A14822DD214E006C1F38 /* Assets.xcassets in Resources */,
 				85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */,
@@ -583,34 +680,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85CB809F22EA20000070AC4E /* Persona.m in Sources */,
 				85729DC422E652A7009AD717 /* CustomLabel.m in Sources */,
 				85E7A18122DF9217006C1F38 /* LogInViewController.m in Sources */,
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
 				85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */,
+				85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
+				85CB80A822EA5AD60070AC4E /* ReminderCell.m in Sources */,
 				85729DC122E62ED5009AD717 /* CustomButton.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */,
 				7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
 				6429400322E277D600961F29 /* RequestsViewController.m in Sources */,
+				645088C322EA7B2800319C93 /* LeftViewCell.m in Sources */,
 				64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */,
 				640603BD22E1146500C24301 /* DetailsViewController.m in Sources */,
 				85E7A19022DFDDF1006C1F38 /* PreferenceCell.m in Sources */,
-				85729DC722E68BE0009AD717 /* Persona.m in Sources */,
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
 				6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */,
 				6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */,
+				85CB80A522EA4E010070AC4E /* ReminderViewController.m in Sources */,
+				645088C722EA827300319C93 /* MainViewController.m in Sources */,
 				6429400022E26F7F00961F29 /* Request.m in Sources */,
 				6429400622E2781200961F29 /* RequestCell.m in Sources */,
 				7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */,
+				645088DB22EBA2BB00319C93 /* CalendarViewController.m in Sources */,
 				774B123222E62954000764BD /* PlainRoomateCell.m in Sources */,
+				645088BF22EA788400319C93 /* LeftViewController.m in Sources */,
 				7794308022DE7E2A00D9FDDA /* House.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
 				7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */,
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
+				645088D822EBA29F00319C93 /* CalendarCell.m in Sources */,
+				85729DCA22E76EFA009AD717 /* Reminder.m in Sources */,
 				85E7A17822DE3B24006C1F38 /* RegisterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,13 +890,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AYSD95MPFJ;
+				DEVELOPMENT_TEAM = 7Q9GY43U39;
 				INFOPLIST_FILE = "fbu-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lucjia.fbu-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jordan.fbu-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -802,13 +908,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AYSD95MPFJ;
+				DEVELOPMENT_TEAM = 7Q9GY43U39;
 				INFOPLIST_FILE = "fbu-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lucjia.fbu-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jordan.fbu-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
