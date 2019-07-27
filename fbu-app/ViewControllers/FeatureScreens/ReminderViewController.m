@@ -9,6 +9,7 @@
 #import "ReminderViewController.h"
 #import "ReminderCell.h"
 #import "Reminder.h"
+#import "ReminderDetailViewController.h"
 #import "CustomButton.h"
 #import "Parse/Parse.h"
 
@@ -64,18 +65,20 @@
     return [self.receivedReminderArray count];
 }
 
-- (void) segueToCompose {
-    [self performSegueWithIdentifier:@"toCompose" sender:self];
-}
-
-/*
  #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // segue to detail view, can't change the reminder, maybe add interactive elements
+    if ([[segue identifier] isEqualToString:@"toReminderDetail"]) {
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Reminder *currentReminder = self.receivedReminderArray[indexPath.row];
+        
+        ReminderDetailViewController *reminderDetailVC = [segue destinationViewController];
+        reminderDetailVC.reminder = currentReminder;
+        
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
 
 @end

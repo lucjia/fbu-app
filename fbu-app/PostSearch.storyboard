@@ -25,7 +25,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jvd-V9-L2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2811.594202898551" y="518.97321428571422"/>
+            <point key="canvasLocation" x="3697" y="-210"/>
         </scene>
         <!--Reminders-->
         <scene sceneID="cow-dJ-c8g">
@@ -39,32 +39,64 @@
                                 <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderCell" rowHeight="151" id="4vw-ym-31Y" customClass="ReminderCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="151"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderCell" rowHeight="116" id="4vw-ym-31Y" customClass="ReminderCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="116"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4vw-ym-31Y" id="Q2b-9o-vlN">
-                                            <rect key="frame" x="0.0" y="0.0" width="376" height="150.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="115.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reminder Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-5h-6f4">
-                                                    <rect key="frame" x="57" y="54" width="277" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-5h-6f4">
+                                                    <rect key="frame" x="101" y="19" width="267" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXE-sE-55K">
-                                                    <rect key="frame" x="57" y="104" width="277" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXE-sE-55K">
+                                                    <rect key="frame" x="101" y="47.5" width="267" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U40-Qu-HXY">
+                                                    <rect key="frame" x="28" y="42.5" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Sent by: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xja-eP-1VR">
+                                                    <rect key="frame" x="101" y="76.5" width="68" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unf-cZ-idd">
+                                                    <rect key="frame" x="169" y="76.5" width="199" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="cXE-sE-55K" firstAttribute="leading" secondItem="u4r-5h-6f4" secondAttribute="leading" id="7mO-tO-dip"/>
+                                                <constraint firstItem="cXE-sE-55K" firstAttribute="trailing" secondItem="u4r-5h-6f4" secondAttribute="trailing" id="E1b-Ib-8Ik"/>
+                                                <constraint firstItem="unf-cZ-idd" firstAttribute="leading" secondItem="Xja-eP-1VR" secondAttribute="trailing" id="IdO-dO-HSV"/>
+                                                <constraint firstItem="unf-cZ-idd" firstAttribute="bottom" secondItem="Xja-eP-1VR" secondAttribute="bottom" id="NjX-fo-e3f"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="unf-cZ-idd" secondAttribute="bottom" constant="7.5" id="Q6J-rX-7sB"/>
+                                                <constraint firstItem="U40-Qu-HXY" firstAttribute="leading" secondItem="Q2b-9o-vlN" secondAttribute="leadingMargin" constant="8" id="Vbq-DM-Mlt"/>
+                                                <constraint firstItem="cXE-sE-55K" firstAttribute="leading" secondItem="U40-Qu-HXY" secondAttribute="trailing" constant="24" id="Ve0-8K-LOq"/>
+                                                <constraint firstItem="unf-cZ-idd" firstAttribute="top" secondItem="cXE-sE-55K" secondAttribute="bottom" constant="8" id="WVc-dK-z12"/>
+                                                <constraint firstItem="unf-cZ-idd" firstAttribute="trailing" secondItem="u4r-5h-6f4" secondAttribute="trailing" id="WiE-rF-twF"/>
+                                                <constraint firstItem="Xja-eP-1VR" firstAttribute="leading" secondItem="u4r-5h-6f4" secondAttribute="leading" id="bWT-ui-inX"/>
+                                                <constraint firstItem="cXE-sE-55K" firstAttribute="top" secondItem="u4r-5h-6f4" secondAttribute="bottom" constant="8" id="cdm-ym-QCD"/>
+                                                <constraint firstItem="cXE-sE-55K" firstAttribute="centerY" secondItem="U40-Qu-HXY" secondAttribute="centerY" id="dM2-qw-Ygb"/>
+                                                <constraint firstItem="unf-cZ-idd" firstAttribute="top" secondItem="Xja-eP-1VR" secondAttribute="top" id="fqE-Jy-FEp"/>
+                                                <constraint firstAttribute="trailing" secondItem="u4r-5h-6f4" secondAttribute="trailing" constant="8" id="tUF-Je-wa7"/>
+                                                <constraint firstItem="u4r-5h-6f4" firstAttribute="top" secondItem="Q2b-9o-vlN" secondAttribute="topMargin" constant="8" id="uOC-um-3JR"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="reminderDateLabel" destination="cXE-sE-55K" id="d9B-sh-hf5"/>
+                                            <outlet property="reminderSenderLabel" destination="unf-cZ-idd" id="tKn-1M-8rC"/>
                                             <outlet property="reminderTextLabel" destination="u4r-5h-6f4" id="Nup-Tf-8oO"/>
+                                            <segue destination="jgz-tT-V0W" kind="show" identifier="toReminderDetail" id="smx-fz-5F2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -79,12 +111,7 @@
                             <constraint firstItem="vew-Q0-833" firstAttribute="trailing" secondItem="uWT-oZ-2qf" secondAttribute="trailing" id="0SC-vY-rj0"/>
                             <constraint firstItem="5Fv-2H-3Ux" firstAttribute="leading" secondItem="uWT-oZ-2qf" secondAttribute="leading" id="3xf-c1-csy"/>
                             <constraint firstItem="uWT-oZ-2qf" firstAttribute="bottom" secondItem="5Fv-2H-3Ux" secondAttribute="bottom" id="5eZ-JN-nxb"/>
-                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="top" secondItem="vew-Q0-833" secondAttribute="bottom" id="9UV-TV-ggr"/>
-                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="top" secondItem="vew-Q0-833" secondAttribute="bottom" id="MJm-fV-tpl"/>
-                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="bottom" secondItem="uWT-oZ-2qf" secondAttribute="bottom" id="OMr-Vi-lmO"/>
                             <constraint firstItem="vew-Q0-833" firstAttribute="top" secondItem="1hZ-HJ-pam" secondAttribute="topMargin" id="SfD-lG-DPR"/>
-                            <constraint firstItem="uWT-oZ-2qf" firstAttribute="trailing" secondItem="5Fv-2H-3Ux" secondAttribute="trailing" id="eTv-Je-0hi"/>
-                            <constraint firstItem="5Fv-2H-3Ux" firstAttribute="leading" secondItem="uWT-oZ-2qf" secondAttribute="leading" id="eec-oQ-i0o"/>
                             <constraint firstItem="5Fv-2H-3Ux" firstAttribute="trailing" secondItem="uWT-oZ-2qf" secondAttribute="trailing" id="hXj-Uh-ZJ3"/>
                             <constraint firstItem="5Fv-2H-3Ux" firstAttribute="top" secondItem="vew-Q0-833" secondAttribute="bottom" id="ib4-WF-omS"/>
                             <constraint firstItem="vew-Q0-833" firstAttribute="leading" secondItem="uWT-oZ-2qf" secondAttribute="leading" id="oF5-VZ-ypg"/>
@@ -101,12 +128,26 @@
                     <connections>
                         <outlet property="searchBar" destination="vew-Q0-833" id="Qz3-1b-veD"/>
                         <outlet property="tableView" destination="5Fv-2H-3Ux" id="Z9B-ka-gQl"/>
-                        <segue destination="ujh-aS-Dwn" kind="show" identifier="toCompose" id="Jj8-V1-jEP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S9s-d9-jW3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3697.1014492753625" y="517.63392857142856"/>
+        </scene>
+        <!--Reminder Detail View Controller-->
+        <scene sceneID="y8w-l3-dqA">
+            <objects>
+                <viewController id="jgz-tT-V0W" customClass="ReminderDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wI4-3a-gV2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ZWh-Ib-O7h"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zjq-ZJ-OhK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="1252"/>
         </scene>
         <!--Compose Reminder View Controller-->
         <scene sceneID="eaA-UE-JtZ">
@@ -167,7 +208,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4547.826086956522" y="517.63392857142856"/>
+            <point key="canvasLocation" x="4091" y="1252"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="4db-CV-2KJ">
@@ -175,6 +216,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="XI9-Fg-tv7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="o0C-WO-zrh">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -184,10 +226,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMK-vX-A2S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1901.449275362319" y="518.97321428571422"/>
+            <point key="canvasLocation" x="3696" y="-938"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Jj8-V1-jEP"/>
-    </inferredMetricsTieBreakers>
 </document>
