@@ -43,14 +43,15 @@
 
 - (void) setButtonLabel {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    House *house = [House getHouse:persona];
-    if(house == nil){
-        [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
-    }
-    else{
-        [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
-    }
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [House getHouse:persona];
+        if(house == nil){
+            [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
+        }
+        else{
+            [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
+        }
+    }];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -60,18 +61,19 @@
 - (void)fetchPotentialHousemates {
     [PFUser.currentUser fetchIfNeeded];
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    NSMutableArray *acceptedRequests = [persona objectForKey:@"acceptedRequests"];
-    NSMutableArray *potentials = [[NSMutableArray alloc] init];
-    [potentials addObjectsFromArray:acceptedRequests];
-    for (Persona *housemate in acceptedRequests){
-        [housemate fetchIfNeeded];
-        [housemate fetch];
-        if([housemate objectForKey:@"house"] != nil){
-            [potentials removeObject:housemate];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        NSMutableArray *acceptedRequests = [persona objectForKey:@"acceptedRequests"];
+        NSMutableArray *potentials = [[NSMutableArray alloc] init];
+        [potentials addObjectsFromArray:acceptedRequests];
+        for (Persona *housemate in acceptedRequests){
+            [housemate fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                if([housemate objectForKey:@"house"] != nil){
+                    [potentials removeObject:housemate];
+                }
+            }];
         }
-    }
-    self.potentialHousemates = potentials;
+        self.potentialHousemates = potentials;
+    }];
 }
 
 - (NSArray *)fetchHousemates {
@@ -87,8 +89,9 @@
     PlainRoomateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainRoomateCell"];
     
     Persona *persona = self.potentialHousemates[indexPath.row];
-    [persona fetchIfNeeded];
-    cell.nameLabel.text = [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        cell.nameLabel.text = [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    }];
     
     PFFileObject *imageFile = persona.profileImage;
     [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
@@ -126,22 +129,24 @@
 
 - (IBAction)tapAddHousemates:(id)sender {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    House *house = [House getHouse:persona];
-    if(house == nil){
-        [House createHouse:persona];
-        house = [persona objectForKey:@"house"];
-        if(self.housematesToAdd.count == 0){
-            [self.navigationController popToRootViewControllerAnimated:YES];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [House getHouse:persona];
+        if(house == nil){
+            [House createHouse:persona];
+            house = [persona objectForKey:@"house"];
+            if(self.housematesToAdd.count == 0){
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
         }
-    }
-    if(self.housematesToAdd.count != 0){
-        [house fetchIfNeeded];
-        for(Persona *housemate in self.housematesToAdd){
-            [house addToHouse:housemate];
+        if(self.housematesToAdd.count != 0){
+            [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                for(Persona *housemate in self.housematesToAdd){
+                    [house addToHouse:housemate];
+                }
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }];
         }
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
+    }];
 }
 
 

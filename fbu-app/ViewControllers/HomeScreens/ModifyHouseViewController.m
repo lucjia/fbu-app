@@ -43,30 +43,35 @@
 - (void) reloadView {
     [self setButtonLabel];
     [self fetchHousemates];
-    [self.tableView reloadData];
 }
 
 
 - (void) setButtonLabel {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    House *house = [House getHouse:persona];
-    if(house == nil){
-        [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
-        self.removeButton.hidden = YES;
-    }
-    else{
-        [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
-        self.removeButton.hidden = NO;
-    }
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [object objectForKey:@"house"];
+        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            if(house == nil){
+                [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
+                self.removeButton.hidden = YES;
+            }
+            else{
+                [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
+                self.removeButton.hidden = NO;
+            }
+        }];
+    }];
 }
 
 - (void)fetchHousemates {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    House *house = [House getHouse:persona];
-    self.housemates = [house objectForKey:@"housemates"];
-    
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [persona objectForKey:@"house"];
+        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            self.housemates = [house objectForKey:@"housemates"];
+            [self.tableView reloadData];
+        }];
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
@@ -74,18 +79,17 @@
     PlainRoomateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainRoomateCell"];
     
     Persona *persona = self.housemates[indexPath.row];
-    [persona fetchIfNeeded];
-    cell.nameLabel.text = [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
-    
-    PFFileObject *imageFile = persona.profileImage;
-    [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        } else {
-            NSLog(@"Image found successfully");
-            cell.profileView.image = [UIImage imageWithData:data];
-        }
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        cell.nameLabel.text = [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+        
+        PFFileObject *imageFile = persona.profileImage;
+        [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+            if (!error) {
+                cell.profileView.image = [UIImage imageWithData:data];
+            }
+        }];
     }];
+    
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.height /2;
     cell.profileView.layer.masksToBounds = YES;
     
@@ -115,13 +119,14 @@
 
 - (IBAction)tapRemove:(id)sender {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    House *house = [House getHouse:persona];
-    [house removeFromHouse:persona];
-    NSArray *housemates = [house objectForKey:@"housemates"];
-    if(housemates.count == 0){
-        [house deleteHouse];
-    }
-    [self reloadView];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [House getHouse:persona];
+        [house removeFromHouse:persona];
+        NSArray *housemates = [house objectForKey:@"housemates"];
+        if(housemates.count == 0){
+            [house deleteHouse];
+        }
+        [self reloadView];
+    }];
 }
 @end

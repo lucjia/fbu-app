@@ -59,6 +59,12 @@
     // Create a House
     if (indexPath.row == [self.titlesArray indexOfObject:@"Create a House"]) {
         // segue to Create a household view controller
+        SettingsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HousematesViewController"];
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [currentController pushViewController:viewController animated:YES];
         
     // Settings
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Settings"]) {
