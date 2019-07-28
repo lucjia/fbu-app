@@ -16,4 +16,8 @@
 
 @implementation CalendarCell
 
+- (void)updateProperties:(NSInteger)date {
+    self.dateLabel.text = [NSString stringWithFormat:@"%lu", date];
+}
+
 @end
