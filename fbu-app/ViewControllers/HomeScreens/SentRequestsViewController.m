@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 #import "Request.h"
 #import "SentRequestsCell.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface SentRequestsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -32,11 +34,11 @@
 - (void) fetchSentRequestTimeline {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Request"];
-    [query whereKey:@"requestSender" equalTo:[PFUser currentUser]]; // requests sent by current user
+    [query whereKey:@"sender" equalTo:[PFUser currentUser][@"persona"]]; // requests sent by current user
     
     [query orderByDescending:@"createdAt"];
-    [query includeKey:@"requestSender"];
-    [query includeKey:@"requestReceiver"];
+    [query includeKey:@"sender"];
+    [query includeKey:@"receiver"];
     
     query.limit = 20;
     
@@ -50,6 +52,10 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+- (IBAction)didTapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 /*

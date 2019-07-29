@@ -38,8 +38,10 @@
 }
 
 - (void)updateProperties:(Persona *)persona {
-    NSData *imageData = [[persona objectForKey:@"profileImage"] getData];
-    self.profileImage.image = [[UIImage alloc] initWithData:imageData];
+    [[persona objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        NSData *imageData = data;
+        self.profileImage.image = [[UIImage alloc] initWithData:imageData];
+    }];
     
     self.usernameLabel.text = [persona objectForKey:@"username"];
     self.bioLabel.text = [persona objectForKey:@"bio"];
@@ -49,23 +51,30 @@
 
 - (IBAction)didTapSendRequest:(id)sender {
     if (PFUser.currentUser) {
+        [self getReceiverPersona];
+    }
+}
+
+- (void)getReceiverPersona {
+    Persona *receiverPersona = self.userInCell;
+    [receiverPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         Persona *senderPersona = [[PFUser currentUser] objectForKey:@"persona"];
         NSMutableArray *requestsSent = [senderPersona objectForKey:@"requestsSent"];
-        Persona *receiverPersona = self.userInCell;
-        [receiverPersona fetchIfNeeded];
+        NSMutableArray *acceptedRequests = [senderPersona objectForKey:@"acceptedRequests"];
         
-         //BOOL b = [[PFUser currentUser] isAuthenticated];
         if (requestsSent == nil) {
             requestsSent = [[NSMutableArray alloc] init];
         }
-        
-        [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
-    }
+        if ([requestsSent containsObject:receiverPersona] == NO && [acceptedRequests containsObject:receiverPersona] == NO) {
+            [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
+        } else {
+            [self createAlertController:@"Cannot Send request" message:@"You've already sent this user a request!"];
+        }
+    }];
 }
 
 + (void)sendRequestToPersona:(Persona *)receiverPersona  sender:(Persona *)senderPersona requestsSentToUsers:(NSMutableArray *)requestsSent allertReceiver:(id)receiver {
     // if the user has not already sent a request to the user who they are trying to send a request to
-    if ([requestsSent containsObject:receiverPersona] == NO) {
         //add userId to array
         [requestsSent insertObject:receiverPersona atIndex:0];
         [senderPersona setObject:requestsSent forKey:@"requestsSent"];
@@ -79,10 +88,6 @@
                 NSLog(@"%@", error.localizedDescription);
             }
         }];
-        // if the current user has already sent a request to the specific
-    } else {
-        [receiver createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
-    }
 }
 
 - (void)createAlertController:(NSString *)title message:(NSString *)msg {

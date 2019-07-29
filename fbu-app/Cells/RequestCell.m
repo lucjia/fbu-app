@@ -38,9 +38,11 @@
 - (void)updateProperties:(Request *)request {
     self.currentRequest = request;
     
-    PFUser *user = [request objectForKey:@"requestSender"];
-    NSData *imageData = [[user objectForKey:@"profileImage"] getData];
-    self.senderProfileImage.image = [[UIImage alloc] initWithData:imageData];
+    PFUser *user = [request objectForKey:@"sender"];
+    [[user objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        NSData *imageData = data;
+        self.senderProfileImage.image = [[UIImage alloc] initWithData:imageData];
+    }];
     
     NSString *senderUsername = [user objectForKey:@"username"];
     self.senderOfRequestLabel.text = [NSString stringWithFormat:@"%@ has sent you a request!", senderUsername];

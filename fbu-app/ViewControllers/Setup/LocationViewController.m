@@ -19,6 +19,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 @property (strong, nonatomic) PFGeoPoint *userLocation;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UILabel *currentLocationLabel;
 @property (strong, nonatomic) NSArray *results;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
@@ -32,14 +33,21 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.searchBar.delegate = self;
     
+    
+    if ([[PFUser currentUser][@"persona"] objectForKey:@"venue"] == nil) {
+        self.currentLocationLabel.text = @"Choose a location close to where you wish to live!";
+    } else {
+        self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
+    }
     [self setCity];
 }
 
 - (void) setCity {
-    NSString *city = [[PFUser currentUser] objectForKey:@"city"];
-    NSString *state = [[PFUser currentUser] objectForKey:@"state"];
+    NSString *city = [[PFUser currentUser][@"persona"] objectForKey:@"city"];
+    NSString *state = [[PFUser currentUser][@"persona"] objectForKey:@"state"];
     if (![city isEqualToString:@""] && ![state isEqualToString:@""]) {
         self.city = city;
         self.state = state;
@@ -52,13 +60,16 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // This is the selected venue
     NSDictionary *venue = self.results[indexPath.row];
+    [[PFUser currentUser][@"persona"] setObject:[venue valueForKey:@"name"] forKey:@"venue"];
+    [[PFUser currentUser][@"persona"] saveInBackground];
+    
     double lat = [[venue valueForKeyPath:@"location.lat"] doubleValue];
     double lng = [[venue valueForKeyPath:@"location.lng"] doubleValue];
     
     // Set location in Parse
     self.userLocation = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
-    [[PFUser currentUser] setObject:self.userLocation forKey:@"location"];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [[PFUser currentUser][@"persona"] setObject:self.userLocation forKey:@"geoPoint"];
+    [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) { 
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location Changed"
@@ -68,14 +79,12 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
             UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
                                                                     style:UIAlertActionStyleCancel
                                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                                      [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+                                                                      [self.navigationController popViewControllerAnimated:YES];
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
             alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
             [self presentViewController:alert animated:YES completion:nil];
-        } else {
-            NSLog(@"ERR: %@", error.localizedDescription);
         }
     }];
 }
@@ -83,7 +92,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     [self fetchLocationsWithQuery:newText];
-    [self.tableView setContentOffset:CGPointZero animated:YES];
     return true;
 }
 

@@ -7,17 +7,21 @@
 //
 
 #import "TimelineViewController.h"
+#import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "RoommateCell.h"
 #import "User.h"
 #import "House.h"
 #import "Persona.h"
 #import "DetailsViewController.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource, RoommateCellDelegate>
 
 @property (strong, nonatomic) NSArray *userArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -30,19 +34,29 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    [self fetchUserTimeline];
+    
+    Persona *persona = [PFUser currentUser][@"persona"];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if (object) {
+            [self fetchUserTimelineWithPersona:(Persona *)object];
+        }
+    }];
+    
+    // Refresh control for "pull to refresh"
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchUserTimelineWithPersona:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 
-- (void) fetchUserTimeline {
+- (void) fetchUserTimelineWithPersona:(Persona *)persona {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Persona"];
     
     [query includeKey:@"persona"];
     [query includeKey:@"geoPoint"];
     
-    Persona *persona = [PFUser currentUser][@"persona"];
-    [persona fetchIfNeeded];
+    
     // query excludes current user
     [query whereKey:@"username" notEqualTo:persona.username];
     
@@ -71,6 +85,7 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -108,6 +123,9 @@
     } else {
         // do nothing
     }
+}
+- (IBAction)didTapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 @end

@@ -12,6 +12,7 @@
 
 @interface DetailsViewController ()
 
+@property (strong, nonatomic) NSMutableArray *preferenceQuestionsAsked;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *fullNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -19,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
 @property (weak, nonatomic) IBOutlet UILabel *preferencesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *answerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *questionLabel;
+
 
 @end
 
@@ -33,8 +37,10 @@
 
 // sets properties to values corresponding to user
 - (void)updateProperties{
-    NSData *imageData = [[self.user objectForKey:@"profileImage"] getData];
-    self.profileImage.image = [[UIImage alloc] initWithData:imageData];
+    [[self.user objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        NSData *imageData = data;
+        self.profileImage.image = [[UIImage alloc] initWithData:imageData];
+    }];
     
     NSString *firstName = [self.user objectForKey:@"firstName"];
     NSString *lastName = [self.user objectForKey:@"lastName"];
@@ -43,6 +49,33 @@
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", [self.user objectForKey:@"username"]];
     self.locationLabel.text = [self.user objectForKey:@"city"];
     self.bioLabel.text = [self.user objectForKey:@"bio"];
+    NSArray *preferencesArray = [self.user objectForKey:@"preferences"];;
+    NSString *preferencesString = [preferencesArray componentsJoinedByString:@" \n"];
+    
+    [self getQuestionsAsked];
+    self.answerLabel.text = preferencesString;
+}
+
+- (void)getQuestionsAsked {
+    // construct query
+    PFQuery *query = [PFQuery queryWithClassName:@"Questions"];
+    
+    [query includeKey:@"questionsAsked"];
+    
+    [query orderByDescending:@"createdAt"];
+    
+    query.limit = 20;
+    
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *questions, NSError *error) {
+        if (questions != nil) {
+            // do something with the array of object returned by the call
+            self.preferenceQuestionsAsked = questions[0][@"questionsAsked"];
+            
+            NSString *preferencesQuestionsString = [self.preferenceQuestionsAsked componentsJoinedByString:@" \n"];
+            self.questionLabel.text = preferencesQuestionsString;
+        }
+    }];
 }
 
 /*
@@ -60,7 +93,24 @@
     Persona *receiverPersona = self.user;
     [receiverPersona fetchIfNeeded];
     
-    [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
+    if ([requestsSent containsObject:receiverPersona] == NO) {
+        [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
+    } else {
+        [self createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
+    }
+    
+}
+
+- (void)createAlertController:(NSString *)title message:(NSString *)msg {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // handle response here.
+    }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:^{}];
 }
 
 @end

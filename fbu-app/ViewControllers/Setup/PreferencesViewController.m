@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initTableView];
-    [self createDictionary];
+    [self createUserPreferencesDictionary];
     [self createSetPreferencesButton];
     
     // Initialize UserPreferences array
@@ -69,7 +69,9 @@
     NSString *prefQ = [currentPrefDictionary.allValues objectAtIndex:0];
     cell.preferenceQ = prefQ;
     cell.answerArray = [currentPrefDictionary.allKeys objectAtIndex:0];
-    cell.userChoice = [self.currentPreferences objectAtIndex:indexPath.row];
+    if ([self.currentPreferences count] > 0) {
+        cell.userChoice = [self.currentPreferences objectAtIndex:indexPath.row];
+    }
     [cell updateProperties];
     
     return cell;
@@ -80,7 +82,7 @@
     return self.preferences.count;
 }
 
-- (void) createDictionary {
+- (void) createUserPreferencesDictionary {
     // Create Dictionary of preferences
     self.preferencesSmoke = [NSMutableArray arrayWithObjects: @"No", @"Yes", nil];
     self.preferencesSmokeQ = [NSDictionary dictionaryWithObject:@"Do you smoke?" forKey:self.preferencesSmoke];
@@ -105,7 +107,7 @@
 }
 
 - (void)getExistingData {
-    self.currentPreferences = [PFUser currentUser][@"preferences"];
+    self.currentPreferences = [[PFUser currentUser][@"persona"] objectForKey:@"preferences"];
 }
 
 - (void)setPreferences {
@@ -115,8 +117,9 @@
         [self.userPreferences addObject:[cell getChoice]];
     }
     
-    [[PFUser currentUser] setObject:self.userPreferences forKey:@"preferences"];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    // Save in persona, NOT user
+    [[PFUser currentUser][@"persona"] setObject:self.userPreferences forKey:@"preferences"];
+    [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             // Create alert
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Preferences Changed"
@@ -126,7 +129,7 @@
             UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
                                                                     style:UIAlertActionStyleCancel
                                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                                      [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+                                                                      [self.navigationController popViewControllerAnimated:YES];
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
