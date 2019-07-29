@@ -17,6 +17,7 @@
 @property NSInteger weekday; // weekday of start of month (can be 1 - 7)
 @property (strong, nonatomic) NSDate *numberOfDays; // in month
 @property (strong, nonatomic) NSCalendar *calendar;
+@property (weak, nonatomic) IBOutlet UILabel *monthLabel;
 @property (strong, nonatomic) UICollectionView *collectionView;
 
 @end
@@ -28,13 +29,13 @@
     // Do any additional setup after loading the view.
     
     [self initCollectionView];
-    [self initCalendar];
+    [self initCalendar:[NSDate date]];
+    [self setMonthLabelText];
     [self.collectionView reloadData];
 }
 
 // initializes the collection view
 - (void)initCollectionView {
-    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat yPostion = 120;
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, yPostion, self.view.bounds.size.width, self.view.bounds.size.height - yPostion) collectionViewLayout:layout];
@@ -42,7 +43,7 @@
     [self.collectionView setDelegate:self];
     
     [self.collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
-    [self.collectionView setBackgroundColor:[UIColor redColor]];
+    [self.collectionView setBackgroundColor:[UIColor whiteColor]];
     
     layout.minimumInteritemSpacing = 5;
     layout.minimumLineSpacing = 5;
@@ -57,19 +58,27 @@
 }
 
 // initialized the calendar
-- (void)initCalendar {
+- (void)initCalendar:(NSDate *)date {
     self.calendar = [NSCalendar currentCalendar];
     // allows for a date to specified in specific units, day, month, year, etc.
     NSDateComponents *dateComponent = [self.calendar components:NSCalendarUnitCalendar |
                                                                  NSCalendarUnitYear |
                                                                  NSCalendarUnitMonth |
                                                                  NSCalendarUnitDay |
-                                                                 NSCalendarUnitWeekday fromDate:[NSDate date]];
+                                                                 NSCalendarUnitWeekday fromDate:date];
     self.currentMonth = [dateComponent month];
     self.currentDay = [dateComponent day];
     self.currentYear = [dateComponent year];
 
     [self startOfMonthForCalendar:self.calendar dateComponent:dateComponent];
+}
+
+- (void)setMonthLabelText {
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    NSString *monthName = [[df monthSymbols] objectAtIndex:(self.currentMonth - 1)];
+    NSString *completeString = [NSString stringWithFormat:@"%@ %ld", monthName, self.currentYear];
+    
+    self.monthLabel.text = completeString;
 }
 
 // finds the first day of the current month and what day of the week it falls on
@@ -89,6 +98,35 @@
     return range.length;
 }
 
+- (IBAction)didTapNextMonth:(id)sender {
+    [self changeMonth:12 toMonth:1 changeBy:1];
+}
+
+- (IBAction)didTapPreviousMonth:(id)sender {
+    [self changeMonth:1 toMonth:12 changeBy:-1];
+}
+
+- (void)changeMonth:(NSInteger)month toMonth:(NSInteger)change changeBy:(NSInteger)delta {
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    
+    if (self.currentMonth == month){
+        [comps setDay:1];
+        [comps setMonth:change];
+        [comps setYear:self.currentYear + delta];
+    } else {
+        [comps setDay:1];
+        [comps setMonth:self.currentMonth + delta];
+        [comps setYear:self.currentYear];
+    }
+    
+    NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    
+    [self initCollectionView];
+    [self initCalendar:date];
+    [self setMonthLabelText];
+    [self.collectionView reloadData];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -106,7 +144,7 @@
         [cell setHidden:YES];
     } else {
         [cell setHidden:NO];
-        cell.backgroundColor = [UIColor greenColor];
+        cell.backgroundColor = [UIColor whiteColor];
         
         [cell initDateLabelInCell:(indexPath.row - self.weekday + 2)];
     }
