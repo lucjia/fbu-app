@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -32,7 +33,11 @@
     self.receivedReminderArray = [[NSMutableArray alloc] init];
     
     [self fetchReminders];
-    [self.tableView reloadData];
+    
+    // Refresh control for "pull to refresh"
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchReminders) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void) fetchReminders {
@@ -50,6 +55,7 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -65,7 +71,7 @@
     return [self.receivedReminderArray count];
 }
 
- #pragma mark - Navigation
+#pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // segue to detail view, can't change the reminder, maybe add interactive elements
