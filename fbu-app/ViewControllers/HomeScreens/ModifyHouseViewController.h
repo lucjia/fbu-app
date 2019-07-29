@@ -1,8 +1,8 @@
 //
-//  CalendarCell.h
+//  ModifyHouseViewController.h
 //  fbu-app
 //
-//  Created by jordan487 on 7/26/19.
+//  Created by sophiakaz on 7/25/19.
 //  Copyright © 2019 lucjia. All rights reserved.
 //
 
@@ -10,9 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CalendarCell : UICollectionViewCell
-
-- (void)initDateLabelInCell:(NSUInteger)date;
+@interface ModifyHouseViewController : UIViewController
 
 @end
 

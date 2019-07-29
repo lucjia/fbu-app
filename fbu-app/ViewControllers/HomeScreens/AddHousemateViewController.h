@@ -1,8 +1,8 @@
 //
-//  HousematesViewController.h
+//  AddHousemateViewController.h
 //  fbu-app
 //
-//  Created by sophiakaz on 7/22/19.
+//  Created by sophiakaz on 7/25/19.
 //  Copyright © 2019 lucjia. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HousematesViewController : UIViewController
+@interface AddHousemateViewController : UIViewController
 
 @end
 

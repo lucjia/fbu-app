@@ -32,8 +32,9 @@
 
 - (void) fetchHouse {
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    self.house = [House getHouse:persona];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        self.house = [House getHouse:persona];
+    }];
 }
 
 
