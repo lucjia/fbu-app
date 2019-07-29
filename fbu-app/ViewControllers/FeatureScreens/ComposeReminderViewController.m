@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *dateSelectionTextField;
 @property (strong, nonatomic) UIDatePicker *datePicker;
+@property (strong, nonatomic) NSDate *dueDate;
 @property (weak, nonatomic) IBOutlet UITextField *recipientTextField;
 @property (weak, nonatomic) IBOutlet UITextView *reminderTextView;
 @property (weak, nonatomic) IBOutlet UIButton *addReminderButton;
@@ -29,12 +30,26 @@
     [super viewDidLoad];
     
     CustomDatePicker *dp = [[CustomDatePicker alloc] init];
-    [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
+    self.datePicker = [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
     [self initializeTextView];
 }
 
 - (IBAction)didTap:(id)sender {
     [self.view endEditing:YES];
+}
+
+- (void) showSelectedDate {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
+    self.dueDateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
+    self.dateSelectionTextField.text = self.dueDateString;
+    [self.dateSelectionTextField resignFirstResponder];
+}
+
+- (void) removeDate {
+    [self.datePicker resignFirstResponder];
+    [self.datePicker setDate:[NSDate date] animated:NO];
+    self.dateSelectionTextField.text = @"";
 }
 
 - (void) initializeTextView {

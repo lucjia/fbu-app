@@ -12,9 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CustomDatePicker : UIPickerView
 
-- (void) initializeDatePickerWithDatePicker:(UIDatePicker *)picker textField:(UITextField *)textField;
-
-- (void) showSelectedDate;
+- (UIDatePicker *) initializeDatePickerWithDatePicker:(UIDatePicker *)picker textField:(UITextField *)textField;
 
 @end
 

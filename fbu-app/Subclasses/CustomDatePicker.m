@@ -11,31 +11,32 @@
 @interface CustomDatePicker()
 
 @property (strong, nonatomic) UIDatePicker *datePicker;
-@property (strong, nonatomic) UITextField *textField;
+@property (strong, nonatomic) NSDate *pickedDate;
 
 @end
 
 @implementation CustomDatePicker
 
-- (void) initializeDatePickerWithDatePicker:(UIDatePicker *)picker textField:(UITextField *)textField {
+- (UIDatePicker *) initializeDatePickerWithDatePicker:(UIDatePicker *)picker textField:(UITextField *)textField {
+    
     picker = [[UIDatePicker alloc] init];
     picker.datePickerMode = UIDatePickerModeDateAndTime;
     [textField setInputView:picker];
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     self.datePicker = picker;
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(showSelectedDate)];
+    
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] init];
+    doneBtn.title = @"Done";
+    doneBtn.action = @selector(showSelectedDate);
+    UIBarButtonItem *clearBtn = [[UIBarButtonItem alloc] init];
+    clearBtn.title = @"Clear";
+    clearBtn.action = @selector(removeDate);
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [toolBar setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
+    [toolBar setItems:[NSArray arrayWithObjects:clearBtn, space, doneBtn, nil]];
+    toolBar.userInteractionEnabled = YES;
     [textField setInputAccessoryView:toolBar];
-    self.textField = textField;
-}
-
-- (void) showSelectedDate {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
-    NSString *dueDateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
-    self.textField.text = dueDateString;
-    [self.textField resignFirstResponder];
+    
+    return self.datePicker;
 }
 
 @end

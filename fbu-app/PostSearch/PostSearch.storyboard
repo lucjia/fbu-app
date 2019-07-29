@@ -307,7 +307,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ab-LE-uNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="jU1-Rd-cAo">
                     <connections>
-                        <action selector="onTap:" destination="W2u-EQ-PO4" id="mJr-2y-LOk"/>
+                        <action selector="didTap:" destination="W2u-EQ-PO4" id="14J-eG-lcn"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
