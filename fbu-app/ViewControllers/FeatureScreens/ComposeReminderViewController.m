@@ -9,6 +9,7 @@
 #import "ComposeReminderViewController.h"
 #import "Reminder.h"
 #import "Persona.h"
+#import "CustomDatePicker.h"
 
 @interface ComposeReminderViewController ()
 
@@ -27,11 +28,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initializeDatePicker];
+    CustomDatePicker *dp = [[CustomDatePicker alloc] init];
+    [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
     [self initializeTextView];
 }
 
-- (IBAction)onTap:(id)sender {
+- (IBAction)didTap:(id)sender {
     [self.view endEditing:YES];
 }
 
@@ -40,25 +42,6 @@
     self.reminderTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.reminderTextView.layer.cornerRadius = 6;
     self.reminderTextView.delegate = self;
-}
-    
-- (void) initializeDatePicker {
-    self.datePicker = [[UIDatePicker alloc] init];
-    self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
-    [self.dateSelectionTextField setInputView:self.datePicker];
-    UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(showSelectedDate)];
-    UIBarButtonItem *space = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [toolBar setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
-    [self.dateSelectionTextField setInputAccessoryView:toolBar];
-}
-
-- (void) showSelectedDate {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
-    self.dueDateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
-    self.dateSelectionTextField.text = self.dueDateString;
-    [self.dateSelectionTextField resignFirstResponder];
 }
 
 - (IBAction)didPressAdd:(id)sender {

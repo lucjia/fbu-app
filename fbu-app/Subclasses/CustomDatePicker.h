@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) initializeDatePickerWithDatePicker:(UIDatePicker *)picker textField:(UITextField *)textField;
 
-- (void) showSelectedDateWithDatePicker:(UIDatePicker *)picker textField:(UITextField *)textField;
+- (void) showSelectedDate;
 
 @end
 

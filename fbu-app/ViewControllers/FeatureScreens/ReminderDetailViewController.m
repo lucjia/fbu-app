@@ -28,6 +28,9 @@
     self.reminderTextView.text = self.reminder.reminderText;
     self.dateField.text = self.reminder.dueDateString;
     
+    //  Think of a way to reuse the date picker code, which will then come in handy for the calendar view
+    // Make sure that the datepicker starts out on the date that is initially set
+    
 }
 
 - (IBAction)didTap:(id)sender {
