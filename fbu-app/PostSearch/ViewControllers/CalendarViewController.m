@@ -16,6 +16,7 @@
 @property NSInteger currentYear;
 @property NSInteger weekday; // weekday of start of month (can be 1 - 7)
 @property (strong, nonatomic) NSDate *numberOfDays; // in month
+@property (strong, nonatomic) NSDate *currentDate; // today
 @property (strong, nonatomic) NSCalendar *calendar;
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -69,6 +70,9 @@
     self.currentMonth = [dateComponent month];
     self.currentDay = [dateComponent day];
     self.currentYear = [dateComponent year];
+    if (!self.currentDate) {
+        self.currentDate = [self.calendar dateFromComponents:dateComponent];
+    }
 
     [self startOfMonthForCalendar:self.calendar dateComponent:dateComponent];
 }
@@ -127,6 +131,19 @@
     [self.collectionView reloadData];
 }
 
+// checks to see if the cell in the calendar is today
+- (BOOL)isCellToday:(NSInteger)date {
+    NSDateComponents *dateComponent = [self.calendar components:NSCalendarUnitCalendar |
+                                       NSCalendarUnitYear |
+                                       NSCalendarUnitMonth |
+                                       NSCalendarUnitDay |
+                                       NSCalendarUnitWeekday fromDate:self.currentDate];
+    
+    return [dateComponent day] == date &&
+           [dateComponent month] == self.currentMonth &&
+           [dateComponent year] == self.currentYear;
+}
+
 /*
 #pragma mark - Navigation
 
@@ -142,6 +159,11 @@
         
     if (indexPath.item <= self.weekday - 2) {
         [cell setHidden:YES];
+    } else if ([self isCellToday:indexPath.row - self.weekday + 2]) {
+        [cell setHidden:NO];
+        cell.backgroundColor = [UIColor redColor];
+        
+        [cell initDateLabelInCell:(indexPath.row - self.weekday + 2)];
     } else {
         [cell setHidden:NO];
         cell.backgroundColor = [UIColor whiteColor];
