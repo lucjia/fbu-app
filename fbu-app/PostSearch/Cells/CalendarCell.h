@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CalendarCell : UICollectionViewCell
 
+- (void)initDateLabelInCell:(NSUInteger)date;
+
 @end
 
 NS_ASSUME_NONNULL_END
