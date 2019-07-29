@@ -21,6 +21,8 @@
 		645088C922EB987000319C93 /* PostSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645088C822EB987000319C93 /* PostSearch.storyboard */; };
 		645088D822EBA29F00319C93 /* CalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088D722EBA29F00319C93 /* CalendarCell.m */; };
 		645088DB22EBA2BB00319C93 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088DA22EBA2BB00319C93 /* CalendarViewController.m */; };
+		64678F8622EF9FA000F75070 /* CreateEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64678F8522EF9FA000F75070 /* CreateEventViewController.m */; };
+		64678F8922EFA3FF00F75070 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 64678F8822EFA3FF00F75070 /* Event.m */; };
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
@@ -101,6 +103,10 @@
 		645088D722EBA29F00319C93 /* CalendarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarCell.m; sourceTree = "<group>"; };
 		645088D922EBA2BB00319C93 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		645088DA22EBA2BB00319C93 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		64678F8422EF9FA000F75070 /* CreateEventViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateEventViewController.h; sourceTree = "<group>"; };
+		64678F8522EF9FA000F75070 /* CreateEventViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateEventViewController.m; sourceTree = "<group>"; };
+		64678F8722EFA3FF00F75070 /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		64678F8822EFA3FF00F75070 /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
 		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
 		6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsViewController.h; sourceTree = "<group>"; };
@@ -224,6 +230,8 @@
 				85729DC922E76EFA009AD717 /* Reminder.m */,
 				85CB80AF22ECB44E0070AC4E /* CustomDatePicker.h */,
 				85CB80B022ECB44E0070AC4E /* CustomDatePicker.m */,
+				64678F8722EFA3FF00F75070 /* Event.h */,
+				64678F8822EFA3FF00F75070 /* Event.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -301,6 +309,8 @@
 			children = (
 				645088D922EBA2BB00319C93 /* CalendarViewController.h */,
 				645088DA22EBA2BB00319C93 /* CalendarViewController.m */,
+				64678F8422EF9FA000F75070 /* CreateEventViewController.h */,
+				64678F8522EF9FA000F75070 /* CreateEventViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -696,9 +706,11 @@
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
 				85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */,
 				85CB80B122ECB44F0070AC4E /* CustomDatePicker.m in Sources */,
+				64678F8922EFA3FF00F75070 /* Event.m in Sources */,
 				85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
 				85CB80A822EA5AD60070AC4E /* ReminderCell.m in Sources */,
+				64678F8622EF9FA000F75070 /* CreateEventViewController.m in Sources */,
 				85729DC122E62ED5009AD717 /* CustomButton.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */,
