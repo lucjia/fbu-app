@@ -47,7 +47,7 @@
 }
 
 - (void) removeDate {
-    [self.datePicker resignFirstResponder];
+    [self.dateSelectionTextField resignFirstResponder];
     [self.datePicker setDate:[NSDate date] animated:NO];
     self.dateSelectionTextField.text = @"";
 }
@@ -87,7 +87,14 @@
         [query findObjectsInBackgroundWithBlock:^(NSArray *recipient, NSError *error) {
             if (recipient != nil) {
                 self.receiver = [recipient objectAtIndex:0];
-                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:self.datePicker.date dueDateString:self.dueDateString withCompletion:nil];
+                
+                NSDate *dueDate = self.datePicker.date;
+                // only store due date if set
+                if (!self.dueDateString) {
+                    dueDate = nil;
+                }
+                
+                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString withCompletion:nil];
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }

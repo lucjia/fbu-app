@@ -12,7 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReminderViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSArray *receivedReminderArray;
+@property (strong, nonatomic) NSArray *receivedReminderArrayDates;
+@property (strong, nonatomic) NSArray *receivedReminderArrayNoDates;
+@property (strong, nonatomic) NSArray *receivedReminderArrayTotal;
 
 @end
 
