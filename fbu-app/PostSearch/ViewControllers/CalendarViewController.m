@@ -18,7 +18,7 @@
 @property (strong, nonatomic) NSDate *numberOfDays; // in month
 @property (strong, nonatomic) NSCalendar *calendar;
 @property (strong, nonatomic) NSArray *months;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) UICollectionView *collectionView;
 
 @end
 
@@ -28,25 +28,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    
     [self initCollectionView];
     [self initCalendar];
     [self.collectionView reloadData];
 }
 
 - (void)initCollectionView {
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
     
-    layout.minimumInteritemSpacing = 5;
-    layout.minimumLineSpacing = 5;
-    CGFloat postersPerLine = 7;
-    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumLineSpacing * (postersPerLine - 1)) / postersPerLine;
-    CGFloat itemHeight = 1.5 * itemWidth;
-    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
+    [self.collectionView setDataSource:self];
+    [self.collectionView setDelegate:self];
     
-    self.collectionView.contentInsetAdjustmentBehavior = NO;
+    [self.collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
+    [self.collectionView setBackgroundColor:[UIColor redColor]];
+    
+    [self.view addSubview:self.collectionView];
 }
 
 - (void)initCalendar {
@@ -90,9 +87,10 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
+        
+    cell.backgroundColor = [UIColor greenColor];
     
-    [cell updateProperties:3];
-    
+    [cell initDateLabelInCell:(indexPath.row + 1)];
     return cell;
 }
 

@@ -10,14 +10,16 @@
 
 @interface CalendarCell()
 
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (strong, nonatomic) UILabel *dateLabel;
 
 @end
 
 @implementation CalendarCell
 
-- (void)updateProperties:(NSInteger)date {
+- (void)initDateLabelInCell:(NSUInteger)date {
+    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width / 2, 11, 20, 20)];
     self.dateLabel.text = [NSString stringWithFormat:@"%lu", date];
+    [self.contentView addSubview:self.dateLabel];
 }
 
 @end
