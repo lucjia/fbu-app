@@ -18,6 +18,7 @@
 
 - (void)initDateLabelInCell:(NSUInteger)date {
     self.dateLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    self.dateLabel.textAlignment = NSTextAlignmentCenter;
     self.dateLabel.text = [NSString stringWithFormat:@"%lu", date];
     
     [self.contentView addSubview:self.dateLabel];
