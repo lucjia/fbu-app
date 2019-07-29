@@ -7,8 +7,15 @@
 //
 
 #import "ReminderDetailViewController.h"
+#import "CustomDatePicker.h"
 
 @interface ReminderDetailViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *senderLabel;
+@property (strong, nonatomic) UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UITextView *reminderTextView;
+@property (weak, nonatomic) IBOutlet UITextField *dateField;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 @end
 
@@ -17,7 +24,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.senderLabel.text = self.reminder.reminderSender[@"firstName"];
+    self.reminderTextView.text = self.reminder.reminderText;
+    self.dateField.text = self.reminder.dueDateString;
+    
+    //  Think of a way to reuse the date picker code, which will then come in handy for the calendar view
+    // Make sure that the datepicker starts out on the date that is initially set
+    
 }
+
+- (IBAction)didTap:(id)sender {
+    [self.view endEditing:YES];
+}
+
 
 /*
 #pragma mark - Navigation

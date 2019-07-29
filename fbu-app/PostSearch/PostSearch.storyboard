@@ -233,13 +233,56 @@
                     <view key="view" contentMode="scaleToFill" id="rmp-cn-NJ9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reminder Date and Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jiB-OS-L0l">
+                                <rect key="frame" x="87" y="433" width="240" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DnN-v7-UbL">
+                                <rect key="frame" x="168" y="705" width="96" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit Reminder"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah5-xc-5TL">
+                                <rect key="frame" x="186" y="157" width="55" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Reminder text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tD8-9T-WfG">
+                                <rect key="frame" x="87" y="219" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="juh-dE-6xC"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="rRc-Z4-Tb1" appends="YES" id="DC6-gb-Rd2"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="dateField" destination="jiB-OS-L0l" id="cJI-Tf-MJ1"/>
+                        <outlet property="editButton" destination="DnN-v7-UbL" id="aVP-Tv-SEt"/>
+                        <outlet property="reminderTextView" destination="tD8-9T-WfG" id="cWc-xG-xRV"/>
+                        <outlet property="senderLabel" destination="Ah5-xc-5TL" id="bDd-GS-xuy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ayT-Tz-bxS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="rRc-Z4-Tb1">
+                    <connections>
+                        <action selector="didTap:" destination="fm1-Fe-T5x" id="AYz-WC-v7L"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3300" y="1252"/>
+            <point key="canvasLocation" x="3300.0000000000005" y="1251.5625"/>
         </scene>
         <!--Compose Reminder View Controller-->
         <scene sceneID="Neb-9g-VOj">
@@ -296,7 +339,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ab-LE-uNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="jU1-Rd-cAo">
                     <connections>
-                        <action selector="onTap:" destination="W2u-EQ-PO4" id="mJr-2y-LOk"/>
+                        <action selector="didTap:" destination="W2u-EQ-PO4" id="14J-eG-lcn"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -29,50 +30,85 @@
     self.tableView.delegate = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.searchBar.delegate = self;
-    self.receivedReminderArray = [[NSMutableArray alloc] init];
+    self.receivedReminderArrayDates = [[NSMutableArray alloc] init];
+    self.receivedReminderArrayNoDates = [[NSMutableArray alloc] init];
+    self.receivedReminderArrayTotal = [[NSMutableArray alloc] init];
     
     [self fetchReminders];
-    [self.tableView reloadData];
+    
+    // Refresh control for "pull to refresh"
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchReminders) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void) fetchReminders {
-    PFQuery *query = [PFQuery queryWithClassName:@"Reminder"];
-    [query includeKey:@"reminderSender"];
-    [query includeKey:@"reminderReceiver"];
-    [query includeKey:@"reminderText"];
-    [query includeKey:@"reminderDueDate"];
+    PFQuery *queryWithDate = [PFQuery queryWithClassName:@"Reminder"];
     
-    [query whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+    [queryWithDate includeKey:@"reminderSender"];
+    [queryWithDate includeKey:@"reminderReceiver"];
+    [queryWithDate includeKey:@"reminderText"];
+    [queryWithDate includeKey:@"reminderDueDate"];
+    
+    // soonest reminder Due Dates are first
+    [queryWithDate whereKeyExists:@"reminderDueDate"];
+    [queryWithDate orderByAscending:@"reminderDueDate"];
+    
+    // query for reminders that are assigned to the current user
+    [queryWithDate whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
+    [queryWithDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
-            self.receivedReminderArray = reminders;
+            self.receivedReminderArrayDates = reminders;
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    
+    // QUERY WITHOUT DATE (cannot do order by on compound queries)
+    PFQuery *queryWithoutDate = [PFQuery queryWithClassName:@"Reminder"];
+    
+    [queryWithoutDate includeKey:@"reminderSender"];
+    [queryWithoutDate includeKey:@"reminderReceiver"];
+    [queryWithoutDate includeKey:@"reminderText"];
+    
+    // Order reminders w/o a due date by their created date
+    [queryWithoutDate whereKeyDoesNotExist:@"reminderDueDate"];
+    [queryWithoutDate orderByAscending:@"createdAt"];
+    
+    // query for reminders that are assigned to the current user
+    [queryWithoutDate whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
+    [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+        if (reminders != nil) {
+            self.receivedReminderArrayNoDates = reminders;
+            self.receivedReminderArrayTotal = [self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+    [self.refreshControl endRefreshing];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ReminderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReminderCell" forIndexPath:indexPath];
-    Reminder *currReminder = [self.receivedReminderArray objectAtIndex:indexPath.row];
+    Reminder *currReminder = [self.receivedReminderArrayTotal objectAtIndex:indexPath.row];
     [cell updateReminderCellWithReminder:currReminder];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.receivedReminderArray count];
+    return [self.receivedReminderArrayTotal count];
 }
 
- #pragma mark - Navigation
+#pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // segue to detail view, can't change the reminder, maybe add interactive elements
     if ([[segue identifier] isEqualToString:@"toReminderDetail"]) {
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        Reminder *currentReminder = self.receivedReminderArray[indexPath.row];
+        Reminder *currentReminder = self.receivedReminderArrayTotal[indexPath.row];
         
         ReminderDetailViewController *reminderDetailVC = [segue destinationViewController];
         reminderDetailVC.reminder = currentReminder;
