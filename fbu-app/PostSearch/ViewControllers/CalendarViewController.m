@@ -8,6 +8,8 @@
 
 #import "CalendarViewController.h"
 #import "CalendarCell.h"
+#import <Parse/Parse.h>
+#import "Event.h"
 
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -20,6 +22,8 @@
 @property (strong, nonatomic) NSCalendar *calendar;
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
 @property (strong, nonatomic) UICollectionView *collectionView;
+@property (strong, nonatomic) NSArray *eventsArray;
+@property (strong, nonatomic) NSDate *eventDate;
 
 @end
 
@@ -29,10 +33,39 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
     [self setMonthLabelText];
     [self.collectionView reloadData];
+}
+
+- (void)fetchEvents {
+    PFQuery *query = [PFQuery queryWithClassName:@"Event"];
+    
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"title"];
+    [query includeKey:@"memo"];
+    [query includeKey:@"eventDate"];
+    [query includeKey:@"isAllDay"];
+    [query includeKey:@"house"];
+    
+    query.limit = 20;
+    
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
+        if (events != nil) {
+            // do something with the array of object returned by the call
+            self.eventsArray = events;
+           [self.collectionView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)colorCellForEvent:(CalendarCell *)cell {
+    
 }
 
 // initializes the collection view
@@ -144,6 +177,25 @@
            [dateComponent year] == self.currentYear;
 }
 
+- (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setYear:year];
+    [components setMonth:month];
+    [components setDay:day];
+    return [self.calendar dateFromComponents:components];
+}
+
+- (BOOL)doesArrayContainDateOnSameDay:(NSArray *)array date:(NSDate *)date {
+    for (int i = 0; i < array.count; i++) {
+        NSDate *event = [self.eventsArray[i] objectForKey:@"eventDate"];
+        if ([self.calendar isDate:date inSameDayAsDate:event]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 /*
 #pragma mark - Navigation
 
@@ -156,9 +208,15 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
-        
+    self.eventDate = [self dateWithYear:self.currentYear month:self.currentMonth day:indexPath.row - self.weekday + 2];
+    
     if (indexPath.item <= self.weekday - 2) {
         [cell setHidden:YES];
+    } else if ([self doesArrayContainDateOnSameDay:self.eventsArray date:self.eventDate]) {
+        [cell setHidden:NO];
+        cell.backgroundColor = [UIColor blueColor];
+        
+        [cell initDateLabelInCell:(indexPath.row - self.weekday + 2)];
     } else if ([self isCellToday:indexPath.row - self.weekday + 2]) {
         [cell setHidden:NO];
         cell.backgroundColor = [UIColor redColor];
