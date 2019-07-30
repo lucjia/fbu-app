@@ -11,9 +11,11 @@
 #import "MainViewController.h"
 #import "TimelineViewController.h"
 #import "SettingsViewController.h"
+#import "RulesViewController.h"
 #import "ReminderViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+
 
 @interface LeftViewController ()
 
@@ -36,7 +38,8 @@
     
     self.titlesArray = @[@"Create a House",
                          @"Settings",
-                         @"Features"];
+                         @"Features",
+                         @"House Rules"];
 }
 
 #pragma mark - Table view data source
