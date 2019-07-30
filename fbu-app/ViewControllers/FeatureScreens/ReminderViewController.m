@@ -91,13 +91,8 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ReminderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReminderCell" forIndexPath:indexPath];
-//    cell.delegate = self;
-//    cell.cellIndex = indexPath.row;
     Reminder *currReminder = [self.receivedReminderArrayTotal objectAtIndex:indexPath.row];
     [cell updateReminderCellWithReminder:currReminder];
-    
-//    cell.checkmarkButton.tag = indexPath.row;
-//    [cell.checkmarkButton addTarget:self action:@selector(didClickOnCellAtIndex:withData:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
@@ -121,9 +116,5 @@
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
-
-//- (void)didClickOnCellAtIndex:(NSInteger)cellIndex withData:(nonnull id)data {
-//    // Method for conforming to delegate
-//}
 
 @end

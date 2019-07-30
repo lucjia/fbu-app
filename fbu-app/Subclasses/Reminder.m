@@ -17,7 +17,6 @@
 @dynamic reminderSentDate;
 @dynamic reminderDueDate;
 @dynamic dueDateString;
-@dynamic completed;
 
 + (nonnull NSString *)parseClassName {
     return @"Reminder";
@@ -31,7 +30,6 @@
     newReminder.reminderSentDate = newReminder.createdAt;
     newReminder.reminderDueDate = dueDate;
     newReminder.dueDateString = dueDateString;
-    newReminder.completed = NO;
     
     [newReminder saveInBackgroundWithBlock:completion];
 }
