@@ -9,8 +9,11 @@
 #import "House.h"
 #import "Parse/Parse.h"
 #import "Persona.h"
+#import "Event.h"
 
 @implementation House
+
+@dynamic events;
 
 + (nonnull NSString *)parseClassName {
     return @"House";
@@ -22,9 +25,12 @@
     NSMutableArray *housemates =  [[NSMutableArray alloc] init];
     [housemates addObject:persona];
     house[@"housemates"] = housemates;
-    [house save];
+    if (!house.events) {
+        house.events = [[NSMutableArray alloc] init];
+    }
+    [house saveInBackground];
     [persona setObject:house forKey:@"house"];
-    [persona save];
+    [persona saveInBackground];
 }
 
 
@@ -32,20 +38,20 @@
     
     House *house = [House getHouse:persona];
     [self addUniqueObject:persona forKey:@"housemates"];
-    [self save];
+    [self saveInBackground];
         
     [persona setObject:self forKey:@"house"];
-    [persona save];
+    [persona saveInBackground];
 }
 
 
 - (void) removeFromHouse: (Persona *) persona {
     
     [self removeObject:persona forKey:@"housemates"];
-    [self save];
+    [self saveInBackground];
 
     [persona removeObjectForKey:@"house"];
-    [persona save];
+    [persona saveInBackground];
 }
 
 - (void) deleteHouse {
@@ -63,7 +69,13 @@
     return house;
 }
 
-
+- (void)addEventToHouse:(Event *)event {
+    [self fetchIfNeededInBackground];
+    
+    [self.events insertObject:event atIndex:0];
+    [self setObject:self.events forKey:@"events"];
+    [self saveInBackground];
+}
 
 @end
 

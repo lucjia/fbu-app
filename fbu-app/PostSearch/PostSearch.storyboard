@@ -13,7 +13,7 @@
         <!--Calendar-->
         <scene sceneID="coQ-uD-C9f">
             <objects>
-                <viewController storyboardIdentifier="CalendarVC" id="qB5-Kg-4Ob" customClass="CalendarViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CalendarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qB5-Kg-4Ob" customClass="CalendarViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CVW-cA-HbK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -364,8 +364,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <segue destination="rjn-oS-mWP" kind="relationship" relationship="viewControllers" id="OwS-Dj-Zr1"/>
                         <segue destination="625-IT-BRN" kind="relationship" relationship="viewControllers" id="3ZN-sd-03P"/>
-                        <segue destination="qB5-Kg-4Ob" kind="relationship" relationship="viewControllers" id="SRm-QU-ifQ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xVA-Nb-Jp7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -428,13 +428,27 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select a date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7XO-vd-PWx">
+                                <rect key="frame" x="20" y="508" width="374" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="HQ6-qL-hTU"/>
                     </view>
-                    <navigationItem key="navigationItem" id="X3J-KV-WcV"/>
+                    <navigationItem key="navigationItem" id="X3J-KV-WcV">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="X1b-YL-1Oo">
+                            <connections>
+                                <action selector="didTapSaveEvent:" destination="Bfd-gW-2Pf" id="CkF-fB-hKG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="allDaySwitch" destination="UoE-wE-ijC" id="9tx-iC-U14"/>
+                        <outlet property="dateSelectionTextField" destination="7XO-vd-PWx" id="fod-jl-8BE"/>
                         <outlet property="memoTextView" destination="wEB-5o-7h2" id="QbE-D2-dPN"/>
                         <outlet property="titleTextField" destination="jqU-4z-pTR" id="lkE-pM-qfu"/>
                     </connections>
@@ -443,11 +457,11 @@
             </objects>
             <point key="canvasLocation" x="1324.6376811594205" y="1251.5625"/>
         </scene>
-        <!--Item-->
+        <!--Calendar-->
         <scene sceneID="Mk8-rp-iAf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rjn-oS-mWP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="AhC-Db-ups"/>
+                    <tabBarItem key="tabBarItem" title="Calendar" id="AhC-Db-ups"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EBu-lN-fFP">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
