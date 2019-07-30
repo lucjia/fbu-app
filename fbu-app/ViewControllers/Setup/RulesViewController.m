@@ -82,7 +82,7 @@
 
 - (IBAction)tapAddRule:(id)sender {
     [self.house addUniqueObject:self.ruleField.text forKey:@"rules"];
-    [self.house saveInBackground];
+    [self.house save];
     [self fetchRules];
     [self.ruleField setText:@""];
     [self.tableView reloadData];
