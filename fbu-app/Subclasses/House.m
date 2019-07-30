@@ -59,7 +59,7 @@
 
 + (House *) getHouse: (Persona *) persona {
     House *house = [persona objectForKey:@"house"];
-    [house fetchIfNeeded];
+    [house fetchIfNeededInBackground];
     return house;
 }
 

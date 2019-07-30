@@ -35,7 +35,7 @@
     [self setButtonLabel];
     
     [self fetchPotentialHousemates];
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc]
                                       initWithFrame:CGRectZero];
@@ -63,19 +63,20 @@
 - (void)fetchPotentialHousemates {
     [PFUser.currentUser fetchIfNeeded];
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        NSMutableArray *acceptedRequests = [persona objectForKey:@"acceptedRequests"];
-        NSMutableArray *potentials = [[NSMutableArray alloc] init];
-        [potentials addObjectsFromArray:acceptedRequests];
-        for (Persona *housemate in acceptedRequests){
-            [housemate fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-                if([housemate objectForKey:@"house"] != nil){
-                    [potentials removeObject:housemate];
-                }
-            }];
-        }
-        self.potentialHousemates = potentials;
-    }];
+    [persona fetchIfNeededInBackground];
+    NSMutableArray *acceptedRequests = [persona objectForKey:@"acceptedRequests"];
+    NSMutableArray *potentials = [[NSMutableArray alloc] init];
+    [potentials addObjectsFromArray:acceptedRequests];
+    for (Persona *housemate in acceptedRequests){
+        [housemate fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            if([housemate objectForKey:@"house"] != nil){
+                [potentials removeObject:housemate];
+                self.potentialHousemates = potentials;
+            }
+            [self.tableView reloadData];
+        }];
+    }
+    self.potentialHousemates = potentials;
 }
 
 - (NSArray *)fetchHousemates {
@@ -147,6 +148,7 @@
         }
     }];
 }
+
 
 
 @end

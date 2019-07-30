@@ -17,6 +17,8 @@
 @property (nonatomic, strong) NSMutableArray *housemates;
 @property (weak, nonatomic) IBOutlet UIButton *houseButton;
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
+@property (strong, nonatomic) Persona *currentPersona;
+@property (strong, nonatomic) House *currentHouse;
 - (IBAction)tapRemove:(id)sender;
 
 @end
@@ -30,6 +32,7 @@
     self.tableView.delegate = self;
     
     [self reloadView];
+
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc]
                                       initWithFrame:CGRectZero];
@@ -41,37 +44,32 @@
 }
 
 - (void) reloadView {
-    [self setButtonLabel];
-    [self fetchHousemates];
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        self.currentPersona = (Persona*) object;
+        self.currentHouse = [House getHouse:self.currentPersona];
+        [self.currentHouse fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            [self setButtonLabel];
+            [self fetchHousemates];
+            [self.tableView reloadData];
+        }];
+    }];
 }
 
 
 - (void) setButtonLabel {
-    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        House *house = [object objectForKey:@"house"];
-        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            if(house == nil){
-                [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
-                self.removeButton.hidden = YES;
-            }
-            else{
-                [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
-                self.removeButton.hidden = NO;
-            }
-        }];
-    }];
+    if(self.currentHouse == nil){
+            [self.houseButton setTitle:@"Create House" forState:UIControlStateNormal];
+            self.removeButton.hidden = YES;
+        }
+        else{
+            [self.houseButton setTitle:@"Add Housemates" forState:UIControlStateNormal];
+            self.removeButton.hidden = NO;
+        }
 }
 
 - (void)fetchHousemates {
-    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        House *house = [persona objectForKey:@"house"];
-        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            self.housemates = [house objectForKey:@"housemates"];
-            [self.tableView reloadData];
-        }];
-    }];
+    self.housemates = [self.currentHouse objectForKey:@"housemates"];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
@@ -118,15 +116,11 @@
 }
 
 - (IBAction)tapRemove:(id)sender {
-    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        House *house = [House getHouse:persona];
-        [house removeFromHouse:persona];
-        NSArray *housemates = [house objectForKey:@"housemates"];
-        if(housemates.count == 0){
-            [house deleteHouse];
-        }
-        [self reloadView];
-    }];
+    [self.currentHouse removeFromHouse:self.currentPersona];
+    NSArray *housemates = [self.currentHouse objectForKey:@"housemates"];
+    if(housemates.count == 0){
+        [self.currentHouse deleteHouse];
+    }
+    [self reloadView];
 }
 @end
