@@ -38,8 +38,9 @@
     
     self.titlesArray = @[@"Create a House",
                          @"Settings",
-                         @"Features",
                          @"House Rules"];
+                         @"Reminders",
+                         @"Calendar"];
 }
 
 #pragma mark - Table view data source
@@ -79,13 +80,24 @@
         [currentController pushViewController:viewController animated:YES];
     
     // Features (Separate mode)
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Features"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Reminders"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
-        ReminderViewController *viewController = [postSearch instantiateInitialViewController];
+        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
         
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
+        [viewController setSelectedIndex:0];
+        [currentController presentViewController:viewController animated:YES completion:nil];
+        
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Calendar"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [viewController setSelectedIndex:1];
         [currentController presentViewController:viewController animated:YES completion:nil];
     } 
 
