@@ -84,7 +84,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [viewController setSelectedIndex:0];
+        [viewController setSelectedIndex:1];
         [currentController presentViewController:viewController animated:YES completion:nil];
         
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Calendar"]) {
@@ -94,7 +94,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [viewController setSelectedIndex:1];
+        [viewController setSelectedIndex:0];
         [currentController presentViewController:viewController animated:YES completion:nil];
     }
 

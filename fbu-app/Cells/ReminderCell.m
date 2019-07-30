@@ -45,6 +45,7 @@
     
     if(rem.completed) {
         self.checkmarkButton.selected = YES;
+        [self.checkmarkButton setImage:[UIImage imageNamed:@"Checkmark"] forState:UIControlStateSelected];
     } else {
         self.checkmarkButton.selected = NO;
     }
