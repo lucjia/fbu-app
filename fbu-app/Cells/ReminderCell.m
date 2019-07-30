@@ -67,6 +67,7 @@
     // Retrieve the object by id
     [query getObjectInBackgroundWithId:self.rem[@"objectId"]
                                  block:^(PFObject *reminder, NSError *error) {
+                                     reminder = self.rem;
                                      reminder[@"completed"] = selected;
                                      [reminder saveInBackground];
                                      [self refreshCheckState];
