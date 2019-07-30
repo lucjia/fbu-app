@@ -87,7 +87,7 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
         
         [currentController presentViewController:viewController animated:YES completion:nil];
-    }
+    } 
 
     [mainViewController hideLeftViewAnimated:YES delay:0.0 completionHandler:nil];
     // have to segue for each individual row

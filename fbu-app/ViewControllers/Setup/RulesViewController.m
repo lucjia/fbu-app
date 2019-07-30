@@ -76,9 +76,6 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.rules removeObjectAtIndex:indexPath.row];
-        [self.house setObject:self.rules
-                       forKey:@"rules"];
-        [self.house save];
         [self reloadView];
     }
 }

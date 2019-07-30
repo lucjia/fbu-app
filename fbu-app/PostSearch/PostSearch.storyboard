@@ -90,13 +90,13 @@
         <!--Rules View Controller-->
         <scene sceneID="EeV-RX-3pX">
             <objects>
-                <viewController id="fbP-bt-mCJ" customClass="RulesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RulesViewController" id="fbP-bt-mCJ" customClass="RulesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pJZ-vy-F64">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Type to add a new rule..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EwM-S7-Ri8">
-                                <rect key="frame" x="16" y="738" width="362" height="60"/>
+                                <rect key="frame" x="16" y="730" width="362" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="NLI-pZ-lJ8"/>
                                 </constraints>
@@ -105,7 +105,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rjg-tF-kKg">
-                                <rect key="frame" x="60" y="814" width="294" height="40"/>
+                                <rect key="frame" x="60" y="806" width="294" height="40"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="tEV-MW-mp9"/>
@@ -116,7 +116,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kbG-7E-wGL">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="722"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleCell" rowHeight="109" id="pSA-ea-K3d" customClass="RuleCell">
@@ -159,7 +159,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fwr-oY-yzo" firstAttribute="bottom" secondItem="Rjg-tF-kKg" secondAttribute="bottom" constant="8" id="4Hf-rl-nJt"/>
+                            <constraint firstItem="fwr-oY-yzo" firstAttribute="bottom" secondItem="Rjg-tF-kKg" secondAttribute="bottom" constant="16" id="4Hf-rl-nJt"/>
                             <constraint firstItem="EwM-S7-Ri8" firstAttribute="top" secondItem="kbG-7E-wGL" secondAttribute="bottom" constant="16" id="5Ez-UR-bFL"/>
                             <constraint firstItem="Rjg-tF-kKg" firstAttribute="top" secondItem="EwM-S7-Ri8" secondAttribute="bottom" constant="16" id="6ol-5L-gNr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EwM-S7-Ri8" secondAttribute="trailing" constant="16" id="Gpy-cI-O58"/>
