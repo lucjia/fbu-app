@@ -214,12 +214,14 @@
         [cell setHidden:YES];
     } else if ([self doesArrayContainDateOnSameDay:self.eventsArray date:self.eventDate]) {
         [cell setHidden:NO];
-        cell.backgroundColor = [UIColor blueColor];
+        cell.backgroundColor = [UIColor whiteColor];
+        [cell drawEventCircle];
         
         [cell initDateLabelInCell:(indexPath.row - self.weekday + 2)];
     } else if ([self isCellToday:indexPath.row - self.weekday + 2]) {
         [cell setHidden:NO];
-        cell.backgroundColor = [UIColor redColor];
+        cell.backgroundColor = [UIColor whiteColor];
+        [cell drawCurrentDayCircle];
         
         [cell initDateLabelInCell:(indexPath.row - self.weekday + 2)];
     } else {

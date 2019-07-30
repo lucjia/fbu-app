@@ -24,4 +24,20 @@
     [self.contentView addSubview:self.dateLabel];
 }
 
+- (void)drawCircleForCalendar:(NSInteger)x verticalPosition:(NSInteger)y circleColor:(UIColor *)color {
+    CAShapeLayer *circle = [CAShapeLayer layer];
+    [circle setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(x, y, 20, 20)] CGPath]];
+    [circle setFillColor:[color CGColor]];
+    
+    [[self.contentView layer] addSublayer:circle];
+}
+
+- (void)drawCurrentDayCircle {
+    [self drawCircleForCalendar:50 verticalPosition:50 circleColor:[UIColor redColor]];
+}
+
+- (void)drawEventCircle {
+    [self drawCircleForCalendar:70 verticalPosition:50 circleColor:[UIColor blueColor]];
+}
+
 @end
