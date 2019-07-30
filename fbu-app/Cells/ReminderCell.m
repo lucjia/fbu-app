@@ -40,8 +40,41 @@
     NSString *lastName = [@" " stringByAppendingString:rem.reminderSender[@"lastName"]];
     NSString *fullName = [firstName stringByAppendingString:lastName];
     self.reminderSenderLabel.text = fullName;
+
+    if(rem.completed) {
+        self.checkmarkButton.selected = YES;
+        [self.checkmarkButton setImage:[UIImage imageNamed:@"Checkmark"] forState:UIControlStateSelected];
+    } else {
+        self.checkmarkButton.selected = NO;
+    }
+}
+
+- (IBAction)didPressCheck:(id)sender {
+    // toggle selected
+    NSNumber *selected;
+    if (self.checkmarkButton.selected == YES) {
+        self.checkmarkButton.selected = NO;
+        selected = @NO;
+    } else {
+        self.checkmarkButton.selected = YES;
+        selected = @YES;
+    }
     
+    // save state of completion into parse
+    PFQuery *query = [PFQuery queryWithClassName:@"Reminder"];
     
+    // Retrieve the object by id
+    [query getObjectInBackgroundWithId:self.rem[@"objectId"]
+                                 block:^(PFObject *reminder, NSError *error) {
+                                     reminder = self.rem;
+                                     reminder[@"completed"] = selected;
+                                     [reminder saveInBackground];
+                                     [self refreshCheckState];
+                                 }];
+}
+
+- (void) refreshCheckState {
+    [self.checkmarkButton setImage:[UIImage imageNamed:@"Checkmark"] forState:UIControlStateSelected];
 }
 
 @end
