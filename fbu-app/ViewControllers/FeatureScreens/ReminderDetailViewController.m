@@ -33,6 +33,13 @@
     
 }
 
+- (void) initializeTextView {
+    self.reminderTextView.layer.borderWidth = 1.5f;
+    self.reminderTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.reminderTextView.layer.cornerRadius = 6;
+    self.reminderTextView.delegate = self;
+}
+
 - (IBAction)didTap:(id)sender {
     [self.view endEditing:YES];
 }
