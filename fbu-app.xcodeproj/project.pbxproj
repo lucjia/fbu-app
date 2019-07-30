@@ -43,6 +43,7 @@
 		85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80AA22EA80CC0070AC4E /* ComposeReminderViewController.m */; };
 		85CB80AE22EBB4350070AC4E /* ReminderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80AD22EBB4350070AC4E /* ReminderDetailViewController.m */; };
 		85CB80B122ECB44F0070AC4E /* CustomDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80B022ECB44E0070AC4E /* CustomDatePicker.m */; };
+		85CB80B422EFB12C0070AC4E /* UserCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80B322EFB12C0070AC4E /* UserCollectionCell.m */; };
 		85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A13F22DD214D006C1F38 /* AppDelegate.m */; };
 		85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A14222DD214D006C1F38 /* TimelineViewController.m */; };
 		85E7A14622DD214D006C1F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85E7A14422DD214D006C1F38 /* Main.storyboard */; };
@@ -148,6 +149,8 @@
 		85CB80AD22EBB4350070AC4E /* ReminderDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderDetailViewController.m; sourceTree = "<group>"; };
 		85CB80AF22ECB44E0070AC4E /* CustomDatePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDatePicker.h; sourceTree = "<group>"; };
 		85CB80B022ECB44E0070AC4E /* CustomDatePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomDatePicker.m; sourceTree = "<group>"; };
+		85CB80B222EFB12C0070AC4E /* UserCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserCollectionCell.h; sourceTree = "<group>"; };
+		85CB80B322EFB12C0070AC4E /* UserCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserCollectionCell.m; sourceTree = "<group>"; };
 		85E7A13B22DD214D006C1F38 /* fbu-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E7A13E22DD214D006C1F38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85E7A13F22DD214D006C1F38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -364,6 +367,8 @@
 				774B123122E62954000764BD /* PlainRoomateCell.m */,
 				85CB80A622EA5AD60070AC4E /* ReminderCell.h */,
 				85CB80A722EA5AD60070AC4E /* ReminderCell.m */,
+				85CB80B222EFB12C0070AC4E /* UserCollectionCell.h */,
+				85CB80B322EFB12C0070AC4E /* UserCollectionCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -738,6 +743,7 @@
 				7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */,
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
+				85CB80B422EFB12C0070AC4E /* UserCollectionCell.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
 				645088D822EBA29F00319C93 /* CalendarCell.m in Sources */,
 				85729DCA22E76EFA009AD717 /* Reminder.m in Sources */,
