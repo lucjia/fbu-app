@@ -25,6 +25,9 @@
 @property (strong, nonatomic) NSString *dueDateString;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *housemates;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tap;
+@property (strong, nonatomic) UserCollectionCell *previousCell;
+@property (assign, nonatomic) NSInteger cellHeight;
 
 @end
 
@@ -42,6 +45,11 @@
     CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing*(photosPerLine - 1)) / photosPerLine;
     CGFloat itemHeight = itemWidth;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    self.cellHeight = (NSInteger) (itemHeight);
+    
+    // To be able to click in the collection view and click to dismiss the keyboard
+    self.tap.cancelsTouchesInView = NO;
+    self.previousCell = [[UserCollectionCell alloc] init];
     
     CustomDatePicker *dp = [[CustomDatePicker alloc] init];
     self.datePicker = [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
@@ -130,7 +138,8 @@
             }
         }];
     }];
-    cell.profileView.layer.cornerRadius = cell.profileView.frame.size.height /2;
+    cell.profileView.layer.cornerRadius = self.cellHeight / 2;
+    cell.profileView.alpha = 0.5;
     cell.profileView.layer.masksToBounds = YES;
     cell.profileView.contentMode = UIViewContentModeScaleAspectFill;
     
@@ -150,6 +159,18 @@
             [self.collectionView reloadData];
         }];
     }];
+}
+
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    Persona *persona = self.housemates[indexPath.item];
+    
+    // change alpha to 1.0 and have alpha of last selection return to 0.5
+    self.previousCell.profileView.alpha = 0.5;
+    
+    UserCollectionCell *tappedCell = [collectionView cellForItemAtIndexPath:(indexPath)];
+    self.previousCell = tappedCell;
+    tappedCell.profileView.alpha = 1.0;
+    self.recipientTextField.text = persona.username;
 }
 
 @end

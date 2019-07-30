@@ -325,6 +325,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MVq-Ru-qPI">
                                 <rect key="frame" x="87" y="364" width="240" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ief-ja-Vch">
                                     <size key="itemSize" width="103" height="91"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -344,7 +345,6 @@
                                                 </imageView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="dpt-SH-vTk" secondAttribute="trailing" id="FJ1-1J-CfM"/>
                                             <constraint firstItem="dpt-SH-vTk" firstAttribute="top" secondItem="Rv8-Bd-uYG" secondAttribute="top" id="Miv-yz-y7Y"/>
@@ -378,6 +378,7 @@
                         <outlet property="dateSelectionTextField" destination="RBu-bz-QWH" id="v5y-uA-eUa"/>
                         <outlet property="recipientTextField" destination="FbN-Il-gR9" id="D2D-qU-xk1"/>
                         <outlet property="reminderTextView" destination="JkX-H1-U5J" id="C3Q-jh-xto"/>
+                        <outlet property="tap" destination="jU1-Rd-cAo" id="nGk-PF-Rh9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ab-LE-uNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
