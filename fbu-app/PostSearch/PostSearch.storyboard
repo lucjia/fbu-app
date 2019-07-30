@@ -13,7 +13,7 @@
         <!--Calendar-->
         <scene sceneID="coQ-uD-C9f">
             <objects>
-                <viewController storyboardIdentifier="CalendarVC" id="qB5-Kg-4Ob" customClass="CalendarViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CalendarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qB5-Kg-4Ob" customClass="CalendarViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CVW-cA-HbK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -108,7 +108,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybg-xY-bv3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4516" y="-210"/>
+            <point key="canvasLocation" x="1325" y="518"/>
         </scene>
         <!--Reminders-->
         <scene sceneID="pI8-ic-5b9">
@@ -242,52 +242,61 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNa-pc-pfZ">
-                                                    <rect key="frame" x="101" y="19" width="267" height="20.5"/>
+                                                    <rect key="frame" x="70" y="19" width="298" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJz-9Q-fNm">
-                                                    <rect key="frame" x="101" y="47.5" width="267" height="21"/>
+                                                    <rect key="frame" x="70" y="47.5" width="298" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vLa-n3-cFN">
-                                                    <rect key="frame" x="28" y="42.5" width="51" height="31"/>
-                                                </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Sent by: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTO-Bj-ZIj">
-                                                    <rect key="frame" x="101" y="76.5" width="68" height="21"/>
+                                                    <rect key="frame" x="70" y="76.5" width="68" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqn-jf-fhp">
-                                                    <rect key="frame" x="169" y="76.5" width="199" height="21"/>
+                                                    <rect key="frame" x="138" y="76.5" width="230" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jqn-9H-UxF">
+                                                    <rect key="frame" x="20" y="43" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="1Sv-S1-qGL"/>
+                                                        <constraint firstAttribute="width" constant="30" id="tzK-Qz-dTB"/>
+                                                    </constraints>
+                                                    <state key="normal" image="Checkmarkempty"/>
+                                                    <connections>
+                                                        <action selector="didPressCheck:" destination="e0j-x6-YGH" eventType="touchUpInside" id="UrA-f6-jra"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Lqn-jf-fhp" firstAttribute="bottom" secondItem="XTO-Bj-ZIj" secondAttribute="bottom" id="15E-FR-WLw"/>
                                                 <constraint firstItem="Lqn-jf-fhp" firstAttribute="top" secondItem="uJz-9Q-fNm" secondAttribute="bottom" constant="8" id="38y-p5-v6c"/>
                                                 <constraint firstItem="uJz-9Q-fNm" firstAttribute="top" secondItem="KNa-pc-pfZ" secondAttribute="bottom" constant="8" id="CpE-Pb-4u2"/>
-                                                <constraint firstItem="uJz-9Q-fNm" firstAttribute="centerY" secondItem="vLa-n3-cFN" secondAttribute="centerY" id="DNj-xO-KRb"/>
+                                                <constraint firstItem="uJz-9Q-fNm" firstAttribute="leading" secondItem="Jqn-9H-UxF" secondAttribute="trailing" constant="20" id="FF0-ZP-oSi"/>
                                                 <constraint firstItem="KNa-pc-pfZ" firstAttribute="top" secondItem="7Fm-zL-e1j" secondAttribute="topMargin" constant="8" id="HbX-5K-mOW"/>
                                                 <constraint firstItem="uJz-9Q-fNm" firstAttribute="trailing" secondItem="KNa-pc-pfZ" secondAttribute="trailing" id="JTb-hO-ERM"/>
                                                 <constraint firstItem="Lqn-jf-fhp" firstAttribute="trailing" secondItem="KNa-pc-pfZ" secondAttribute="trailing" id="Jnc-gH-sX0"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Lqn-jf-fhp" secondAttribute="bottom" constant="7.5" id="Mow-4C-O8l"/>
+                                                <constraint firstItem="Jqn-9H-UxF" firstAttribute="centerY" secondItem="7Fm-zL-e1j" secondAttribute="centerY" id="PSS-qu-SVn"/>
                                                 <constraint firstItem="Lqn-jf-fhp" firstAttribute="leading" secondItem="XTO-Bj-ZIj" secondAttribute="trailing" id="URm-rp-fbT"/>
-                                                <constraint firstItem="vLa-n3-cFN" firstAttribute="leading" secondItem="7Fm-zL-e1j" secondAttribute="leadingMargin" constant="8" id="WtD-r7-geD"/>
-                                                <constraint firstItem="uJz-9Q-fNm" firstAttribute="leading" secondItem="vLa-n3-cFN" secondAttribute="trailing" constant="24" id="YbM-fK-A4q"/>
                                                 <constraint firstItem="XTO-Bj-ZIj" firstAttribute="leading" secondItem="KNa-pc-pfZ" secondAttribute="leading" id="ZKc-td-I42"/>
                                                 <constraint firstAttribute="trailing" secondItem="KNa-pc-pfZ" secondAttribute="trailing" constant="8" id="l4Q-gt-O97"/>
+                                                <constraint firstItem="Jqn-9H-UxF" firstAttribute="leading" secondItem="7Fm-zL-e1j" secondAttribute="leading" constant="20" id="lx8-mX-0AJ"/>
                                                 <constraint firstItem="uJz-9Q-fNm" firstAttribute="leading" secondItem="KNa-pc-pfZ" secondAttribute="leading" id="mbK-WI-V9o"/>
                                                 <constraint firstItem="Lqn-jf-fhp" firstAttribute="top" secondItem="XTO-Bj-ZIj" secondAttribute="top" id="yRT-bl-eTR"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="checkmarkButton" destination="Jqn-9H-UxF" id="DE0-nL-tFZ"/>
                                             <outlet property="reminderDateLabel" destination="uJz-9Q-fNm" id="F0u-zK-jm4"/>
                                             <outlet property="reminderSenderLabel" destination="Lqn-jf-fhp" id="jJW-1G-e32"/>
                                             <outlet property="reminderTextLabel" destination="KNa-pc-pfZ" id="JwX-fd-LFr"/>
@@ -459,8 +468,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <segue destination="rjn-oS-mWP" kind="relationship" relationship="viewControllers" id="OwS-Dj-Zr1"/>
                         <segue destination="625-IT-BRN" kind="relationship" relationship="viewControllers" id="3ZN-sd-03P"/>
-                        <segue destination="qB5-Kg-4Ob" kind="relationship" relationship="viewControllers" id="SRm-QU-ifQ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xVA-Nb-Jp7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -524,13 +533,27 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select a date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7XO-vd-PWx">
+                                <rect key="frame" x="20" y="508" width="374" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="HQ6-qL-hTU"/>
                     </view>
-                    <navigationItem key="navigationItem" id="X3J-KV-WcV"/>
+                    <navigationItem key="navigationItem" id="X3J-KV-WcV">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="X1b-YL-1Oo">
+                            <connections>
+                                <action selector="didTapSaveEvent:" destination="Bfd-gW-2Pf" id="CkF-fB-hKG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="allDaySwitch" destination="UoE-wE-ijC" id="9tx-iC-U14"/>
+                        <outlet property="dateSelectionTextField" destination="7XO-vd-PWx" id="fod-jl-8BE"/>
                         <outlet property="memoTextView" destination="wEB-5o-7h2" id="QbE-D2-dPN"/>
                         <outlet property="titleTextField" destination="jqU-4z-pTR" id="lkE-pM-qfu"/>
                     </connections>
@@ -539,11 +562,11 @@
             </objects>
             <point key="canvasLocation" x="1324.6376811594205" y="1251.5625"/>
         </scene>
-        <!--Item-->
+        <!--Calendar-->
         <scene sceneID="Mk8-rp-iAf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rjn-oS-mWP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="AhC-Db-ups"/>
+                    <tabBarItem key="tabBarItem" title="Calendar" id="AhC-Db-ups"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EBu-lN-fFP">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -559,4 +582,7 @@
             <point key="canvasLocation" x="1324.6376811594205" y="-210.26785714285714"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Checkmarkempty" width="30" height="30"/>
+    </resources>
 </document>

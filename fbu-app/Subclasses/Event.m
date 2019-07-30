@@ -8,6 +8,7 @@
 
 #import "Event.h"
 #import "House.h"
+#import "Persona.h"
 
 @implementation Event
 
@@ -16,6 +17,7 @@
 @dynamic isAllDay;
 @dynamic location;
 @dynamic eventDate;
+@dynamic house;
 
 + (nonnull NSString *)parseClassName {
     return @"Event";
@@ -28,13 +30,17 @@
     newEvent.isAllDay = allDay;
     newEvent.eventDate = date;
     
-    [newEvent saveInBackgroundWithBlock:completion];
-    
-    House *house = [[PFUser currentUser][@"Persona"] objectForKey:@"house"];
-    [house fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        [object setObject:newEvent forKey:@"Event"];
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeededInBackground];
+    House *house = [persona objectForKey:@"house"];
+    [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        [house addEventToHouse:newEvent];
+        newEvent.house = house;
     }];
+    
+    [newEvent saveInBackgroundWithBlock:completion];
     [house saveInBackgroundWithBlock:completion];
 }
+
 
 @end

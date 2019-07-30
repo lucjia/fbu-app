@@ -11,7 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//@protocol ReminderCellDelegate <NSObject>
+//
+//- (void) didClickOnCellAtIndex:(NSInteger)cellIndex withData:(id)data;
+//
+//@end
+
 @interface ReminderCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UIButton *checkmarkButton;
 
 - (void) updateReminderCellWithReminder:(Reminder *)rem;
 

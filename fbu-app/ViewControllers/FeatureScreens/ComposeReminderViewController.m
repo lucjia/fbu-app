@@ -10,8 +10,10 @@
 #import "Reminder.h"
 #import "Persona.h"
 #import "CustomDatePicker.h"
+#import "UserCollectionCell.h"
+#import "House.h"
 
-@interface ComposeReminderViewController ()
+@interface ComposeReminderViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITextField *dateSelectionTextField;
 @property (strong, nonatomic) UIDatePicker *datePicker;
@@ -21,6 +23,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *addReminderButton;
 @property (strong, nonatomic) Persona *receiver;
 @property (strong, nonatomic) NSString *dueDateString;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) NSMutableArray *housemates;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tap;
+@property (strong, nonatomic) UserCollectionCell *previousCell;
+@property (assign, nonatomic) NSInteger cellHeight;
 
 @end
 
@@ -28,6 +35,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    UICollectionViewFlowLayout *layout = self.collectionView.collectionViewLayout;
+    [self fetchHousemates];
+    
+    CGFloat photosPerLine = 3;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing*(photosPerLine - 1)) / photosPerLine;
+    CGFloat itemHeight = itemWidth;
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    self.cellHeight = (NSInteger) (itemHeight);
+    
+    // To be able to click in the collection view and click to dismiss the keyboard
+    self.tap.cancelsTouchesInView = NO;
+    self.previousCell = [[UserCollectionCell alloc] init];
     
     CustomDatePicker *dp = [[CustomDatePicker alloc] init];
     self.datePicker = [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
@@ -104,14 +126,51 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UserCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UserCollectionCell" forIndexPath:indexPath];
+    
+    Persona *persona = self.housemates[indexPath.row];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+       PFFileObject *imageFile = persona.profileImage;
+        [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+            if (!error) {
+                cell.profileView.image = [UIImage imageWithData:data];
+            }
+        }];
+    }];
+    cell.profileView.layer.cornerRadius = self.cellHeight / 2;
+    cell.profileView.alpha = 0.5;
+    cell.profileView.layer.masksToBounds = YES;
+    cell.profileView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    return cell;
 }
-*/
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.housemates.count;
+}
+
+- (void) fetchHousemates {
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [persona objectForKey:@"house"];
+        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            self.housemates = [house objectForKey:@"housemates"];
+            [self.collectionView reloadData];
+        }];
+    }];
+}
+
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    Persona *persona = self.housemates[indexPath.item];
+    
+    // change alpha to 1.0 and have alpha of last selection return to 0.5
+    self.previousCell.profileView.alpha = 0.5;
+    
+    UserCollectionCell *tappedCell = [collectionView cellForItemAtIndexPath:(indexPath)];
+    self.previousCell = tappedCell;
+    tappedCell.profileView.alpha = 1.0;
+    self.recipientTextField.text = persona.username;
+}
 
 @end
