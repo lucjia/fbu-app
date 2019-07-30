@@ -57,7 +57,7 @@
         if (events != nil) {
             // do something with the array of object returned by the call
             self.eventsArray = events;
-           [self.collectionView reloadData];
+           [self initCollectionView];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
