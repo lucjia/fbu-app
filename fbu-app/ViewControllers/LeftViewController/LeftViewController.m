@@ -38,7 +38,7 @@
     
     self.titlesArray = @[@"Create a House",
                          @"Settings",
-                         @"House Rules"];
+                         @"House Rules",
                          @"Reminders",
                          @"Calendar"];
 }
