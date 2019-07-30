@@ -5,7 +5,7 @@
 //  Created by lucjia on 7/23/19.
 //  Copyright © 2019 lucjia. All rights reserved.
 //
-
+//
 #import "Reminder.h"
 #import "Persona.h"
 
@@ -17,6 +17,7 @@
 @dynamic reminderSentDate;
 @dynamic reminderDueDate;
 @dynamic dueDateString;
+@dynamic completed;
 
 + (nonnull NSString *)parseClassName {
     return @"Reminder";
@@ -30,6 +31,7 @@
     newReminder.reminderSentDate = newReminder.createdAt;
     newReminder.reminderDueDate = dueDate;
     newReminder.dueDateString = dueDateString;
+    newReminder.completed = NO;
     
     [newReminder saveInBackgroundWithBlock:completion];
 }
