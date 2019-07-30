@@ -42,10 +42,10 @@
 - (void) removeFromHouse: (Persona *) persona {
     
     [self removeObject:persona forKey:@"housemates"];
-    [self save];
+    [self saveInBackground];
 
     [persona removeObjectForKey:@"house"];
-    [persona save];
+    [persona saveInBackground];
 }
 
 - (void) deleteHouse {
@@ -53,7 +53,7 @@
     for(Persona *housemate in housemates){
         [self removeFromHouse:housemate];
     }
-    [self delete];
+    [self deleteInBackground];
     
 }
 

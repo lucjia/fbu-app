@@ -48,11 +48,17 @@
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         self.currentPersona = (Persona*) object;
         self.currentHouse = [House getHouse:self.currentPersona];
-        [self.currentHouse fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if(self.currentHouse != nil){
+            [self.currentHouse fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                [self setButtonLabel];
+                [self fetchHousemates];
+                [self.tableView reloadData];
+            }];
+        } else {
             [self setButtonLabel];
             [self fetchHousemates];
             [self.tableView reloadData];
-        }];
+        }
     }];
 }
 
