@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *reminderTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reminderDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reminderSenderLabel;
-@property (strong, nonatomic) Reminder *rem;
 
 @end
 
@@ -32,7 +31,6 @@
 }
 
 - (void) updateReminderCellWithReminder:(Reminder *)rem {
-    self.rem = rem;
     self.reminderTextLabel.text = rem.reminderText;
     
     NSString *dueDateString = rem.dueDateString;
@@ -42,7 +40,7 @@
     NSString *lastName = [@" " stringByAppendingString:rem.reminderSender[@"lastName"]];
     NSString *fullName = [firstName stringByAppendingString:lastName];
     self.reminderSenderLabel.text = fullName;
-    
+
     if(rem.completed) {
         self.checkmarkButton.selected = YES;
         [self.checkmarkButton setImage:[UIImage imageNamed:@"Checkmark"] forState:UIControlStateSelected];
