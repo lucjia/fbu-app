@@ -126,7 +126,17 @@
 
 // Search through reminders based on keywords / sender
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if (searchText.length != 0) {
+    // Check if search contains s: or S: (for sender)
+    // If so, search through roommate
+    if (searchText.length != 0 && ([searchText containsString:@"S:"] || [searchText containsString:@"s:"])) {
+        if ([searchText length] > 2) {
+            NSString *newSearchText = [[NSString alloc] init];
+            newSearchText = [searchText substringFromIndex:2];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.reminderSender.firstName contains[cd] %@", newSearchText];
+            filteredResults = [self.receivedReminderArrayTotal filteredArrayUsingPredicate:predicate];
+        }
+    // If not, search through the reminder text
+    } else if (searchText.length != 0) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.reminderText contains[cd] %@", searchText];
         filteredResults = [self.receivedReminderArrayTotal filteredArrayUsingPredicate:predicate];
     } else {
