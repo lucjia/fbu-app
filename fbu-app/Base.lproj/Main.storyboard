@@ -1051,15 +1051,8 @@
                                 </constraints>
                                 <state key="normal" title="Change Bio"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ual-aL-KJL">
-                                <rect key="frame" x="119" y="376" width="176" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="s1X-la-siD"/>
-                                </constraints>
-                                <state key="normal" title="Change User Preferences"/>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" text="hi" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XC3-rj-kb8">
-                                <rect key="frame" x="87" y="418" width="240" height="344"/>
+                                <rect key="frame" x="87" y="526" width="240" height="236"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Cqo-5P-vFU"/>
@@ -1102,6 +1095,22 @@
                                 </constraints>
                                 <state key="normal" title="Change Location"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ual-aL-KJL">
+                                <rect key="frame" x="119" y="484" width="176" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="s1X-la-siD"/>
+                                </constraints>
+                                <state key="normal" title="Change User Preferences"/>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="COt-Vb-pEL">
+                                <rect key="frame" x="158.5" y="372" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="zk5-uJ-PX5"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -1109,14 +1118,15 @@
                             <constraint firstItem="aji-eh-h7t" firstAttribute="top" secondItem="3xn-gE-IOK" secondAttribute="bottom" constant="12" id="9gO-P1-JDh"/>
                             <constraint firstItem="3xn-gE-IOK" firstAttribute="top" secondItem="fay-Rl-Pi3" secondAttribute="bottom" constant="14" id="C4t-1j-Uyh"/>
                             <constraint firstItem="3xn-gE-IOK" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="HrJ-H0-oJA"/>
+                            <constraint firstItem="Ual-aL-KJL" firstAttribute="top" secondItem="COt-Vb-pEL" secondAttribute="bottom" constant="82" id="IND-SX-r2J"/>
                             <constraint firstItem="XC3-rj-kb8" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="Kfb-6S-jpl"/>
                             <constraint firstItem="4Sg-h8-mNo" firstAttribute="top" secondItem="XC3-rj-kb8" secondAttribute="bottom" constant="12" id="LMr-Mf-gFg"/>
                             <constraint firstItem="fay-Rl-Pi3" firstAttribute="top" secondItem="sSa-oF-ssc" secondAttribute="top" constant="30" id="MQa-Wd-Dgw"/>
                             <constraint firstItem="Y24-5j-YDu" firstAttribute="top" secondItem="w5c-G0-0tl" secondAttribute="bottom" constant="12" id="NVb-ae-b4f"/>
                             <constraint firstItem="aji-eh-h7t" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="PB2-Vg-Qxk"/>
-                            <constraint firstItem="Ual-aL-KJL" firstAttribute="top" secondItem="Y24-5j-YDu" secondAttribute="bottom" constant="12" id="bN1-jX-zhh"/>
                             <constraint firstItem="Y24-5j-YDu" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="dIv-xS-1ab"/>
                             <constraint firstItem="w5c-G0-0tl" firstAttribute="top" secondItem="aji-eh-h7t" secondAttribute="bottom" constant="12" id="ffY-zs-gEo"/>
+                            <constraint firstItem="COt-Vb-pEL" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="g6i-CN-xNC"/>
                             <constraint firstItem="4Sg-h8-mNo" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="gJ7-DG-6g0"/>
                             <constraint firstItem="2BC-hB-Dna" firstAttribute="top" secondItem="4Sg-h8-mNo" secondAttribute="bottom" constant="12" id="hNf-Zy-gZ4"/>
                             <constraint firstItem="Dy5-In-iWy" firstAttribute="centerY" secondItem="2BC-hB-Dna" secondAttribute="centerY" id="iYT-aF-n7t"/>
@@ -1125,8 +1135,8 @@
                             <constraint firstItem="XC3-rj-kb8" firstAttribute="top" secondItem="Ual-aL-KJL" secondAttribute="bottom" constant="12" id="ljV-x0-UPR"/>
                             <constraint firstItem="sSa-oF-ssc" firstAttribute="trailing" secondItem="Dy5-In-iWy" secondAttribute="trailing" constant="24" id="nQD-gB-P8s"/>
                             <constraint firstItem="Ual-aL-KJL" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="oOI-1Q-ppl"/>
-                            <constraint firstItem="Ual-aL-KJL" firstAttribute="top" secondItem="Y24-5j-YDu" secondAttribute="bottom" constant="12" id="pMf-qs-EbE"/>
                             <constraint firstItem="fay-Rl-Pi3" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="sT2-en-9kB"/>
+                            <constraint firstItem="COt-Vb-pEL" firstAttribute="top" secondItem="Y24-5j-YDu" secondAttribute="bottom" constant="8" id="t9l-lA-s9i"/>
                             <constraint firstItem="w5c-G0-0tl" firstAttribute="centerX" secondItem="Qtk-ga-Wzm" secondAttribute="centerX" id="zYL-Vv-uZr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sSa-oF-ssc"/>
@@ -1144,6 +1154,7 @@
                         <outlet property="fullNameField" destination="aji-eh-h7t" id="8dO-vq-g5h"/>
                         <outlet property="logOutButton" destination="2BC-hB-Dna" id="wiq-0K-APv"/>
                         <outlet property="profileImageView" destination="fay-Rl-Pi3" id="ame-fi-isU"/>
+                        <outlet property="radiusField" destination="COt-Vb-pEL" id="hzk-bi-aBY"/>
                         <outlet property="userLocationButton" destination="Y24-5j-YDu" id="5on-mn-6us"/>
                         <outlet property="userPreferencesButton" destination="Ual-aL-KJL" id="H0F-uO-ABh"/>
                         <segue destination="sg7-0I-vg5" kind="show" identifier="toLocation" id="PC2-ht-tZF"/>
@@ -1184,10 +1195,11 @@
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="PC2-ht-tZF"/>
         <segue reference="sAA-b7-1El"/>
         <segue reference="gWT-7N-jNe"/>
-        <segue reference="jds-2Y-IW3"/>
-        <segue reference="PfE-T3-26N"/>
+        <segue reference="dbJ-VM-uVd"/>
+        <segue reference="kFA-SJ-iRa"/>
         <segue reference="N8j-jp-Paw"/>
     </inferredMetricsTieBreakers>
 </document>

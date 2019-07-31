@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UIButton *userPreferencesButton;
 @property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
+@property (weak, nonatomic) IBOutlet UITextField *radiusField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
 @property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
@@ -36,6 +37,7 @@
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) PFGeoPoint *location;
+@property (strong, nonatomic) NSNumber *radius;
 
 @end
 
@@ -52,6 +54,7 @@
     [self createChangeProfileButton];
     [self createFullNameField];
     [self createCityField];
+    [self createRadiusField];
     [self createUserPreferencesButton];
     [self createUserLocationButton];
     [self createUserBioTextView];
@@ -104,6 +107,14 @@
     NSString *existingCity = [[PFUser currentUser][@"persona"][@"city"] stringByAppendingString:@", "];
     NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"persona"][@"state"]];
     self.cityField.text = existingState;
+}
+
+- (void) createRadiusField {
+    self.radiusField.delegate = self;
+    self.radiusField.borderStyle = UITextBorderStyleRoundedRect;
+    self.radiusField.placeholder = @"Radius";
+    NSNumber *radius = [PFUser currentUser][@"persona"][@"radius"];
+    self.radiusField.text = radius;
 }
 
 - (void) createUserPreferencesButton {
@@ -322,7 +333,7 @@
     }
     self.location = [PFUser currentUser][@"persona"][@"geoPoint"];
     // set information in Persona
-    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.profileImage city:self.city state:self.state location:self.location withCompletion:nil];
+    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.profileImage city:self.city state:self.state location:self.location radius:self.radius withCompletion:nil];
     [self performSegueWithIdentifier:@"toTimeline" sender:self];
 }
 
@@ -368,6 +379,27 @@
         // Create alert
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid City"
                                                                        message:@"Please enter a city (ex: Seattle, WA)."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        // Create a dismiss action
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
+    if (![self.radiusField.text isEqualToString:@""] && [[self.cityField.text componentsSeparatedByString:@", "] count] == 2) {
+        self.radius = @([self.radiusField.text intValue]);
+        [[PFUser currentUser][@"persona"] setObject:self.radius forKey:@"radius"];
+        [[PFUser currentUser][@"persona"] saveInBackground];
+    } else {
+        // Create alert
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid Radius"
+                                                                       message:@"Please enter an integer."
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
         // Create a dismiss action
         UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"

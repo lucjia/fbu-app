@@ -26,6 +26,7 @@
 @dynamic city;
 @dynamic state;
 @dynamic geoPoint;
+@dynamic radius;
 @dynamic preferences;
 @dynamic house;
 @dynamic requestsSent;
@@ -54,7 +55,7 @@
     [[PFUser currentUser] saveInBackgroundWithBlock:completion];
 }
 
-+ (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion {
++ (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc radius:(NSNumber *)radius withCompletion:(PFBooleanResultBlock  _Nullable)completion {
     Persona *newPersona;
     
     if ([[PFUser currentUser] objectForKey:@"persona"] == nil) {
@@ -75,6 +76,7 @@
     newPersona.city = city;
     newPersona.state = state;
     newPersona.geoPoint = loc;
+    newPersona.radius = radius;
     
     [[PFUser currentUser] setObject:newPersona forKey:@"persona"];
     
