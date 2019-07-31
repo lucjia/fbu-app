@@ -10,11 +10,12 @@
 #import "CalendarCell.h"
 #import <Parse/Parse.h>
 #import "Event.h"
+#import "CreateEventViewController.h"
 
-@interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate>
 {
     UICollectionView *collectionView;
-    NSArray *eventsArray; // array of events
+    NSMutableArray *eventsArray; // array of events
     NSDate *eventDate;
     NSInteger currentDay;
     NSInteger currentMonth; // month displayed currently displayed currently on calendar
@@ -24,6 +25,7 @@
     NSDate *currentDate; // today
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
+    BOOL newLabel;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -35,6 +37,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    newLabel = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
     [self fetchEvents];
     [self initCollectionView];
@@ -59,7 +62,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
         if (events != nil) {
             // do something with the array of object returned by the call
-            self->eventsArray = events;
+            self->eventsArray = [NSMutableArray arrayWithArray:events];
             // items are reloaded at indexPath in order to avoid cells being created out of order
             [self->collectionView reloadItemsAtIndexPaths:self->dayIndexPaths];
         } else {
@@ -201,15 +204,28 @@
     return NO;
 }
 
-/*
+- (void)didCreateEvent:(Event *)event {
+    [eventsArray addObject:event];
+    newLabel = NO;
+    [self fetchEvents];
+    [self initCollectionView];
+    [self initCalendar:[NSDate date]];
+    newLabel = YES;
+}
+
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     
+     UINavigationController *navigationController = [segue destinationViewController];
+     CreateEventViewController *createEventViewController = (CreateEventViewController*)navigationController.topViewController;
+     createEventViewController.delegate = self;
  }
- */
+ 
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
@@ -238,7 +254,11 @@
     }
     
     // adds date label to content view of cell
-    [cell initDateLabelInCell:(indexPath.row - weekday + 2)];
+    
+    [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:YES];
+   
+    [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
+    
     
     [dayIndexPaths addObject:indexPath];
     

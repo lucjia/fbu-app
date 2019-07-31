@@ -16,18 +16,14 @@
 
 @implementation CalendarCell
 
-- (void)initDateLabelInCell:(NSUInteger)date {
+- (void)initDateLabelInCell:(NSUInteger)date newLabel:(BOOL)label {
     self.dateLabel = [[UILabel alloc] initWithFrame:self.bounds];
     self.dateLabel.textAlignment = NSTextAlignmentCenter;
     self.dateLabel.text = [NSString stringWithFormat:@"%lu", date];
     
-    [self.contentView addSubview:self.dateLabel];
-}
-
-- (void)modifyDateLabelInCell:(NSUInteger)date {
-    self.dateLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    self.dateLabel.textAlignment = NSTextAlignmentCenter;
-    self.dateLabel.text = [NSString stringWithFormat:@"%lu", date];
+    if (label) {
+        [self.contentView addSubview:self.dateLabel];
+    }
 }
 
 - (void)drawCircleForCalendar:(NSInteger)x verticalPosition:(NSInteger)y circleColor:(UIColor *)color {
