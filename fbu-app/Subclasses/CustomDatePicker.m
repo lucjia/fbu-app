@@ -39,4 +39,26 @@
     return self.datePicker;
 }
 
+- (UIDatePicker *) initializeDatePickerWithDatePicker:(UIDatePicker *)picker textField:(UITextField *)textField selector:(SEL)method secondSelector:(SEL)secondMethod {
+    
+    picker = [[UIDatePicker alloc] init];
+    picker.datePickerMode = UIDatePickerModeDateAndTime;
+    [textField setInputView:picker];
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self.datePicker = picker;
+    
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] init];
+    doneBtn.title = @"Done";
+    doneBtn.action = method;
+    UIBarButtonItem *clearBtn = [[UIBarButtonItem alloc] init];
+    clearBtn.title = @"Clear";
+    clearBtn.action = secondMethod;
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [toolBar setItems:[NSArray arrayWithObjects:clearBtn, space, doneBtn, nil]];
+    toolBar.userInteractionEnabled = YES;
+    [textField setInputAccessoryView:toolBar];
+    
+    return self.datePicker;
+}
+
 @end

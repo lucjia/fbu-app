@@ -19,9 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL isAllDay; // is the event an all day event
 @property (strong, nonatomic) PFGeoPoint *location; // where the event will occur
 @property (strong, nonatomic) NSDate *eventDate; // when the event will occur
+@property (strong, nonatomic) NSDate *eventEndDate; // when the event will occur
 @property (strong, nonatomic) House *house; // house the event is associated with
 
-+ (void) createEvent:(NSString *)title eventMemo:(NSString *)memo isAllDay:(BOOL)allDay eventDate:(NSDate *)date withCompletion:(PFBooleanResultBlock  _Nullable)completion;
++ (Event *) createEvent:(NSString *)title eventMemo:(NSString *)memo isAllDay:(BOOL)allDay eventStartDate:(NSDate *)startDate eventEndDate:(NSDate *)endDate withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 
 @end
 

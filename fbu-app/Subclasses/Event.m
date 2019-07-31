@@ -17,18 +17,21 @@
 @dynamic isAllDay;
 @dynamic location;
 @dynamic eventDate;
+@dynamic eventEndDate;
 @dynamic house;
 
 + (nonnull NSString *)parseClassName {
     return @"Event";
 }
 
-+ (void) createEvent:(NSString *)title eventMemo:(NSString *)memo isAllDay:(BOOL)allDay eventDate:(NSDate *)date withCompletion:(PFBooleanResultBlock  _Nullable)completion {
++ (Event *) createEvent:(NSString *)title eventMemo:(NSString *)memo isAllDay:(BOOL)allDay eventStartDate:(NSDate *)startDate eventEndDate:(NSDate *)endDate withCompletion:(PFBooleanResultBlock  _Nullable)completion {
     Event *newEvent = [Event new];
     newEvent.title = title;
     newEvent.memo = memo;
     newEvent.isAllDay = allDay;
-    newEvent.eventDate = date;
+    newEvent.eventDate = startDate;
+    newEvent.eventEndDate = endDate;
+    newEvent.location = [[PFGeoPoint alloc] init];
     
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
     [persona fetchIfNeededInBackground];
@@ -40,6 +43,8 @@
     
     [newEvent saveInBackgroundWithBlock:completion];
     [house saveInBackgroundWithBlock:completion];
+    
+    return newEvent;
 }
 
 
