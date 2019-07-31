@@ -24,20 +24,31 @@
     [self.contentView addSubview:self.dateLabel];
 }
 
+- (void)modifyDateLabelInCell:(NSUInteger)date {
+    self.dateLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    self.dateLabel.textAlignment = NSTextAlignmentCenter;
+    self.dateLabel.text = [NSString stringWithFormat:@"%lu", date];
+}
+
 - (void)drawCircleForCalendar:(NSInteger)x verticalPosition:(NSInteger)y circleColor:(UIColor *)color {
     CAShapeLayer *circle = [CAShapeLayer layer];
-    [circle setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(x, y, 20, 20)] CGPath]];
+    [circle setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(x, y, 5, 5)] CGPath]];
+    [circle setStrokeColor:[color CGColor]];
     [circle setFillColor:[color CGColor]];
     
     [[self.contentView layer] addSublayer:circle];
 }
 
+- (void)setCurrentDayTextColor {
+    self.dateLabel.textColor = [UIColor redColor];
+}
+
 - (void)drawCurrentDayCircle {
-    [self drawCircleForCalendar:50 verticalPosition:50 circleColor:[UIColor redColor]];
+    [self drawCircleForCalendar:10 verticalPosition:10 circleColor:[UIColor redColor]];
 }
 
 - (void)drawEventCircle {
-    [self drawCircleForCalendar:70 verticalPosition:50 circleColor:[UIColor blueColor]];
+    [self drawCircleForCalendar:20 verticalPosition:10 circleColor:[UIColor blueColor]];
 }
 
 @end
