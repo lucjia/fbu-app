@@ -25,7 +25,7 @@
     NSDate *currentDate; // today
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
-    BOOL newLabel;
+    BOOL addPaths;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -37,7 +37,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    newLabel = YES;
+    addPaths = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
     [self fetchEvents];
     [self initCollectionView];
@@ -206,11 +206,10 @@
 
 - (void)didCreateEvent:(Event *)event {
     [eventsArray addObject:event];
-    newLabel = NO;
+    addPaths = NO;
     [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
-    newLabel = YES;
 }
 
 
@@ -259,8 +258,9 @@
    
     [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
     
-    
-    [dayIndexPaths addObject:indexPath];
+    if (addPaths){
+        [dayIndexPaths addObject:indexPath];
+    }
     
     return cell;
 }

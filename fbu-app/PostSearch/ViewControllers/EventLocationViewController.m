@@ -46,7 +46,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 
 - (IBAction)didTapSetLocation:(id)sender {
     if (eventLocation) {
-        [self.delegate didSetLocation:eventLocationString];
+        [self.delegate didSetLocation:eventLocationString geoPoint:eventLocation];
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         [DetailsViewController createAlertController:@"No location set" message:@"pleaes set a location" sender:self];

@@ -16,6 +16,7 @@
 @dynamic memo;
 @dynamic isAllDay;
 @dynamic location;
+@dynamic venue;
 @dynamic eventDate;
 @dynamic eventEndDate;
 @dynamic house;
@@ -24,14 +25,15 @@
     return @"Event";
 }
 
-+ (Event *) createEvent:(NSString *)title eventMemo:(NSString *)memo isAllDay:(BOOL)allDay eventStartDate:(NSDate *)startDate eventEndDate:(NSDate *)endDate withCompletion:(PFBooleanResultBlock  _Nullable)completion {
++ (Event *) createEvent:(NSString *)title eventMemo:(NSString *)memo isAllDay:(BOOL)allDay eventLocation:(PFGeoPoint *)geo eventVenue:(NSString *)venue eventStartDate:(NSDate *)startDate eventEndDate:(NSDate *)endDate withCompletion:(PFBooleanResultBlock  _Nullable)completion {
     Event *newEvent = [Event new];
     newEvent.title = title;
     newEvent.memo = memo;
     newEvent.isAllDay = allDay;
     newEvent.eventDate = startDate;
     newEvent.eventEndDate = endDate;
-    newEvent.location = [[PFGeoPoint alloc] init];
+    newEvent.location = geo;
+    newEvent.venue = venue;
     
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
     [persona fetchIfNeededInBackground];

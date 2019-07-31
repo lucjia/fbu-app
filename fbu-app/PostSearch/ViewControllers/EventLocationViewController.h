@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol EventLocationViewControllerDelegate
 
-- (void)didSetLocation:(NSString *)location;
+- (void)didSetLocation:(NSString *)location geoPoint:(PFGeoPoint *)geo;
 
 @end
 

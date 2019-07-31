@@ -12,7 +12,9 @@
 #import "Event.h"
 
 @interface CreateEventViewController () <EventLocationViewControllerDelegate>
-
+{
+    PFGeoPoint *locationGeoPoint;
+}
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *allDaySwitch;
 @property (weak, nonatomic) IBOutlet UITextView *memoTextView;
@@ -40,12 +42,13 @@
     self.endDatePicker = [endDatePicker initializeDatePickerWithDatePicker:self.endDatePicker textField:self.endDateSelectionTextField selector:showSelector secondSelector:removeSelector];
 }
 
-- (IBAction)didTapAddLocation:(id)sender {
-    
+- (void)didSetLocation:(nonnull NSString *)location geoPoint:(nonnull PFGeoPoint *)geo {
+    self.eventLocationLabel.text = [NSString stringWithFormat:@"%@", location];
+    locationGeoPoint = geo;
 }
 
 - (IBAction)didTapSaveEvent:(id)sender {
-    Event *event = [Event createEvent:self.titleTextField.text eventMemo:self.memoTextView.text isAllDay:self.allDaySwitch.isOn eventStartDate:self.startDatePicker.date eventEndDate:self.endDatePicker.date withCompletion:nil];
+    Event *event = [Event createEvent:self.titleTextField.text eventMemo:self.memoTextView.text isAllDay:self.allDaySwitch.isOn eventLocation:locationGeoPoint eventVenue:_eventLocationLabel.text eventStartDate:self.startDatePicker.date eventEndDate:self.endDatePicker.date withCompletion:nil];
     [self.delegate didCreateEvent:event];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -93,10 +96,6 @@
      EventLocationViewController *eventLocationViewController = (EventLocationViewController *)[segue destinationViewController];
      eventLocationViewController.delegate = self;
  }
- 
 
-- (void)didSetLocation:(nonnull NSString *)location {
-    self. eventLocationLabel.text = [NSString stringWithFormat:@"%@", location];
-}
 
 @end
