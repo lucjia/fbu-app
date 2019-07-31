@@ -11,9 +11,11 @@
 #import "MainViewController.h"
 #import "TimelineViewController.h"
 #import "SettingsViewController.h"
+#import "RulesViewController.h"
 #import "ReminderViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+
 
 @interface LeftViewController ()
 
@@ -36,6 +38,7 @@
     
     self.titlesArray = @[@"Create a House",
                          @"Settings",
+                         @"House Rules",
                          @"Reminders",
                          @"Calendar"];
 }
@@ -96,7 +99,7 @@
         
         [viewController setSelectedIndex:0];
         [currentController presentViewController:viewController animated:YES completion:nil];
-    }
+    } 
 
     [mainViewController hideLeftViewAnimated:YES delay:0.0 completionHandler:nil];
     // have to segue for each individual row
