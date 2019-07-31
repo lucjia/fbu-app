@@ -28,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tap;
 @property (strong, nonatomic) UserCollectionCell *previousCell;
 @property (assign, nonatomic) NSInteger cellHeight;
+@property (weak, nonatomic) IBOutlet UISwitch *lockEditingSwitch;
 
 @end
 
@@ -88,7 +89,7 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Add Reminder"
                                                                        message:@"Please enter a username or reminder."
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
-        // Create a try again action
+        // Create a dismiss action
         UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
                                                                 style:UIAlertActionStyleCancel
                                                               handler:^(UIAlertAction * _Nonnull action) {
@@ -116,7 +117,7 @@
                     dueDate = nil;
                 }
                 
-                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString withCompletion:nil];
+                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }

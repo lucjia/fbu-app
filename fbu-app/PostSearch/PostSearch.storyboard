@@ -357,6 +357,9 @@
                                 <rect key="frame" x="168" y="705" width="96" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit Reminder"/>
+                                <connections>
+                                    <action selector="didPressEdit:" destination="fm1-Fe-T5x" eventType="touchUpInside" id="AZF-Xr-f3d"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah5-xc-5TL">
                                 <rect key="frame" x="186" y="157" width="55" height="21"/>
@@ -372,6 +375,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EW5-Ez-T5w">
+                                <rect key="frame" x="156" y="743" width="114" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete Reminder"/>
+                                <connections>
+                                    <action selector="didPressDelete:" destination="fm1-Fe-T5x" eventType="touchUpInside" id="MYc-OW-1M2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -382,6 +393,7 @@
                     </view>
                     <connections>
                         <outlet property="dateField" destination="jiB-OS-L0l" id="cJI-Tf-MJ1"/>
+                        <outlet property="deleteButton" destination="EW5-Ez-T5w" id="OlG-4a-LbG"/>
                         <outlet property="editButton" destination="DnN-v7-UbL" id="aVP-Tv-SEt"/>
                         <outlet property="reminderTextView" destination="tD8-9T-WfG" id="cWc-xG-xRV"/>
                         <outlet property="senderLabel" destination="Ah5-xc-5TL" id="bDd-GS-xuy"/>
@@ -433,6 +445,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lock Editing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVo-Eb-SuR">
+                                <rect key="frame" x="89" y="762" width="94" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sIr-St-1IS">
+                                <rect key="frame" x="20" y="757" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -444,6 +467,7 @@
                     <connections>
                         <outlet property="addReminderButton" destination="S6h-kk-XBc" id="u2u-4W-naX"/>
                         <outlet property="dateSelectionTextField" destination="RBu-bz-QWH" id="v5y-uA-eUa"/>
+                        <outlet property="lockEditingSwitch" destination="sIr-St-1IS" id="YnA-65-Vgf"/>
                         <outlet property="recipientTextField" destination="FbN-Il-gR9" id="D2D-qU-xk1"/>
                         <outlet property="reminderTextView" destination="JkX-H1-U5J" id="C3Q-jh-xto"/>
                     </connections>
@@ -476,7 +500,6 @@
             </objects>
             <point key="canvasLocation" x="3696" y="-938"/>
         </scene>
-
         <!--Create Event View Controller-->
         <scene sceneID="UrT-4i-NE6">
             <objects>
