@@ -23,6 +23,7 @@
     NSDate *numberOfDays; // in month
     NSDate *currentDate; // today
     NSCalendar *calendar;
+    NSMutableArray *currentDayIndexPaths;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -34,6 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    currentDayIndexPaths = [[NSMutableArray alloc] init];
     [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
@@ -58,7 +60,7 @@
         if (events != nil) {
             // do something with the array of object returned by the call
             self->eventsArray = events;
-           [self initCollectionView];
+            [self->collectionView reloadItemsAtIndexPaths:self->currentDayIndexPaths];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -97,17 +99,17 @@
     calendar = [NSCalendar currentCalendar];
     // allows for a date to specified in specific units, day, month, year, etc.
     NSDateComponents *dateComponent = [calendar components:NSCalendarUnitCalendar |
-                                                                 NSCalendarUnitYear |
-                                                                 NSCalendarUnitMonth |
-                                                                 NSCalendarUnitDay |
-                                                                 NSCalendarUnitWeekday fromDate:date];
+                                       NSCalendarUnitYear |
+                                       NSCalendarUnitMonth |
+                                       NSCalendarUnitDay |
+                                       NSCalendarUnitWeekday fromDate:date];
     currentMonth = [dateComponent month];
     currentDay = [dateComponent day];
     currentYear = [dateComponent year];
     if (!currentDate) {
         currentDate = [calendar dateFromComponents:dateComponent];
     }
-
+    
     [self startOfMonthForCalendar:calendar dateComponent:dateComponent];
 }
 
@@ -174,8 +176,8 @@
                                        NSCalendarUnitWeekday fromDate:currentDate];
     
     return [dateComponent day] == date &&
-           [dateComponent month] == currentMonth &&
-           [dateComponent year] == currentYear;
+    [dateComponent month] == currentMonth &&
+    [dateComponent year] == currentYear;
 }
 
 - (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
@@ -198,14 +200,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
@@ -218,19 +220,29 @@
         cell.backgroundColor = [UIColor whiteColor];
         [cell drawEventCircle];
         
-        [cell initDateLabelInCell:(indexPath.row - weekday + 2)];
+        if ([self isCellToday:indexPath.row - weekday + 2]) {
+            [cell drawCurrentDayCircle];
+        }
+        
     } else if ([self isCellToday:indexPath.row - weekday + 2]) {
         [cell setHidden:NO];
         cell.backgroundColor = [UIColor whiteColor];
         [cell drawCurrentDayCircle];
         
-        [cell initDateLabelInCell:(indexPath.row - weekday + 2)];
     } else {
         [cell setHidden:NO];
         cell.backgroundColor = [UIColor whiteColor];
         
-        [cell initDateLabelInCell:(indexPath.row - weekday + 2)];
     }
+    
+    if ([self doesArrayContainDateOnSameDay:eventsArray date:eventDate]) {
+        [cell drawEventCircle];
+    }
+    
+    
+    [cell initDateLabelInCell:(indexPath.row - weekday + 2)];
+    
+    [currentDayIndexPaths addObject:indexPath];
     
     return cell;
 }
