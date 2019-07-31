@@ -23,6 +23,7 @@
 		645088DB22EBA2BB00319C93 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088DA22EBA2BB00319C93 /* CalendarViewController.m */; };
 		64678F8622EF9FA000F75070 /* CreateEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64678F8522EF9FA000F75070 /* CreateEventViewController.m */; };
 		64678F8922EFA3FF00F75070 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 64678F8822EFA3FF00F75070 /* Event.m */; };
+		648B6BF322F2114B00DD87B0 /* EventLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 648B6BF222F2114B00DD87B0 /* EventLocationViewController.m */; };
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
@@ -108,6 +109,8 @@
 		64678F8522EF9FA000F75070 /* CreateEventViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateEventViewController.m; sourceTree = "<group>"; };
 		64678F8722EFA3FF00F75070 /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		64678F8822EFA3FF00F75070 /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		648B6BF122F2114B00DD87B0 /* EventLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventLocationViewController.h; sourceTree = "<group>"; };
+		648B6BF222F2114B00DD87B0 /* EventLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventLocationViewController.m; sourceTree = "<group>"; };
 		6497FFAD22E28B5D002D1996 /* RulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
 		6497FFAE22E28B5D002D1996 /* RulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
 		6497FFB122E61EFA002D1996 /* SentRequestsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsViewController.h; sourceTree = "<group>"; };
@@ -314,6 +317,8 @@
 				645088DA22EBA2BB00319C93 /* CalendarViewController.m */,
 				64678F8422EF9FA000F75070 /* CreateEventViewController.h */,
 				64678F8522EF9FA000F75070 /* CreateEventViewController.m */,
+				648B6BF122F2114B00DD87B0 /* EventLocationViewController.h */,
+				648B6BF222F2114B00DD87B0 /* EventLocationViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -740,6 +745,7 @@
 				645088BF22EA788400319C93 /* LeftViewController.m in Sources */,
 				7794308022DE7E2A00D9FDDA /* House.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
+				648B6BF322F2114B00DD87B0 /* EventLocationViewController.m in Sources */,
 				7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */,
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
