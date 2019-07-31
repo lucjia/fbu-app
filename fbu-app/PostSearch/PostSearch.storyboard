@@ -375,6 +375,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EW5-Ez-T5w">
+                                <rect key="frame" x="156" y="743" width="114" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete Reminder"/>
+                                <connections>
+                                    <action selector="didPressDelete:" destination="fm1-Fe-T5x" eventType="touchUpInside" id="MYc-OW-1M2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -385,6 +393,7 @@
                     </view>
                     <connections>
                         <outlet property="dateField" destination="jiB-OS-L0l" id="cJI-Tf-MJ1"/>
+                        <outlet property="deleteButton" destination="EW5-Ez-T5w" id="OlG-4a-LbG"/>
                         <outlet property="editButton" destination="DnN-v7-UbL" id="aVP-Tv-SEt"/>
                         <outlet property="reminderTextView" destination="tD8-9T-WfG" id="cWc-xG-xRV"/>
                         <outlet property="senderLabel" destination="Ah5-xc-5TL" id="bDd-GS-xuy"/>
@@ -491,7 +500,6 @@
             </objects>
             <point key="canvasLocation" x="3696" y="-938"/>
         </scene>
-
         <!--Create Event View Controller-->
         <scene sceneID="UrT-4i-NE6">
             <objects>

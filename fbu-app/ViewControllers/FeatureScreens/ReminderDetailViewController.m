@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *reminderTextView;
 @property (weak, nonatomic) IBOutlet UITextField *dateField;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (strong, nonatomic) NSString *dueDateString;
 
 @end
@@ -38,6 +39,7 @@
     // hide edit button if editing is locked
     if (self.reminder.lockEditing) {
         self.editButton.hidden = YES;
+        self.deleteButton.hidden = YES;
     }
 }
 
@@ -98,6 +100,31 @@
                                          [self.navigationController popViewControllerAnimated:YES];
                                      }];
     }
+}
+
+- (IBAction)didPressDelete:(id)sender {
+    // Are you sure? alert
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete Reminder?"
+                                                                   message:@"This action cannot be undone."
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"Yes"
+                                                            style:UIAlertActionStyleDestructive
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              // delete reminder and go back to reminder list
+                                                              [self.reminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                                                                  [self.navigationController popViewControllerAnimated:YES];
+                                                              }];
+                                                          }];
+    UIAlertAction *disagreeAction = [UIAlertAction actionWithTitle:@"No"
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              // Handle cancel response here. Doing nothing will dismiss the view.
+                                                          }];
+    // Add the cancel action to the alertController
+    [alert addAction:agreeAction];
+    [alert addAction:disagreeAction];
+    alert.view.tintColor = [UIColor redColor];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 /*
