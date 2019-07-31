@@ -24,10 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
 @property (weak, nonatomic) IBOutlet UITextField *radiusField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
-@property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIButton *logOutButton;
-@property (weak, nonatomic) IBOutlet UIButton *featuresButton;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
@@ -58,7 +56,6 @@
     [self createUserPreferencesButton];
     [self createUserLocationButton];
     [self createUserBioTextView];
-    [self createChangeBioButton];
     [self createContinueButton];
     [self createLogOutButton];
 }
@@ -74,12 +71,10 @@
         NSData *imageData = data;
         self.profileImageView.image = [[UIImage alloc] initWithData:imageData];
     }];
-    if (self.profileImageView.image != nil) {
-        self.profileImage = self.profileImageView.image;
-    } else {
-        self.profileImage = [UIImage imageNamed:@"profileImage"];
+    if (self.profileImageView.image == nil) {
         self.profileImageView.image = [UIImage imageNamed:@"profileImage"];
     }
+    self.profileImage = self.profileImageView.image;
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
 }
 
@@ -114,7 +109,9 @@
     self.radiusField.borderStyle = UITextBorderStyleRoundedRect;
     self.radiusField.placeholder = @"Radius";
     NSNumber *radius = [PFUser currentUser][@"persona"][@"radius"];
-    self.radiusField.text = radius;
+    if (radius > 0) {
+        self.radiusField.text = [NSString stringWithFormat:@"%@", radius];
+    }
 }
 
 - (void) createUserPreferencesButton {
@@ -139,9 +136,9 @@
         self.bioTextView.text = @"Write a bio...";
         self.bioTextView.textColor = [UIColor lightGrayColor];
     }
-    self.bioTextView.layer.borderWidth = 1.5f;
-    self.bioTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.bioTextView.layer.cornerRadius = 6;
+    self.bioTextView.layer.borderWidth = 0.5f;
+    self.bioTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor];
+    self.bioTextView.layer.cornerRadius = 5;
     self.bioTextView.delegate = self;
     
     UIToolbar *keyboardToolbar = [[UIToolbar alloc] init];
@@ -154,14 +151,6 @@
                                       target:self action:@selector(yourTextViewDoneButtonPressed)];
     keyboardToolbar.items = @[flexBarButton, doneBarButton];
     self.bioTextView.inputAccessoryView = keyboardToolbar;
-}
-
-- (void) createChangeBioButton {
-    self.changeBioButton.backgroundColor = [UIColor lightGrayColor];
-    self.changeBioButton.tintColor = [UIColor whiteColor];
-    self.changeBioButton.layer.cornerRadius = 6;
-    self.changeBioButton.clipsToBounds = YES;
-    [self.changeBioButton addTarget:self action:@selector(setBio) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) createContinueButton {
@@ -419,6 +408,7 @@
     } else {
         self.bio = self.bioTextView.text;
     }
+    [self setBio];
 }
 
 - (void) logOut {

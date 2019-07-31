@@ -63,7 +63,13 @@
     
     PFGeoPoint *userGeoPoint = [persona objectForKey:@"geoPoint"];
     // limit to users that are near current user
-    [query whereKey:@"geoPoint" nearGeoPoint:userGeoPoint withinMiles:12.0];
+    double radius;
+    if ([[persona objectForKey:@"radius"] doubleValue]) {
+        radius = [[persona objectForKey:@"radius"] doubleValue];
+    } else {
+        radius = 12.0;
+    }
+    [query whereKey:@"geoPoint" nearGeoPoint:userGeoPoint withinMiles:radius];
     
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"firstName"];
