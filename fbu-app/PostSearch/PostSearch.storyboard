@@ -262,6 +262,9 @@
                                 <rect key="frame" x="168" y="705" width="96" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit Reminder"/>
+                                <connections>
+                                    <action selector="didPressEdit:" destination="fm1-Fe-T5x" eventType="touchUpInside" id="AZF-Xr-f3d"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah5-xc-5TL">
                                 <rect key="frame" x="186" y="157" width="55" height="21"/>

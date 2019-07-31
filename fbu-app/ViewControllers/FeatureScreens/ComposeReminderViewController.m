@@ -89,7 +89,7 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Add Reminder"
                                                                        message:@"Please enter a username or reminder."
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
-        // Create a try again action
+        // Create a dismiss action
         UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
                                                                 style:UIAlertActionStyleCancel
                                                               handler:^(UIAlertAction * _Nonnull action) {
