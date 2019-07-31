@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Event.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol CreateEventViewControllerDelegate
+
+- (void)didCreateEvent:(Event *)event;
+
+@end
+
 @interface CreateEventViewController : UIViewController
+
+@property (nonatomic, weak) id<CreateEventViewControllerDelegate> delegate;
 
 @end
 

@@ -15,8 +15,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *allDaySwitch;
 @property (weak, nonatomic) IBOutlet UITextView *memoTextView;
-@property (weak, nonatomic) IBOutlet UITextField *dateSelectionTextField;
-@property (strong, nonatomic) UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UITextField *startDateSelectionTextField;
+@property (strong, nonatomic) UIDatePicker *startDatePicker;
+@property (strong, nonatomic) UIDatePicker *endDatePicker;
+@property (weak, nonatomic) IBOutlet UITextField *endDateSelectionTextField;
 
 
 @end
@@ -27,8 +29,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    CustomDatePicker *dp = [[CustomDatePicker alloc] init];
-    self.datePicker = [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
+    CustomDatePicker *startDatePicker = [[CustomDatePicker alloc] init];
+    self.startDatePicker = [startDatePicker initializeDatePickerWithDatePicker:self.startDatePicker textField:self.startDateSelectionTextField];
+    
+    CustomDatePicker *endDatePicker = [[CustomDatePicker alloc] init];
+    SEL showSelector = @selector(showEndSelectedDate);
+    SEL removeSelector = @selector(removeEndDate);
+    self.endDatePicker = [endDatePicker initializeDatePickerWithDatePicker:self.endDatePicker textField:self.endDateSelectionTextField selector:showSelector secondSelector:removeSelector];
 }
 
 - (IBAction)didTapAddLocation:(id)sender {
@@ -36,32 +43,47 @@
 }
 
 - (IBAction)didTapSaveEvent:(id)sender {
-    [Event createEvent:self.titleTextField.text eventMemo:self.memoTextView.text isAllDay:self.allDaySwitch.isOn eventDate:self.datePicker.date withCompletion:nil];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    Event *event = [Event createEvent:self.titleTextField.text eventMemo:self.memoTextView.text isAllDay:self.allDaySwitch.isOn eventStartDate:self.startDatePicker.date eventEndDate:self.endDatePicker.date withCompletion:nil];
+    [self.delegate didCreateEvent:event];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) showSelectedDate {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
-    NSString *dueDateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
-    self.dateSelectionTextField.text = dueDateString;
-    [self.dateSelectionTextField resignFirstResponder];
+    NSString *dueDateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.startDatePicker.date]];
+    self.startDateSelectionTextField.text = dueDateString;
+    [self.startDateSelectionTextField resignFirstResponder];
 }
 
 - (void) removeDate {
-    [self.dateSelectionTextField resignFirstResponder];
-    [self.datePicker setDate:[NSDate date] animated:NO];
-    self.dateSelectionTextField.text = @"";
+    [self.startDateSelectionTextField resignFirstResponder];
+    [self.startDatePicker setDate:[NSDate date] animated:NO];
+    self.startDateSelectionTextField.text = @"";
+}
+
+- (void) showEndSelectedDate {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
+    NSString *dueDateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.endDatePicker.date]];
+    self.endDateSelectionTextField.text = dueDateString;
+    [self.endDateSelectionTextField resignFirstResponder];
+}
+
+- (void) removeEndDate {
+    [self.endDateSelectionTextField resignFirstResponder];
+    [self.endDatePicker setDate:[NSDate date] animated:NO];
+    self.endDateSelectionTextField.text = @"";
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

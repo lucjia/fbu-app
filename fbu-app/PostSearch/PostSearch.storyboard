@@ -98,7 +98,7 @@
                     <navigationItem key="navigationItem" id="T3u-e2-Qel">
                         <barButtonItem key="rightBarButtonItem" title="+" id="sqk-es-GN9">
                             <connections>
-                                <segue destination="Bfd-gW-2Pf" kind="show" id="5xo-Ja-7tW"/>
+                                <segue destination="KKh-9I-YNv" kind="show" id="5xo-Ja-7tW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -406,7 +406,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3300.0000000000005" y="1251.5625"/>
+            <point key="canvasLocation" x="4210.144927536232" y="1251.5625"/>
         </scene>
         <!--Compose Reminder View Controller-->
         <scene sceneID="Neb-9g-VOj">
@@ -479,7 +479,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4091" y="1252"/>
+            <point key="canvasLocation" x="5000" y="1251.5625"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="KEW-eR-0j9">
@@ -556,8 +556,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select a date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7XO-vd-PWx">
-                                <rect key="frame" x="20" y="508" width="374" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select a start date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7XO-vd-PWx">
+                                <rect key="frame" x="20" y="508" width="180" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select an end date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kmS-1c-Zw9">
+                                <rect key="frame" x="214" y="508" width="180" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -576,14 +583,15 @@
                     </navigationItem>
                     <connections>
                         <outlet property="allDaySwitch" destination="UoE-wE-ijC" id="9tx-iC-U14"/>
-                        <outlet property="dateSelectionTextField" destination="7XO-vd-PWx" id="fod-jl-8BE"/>
+                        <outlet property="endDateSelectionTextField" destination="kmS-1c-Zw9" id="Ihq-Rr-2Fz"/>
                         <outlet property="memoTextView" destination="wEB-5o-7h2" id="QbE-D2-dPN"/>
+                        <outlet property="startDateSelectionTextField" destination="7XO-vd-PWx" id="EZ2-0P-WUo"/>
                         <outlet property="titleTextField" destination="jqU-4z-pTR" id="lkE-pM-qfu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IfW-0D-ANv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1324.6376811594205" y="1251.5625"/>
+            <point key="canvasLocation" x="1325" y="2030"/>
         </scene>
         <!--Calendar-->
         <scene sceneID="Mk8-rp-iAf">
@@ -603,6 +611,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l7N-9n-ZrN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1324.6376811594205" y="-210.26785714285714"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qdk-8q-0lS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KKh-9I-YNv" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8Tp-8T-c0x">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Bfd-gW-2Pf" kind="relationship" relationship="rootViewController" id="4BF-Jb-R3y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Irb-sJ-4Ex" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1324.6376811594205" y="1251.5625"/>
         </scene>
     </scenes>
     <resources>
