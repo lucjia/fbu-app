@@ -35,6 +35,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     self.tableView.delegate = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.searchBar.delegate = self;
+    self.searchBar.placeholder = @"Search for a location...";
     
     
     if ([[PFUser currentUser][@"persona"] objectForKey:@"venue"] == nil) {
@@ -90,12 +91,14 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    self.searchBar.showsCancelButton = YES;
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     [self fetchLocationsWithQuery:newText];
     return true;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchBar resignFirstResponder];
     [self fetchLocationsWithQuery:searchBar.text];
 }
 
@@ -112,6 +115,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         if (data) {
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             self.results = [responseDictionary valueForKeyPath:@"response.venues"];
+            [self scrollToTopAfterSearch];
             [self.tableView reloadData];
         }
     }];
@@ -130,6 +134,20 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     [cell updateWithLocation:self.results[indexPath.row]];
     return cell;
     
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    [self fetchLocationsWithQuery:searchBar.text];
+    [self scrollToTopAfterSearch];
+    [self.tableView reloadData];
+}
+
+- (void) scrollToTopAfterSearch {
+    [self.tableView layoutIfNeeded];
+    [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
 }
 
 /*

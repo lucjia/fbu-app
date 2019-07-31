@@ -13,7 +13,10 @@
 #import "CustomButton.h"
 #import "Parse/Parse.h"
 
-@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
+    // different way of declaring property
+    NSArray *filteredResults;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -40,6 +43,9 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchReminders) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+    
+    self.searchBar.delegate = self;
+    self.searchBar.placeholder = @"Search for a reminder...";
 }
 
 - (void) fetchReminders {
@@ -81,6 +87,7 @@
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = reminders;
             self.receivedReminderArrayTotal = [self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
+            filteredResults = self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -91,19 +98,14 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ReminderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReminderCell" forIndexPath:indexPath];
-//    cell.delegate = self;
-//    cell.cellIndex = indexPath.row;
-    Reminder *currReminder = [self.receivedReminderArrayTotal objectAtIndex:indexPath.row];
+    Reminder *currReminder = [filteredResults objectAtIndex:indexPath.row];
     [cell updateReminderCellWithReminder:currReminder];
-    
-//    cell.checkmarkButton.tag = indexPath.row;
-//    [cell.checkmarkButton addTarget:self action:@selector(didClickOnCellAtIndex:withData:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.receivedReminderArrayTotal count];
+    return [filteredResults count];
 }
 
 #pragma mark - Navigation
@@ -113,7 +115,7 @@
     if ([[segue identifier] isEqualToString:@"toReminderDetail"]) {
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        Reminder *currentReminder = self.receivedReminderArrayTotal[indexPath.row];
+        Reminder *currentReminder = filteredResults[indexPath.row];
         
         ReminderDetailViewController *reminderDetailVC = [segue destinationViewController];
         reminderDetailVC.reminder = currentReminder;
@@ -122,8 +124,41 @@
     }
 }
 
-//- (void)didClickOnCellAtIndex:(NSInteger)cellIndex withData:(nonnull id)data {
-//    // Method for conforming to delegate
-//}
+// Search through reminders based on keywords / sender
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length != 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.reminderText contains[cd] %@", searchText];
+        filteredResults = [self.receivedReminderArrayTotal filteredArrayUsingPredicate:predicate];
+    } else {
+        filteredResults = self.receivedReminderArrayTotal;
+    }
+    [self.tableView reloadData];
+    [self scrollToTopAfterSearch];
+}
+
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    self.searchBar.showsCancelButton = YES;
+    [self.tableView reloadData];
+    [self scrollToTopAfterSearch];
+    return true;
+}
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    filteredResults = self.receivedReminderArrayTotal;
+    [self.tableView reloadData];
+    [self scrollToTopAfterSearch];
+}
+
+- (void) scrollToTopAfterSearch {
+    [self.tableView layoutIfNeeded];
+    [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
+}
 
 @end
