@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q8I-bF-7dp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Calendar View Controller-->
+        <!--Calendar-->
         <scene sceneID="coQ-uD-C9f">
             <objects>
                 <viewController storyboardIdentifier="CalendarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qB5-Kg-4Ob" customClass="CalendarViewController" sceneMemberID="viewController">
@@ -94,6 +94,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gTc-9g-PEH"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Calendar" id="Xg1-qj-R4g"/>
                     <navigationItem key="navigationItem" id="T3u-e2-Qel">
                         <barButtonItem key="rightBarButtonItem" title="+" id="sqk-es-GN9">
                             <connections>
@@ -107,7 +108,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybg-xY-bv3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1325" y="518"/>
+            <point key="canvasLocation" x="4516" y="-210"/>
         </scene>
         <!--Reminders-->
         <scene sceneID="pI8-ic-5b9">
@@ -129,7 +130,7 @@
         <!--Reminders-->
         <scene sceneID="Dx6-Yl-0Ed">
             <objects>
-                <viewController id="sZC-bC-TiA" customClass="ReminderViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RemindersVC" id="sZC-bC-TiA" customClass="ReminderViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8i6-g7-dBe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -355,7 +356,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="KEW-eR-0j9">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Q8I-bF-7dp" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="PostSearchTabBar" automaticallyAdjustsScrollViewInsets="NO" id="Q8I-bF-7dp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NHv-nk-KqP">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
