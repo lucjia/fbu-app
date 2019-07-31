@@ -96,12 +96,12 @@
     if ([requestsSent containsObject:receiverPersona] == NO) {
         [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
     } else {
-        [self createAlertController:@"Error sending request" message:@"You've already sent this user a request!"];
+        [DetailsViewController createAlertController:@"Error sending request" message:@"You've already sent this user a request!" sender:self];
     }
     
 }
 
-- (void)createAlertController:(NSString *)title message:(NSString *)msg {
++ (void)createAlertController:(NSString *)title message:(NSString *)msg sender:(id)sender {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:(UIAlertControllerStyleAlert)];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -110,7 +110,7 @@
     // add the OK action to the alert controller
     [alert addAction:okAction];
     
-    [self presentViewController:alert animated:YES completion:^{}];
+    [sender presentViewController:alert animated:YES completion:^{}];
 }
 
 @end

@@ -7,10 +7,11 @@
 //
 
 #import "CreateEventViewController.h"
+#import "EventLocationViewController.h"
 #import "CustomDatePicker.h"
 #import "Event.h"
 
-@interface CreateEventViewController ()
+@interface CreateEventViewController () <EventLocationViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *allDaySwitch;
@@ -19,6 +20,7 @@
 @property (strong, nonatomic) UIDatePicker *startDatePicker;
 @property (strong, nonatomic) UIDatePicker *endDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *endDateSelectionTextField;
+@property (weak, nonatomic) IBOutlet UILabel *eventLocationLabel;
 
 
 @end
@@ -75,18 +77,26 @@
     [self.endDatePicker setDate:[NSDate date] animated:NO];
     self.endDateSelectionTextField.text = @"";
 }
+
 - (IBAction)didTapBack:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     
+     EventLocationViewController *eventLocationViewController = (EventLocationViewController *)[segue destinationViewController];
+     eventLocationViewController.delegate = self;
  }
- */
+ 
+
+- (void)didSetLocation:(nonnull NSString *)location {
+    self. eventLocationLabel.text = [NSString stringWithFormat:@"%@", location];
+}
 
 @end
