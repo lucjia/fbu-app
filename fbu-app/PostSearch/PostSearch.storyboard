@@ -338,6 +338,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lock Editing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVo-Eb-SuR">
+                                <rect key="frame" x="89" y="762" width="94" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sIr-St-1IS">
+                                <rect key="frame" x="20" y="757" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -349,6 +360,7 @@
                     <connections>
                         <outlet property="addReminderButton" destination="S6h-kk-XBc" id="u2u-4W-naX"/>
                         <outlet property="dateSelectionTextField" destination="RBu-bz-QWH" id="v5y-uA-eUa"/>
+                        <outlet property="lockEditingSwitch" destination="sIr-St-1IS" id="YnA-65-Vgf"/>
                         <outlet property="recipientTextField" destination="FbN-Il-gR9" id="D2D-qU-xk1"/>
                         <outlet property="reminderTextView" destination="JkX-H1-U5J" id="C3Q-jh-xto"/>
                     </connections>
