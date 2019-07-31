@@ -66,11 +66,6 @@
     [self.view endEditing:YES];
 }
 
-// check if date was modified
-- (void) textFieldDidBeginEditing:(UITextField *)textField {
-    didEdit = YES;
-}
-
 - (IBAction)didPressEdit:(id)sender {
     // Check if fields are empty OR invalid
     if ([self.reminderTextView.text isEqualToString:@""]) {
@@ -95,7 +90,7 @@
                                      block:^(PFObject *reminder, NSError *error) {
                                          reminder = self.reminder;
                                          reminder[@"reminderText"] = self.reminderTextView.text;
-                                         if (self->didEdit) {
+                                         if (![reminder[@"dueDateString"] isEqualToString:self.dateField.text]) {
                                              reminder[@"reminderDueDate"] = self.datePicker.date;
                                              reminder[@"dueDateString"] = self.dateField.text;
                                          }
