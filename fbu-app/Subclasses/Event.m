@@ -31,6 +31,7 @@
     newEvent.isAllDay = allDay;
     newEvent.eventDate = startDate;
     newEvent.eventEndDate = endDate;
+    newEvent.location = [[PFGeoPoint alloc] init];
     
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
     [persona fetchIfNeededInBackground];
