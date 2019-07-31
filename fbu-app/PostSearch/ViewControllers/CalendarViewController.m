@@ -14,16 +14,16 @@
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
     UICollectionView *collectionView;
-    NSArray *eventsArray;
+    NSArray *eventsArray; // array of events
     NSDate *eventDate;
     NSInteger currentDay;
-    NSInteger currentMonth;
-    NSInteger currentYear;
+    NSInteger currentMonth; // month displayed currently displayed currently on calendar
+    NSInteger currentYear; // year displayed currently on calendar
     NSInteger weekday; // weekday of start of month (can be 1 - 7)
     NSDate *numberOfDays; // in month
     NSDate *currentDate; // today
     NSCalendar *calendar;
-    NSMutableArray *currentDayIndexPaths;
+    NSMutableArray *dayIndexPaths; // index path for cells in calendar
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -35,7 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    currentDayIndexPaths = [[NSMutableArray alloc] init];
+    dayIndexPaths = [[NSMutableArray alloc] init];
     [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
@@ -60,15 +60,12 @@
         if (events != nil) {
             // do something with the array of object returned by the call
             self->eventsArray = events;
-            [self->collectionView reloadItemsAtIndexPaths:self->currentDayIndexPaths];
+            // items are reloaded at indexPath in order to avoid cells being created out of order
+            [self->collectionView reloadItemsAtIndexPaths:self->dayIndexPaths];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-}
-
-- (void)colorCellForEvent:(CalendarCell *)cell {
-    
 }
 
 // initializes the collection view
@@ -79,12 +76,13 @@
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
     
+    // allows for CalendarCell to be used
     [collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
     [collectionView setBackgroundColor:[UIColor whiteColor]];
     
     layout.minimumInteritemSpacing = 5;
     layout.minimumLineSpacing = 5;
-    CGFloat postersPerLine = 7;
+    CGFloat postersPerLine = 7; // number of posters in a row
     CGFloat itemWidth = (collectionView.frame.size.width - layout.minimumLineSpacing * (postersPerLine - 1)) / postersPerLine;
     CGFloat itemHeight = 1.5 * itemWidth;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
@@ -146,9 +144,12 @@
     [self changeMonth:1 toMonth:12 changeBy:-1];
 }
 
+// changes currentMonth to next or previous month respectively
 - (void)changeMonth:(NSInteger)month toMonth:(NSInteger)change changeBy:(NSInteger)delta {
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     
+    // handles cases where next button is pressed with December being current month and where
+    // prev button is pressed with January being current month and
     if (currentMonth == month){
         [comps setDay:1];
         [comps setMonth:change];
@@ -188,6 +189,7 @@
     return [calendar dateFromComponents:components];
 }
 
+// checks if array contains an event on the same day as date
 - (BOOL)doesArrayContainDateOnSameDay:(NSArray *)array date:(NSDate *)date {
     for (int i = 0; i < array.count; i++) {
         NSDate *event = [eventsArray[i] objectForKey:@"eventDate"];
@@ -235,14 +237,10 @@
         
     }
     
-    if ([self doesArrayContainDateOnSameDay:eventsArray date:eventDate]) {
-        [cell drawEventCircle];
-    }
-    
-    
+    // adds date label to content view of cell
     [cell initDateLabelInCell:(indexPath.row - weekday + 2)];
     
-    [currentDayIndexPaths addObject:indexPath];
+    [dayIndexPaths addObject:indexPath];
     
     return cell;
 }
