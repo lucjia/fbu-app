@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *city; // city they are looking for roommates in
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) PFGeoPoint *geoPoint; // longitude and latitude
+@property (strong, nonatomic) NSNumber *radius;
 @property (strong, nonatomic) NSMutableArray *preferences;
 @property (strong, nonatomic) House *house;
 @property (strong, nonatomic) NSMutableArray *requestsSent; // by the user
@@ -32,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void) createPersonaUponRegistrationWithCompletion:(PFBooleanResultBlock _Nullable)completion;
 
-+ (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc withCompletion:(PFBooleanResultBlock  _Nullable)completion;
++ (void) createPersona:(NSString * )first lastName:(NSString *)last bio:(NSString *)bio profileImage:(UIImage * _Nullable)image city:(NSString *)city state:(NSString *)state location:(PFGeoPoint *)loc radius:(NSNumber *)radius withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image;
 
