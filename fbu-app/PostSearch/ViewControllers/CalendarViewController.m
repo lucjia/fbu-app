@@ -65,7 +65,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     
     [query whereKey:@"house" equalTo:[persona objectForKey:@"house"]];
-    [query orderByDescending:@"createdAt"];
+    [query orderByAscending:@"eventDate"];
     [query includeKey:@"title"];
     [query includeKey:@"memo"];
     [query includeKey:@"eventDate"];
@@ -326,11 +326,12 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"EvemtReminderCell";
-
     EventReminderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
-    
-    if (!cell)
+    if (!cell) {
         cell = [[EventReminderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+    }
+    
+    [cell initCellWithEvent:eventsArray[indexPath.row]];
     
     return cell;
 }
