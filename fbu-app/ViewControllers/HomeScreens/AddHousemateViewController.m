@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *houseButton;
 @property (strong, nonatomic) Persona *currentPersona;
 @property (strong, nonatomic) House *currentHouse;
+@property (assign, nonatomic) int numFetching;
 
 @end
 
@@ -30,6 +31,7 @@
     [super viewDidLoad];
     
     self.housematesToAdd = [[NSMutableArray alloc] init];
+    self.numFetching = 0;
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -42,12 +44,10 @@
             [self.currentHouse fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
                 [self setButtonLabel];
                 [self fetchPotentialHousemates];
-                [self.tableView reloadData];
             }];
         } else {
             [self setButtonLabel];
             [self fetchPotentialHousemates];
-            [self.tableView reloadData];
         }
     }];
     
@@ -72,16 +72,21 @@
     NSMutableArray *acceptedRequests = [self.currentPersona objectForKey:@"acceptedRequests"];
     NSMutableArray *potentials = [[NSMutableArray alloc] init];
     [potentials addObjectsFromArray:acceptedRequests];
-    for (Persona *housemate in acceptedRequests){
+    self.numFetching = (int)(acceptedRequests.count);
+    for (int i = 0; i < acceptedRequests.count; i++){
+        Persona *housemate = acceptedRequests[i];
         [housemate fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            self.numFetching--;
             if([housemate objectForKey:@"house"] != nil){
                 [potentials removeObject:housemate];
-                self.potentialHousemates = potentials;
             }
-            [self.tableView reloadData];
+            if(self.numFetching == 0){
+                self.potentialHousemates = potentials;
+                [self.tableView reloadData];
+            }
         }];
+        
     }
-    self.potentialHousemates = potentials;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{

@@ -117,7 +117,9 @@
         Persona *persona = self.housemates[indexPath.row];
         [[House getHouse:persona] removeFromHouse:persona];
         [self.housemates removeObjectAtIndex:indexPath.row];
-        [tableView reloadData]; // tell table to refresh now
+        [self.currentHouse saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            [tableView reloadData];
+        }];
     }
 }
 
