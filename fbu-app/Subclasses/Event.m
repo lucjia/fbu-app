@@ -42,8 +42,8 @@
             // object for is is SYNCHRONOUS
             House *house = [persona objectForKey:@"house"];
             [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-                [house addEventToHouse:newEvent];
                 newEvent.house = house;
+                [house addEventToHouse:newEvent];
             }];
             [house saveInBackgroundWithBlock:completion];
         }];

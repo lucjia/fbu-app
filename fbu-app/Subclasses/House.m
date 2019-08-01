@@ -39,7 +39,7 @@
     House *house = [House getHouse:persona];
     [self addUniqueObject:persona forKey:@"housemates"];
     [self saveInBackground];
-        
+    
     [persona setObject:self forKey:@"house"];
     [persona saveInBackground];
 }
@@ -49,7 +49,7 @@
     
     [self removeObject:persona forKey:@"housemates"];
     [self saveInBackground];
-
+    
     [persona removeObjectForKey:@"house"];
     [persona saveInBackground];
 }
@@ -70,8 +70,6 @@
 }
 
 - (void)addEventToHouse:(Event *)event {
-    [self fetchIfNeededInBackground];
-    
     [self.events insertObject:event atIndex:0];
     [self setObject:self.events forKey:@"events"];
     [self saveInBackground];
