@@ -15,11 +15,12 @@
 #import "TimelineViewController.h"
 #import "SettingsViewController.h"
 #import "House.h"
+#import "UserNotifications/UserNotifications.h"
 @import GoogleMaps;
 @import GooglePlaces;
 
 
-@interface AppDelegate ()
+@interface AppDelegate () <UIApplicationDelegate, UNUserNotificationCenterDelegate>
 
 @end
 
@@ -42,10 +43,53 @@
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
     }
     
-    
+    // Notification center
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if( !error ) {
+            // required to get the app to do anything at all about push notifications
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            });
+            NSLog( @"Push registration success." );
+        } else {
+            NSLog( @"Push registration FAILED" );
+            NSLog( @"ERROR: %@ - %@", error.localizedFailureReason, error.localizedDescription );
+            NSLog( @"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
+        }
+    }];
     return YES;
 }
 
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    NSLog( @"Handle push from foreground" );
+    // custom code to handle push while app is in the foreground
+    NSLog(@"%@", notification.request.content.userInfo);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void (^)(void))completionHandler {
+    NSLog( @"Handle push from background or closed" );
+    // if you set a member variable in didReceiveRemoteNotification, you  will know if this is from closed or background
+    NSLog(@"%@", response.notification.request.content.userInfo);
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
+    NSString * token = [NSString stringWithFormat:@"%@", deviceToken];
+    //Format token as you need:
+    token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    NSLog(@"deviceToken: %@", token);
+}
+
+//- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+//   openSettingsForNotification:(UNNotification *)notification {
+//    Open notification settings screen in app
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
