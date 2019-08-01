@@ -7,8 +7,11 @@
 //
 
 #import "ProgressViewController.h"
+#import "ReminderViewController.h"
 
 @interface ProgressViewController ()
+
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @end
 
@@ -17,6 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)didPressBack:(id)sender {
+    ReminderViewController *reminderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ReminderVC"];
+    [self presentViewController:reminderVC animated:YES completion:nil];
 }
 
 /*

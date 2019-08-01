@@ -225,7 +225,7 @@
         <!--Reminders-->
         <scene sceneID="Dx6-Yl-0Ed">
             <objects>
-                <viewController storyboardIdentifier="RemindersVC" id="sZC-bC-TiA" customClass="ReminderViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReminderVC" id="sZC-bC-TiA" customClass="ReminderViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8i6-g7-dBe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -377,6 +377,9 @@
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reminder Date and Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jiB-OS-L0l">
                                 <rect key="frame" x="117" y="599" width="180" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="dEn-EC-eS8"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -457,13 +460,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipient" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FbN-Il-gR9">
-                                <rect key="frame" x="166.5" y="486" width="81.5" height="30"/>
+                                <rect key="frame" x="117" y="486" width="180" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reminder Date and Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RBu-bz-QWH">
                                 <rect key="frame" x="117" y="540" width="180" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="30B-pl-FpL"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -503,6 +509,7 @@
                             <constraint firstItem="S6h-kk-XBc" firstAttribute="top" secondItem="RBu-bz-QWH" secondAttribute="bottom" constant="12" id="Bte-A9-MGN"/>
                             <constraint firstItem="RBu-bz-QWH" firstAttribute="top" secondItem="FbN-Il-gR9" secondAttribute="bottom" constant="24" id="CeN-Tx-z4u"/>
                             <constraint firstItem="JkX-H1-U5J" firstAttribute="centerX" secondItem="VlR-B4-7nh" secondAttribute="centerX" id="Imc-WL-tT2"/>
+                            <constraint firstItem="RBu-bz-QWH" firstAttribute="trailing" secondItem="FbN-Il-gR9" secondAttribute="trailing" id="Kcl-Ww-qjY"/>
                             <constraint firstItem="bVo-Eb-SuR" firstAttribute="leading" secondItem="sIr-St-1IS" secondAttribute="trailing" constant="20" id="N1N-7f-9nQ"/>
                             <constraint firstItem="bVo-Eb-SuR" firstAttribute="centerY" secondItem="sIr-St-1IS" secondAttribute="centerY" id="RJd-gN-Xu6"/>
                             <constraint firstItem="FbN-Il-gR9" firstAttribute="centerX" secondItem="VlR-B4-7nh" secondAttribute="centerX" id="UZf-dT-qxF"/>
@@ -510,6 +517,7 @@
                             <constraint firstItem="RBu-bz-QWH" firstAttribute="centerX" secondItem="VlR-B4-7nh" secondAttribute="centerX" id="luO-8f-mo3"/>
                             <constraint firstItem="esR-25-jdy" firstAttribute="bottom" secondItem="bVo-Eb-SuR" secondAttribute="bottom" constant="30" id="m7r-Jn-sXd"/>
                             <constraint firstItem="sIr-St-1IS" firstAttribute="leading" secondItem="esR-25-jdy" secondAttribute="leading" constant="20" id="p1R-Dh-AUw"/>
+                            <constraint firstItem="RBu-bz-QWH" firstAttribute="leading" secondItem="FbN-Il-gR9" secondAttribute="leading" id="wKb-wy-bhq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="esR-25-jdy"/>
                         <connections>
@@ -548,14 +556,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4C-Ov-wJY">
+                                <rect key="frame" x="145" y="541" width="129" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back to Reminders"/>
+                                <connections>
+                                    <action selector="didPressBack:" destination="RmI-4R-iRE" eventType="touchUpInside" id="qNc-3c-xee"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="AEr-wX-ZFK"/>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="s4C-Ov-wJY" id="Eqh-mY-9b4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1CD-xt-Kbn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4117" y="1252"/>
+            <point key="canvasLocation" x="4115.9420289855079" y="1251.5625"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="KEW-eR-0j9">
