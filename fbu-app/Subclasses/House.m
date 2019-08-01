@@ -22,32 +22,29 @@
     NSMutableArray *housemates =  [[NSMutableArray alloc] init];
     [housemates addObject:persona];
     house[@"housemates"] = housemates;
-    [house saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        [persona setObject:house forKey:@"house"];
-        [persona saveInBackground];
-    }];
+    [house save];
+    [persona setObject:house forKey:@"house"];
+    [persona save];
 }
 
 
 - (void) addToHouse: (Persona *) persona {
     
     [self addUniqueObject:persona forKey:@"housemates"];
-    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        [persona setObject:self forKey:@"house"];
-        [persona saveInBackground];
-    }];
-        
+    [self save];
     
+    [persona setObject:self forKey:@"house"];
+    [persona save];
 }
 
 
 - (void) removeFromHouse: (Persona *) persona {
     
     [self removeObject:persona forKey:@"housemates"];
-    [self saveInBackground];
-
+    [self save];
+     
     [persona removeObjectForKey:@"house"];
-    [persona saveInBackground];
+    [persona save];
 }
 
 - (void) deleteHouse {
