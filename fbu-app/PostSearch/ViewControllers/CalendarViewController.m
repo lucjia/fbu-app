@@ -11,9 +11,11 @@
 #import <Parse/Parse.h>
 #import "Event.h"
 #import "CreateEventViewController.h"
+#import "EventReminderCell.h"
 
-@interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate>
+@interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
+    // Collection view instance variables
     UICollectionView *collectionView;
     NSMutableArray *eventsArray; // array of events
     NSDate *eventDate;
@@ -26,8 +28,12 @@
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
     double calendarHeight;
+    double calendarYPosition;
     BOOL addPaths;
     BOOL isOnSameDay;
+    
+    // Table view instance variables
+    UITableView *tableView;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -41,18 +47,23 @@
     
     addPaths = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
-    [self fetchEvents];
-    [self initCollectionView];
-    [self initCalendar:[NSDate date]];
-    [self setMonthLabelText];
-    [collectionView reloadData];
-}
-
-- (void)fetchEvents {
-    PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     
     Persona *persona = [PFUser currentUser][@"persona"];
-    [persona fetchIfNeededInBackground];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if ([object objectForKey:@"house"]) {
+            [self fetchEvents:(Persona *)object];
+            [self initCollectionView];
+            [self initCalendar:[NSDate date]];
+            [self setMonthLabelText];
+            [self->collectionView reloadData];
+        }
+    }];
+    
+}
+
+- (void)fetchEvents:(Persona *)persona {
+    PFQuery *query = [PFQuery queryWithClassName:@"Event"];
+    
     [query whereKey:@"house" equalTo:[persona objectForKey:@"house"]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"title"];
@@ -70,6 +81,7 @@
             self->eventsArray = [NSMutableArray arrayWithArray:events];
             // items are reloaded at indexPath in order to avoid cells being created out of order
             [self->collectionView reloadItemsAtIndexPaths:self->dayIndexPaths];
+            [self initTableView];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -79,9 +91,9 @@
 // initializes the collection view
 - (void)initCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat yPostion = 160;
-    calendarHeight = (self.view.bounds.size.height - yPostion) / 2;
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, yPostion, self.view.bounds.size.width, calendarHeight) collectionViewLayout:layout];
+    calendarYPosition = 160;
+    calendarHeight = (self.view.bounds.size.height - calendarYPosition) / 2;
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, calendarYPosition, self.view.bounds.size.width, calendarHeight) collectionViewLayout:layout];
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
     
@@ -292,6 +304,39 @@
 // additional cells are created in order to have cells displayed on the calendar on the correct day of the week. ex: july starts on monday not sunday
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self numberDaysInMonthFromDate:[NSDate date]] + (weekday - 1);
+}
+
+
+/***********************************
+ Table View of Reminders and Events
+ ***********************************/
+
+//initializes tableView underneath calendar
+- (void)initTableView {
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - calendarHeight) style:UITableViewStylePlain];
+    [tableView setDataSource:self];
+    [tableView setDelegate:self];
+    
+    [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
+    [tableView setShowsVerticalScrollIndicator:NO];
+    tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    tableView.rowHeight = UITableViewAutomaticDimension;
+    [self.view addSubview:tableView];
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"EvemtReminderCell";
+
+    EventReminderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
+    
+    if (!cell)
+        cell = [[EventReminderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return eventsArray.count;
 }
 
 @end
