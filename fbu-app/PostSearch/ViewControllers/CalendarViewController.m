@@ -25,6 +25,7 @@
     NSDate *currentDate; // today
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
+    double calendarHeight;
     BOOL addPaths;
     BOOL isOnSameDay;
 }
@@ -75,8 +76,9 @@
 // initializes the collection view
 - (void)initCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat yPostion = 120;
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, yPostion, self.view.bounds.size.width, self.view.bounds.size.height - yPostion) collectionViewLayout:layout];
+    CGFloat yPostion = 160;
+    calendarHeight = (self.view.bounds.size.height - yPostion) / 2;
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, yPostion, self.view.bounds.size.width, calendarHeight) collectionViewLayout:layout];
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
     
@@ -88,7 +90,7 @@
     layout.minimumLineSpacing = 5;
     CGFloat postersPerLine = 7; // number of posters in a row
     CGFloat itemWidth = (collectionView.frame.size.width - layout.minimumLineSpacing * (postersPerLine - 1)) / postersPerLine;
-    CGFloat itemHeight = 1.5 * itemWidth;
+    CGFloat itemHeight = 1 * itemWidth;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     
     collectionView.contentInsetAdjustmentBehavior = NO;
