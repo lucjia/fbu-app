@@ -39,6 +39,8 @@
     self.receivedReminderArrayNoDates = [[NSMutableArray alloc] init];
     self.receivedReminderArrayTotal = [[NSMutableArray alloc] init];
     
+    self.segmentedControl.selectedSegmentIndex = self.segmentIndex;
+    
     [self fetchReminders];
     
     // Refresh control for "pull to refresh"

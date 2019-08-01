@@ -104,8 +104,22 @@
         [viewController setSelectedIndex:1];
         UINavigationController *navController = viewController.selectedViewController;
         ReminderViewController *reminderController = navController.visibleViewController;
+        reminderController.segmentIndex = 1;
         [currentController presentViewController:viewController animated:YES completion:nil];
     
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"      🌱 Progress"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [viewController setSelectedIndex:1];
+        UINavigationController *navController = viewController.selectedViewController;
+        ReminderViewController *reminderController = navController.visibleViewController;
+        reminderController.segmentIndex = 2;
+        [currentController presentViewController:viewController animated:YES completion:nil];
+        
     // Settings
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"⚙ Settings"]) {
         SettingsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsVC"];
