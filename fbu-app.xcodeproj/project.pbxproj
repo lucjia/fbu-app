@@ -146,6 +146,7 @@
 		85C5C0B822F26BC2001982F1 /* ProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressViewController.m; sourceTree = "<group>"; };
 		85C5C0BA22F366CA001982F1 /* KeyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyViewController.h; sourceTree = "<group>"; };
 		85C5C0BB22F366CA001982F1 /* KeyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyViewController.m; sourceTree = "<group>"; };
+		85C5C0BD22F37C93001982F1 /* fbu-app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "fbu-app.entitlements"; sourceTree = "<group>"; };
 		85CB809E22EA20000070AC4E /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		85CB80A022EA20340070AC4E /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
 		85CB80A322EA4E010070AC4E /* ReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderViewController.h; sourceTree = "<group>"; };
@@ -426,6 +427,7 @@
 		85E7A13D22DD214D006C1F38 /* fbu-app */ = {
 			isa = PBXGroup;
 			children = (
+				85C5C0BD22F37C93001982F1 /* fbu-app.entitlements */,
 				640603B722DE942C00C24301 /* Subclasses */,
 				64BBF3CE22DE400E00FCCABD /* ViewControllers */,
 				64BBF3CF22DE401900FCCABD /* Cells */,
@@ -553,6 +555,11 @@
 				TargetAttributes = {
 					85E7A13A22DD214D006C1F38 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					85E7A15222DD214E006C1F38 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -937,14 +944,15 @@
 			baseConfigurationReference = 7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "fbu-app/fbu-app.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AYSD95MPFJ;
+				DEVELOPMENT_TEAM = W2PUF8XW54;
 				INFOPLIST_FILE = "fbu-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lucjia.fbu-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lucjia-edrisian.fbu-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -955,14 +963,15 @@
 			baseConfigurationReference = 4EF909454152FB75BC0B3A70 /* Pods-fbu-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "fbu-app/fbu-app.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AYSD95MPFJ;
+				DEVELOPMENT_TEAM = W2PUF8XW54;
 				INFOPLIST_FILE = "fbu-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lucjia.fbu-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lucjia-edrisian.fbu-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

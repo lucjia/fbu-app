@@ -110,11 +110,6 @@
     
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"      🌱 Progress"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
-        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
-        
-        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
-        UINavigationController *currentController = tabBarController.selectedViewController;
-        
         // segue to another view controller to see progress
         ProgressViewController *progressVC = [postSearch instantiateViewControllerWithIdentifier:@"ProgressVC"];
         [self presentViewController:progressVC animated:YES completion:nil];
