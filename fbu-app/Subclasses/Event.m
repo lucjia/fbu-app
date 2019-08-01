@@ -35,16 +35,24 @@
     newEvent.location = geo;
     newEvent.venue = venue;
     
-    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeededInBackground];
-    House *house = [persona objectForKey:@"house"];
-    [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        [house addEventToHouse:newEvent];
-        newEvent.house = house;
-    }];
-    
-    [newEvent saveInBackgroundWithBlock:completion];
-    [house saveInBackgroundWithBlock:completion];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.91), ^{
+        // switch to a background thread and perform your expensive operation
+        Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+        [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            House *house = [persona objectForKey:@"house"];
+            [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                [house addEventToHouse:newEvent];
+                newEvent.house = house;
+            }];
+            [house saveInBackgroundWithBlock:completion];
+        }];
+        
+        [newEvent saveInBackgroundWithBlock:completion];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // switch back to the main thread to update your UI
+            
+        });
+    });
     
     return newEvent;
 }

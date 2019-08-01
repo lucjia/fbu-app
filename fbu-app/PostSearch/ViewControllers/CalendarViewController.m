@@ -26,6 +26,7 @@
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
     BOOL addPaths;
+    BOOL isOnSameDay;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -193,21 +194,40 @@
 }
 
 // checks if array contains an event on the same day as date
-- (BOOL)doesArrayContainDateOnSameDay:(NSArray *)array date:(NSDate *)date {
-    for (int i = 0; i < array.count; i++) {
-        NSDate *event = [eventsArray[i] objectForKey:@"eventDate"];
-        if ([calendar isDate:date inSameDayAsDate:event]) {
-            return YES;
+- (void)doesArrayContainDateOnSameDay:(NSDate *)date forCell:(CalendarCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    // the check is made on a thread in the background in order to avoid blocking the main thread from running
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.9), ^{
+        // switch to a background thread and perform your expensive operation
+        for (int i = 0; i < self->eventsArray.count; i++) {
+            NSDate *event = [self->eventsArray[i] objectForKey:@"eventDate"];
+            if ([self->calendar isDate:date inSameDayAsDate:event]) {
+                self->isOnSameDay = YES;
+                break;
+            } else {
+                self->isOnSameDay = NO;
+            }
         }
-    }
-    
-    return NO;
+        if (self->isOnSameDay) {
+            // all UIKit related calls must be done in main thread
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // switch back to the main thread to update your UI
+                [cell setHidden:NO];
+                cell.backgroundColor = [UIColor whiteColor];
+                [cell drawEventCircle];
+                
+                if ([self isCellToday:indexPath.row - self->weekday + 2]) {
+                    [cell drawCurrentDayCircle];
+                }
+            });
+        }
+    });
+
 }
 
 - (void)didCreateEvent:(Event *)event {
     [eventsArray addObject:event];
     addPaths = NO;
-    [self fetchEvents];
+   // [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
 }
@@ -229,17 +249,13 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
     eventDate = [self dateWithYear:currentYear month:currentMonth day:indexPath.row - weekday + 2];
+    // will check in background thread
+    [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
     
     if (indexPath.item <= weekday - 2) {
         [cell setHidden:YES];
-    } else if ([self doesArrayContainDateOnSameDay:eventsArray date:eventDate]) {
-        [cell setHidden:NO];
-        cell.backgroundColor = [UIColor whiteColor];
-        [cell drawEventCircle];
+    } else if (isOnSameDay) {
         
-        if ([self isCellToday:indexPath.row - weekday + 2]) {
-            [cell drawCurrentDayCircle];
-        }
         
     } else if ([self isCellToday:indexPath.row - weekday + 2]) {
         [cell setHidden:NO];
@@ -256,7 +272,7 @@
     
     [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:YES];
    
-    [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
+   // [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
     
     if (addPaths){
         [dayIndexPaths addObject:indexPath];
