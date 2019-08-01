@@ -13,6 +13,7 @@
 #import "SettingsViewController.h"
 #import "RulesViewController.h"
 #import "ReminderViewController.h"
+#import "ProgressViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
@@ -114,11 +115,9 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [viewController setSelectedIndex:1];
-        UINavigationController *navController = viewController.selectedViewController;
-        ReminderViewController *reminderController = navController.visibleViewController;
-        reminderController.segmentIndex = 2;
-        [currentController presentViewController:viewController animated:YES completion:nil];
+        // segue to another view controller to see progress
+        ProgressViewController *progressVC = [postSearch instantiateViewControllerWithIdentifier:@"ProgressVC"];
+        [self presentViewController:progressVC animated:YES completion:nil];
         
     // Settings
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"⚙ Settings"]) {

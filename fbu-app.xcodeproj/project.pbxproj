@@ -39,6 +39,7 @@
 		85729DC422E652A7009AD717 /* CustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC322E652A7009AD717 /* CustomLabel.m */; };
 		85729DCA22E76EFA009AD717 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC922E76EFA009AD717 /* Reminder.m */; };
 		85C5C0B922F26BC2001982F1 /* ProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0B822F26BC2001982F1 /* ProgressViewController.m */; };
+		85C5C0BC22F366CA001982F1 /* KeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0BB22F366CA001982F1 /* KeyViewController.m */; };
 		85CB809F22EA20000070AC4E /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB809E22EA20000070AC4E /* Persona.m */; };
 		85CB80A522EA4E010070AC4E /* ReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80A422EA4E010070AC4E /* ReminderViewController.m */; };
 		85CB80A822EA5AD60070AC4E /* ReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80A722EA5AD60070AC4E /* ReminderCell.m */; };
@@ -143,6 +144,8 @@
 		85729DC922E76EFA009AD717 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
 		85C5C0B722F26BC2001982F1 /* ProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressViewController.h; sourceTree = "<group>"; };
 		85C5C0B822F26BC2001982F1 /* ProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressViewController.m; sourceTree = "<group>"; };
+		85C5C0BA22F366CA001982F1 /* KeyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyViewController.h; sourceTree = "<group>"; };
+		85C5C0BB22F366CA001982F1 /* KeyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyViewController.m; sourceTree = "<group>"; };
 		85CB809E22EA20000070AC4E /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		85CB80A022EA20340070AC4E /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
 		85CB80A322EA4E010070AC4E /* ReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderViewController.h; sourceTree = "<group>"; };
@@ -392,6 +395,8 @@
 				85CB80AD22EBB4350070AC4E /* ReminderDetailViewController.m */,
 				85C5C0B722F26BC2001982F1 /* ProgressViewController.h */,
 				85C5C0B822F26BC2001982F1 /* ProgressViewController.m */,
+				85C5C0BA22F366CA001982F1 /* KeyViewController.h */,
+				85C5C0BB22F366CA001982F1 /* KeyViewController.m */,
 			);
 			path = FeatureScreens;
 			sourceTree = "<group>";
@@ -721,6 +726,7 @@
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
 				85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */,
 				85CB80B122ECB44F0070AC4E /* CustomDatePicker.m in Sources */,
+				85C5C0BC22F366CA001982F1 /* KeyViewController.m in Sources */,
 				64678F8922EFA3FF00F75070 /* Event.m in Sources */,
 				85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
