@@ -195,32 +195,35 @@
 
 // checks if array contains an event on the same day as date
 - (void)doesArrayContainDateOnSameDay:(NSDate *)date forCell:(CalendarCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    // the check is made on a thread in the background in order to avoid blocking the main thread from running
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.9), ^{
-        // switch to a background thread and perform your expensive operation
-        for (int i = 0; i < self->eventsArray.count; i++) {
-            NSDate *event = [self->eventsArray[i] objectForKey:@"eventDate"];
-            if ([self->calendar isDate:date inSameDayAsDate:event]) {
-                self->isOnSameDay = YES;
-                break;
-            } else {
-                self->isOnSameDay = NO;
-            }
-        }
-        if (self->isOnSameDay) {
-            // all UIKit related calls must be done in main thread
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // switch back to the main thread to update your UI
-                [cell setHidden:NO];
-                cell.backgroundColor = [UIColor whiteColor];
-                [cell drawEventCircle];
-                
-                if ([self isCellToday:indexPath.row - self->weekday + 2]) {
-                    [cell drawCurrentDayCircle];
+    if (indexPath.row - weekday + 2 != 0) {
+        // the check is made on a thread in the background in order to avoid blocking the main thread from running
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.9), ^{
+            // switch to a background thread and perform your expensive operation
+            for (int i = 0; i < self->eventsArray.count; i++) {
+                // object for is is SYNCHRONOUS
+                NSDate *event = [self->eventsArray[i] objectForKey:@"eventDate"];
+                if ([self->calendar isDate:date inSameDayAsDate:event]) {
+                    self->isOnSameDay = YES;
+                    break;
+                } else {
+                    self->isOnSameDay = NO;
                 }
-            });
-        }
-    });
+            }
+            if (self->isOnSameDay) {
+                // all UIKit related calls must be done in main thread
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // switch back to the main thread to update your UI
+                    [cell setHidden:NO];
+                    cell.backgroundColor = [UIColor whiteColor];
+                    [cell drawEventCircle];
+                    
+                    if ([self isCellToday:indexPath.row - self->weekday + 2]) {
+                        [cell drawCurrentDayCircle];
+                    }
+                });
+            }
+        });
+    }
 
 }
 
@@ -254,18 +257,17 @@
     
     if (indexPath.item <= weekday - 2) {
         [cell setHidden:YES];
-    } else if (isOnSameDay) {
-        
-        
-    } else if ([self isCellToday:indexPath.row - weekday + 2]) {
-        [cell setHidden:NO];
-        cell.backgroundColor = [UIColor whiteColor];
-        [cell drawCurrentDayCircle];
-        
     } else {
-        [cell setHidden:NO];
-        cell.backgroundColor = [UIColor whiteColor];
-        
+        if ([self isCellToday:indexPath.row - weekday + 2]) {
+            [cell setHidden:NO];
+            cell.backgroundColor = [UIColor whiteColor];
+            [cell drawCurrentDayCircle];
+            
+        } else {
+            [cell setHidden:NO];
+            cell.backgroundColor = [UIColor whiteColor];
+            
+        }
     }
     
     // adds date label to content view of cell

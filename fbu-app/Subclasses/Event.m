@@ -39,6 +39,7 @@
         // switch to a background thread and perform your expensive operation
         Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
         [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            // object for is is SYNCHRONOUS
             House *house = [persona objectForKey:@"house"];
             [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
                 [house addEventToHouse:newEvent];
