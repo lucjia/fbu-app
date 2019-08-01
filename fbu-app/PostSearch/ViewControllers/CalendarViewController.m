@@ -51,6 +51,9 @@
 - (void)fetchEvents {
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     
+    Persona *persona = [PFUser currentUser][@"persona"];
+    [persona fetchIfNeededInBackground];
+    [query whereKey:@"house" equalTo:[persona objectForKey:@"house"]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"title"];
     [query includeKey:@"memo"];
@@ -226,30 +229,30 @@
             }
         });
     }
-
+    
 }
 
 - (void)didCreateEvent:(Event *)event {
     [eventsArray addObject:event];
     addPaths = NO;
-   // [self fetchEvents];
+    // [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
 }
 
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
-     
-     UINavigationController *navigationController = [segue destinationViewController];
-     CreateEventViewController *createEventViewController = (CreateEventViewController*)navigationController.topViewController;
-     createEventViewController.delegate = self;
- }
- 
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+    UINavigationController *navigationController = [segue destinationViewController];
+    CreateEventViewController *createEventViewController = (CreateEventViewController*)navigationController.topViewController;
+    createEventViewController.delegate = self;
+}
+
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
@@ -275,8 +278,8 @@
     // adds date label to content view of cell
     
     [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:YES];
-   
-   // [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
+    
+    // [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
     
     if (addPaths){
         [dayIndexPaths addObject:indexPath];
