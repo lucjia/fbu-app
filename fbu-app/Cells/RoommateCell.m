@@ -33,7 +33,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -56,38 +56,47 @@
 }
 
 - (void)getReceiverPersona {
-    Persona *receiverPersona = self.userInCell;
-    [receiverPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        Persona *senderPersona = [[PFUser currentUser] objectForKey:@"persona"];
-        NSMutableArray *requestsSent = [senderPersona objectForKey:@"requestsSent"];
-        NSMutableArray *acceptedRequests = [senderPersona objectForKey:@"acceptedRequests"];
-        
-        if (requestsSent == nil) {
-            requestsSent = [[NSMutableArray alloc] init];
-        }
-        if ([requestsSent containsObject:receiverPersona] == NO && [acceptedRequests containsObject:receiverPersona] == NO) {
-            [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
-        } else {
-            [self createAlertController:@"Cannot Send request" message:@"You've already sent this user a request!"];
-        }
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // switch to a background thread and perform your expensive operation
+        Persona *receiverPersona = self.userInCell;
+        [receiverPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            Persona *senderPersona = [[PFUser currentUser] objectForKey:@"persona"];
+            [senderPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object2, NSError * _Nullable error) {
+                NSMutableArray *requestsSent = [senderPersona objectForKey:@"requestsSent"];
+                NSMutableArray *acceptedRequests = [senderPersona objectForKey:@"acceptedRequests"];
+                
+                if (requestsSent == nil) {
+                    requestsSent = [[NSMutableArray alloc] init];
+                }
+                if ([requestsSent containsObject:receiverPersona] == NO && [acceptedRequests containsObject:receiverPersona] == NO) {
+                    [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
+                } else {
+                    [self createAlertController:@"Cannot Send request" message:@"You've already sent this user a request!"];
+                }
+            }];
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // switch back to the main thread to update your UI
+            
+        });
+    });
 }
 
 + (void)sendRequestToPersona:(Persona *)receiverPersona  sender:(Persona *)senderPersona requestsSentToUsers:(NSMutableArray *)requestsSent allertReceiver:(id)receiver {
     // if the user has not already sent a request to the user who they are trying to send a request to
-        //add userId to array
-        [requestsSent insertObject:receiverPersona atIndex:0];
-        [senderPersona setObject:requestsSent forKey:@"requestsSent"];
-        [Request createRequest:receiverPersona withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
-            }
-        }];
-        [senderPersona saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
-            }
-        }];
+    //add userId to array
+    [requestsSent insertObject:receiverPersona atIndex:0];
+    [senderPersona setObject:requestsSent forKey:@"requestsSent"];
+    [Request createRequest:receiverPersona withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    [senderPersona saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 - (void)createAlertController:(NSString *)title message:(NSString *)msg {
