@@ -25,7 +25,9 @@
     NSDate *currentDate; // today
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
-    BOOL newLabel;
+    double calendarHeight;
+    BOOL addPaths;
+    BOOL isOnSameDay;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -37,7 +39,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    newLabel = YES;
+    addPaths = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
     [self fetchEvents];
     [self initCollectionView];
@@ -74,8 +76,9 @@
 // initializes the collection view
 - (void)initCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat yPostion = 120;
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, yPostion, self.view.bounds.size.width, self.view.bounds.size.height - yPostion) collectionViewLayout:layout];
+    CGFloat yPostion = 160;
+    calendarHeight = (self.view.bounds.size.height - yPostion) / 2;
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, yPostion, self.view.bounds.size.width, calendarHeight) collectionViewLayout:layout];
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
     
@@ -87,7 +90,7 @@
     layout.minimumLineSpacing = 5;
     CGFloat postersPerLine = 7; // number of posters in a row
     CGFloat itemWidth = (collectionView.frame.size.width - layout.minimumLineSpacing * (postersPerLine - 1)) / postersPerLine;
-    CGFloat itemHeight = 1.5 * itemWidth;
+    CGFloat itemHeight = 1 * itemWidth;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     
     collectionView.contentInsetAdjustmentBehavior = NO;
@@ -193,24 +196,45 @@
 }
 
 // checks if array contains an event on the same day as date
-- (BOOL)doesArrayContainDateOnSameDay:(NSArray *)array date:(NSDate *)date {
-    for (int i = 0; i < array.count; i++) {
-        NSDate *event = [eventsArray[i] objectForKey:@"eventDate"];
-        if ([calendar isDate:date inSameDayAsDate:event]) {
-            return YES;
-        }
+- (void)doesArrayContainDateOnSameDay:(NSDate *)date forCell:(CalendarCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row - weekday + 2 != 0) {
+        // the check is made on a thread in the background in order to avoid blocking the main thread from running
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.9), ^{
+            // switch to a background thread and perform your expensive operation
+            for (int i = 0; i < self->eventsArray.count; i++) {
+                // object for is is SYNCHRONOUS
+                NSDate *event = [self->eventsArray[i] objectForKey:@"eventDate"];
+                if ([self->calendar isDate:date inSameDayAsDate:event]) {
+                    self->isOnSameDay = YES;
+                    break;
+                } else {
+                    self->isOnSameDay = NO;
+                }
+            }
+            if (self->isOnSameDay) {
+                // all UIKit related calls must be done in main thread
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // switch back to the main thread to update your UI
+                    [cell setHidden:NO];
+                    cell.backgroundColor = [UIColor whiteColor];
+                    [cell drawEventCircle];
+                    
+                    if ([self isCellToday:indexPath.row - self->weekday + 2]) {
+                        [cell drawCurrentDayCircle];
+                    }
+                });
+            }
+        });
     }
-    
-    return NO;
+
 }
 
 - (void)didCreateEvent:(Event *)event {
     [eventsArray addObject:event];
-    newLabel = NO;
-    [self fetchEvents];
+    addPaths = NO;
+   // [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
-    newLabel = YES;
 }
 
 
@@ -230,37 +254,33 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
     eventDate = [self dateWithYear:currentYear month:currentMonth day:indexPath.row - weekday + 2];
+    // will check in background thread
+    [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
     
     if (indexPath.item <= weekday - 2) {
         [cell setHidden:YES];
-    } else if ([self doesArrayContainDateOnSameDay:eventsArray date:eventDate]) {
-        [cell setHidden:NO];
-        cell.backgroundColor = [UIColor whiteColor];
-        [cell drawEventCircle];
-        
-        if ([self isCellToday:indexPath.row - weekday + 2]) {
-            [cell drawCurrentDayCircle];
-        }
-        
-    } else if ([self isCellToday:indexPath.row - weekday + 2]) {
-        [cell setHidden:NO];
-        cell.backgroundColor = [UIColor whiteColor];
-        [cell drawCurrentDayCircle];
-        
     } else {
-        [cell setHidden:NO];
-        cell.backgroundColor = [UIColor whiteColor];
-        
+        if ([self isCellToday:indexPath.row - weekday + 2]) {
+            [cell setHidden:NO];
+            cell.backgroundColor = [UIColor whiteColor];
+            [cell drawCurrentDayCircle];
+            
+        } else {
+            [cell setHidden:NO];
+            cell.backgroundColor = [UIColor whiteColor];
+            
+        }
     }
     
     // adds date label to content view of cell
     
     [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:YES];
    
-    [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
+   // [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
     
-    
-    [dayIndexPaths addObject:indexPath];
+    if (addPaths){
+        [dayIndexPaths addObject:indexPath];
+    }
     
     return cell;
 }

@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "LocationCell.h"
 #import "Persona.h"
+#import "DetailsViewController.h"
 
 // Foursquare API
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
@@ -17,10 +18,11 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 
 @interface EventLocationViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 {
-    PFGeoPoint *eventLocation;
     NSArray *results;
     NSString *city;
     NSString *state;
+    PFGeoPoint *eventLocation;
+    NSString *eventLocationString;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -42,6 +44,15 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     [self setCity];
 }
 
+- (IBAction)didTapSetLocation:(id)sender {
+    if (eventLocation) {
+        [self.delegate didSetLocation:eventLocationString geoPoint:eventLocation];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else {
+        [DetailsViewController createAlertController:@"No location set" message:@"pleaes set a location" sender:self];
+    }
+}
+
 - (void) setCity {
     NSString *currentCity = [[PFUser currentUser][@"persona"] objectForKey:@"city"];
     NSString *currentState = [[PFUser currentUser][@"persona"] objectForKey:@"state"];
@@ -61,8 +72,11 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     double lat = [[venue valueForKeyPath:@"location.lat"] doubleValue];
     double lng = [[venue valueForKeyPath:@"location.lng"] doubleValue];
     
+    NSDictionary *locationDictionary = results[indexPath.row];
+    
     // Set location in Parse
     eventLocation = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
+    eventLocationString = locationDictionary[@"name"];
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

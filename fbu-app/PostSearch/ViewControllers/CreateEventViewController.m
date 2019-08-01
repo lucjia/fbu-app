@@ -7,11 +7,14 @@
 //
 
 #import "CreateEventViewController.h"
+#import "EventLocationViewController.h"
 #import "CustomDatePicker.h"
 #import "Event.h"
 
-@interface CreateEventViewController ()
-
+@interface CreateEventViewController () <EventLocationViewControllerDelegate>
+{
+    PFGeoPoint *locationGeoPoint;
+}
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *allDaySwitch;
 @property (weak, nonatomic) IBOutlet UITextView *memoTextView;
@@ -19,6 +22,7 @@
 @property (strong, nonatomic) UIDatePicker *startDatePicker;
 @property (strong, nonatomic) UIDatePicker *endDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *endDateSelectionTextField;
+@property (weak, nonatomic) IBOutlet UILabel *eventLocationLabel;
 
 
 @end
@@ -38,12 +42,13 @@
     self.endDatePicker = [endDatePicker initializeDatePickerWithDatePicker:self.endDatePicker textField:self.endDateSelectionTextField selector:showSelector secondSelector:removeSelector];
 }
 
-- (IBAction)didTapAddLocation:(id)sender {
-    
+- (void)didSetLocation:(nonnull NSString *)location geoPoint:(nonnull PFGeoPoint *)geo {
+    self.eventLocationLabel.text = [NSString stringWithFormat:@"%@", location];
+    locationGeoPoint = geo;
 }
 
 - (IBAction)didTapSaveEvent:(id)sender {
-    Event *event = [Event createEvent:self.titleTextField.text eventMemo:self.memoTextView.text isAllDay:self.allDaySwitch.isOn eventStartDate:self.startDatePicker.date eventEndDate:self.endDatePicker.date withCompletion:nil];
+    Event *event = [Event createEvent:self.titleTextField.text eventMemo:self.memoTextView.text isAllDay:self.allDaySwitch.isOn eventLocation:locationGeoPoint eventVenue:_eventLocationLabel.text eventStartDate:self.startDatePicker.date eventEndDate:self.endDatePicker.date withCompletion:nil];
     [self.delegate didCreateEvent:event];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -75,18 +80,22 @@
     [self.endDatePicker setDate:[NSDate date] animated:NO];
     self.endDateSelectionTextField.text = @"";
 }
+
 - (IBAction)didTapBack:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     
+     EventLocationViewController *eventLocationViewController = (EventLocationViewController *)[segue destinationViewController];
+     eventLocationViewController.delegate = self;
  }
- */
+
 
 @end
