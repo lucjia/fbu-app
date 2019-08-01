@@ -7,10 +7,20 @@
 //
 
 #import "LocationViewController.h"
+#import <Parse/Parse.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol EventLocationViewControllerDelegate
+
+- (void)didSetLocation:(NSString *)location geoPoint:(PFGeoPoint *)geo;
+
+@end
+
+
 @interface EventLocationViewController : LocationViewController
+
+@property (nonatomic, weak) id<EventLocationViewControllerDelegate> delegate;
 
 @end
 
