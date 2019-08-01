@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *reminderTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reminderDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reminderSenderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sentToOrBy;
 @property (strong, nonatomic) Reminder *rem;
 
 @end
@@ -38,10 +39,19 @@
     NSString *dueDateString = rem.dueDateString;
     self.reminderDateLabel.text = dueDateString;
     
-    NSString *firstName = rem.reminderSender[@"firstName"];
-    NSString *lastName = [@" " stringByAppendingString:rem.reminderSender[@"lastName"]];
-    NSString *fullName = [firstName stringByAppendingString:lastName];
-    self.reminderSenderLabel.text = fullName;
+    if (self.received) {
+        self.sentToOrBy.text = @"Sent by: ";
+        NSString *firstName = rem.reminderSender[@"firstName"];
+        NSString *lastName = [@" " stringByAppendingString:rem.reminderSender[@"lastName"]];
+        NSString *fullName = [firstName stringByAppendingString:lastName];
+        self.reminderSenderLabel.text = fullName;
+    } else {
+        self.sentToOrBy.text = @"Sent to: ";
+        NSString *firstName = rem.reminderReceiver[@"firstName"];
+        NSString *lastName = [@" " stringByAppendingString:rem.reminderReceiver[@"lastName"]];
+        NSString *fullName = [firstName stringByAppendingString:lastName];
+        self.reminderSenderLabel.text = fullName;
+    }
     
     if(rem.completed) {
         self.checkmarkButton.selected = YES;

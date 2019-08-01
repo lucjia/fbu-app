@@ -231,7 +231,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lvt-Mz-rP9">
-                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="609"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderCell" rowHeight="116" id="e0j-x6-YGH" customClass="ReminderCell">
@@ -300,6 +300,7 @@
                                             <outlet property="reminderDateLabel" destination="uJz-9Q-fNm" id="F0u-zK-jm4"/>
                                             <outlet property="reminderSenderLabel" destination="Lqn-jf-fhp" id="jJW-1G-e32"/>
                                             <outlet property="reminderTextLabel" destination="KNa-pc-pfZ" id="JwX-fd-LFr"/>
+                                            <outlet property="sentToOrBy" destination="XTO-Bj-ZIj" id="A9h-H0-yW5"/>
                                             <segue destination="fm1-Fe-T5x" kind="show" identifier="toReminderDetail" id="vig-Xe-uz6"/>
                                         </connections>
                                     </tableViewCell>
@@ -309,16 +310,42 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SUk-of-WOd">
+                                <rect key="frame" x="0.0" y="753" width="414" height="60"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d1h-g1-56q">
+                                        <rect key="frame" x="41" y="16" width="332" height="29"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <segments>
+                                            <segment title="My Reminders"/>
+                                            <segment title="Sent Reminders"/>
+                                            <segment title="Progress"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="segmentedControlTapped:" destination="sZC-bC-TiA" eventType="valueChanged" id="jXy-tk-QZk"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="d1h-g1-56q" firstAttribute="centerY" secondItem="SUk-of-WOd" secondAttribute="centerY" id="U7X-gK-nQF"/>
+                                    <constraint firstItem="d1h-g1-56q" firstAttribute="centerX" secondItem="SUk-of-WOd" secondAttribute="centerX" id="h4F-kQ-gHN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="mmZ-IQ-gXt" firstAttribute="top" secondItem="8i6-g7-dBe" secondAttribute="topMargin" id="8Ed-2V-26l"/>
                             <constraint firstItem="mmZ-IQ-gXt" firstAttribute="leading" secondItem="ikb-fZ-1NZ" secondAttribute="leading" id="BvA-fb-Oyj"/>
-                            <constraint firstItem="ikb-fZ-1NZ" firstAttribute="bottom" secondItem="lvt-Mz-rP9" secondAttribute="bottom" id="CD7-sL-u1x"/>
+                            <constraint firstItem="ikb-fZ-1NZ" firstAttribute="bottom" secondItem="lvt-Mz-rP9" secondAttribute="bottom" constant="60" id="CD7-sL-u1x"/>
+                            <constraint firstItem="SUk-of-WOd" firstAttribute="bottom" secondItem="ikb-fZ-1NZ" secondAttribute="bottom" id="HDa-Mq-Au2"/>
                             <constraint firstItem="mmZ-IQ-gXt" firstAttribute="trailing" secondItem="ikb-fZ-1NZ" secondAttribute="trailing" id="Q4o-o4-DJu"/>
                             <constraint firstItem="lvt-Mz-rP9" firstAttribute="trailing" secondItem="ikb-fZ-1NZ" secondAttribute="trailing" id="e55-Lg-c5b"/>
+                            <constraint firstItem="SUk-of-WOd" firstAttribute="leading" secondItem="ikb-fZ-1NZ" secondAttribute="leading" id="ifc-ta-fgy"/>
                             <constraint firstItem="lvt-Mz-rP9" firstAttribute="top" secondItem="mmZ-IQ-gXt" secondAttribute="bottom" id="nI3-UT-FWv"/>
+                            <constraint firstItem="SUk-of-WOd" firstAttribute="trailing" secondItem="ikb-fZ-1NZ" secondAttribute="trailing" id="tZW-3y-r8x"/>
                             <constraint firstItem="lvt-Mz-rP9" firstAttribute="leading" secondItem="ikb-fZ-1NZ" secondAttribute="leading" id="tfS-eh-5Mw"/>
+                            <constraint firstItem="SUk-of-WOd" firstAttribute="top" secondItem="lvt-Mz-rP9" secondAttribute="bottom" id="umc-ro-rwu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ikb-fZ-1NZ"/>
                     </view>
@@ -331,7 +358,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="mmZ-IQ-gXt" id="VK3-AR-Ea8"/>
+                        <outlet property="segmentedControl" destination="d1h-g1-56q" id="pkQ-Lv-1n9"/>
                         <outlet property="tableView" destination="lvt-Mz-rP9" id="Ua7-h0-TtQ"/>
+                        <segue destination="RmI-4R-iRE" kind="show" id="wcY-cf-6Um"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EEb-TR-hfg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -406,7 +435,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4210.144927536232" y="1251.5625"/>
+            <point key="canvasLocation" x="2641" y="1252"/>
         </scene>
         <!--Compose Reminder View Controller-->
         <scene sceneID="Neb-9g-VOj">
@@ -479,7 +508,31 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5000" y="1251.5625"/>
+            <point key="canvasLocation" x="3364" y="1252"/>
+        </scene>
+        <!--Progress View Controller-->
+        <scene sceneID="l7Q-RW-FOs">
+            <objects>
+                <viewController storyboardIdentifier="ProgressVC" id="RmI-4R-iRE" customClass="ProgressViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b3V-me-I2l">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="hi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZm-cU-cyE">
+                                <rect key="frame" x="202" y="451" width="14" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="AEr-wX-ZFK"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1CD-xt-Kbn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4117" y="1252"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="KEW-eR-0j9">

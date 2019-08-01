@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ReminderCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *checkmarkButton;
+@property (assign, nonatomic) BOOL received;
 
 - (void) updateReminderCellWithReminder:(Reminder *)rem;
 
