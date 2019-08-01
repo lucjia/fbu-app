@@ -15,6 +15,7 @@
 		6429400022E26F7F00961F29 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 64293FFF22E26F7F00961F29 /* Request.m */; };
 		6429400322E277D600961F29 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400222E277D600961F29 /* RequestsViewController.m */; };
 		6429400622E2781200961F29 /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400522E2781200961F29 /* RequestCell.m */; };
+		644B15E522F3726200E4A60B /* EventReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 644B15E422F3726200E4A60B /* EventReminderCell.m */; };
 		645088BF22EA788400319C93 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088BE22EA788400319C93 /* LeftViewController.m */; };
 		645088C322EA7B2800319C93 /* LeftViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088C222EA7B2800319C93 /* LeftViewCell.m */; };
 		645088C722EA827300319C93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088C622EA827300319C93 /* MainViewController.m */; };
@@ -95,6 +96,8 @@
 		6429400222E277D600961F29 /* RequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		6429400422E2781200961F29 /* RequestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestCell.h; sourceTree = "<group>"; };
 		6429400522E2781200961F29 /* RequestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
+		644B15E322F3726200E4A60B /* EventReminderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventReminderCell.h; sourceTree = "<group>"; };
+		644B15E422F3726200E4A60B /* EventReminderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventReminderCell.m; sourceTree = "<group>"; };
 		645088BD22EA788400319C93 /* LeftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
 		645088BE22EA788400319C93 /* LeftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		645088C122EA7B2800319C93 /* LeftViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftViewCell.h; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 			children = (
 				645088D622EBA29F00319C93 /* CalendarCell.h */,
 				645088D722EBA29F00319C93 /* CalendarCell.m */,
+				644B15E322F3726200E4A60B /* EventReminderCell.h */,
+				644B15E422F3726200E4A60B /* EventReminderCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -729,6 +734,7 @@
 				64678F8622EF9FA000F75070 /* CreateEventViewController.m in Sources */,
 				85729DC122E62ED5009AD717 /* CustomButton.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
+				644B15E522F3726200E4A60B /* EventReminderCell.m in Sources */,
 				6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */,
 				7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
