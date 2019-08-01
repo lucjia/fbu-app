@@ -244,9 +244,13 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //remove the deleted object from data source array AND Parse
-        
-        [tableView reloadData];
+        //remove the deleted object from Parse
+        Reminder *swipedReminder = [filteredResults objectAtIndex:indexPath.row];
+        [swipedReminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error != nil) {
+                [self.tableView reloadData];
+            }
+        }];
     }
 }
 
