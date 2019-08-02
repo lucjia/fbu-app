@@ -33,8 +33,8 @@
     if (newEvent.isAllDay) {
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps = [calendar components:NSCalendarUnitDay |
-                                                      NSCalendarUnitMonth |
-                                                      NSCalendarUnitYear fromDate:startDate];
+                                                       NSCalendarUnitMonth |
+                                                       NSCalendarUnitYear fromDate:startDate];
         
         [comps setHour:0];
         
