@@ -10,12 +10,13 @@
 #import "Event.h"
 #import "Reminder.h"
 
+static NSDateFormatter *dateFormatter;
+
 @interface EventReminderCell()
 {
-    UILabel *title;
-    UILabel *location;
-    UILabel *startTime;
-    UILabel *endTime;
+    UILabel *titleLabel;
+    UILabel *locationLabel;
+    UILabel *eventIntervalLabel;
 }
 
 
@@ -35,37 +36,28 @@
 }
 
 - (void)initCellWithEvent:(Event *)event {
-    title = [[UILabel alloc] initWithFrame:self.bounds];
-    title.text = event.title;
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, self.frame.size.width, 50)];
+    titleLabel.numberOfLines = 0;
+    titleLabel.text = event.title;
     
-    location = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, 20, 20)];
-    location.text = [NSString stringWithFormat:@"%@", event.venue];
+    locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 25, self.frame.size.width, 50)];
+    locationLabel.numberOfLines = 0;
+    locationLabel.text = [NSString stringWithFormat:@"%@", event.venue];
     
-    startTime = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 20, 20)];
-    startTime.text = [NSString stringWithFormat:@"%@", event.eventDate];
+    // date formatter setup
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"PST"]];
+    [dateFormatter setDateFormat:@"MMM d, h:mm a"];
     
-    endTime = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, 20, 20)];
-    endTime.text = [NSString stringWithFormat:@"%@", event.eventEndDate];
+    NSString *startTime = [dateFormatter stringFromDate:event.eventDate];
+    NSString *endTime = [dateFormatter stringFromDate:event.eventEndDate];
     
-    [self.contentView addSubview:title];
-    [self.contentView addSubview:location];
-    [self.contentView addSubview:startTime];
-    [self.contentView addSubview:endTime];
-}
-
-- (void)initCellWithReminder:(Reminder *)reminder {
-    title = [[UILabel alloc] initWithFrame:self.bounds];
-    title.text = reminder.reminderText;
+    eventIntervalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45, self.frame.size.width, 50)];
+    eventIntervalLabel.text = [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
     
-    startTime = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 20, 20)];
-    startTime.text = [NSString stringWithFormat:@"%@", reminder.reminderSentDate];
-    
-    endTime = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, 20, 20)];
-    endTime.text = [NSString stringWithFormat:@"%@", reminder.reminderDueDate];
-    
-    [self.contentView addSubview:title];
-    [self.contentView addSubview:startTime];
-    [self.contentView addSubview:endTime];
+    [self.contentView addSubview:titleLabel];
+    [self.contentView addSubview:locationLabel];
+    [self.contentView addSubview:eventIntervalLabel];
 }
 
 @end

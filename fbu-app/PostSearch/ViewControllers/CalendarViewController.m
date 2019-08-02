@@ -313,7 +313,7 @@
 
 //initializes tableView underneath calendar
 - (void)initTableView {
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - calendarHeight) style:UITableViewStylePlain];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - (calendarHeight + calendarYPosition)) style:UITableViewStylePlain];
     [tableView setDataSource:self];
     [tableView setDelegate:self];
     
@@ -338,6 +338,14 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return eventsArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
 }
 
 @end
