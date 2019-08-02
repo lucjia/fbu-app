@@ -34,6 +34,7 @@
     
     // Table view instance variables
     UITableView *tableView;
+    NSMutableArray *eventsForSelectedDay;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -287,6 +288,14 @@
         }
     }
     
+    if (cell.selected) {
+        [cell colorSelectedCell]; // highlight selection
+    }
+    else
+    {
+        cell.backgroundColor = [UIColor clearColor]; // Default color
+    }
+    
     // adds date label to content view of cell
     
     [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:YES];
@@ -306,6 +315,15 @@
     return [self numberDaysInMonthFromDate:[NSDate date]] + (weekday - 1);
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    CalendarCell* cell = (CalendarCell *)[collectionView  cellForItemAtIndexPath:indexPath];
+    [cell colorSelectedCell];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    CalendarCell* cell = (CalendarCell *)[collectionView  cellForItemAtIndexPath:indexPath];
+    [cell decolorSelectedCell];
+}
 
 /***********************************
  Table View of Reminders and Events
