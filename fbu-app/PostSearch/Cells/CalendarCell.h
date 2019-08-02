@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CalendarCell : UICollectionViewCell
 
+@property (strong, nonatomic) UILabel *dateLabel;
+
 - (void)initDateLabelInCell:(NSUInteger)date newLabel:(BOOL)label;
 - (void)setCurrentDayTextColor;
 - (void)drawCurrentDayCircle;
