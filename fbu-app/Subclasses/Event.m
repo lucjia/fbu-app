@@ -58,5 +58,10 @@
     return newEvent;
 }
 
+- (NSComparisonResult)compare:(Event *)other {
+    //Event *otherEvent = (Event *)other;
+    return [self.eventDate compare:other.eventDate];
+}
+
 
 @end

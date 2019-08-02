@@ -251,6 +251,11 @@
     // [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
+    // sorts the array by eventDate in order to maintain order
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
+                                                 ascending:YES];
+    eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
     [tableView reloadData];
 }
 
