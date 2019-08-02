@@ -16,7 +16,7 @@
 
 @interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     // different way of declaring property
-    NSArray *filteredResults;
+    NSMutableArray *filteredResults;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -54,102 +54,110 @@
 
 - (void) fetchReminders {
     if (self.segmentIndex == 0) {
-        PFQuery *queryWithDate = [PFQuery queryWithClassName:@"Reminder"];
-        
-        [queryWithDate includeKey:@"reminderSender"];
-        [queryWithDate includeKey:@"reminderReceiver"];
-        [queryWithDate includeKey:@"reminderText"];
-        [queryWithDate includeKey:@"reminderDueDate"];
-        
-        // soonest reminder Due Dates are first
-        [queryWithDate whereKeyExists:@"reminderDueDate"];
-        [queryWithDate orderByAscending:@"reminderDueDate"];
-        
-        // query for reminders that are assigned to the current user
-        [queryWithDate whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
-        [queryWithDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
-            if (reminders != nil) {
-                self.receivedReminderArrayDates = reminders;
-            } else {
-                NSLog(@"%@", error.localizedDescription);
-            }
-        }];
-        
-        // QUERY WITHOUT DATE (cannot do order by on compound queries)
-        PFQuery *queryWithoutDate = [PFQuery queryWithClassName:@"Reminder"];
-        
-        [queryWithoutDate includeKey:@"reminderSender"];
-        [queryWithoutDate includeKey:@"reminderReceiver"];
-        [queryWithoutDate includeKey:@"reminderText"];
-        
-        // Order reminders w/o a due date by their created date
-        [queryWithoutDate whereKeyDoesNotExist:@"reminderDueDate"];
-        [queryWithoutDate orderByAscending:@"createdAt"];
-        
-        // query for reminders that are assigned to the current user
-        [queryWithoutDate whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
-        [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
-            if (reminders != nil) {
-                self.receivedReminderArrayNoDates = reminders;
-                self.receivedReminderArrayTotal = [self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
-                filteredResults = self.receivedReminderArrayTotal;
-                [self.tableView reloadData];
-            } else {
-                NSLog(@"%@", error.localizedDescription);
-            }
-        }];
-        [self.refreshControl endRefreshing];
+        [self fetchReceivedReminders];
     } else if (self.segmentIndex == 1) {
-        PFQuery *queryWithDate = [PFQuery queryWithClassName:@"Reminder"];
-        
-        [queryWithDate includeKey:@"reminderSender"];
-        [queryWithDate includeKey:@"reminderReceiver"];
-        [queryWithDate includeKey:@"reminderText"];
-        [queryWithDate includeKey:@"reminderDueDate"];
-        
-        // soonest reminder Due Dates are first
-        [queryWithDate whereKeyExists:@"reminderDueDate"];
-        [queryWithDate orderByAscending:@"reminderDueDate"];
-        
-        // query for reminders that are assigned to the current user
-        [queryWithDate whereKey:@"reminderSender" equalTo:[PFUser currentUser][@"persona"]];
-        [queryWithDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
-            if (reminders != nil) {
-                self.receivedReminderArrayDates = reminders;
-            } else {
-                NSLog(@"%@", error.localizedDescription);
-            }
-        }];
-        
-        // QUERY WITHOUT DATE (cannot do order by on compound queries)
-        PFQuery *queryWithoutDate = [PFQuery queryWithClassName:@"Reminder"];
-        
-        [queryWithoutDate includeKey:@"reminderSender"];
-        [queryWithoutDate includeKey:@"reminderReceiver"];
-        [queryWithoutDate includeKey:@"reminderText"];
-        
-        // Order reminders w/o a due date by their created date
-        [queryWithoutDate whereKeyDoesNotExist:@"reminderDueDate"];
-        [queryWithoutDate orderByAscending:@"createdAt"];
-        
-        // query for reminders that are assigned to the current user
-        [queryWithoutDate whereKey:@"reminderSender" equalTo:[PFUser currentUser][@"persona"]];
-        [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
-            if (reminders != nil) {
-                self.receivedReminderArrayNoDates = reminders;
-                self.receivedReminderArrayTotal = [self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
-                filteredResults = self.receivedReminderArrayTotal;
-                [self.tableView reloadData];
-            } else {
-                NSLog(@"%@", error.localizedDescription);
-            }
-        }];
-        [self.refreshControl endRefreshing];
+        [self fetchSentReminders];
     } else if (self.segmentIndex == 2) {
         // segue to another view controller to see progress
         ProgressViewController *progressVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProgressVC"];
         [self presentViewController:progressVC animated:YES completion:nil];
     }
+}
+
+- (void) fetchReceivedReminders {
+    PFQuery *queryWithDate = [PFQuery queryWithClassName:@"Reminder"];
+    
+    [queryWithDate includeKey:@"reminderSender"];
+    [queryWithDate includeKey:@"reminderReceiver"];
+    [queryWithDate includeKey:@"reminderText"];
+    [queryWithDate includeKey:@"reminderDueDate"];
+    
+    // soonest reminder Due Dates are first
+    [queryWithDate whereKeyExists:@"reminderDueDate"];
+    [queryWithDate orderByAscending:@"reminderDueDate"];
+    
+    // query for reminders that are assigned to the current user
+    [queryWithDate whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
+    [queryWithDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+        if (reminders != nil) {
+            self.receivedReminderArrayDates = (NSMutableArray *)reminders;
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    
+    // QUERY WITHOUT DATE (cannot do order by on compound queries)
+    PFQuery *queryWithoutDate = [PFQuery queryWithClassName:@"Reminder"];
+    
+    [queryWithoutDate includeKey:@"reminderSender"];
+    [queryWithoutDate includeKey:@"reminderReceiver"];
+    [queryWithoutDate includeKey:@"reminderText"];
+    
+    // Order reminders w/o a due date by their created date
+    [queryWithoutDate whereKeyDoesNotExist:@"reminderDueDate"];
+    [queryWithoutDate orderByAscending:@"createdAt"];
+    
+    // query for reminders that are assigned to the current user
+    [queryWithoutDate whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
+    [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+        if (reminders != nil) {
+            self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
+            self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
+            filteredResults = self.receivedReminderArrayTotal;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    [self.refreshControl endRefreshing];
+}
+
+- (void) fetchSentReminders {
+    PFQuery *queryWithDate = [PFQuery queryWithClassName:@"Reminder"];
+    
+    [queryWithDate includeKey:@"reminderSender"];
+    [queryWithDate includeKey:@"reminderReceiver"];
+    [queryWithDate includeKey:@"reminderText"];
+    [queryWithDate includeKey:@"reminderDueDate"];
+    
+    // soonest reminder Due Dates are first
+    [queryWithDate whereKeyExists:@"reminderDueDate"];
+    [queryWithDate orderByAscending:@"reminderDueDate"];
+    
+    // query for reminders that are assigned to the current user
+    [queryWithDate whereKey:@"reminderSender" equalTo:[PFUser currentUser][@"persona"]];
+    [queryWithDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+        if (reminders != nil) {
+            self.receivedReminderArrayDates = (NSMutableArray *)reminders;
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    
+    // QUERY WITHOUT DATE (cannot do order by on compound queries)
+    PFQuery *queryWithoutDate = [PFQuery queryWithClassName:@"Reminder"];
+    
+    [queryWithoutDate includeKey:@"reminderSender"];
+    [queryWithoutDate includeKey:@"reminderReceiver"];
+    [queryWithoutDate includeKey:@"reminderText"];
+    
+    // Order reminders w/o a due date by their created date
+    [queryWithoutDate whereKeyDoesNotExist:@"reminderDueDate"];
+    [queryWithoutDate orderByAscending:@"createdAt"];
+    
+    // query for reminders that are assigned to the current user
+    [queryWithoutDate whereKey:@"reminderSender" equalTo:[PFUser currentUser][@"persona"]];
+    [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+        if (reminders != nil) {
+            self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
+            self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
+            filteredResults = self.receivedReminderArrayTotal;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    [self.refreshControl endRefreshing];
 }
 
 - (IBAction)segmentedControlTapped:(id)sender {
@@ -199,14 +207,14 @@
             NSString *newSearchText = [[NSString alloc] init];
             newSearchText = [searchText substringFromIndex:2];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.reminderSender.firstName contains[cd] %@", newSearchText];
-            filteredResults = [self.receivedReminderArrayTotal filteredArrayUsingPredicate:predicate];
+            filteredResults = (NSMutableArray *)[self.receivedReminderArrayTotal filteredArrayUsingPredicate:predicate];
         }
     // If not, search through the reminder text
     } else if (searchText.length != 0) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.reminderText contains[cd] %@", searchText];
-        filteredResults = [self.receivedReminderArrayTotal filteredArrayUsingPredicate:predicate];
+        filteredResults = (NSMutableArray *)[self.receivedReminderArrayTotal filteredArrayUsingPredicate:predicate];
     } else {
-        filteredResults = self.receivedReminderArrayTotal;
+        filteredResults = (NSMutableArray *)self.receivedReminderArrayTotal;
     }
     [self.tableView reloadData];
     [self scrollToTopAfterSearch];
@@ -235,6 +243,23 @@
 - (void) scrollToTopAfterSearch {
     [self.tableView layoutIfNeeded];
     [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
+}
+
+// Swipe to delete
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //remove the deleted object from Parse
+        Reminder *swipedReminder = [filteredResults objectAtIndex:indexPath.row];
+        [swipedReminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error != nil) {
+                [self.tableView reloadData];
+            }
+        }];
+    }
 }
 
 @end

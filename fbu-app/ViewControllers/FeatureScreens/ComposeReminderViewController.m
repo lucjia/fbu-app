@@ -80,7 +80,29 @@
     self.reminderTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor];
     self.reminderTextView.layer.cornerRadius = 5;
     self.reminderTextView.delegate = self;
+    
+    if ([self.reminderTextView.text isEqualToString:@""]) {
+        self.reminderTextView.text = @"Write a bio...";
+        self.reminderTextView.textColor = [UIColor lightGrayColor];
+    }
 }
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([self.reminderTextView.text isEqualToString:@"Write a bio..."]) {
+        self.reminderTextView.text = @"";
+        self.reminderTextView.textColor = [UIColor blackColor];
+    }
+    [self.reminderTextView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([self.reminderTextView.text isEqualToString:@""]) {
+        self.reminderTextView.text = @"Write a bio...";
+        self.reminderTextView.textColor = [UIColor lightGrayColor];
+    }
+    [self.reminderTextView resignFirstResponder];
+}
+
 
 - (IBAction)didPressAdd:(id)sender {
     // Check if fields are empty OR invalid
