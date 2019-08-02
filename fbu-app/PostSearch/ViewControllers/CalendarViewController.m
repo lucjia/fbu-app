@@ -34,7 +34,7 @@
     
     // Table view instance variables
     UITableView *tableView;
-    NSMutableArray *eventsForSelectedDay;
+    NSDictionary *eventsForSelectedDay;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -251,6 +251,7 @@
     // [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
+    [tableView reloadData];
 }
 
 
