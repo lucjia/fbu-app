@@ -16,7 +16,7 @@
 
 @interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     // different way of declaring property
-    NSArray *filteredResults;
+    NSMutableArray *filteredResults;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

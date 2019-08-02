@@ -624,33 +624,56 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="84" id="2Ef-yJ-rGi">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KeyCell" rowHeight="84" id="2Ef-yJ-rGi" customClass="KeyCell">
                                         <rect key="frame" x="0.0" y="28" width="312" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Ef-yJ-rGi" id="AM3-Qd-0gF">
                                             <rect key="frame" x="0.0" y="0.0" width="312" height="83.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🍃🍃🍃" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofr-4J-Lmi">
-                                                    <rect key="frame" x="68" y="31" width="69" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofr-4J-Lmi">
+                                                    <rect key="frame" x="20" y="21" width="46" height="42"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="46" id="JVf-XQ-4Sl"/>
+                                                        <constraint firstAttribute="height" constant="42" id="zo6-ZI-4dp"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQ3-5E-78R">
+                                                    <rect key="frame" x="74" y="31.5" width="222" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="OQ3-5E-78R" firstAttribute="centerY" secondItem="Ofr-4J-Lmi" secondAttribute="centerY" id="Iot-PU-hhb"/>
+                                                <constraint firstItem="OQ3-5E-78R" firstAttribute="leading" secondItem="Ofr-4J-Lmi" secondAttribute="trailing" constant="8" id="Muw-4n-iUW"/>
+                                                <constraint firstItem="Ofr-4J-Lmi" firstAttribute="leading" secondItem="AM3-Qd-0gF" secondAttribute="leading" constant="20" id="XgW-70-mBA"/>
+                                                <constraint firstAttribute="trailing" secondItem="OQ3-5E-78R" secondAttribute="trailing" constant="16" id="h9n-pt-hRr"/>
+                                                <constraint firstItem="Ofr-4J-Lmi" firstAttribute="centerY" secondItem="AM3-Qd-0gF" secondAttribute="centerY" id="qg6-aB-SdB"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="emojiLabel" destination="Ofr-4J-Lmi" id="IJo-e7-tuF"/>
+                                            <outlet property="label" destination="OQ3-5E-78R" id="uir-Gz-HHb"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="KLn-hQ-czN"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="EKE-JT-2Ob" appends="YES" id="bht-Z7-DVa"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="uxh-xA-NNd" id="w5Q-vd-PGo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cXe-m0-DT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="EKE-JT-2Ob">
