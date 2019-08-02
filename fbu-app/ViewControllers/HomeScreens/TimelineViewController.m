@@ -18,6 +18,9 @@
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource, RoommateCellDelegate>
+{
+    Persona *currentPersona;
+}
 
 @property (strong, nonatomic) NSArray *userArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -35,8 +38,8 @@
     self.tableView.delegate = self;
     
     
-    Persona *persona = [PFUser currentUser][@"persona"];
-    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+    currentPersona = [PFUser currentUser][@"persona"];
+    [currentPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if (object) {
             [self fetchUserTimelineWithPersona:(Persona *)object];
         }
@@ -44,10 +47,13 @@
     
     // Refresh control for "pull to refresh"
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(fetchUserTimelineWithPersona:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
+- (void)refreshView {
+    [self fetchUserTimelineWithPersona:currentPersona];
+}
 
 - (void) fetchUserTimelineWithPersona:(Persona *)persona {
     // construct query
@@ -63,7 +69,13 @@
     
     PFGeoPoint *userGeoPoint = [persona objectForKey:@"geoPoint"];
     // limit to users that are near current user
-    [query whereKey:@"geoPoint" nearGeoPoint:userGeoPoint withinMiles:12.0];
+    double radius;
+    if ([[persona objectForKey:@"radius"] doubleValue]) {
+        radius = [[persona objectForKey:@"radius"] doubleValue];
+    } else {
+        radius = 12.0;
+    }
+    [query whereKey:@"geoPoint" nearGeoPoint:userGeoPoint withinMiles:radius];
     
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"firstName"];

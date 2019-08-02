@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray *receivedReminderArrayDates;
 @property (strong, nonatomic) NSArray *receivedReminderArrayNoDates;
 @property (strong, nonatomic) NSArray *receivedReminderArrayTotal;
+@property (assign, nonatomic) NSInteger segmentIndex;
 
 @end
 

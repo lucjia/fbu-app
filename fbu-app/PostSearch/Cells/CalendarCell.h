@@ -12,7 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CalendarCell : UICollectionViewCell
 
-- (void)initDateLabelInCell:(NSUInteger)date;
+- (void)initDateLabelInCell:(NSUInteger)date newLabel:(BOOL)label;
+- (void)setCurrentDayTextColor;
+- (void)drawCurrentDayCircle;
+- (void)drawEventCircle;
 
 @end
 

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RuleCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *ruleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
 
 @end
 

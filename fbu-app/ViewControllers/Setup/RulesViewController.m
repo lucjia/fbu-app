@@ -13,9 +13,12 @@
 
 @interface RulesViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *rules;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *rules;
 @property (strong, nonatomic) House *house;
+@property (weak, nonatomic) IBOutlet UITextField *ruleField;
+- (IBAction)tapAddRule:(id)sender;
 
 @end
 
@@ -24,9 +27,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    [self reloadView];
+    
+    self.tableView.tableFooterView = [[UIView alloc]
+                                      initWithFrame:CGRectZero];
+}
+
+- (void) reloadView {
     [self fetchHouse];
     [self fetchRules];
-    [self initTableView];
+    [self.tableView reloadData];
 }
 
 
@@ -42,32 +55,13 @@
     self.rules = [self.house objectForKey:@"rules"];
 }
 
-- (void)initViewController {
-    UIViewController * timelineViewController = [[UIViewController alloc] init];
-    [self presentViewController:timelineViewController animated:YES completion:nil];
-}
-
-- (void)initTableView {
-    
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    
-    [self.tableView registerClass:[RuleCell class] forCellReuseIdentifier:@"RuleCell"];
-    
-    [self.view addSubview:self.tableView];
-}
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    static NSString *cellIdentifier = @"RuleCell";
     RuleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RuleCell"];
-    
-    cell = [[RuleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    
+        
     cell.ruleLabel.text = self.rules[indexPath.row];
-    
+    cell.numberLabel.text = [NSString stringWithFormat: @"%ld", (long)(indexPath.row+1)];
     return cell;
 }
 
@@ -75,6 +69,22 @@
     return self.rules.count;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.rules removeObjectAtIndex:indexPath.row];
+        [self reloadView];
+    }
+}
 
+- (IBAction)tapAddRule:(id)sender {
+    [self.house addUniqueObject:self.ruleField.text forKey:@"rules"];
+    [self.house saveInBackground];
+    [self fetchRules];
+    [self.ruleField setText:@""];
+    [self.tableView reloadData];
+}
 @end

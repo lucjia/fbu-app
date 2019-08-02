@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "Parse/Parse.h"
 #import "Persona.h"
+#import "Event.h"
+
+@class Event;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,12 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface House : PFObject<PFSubclassing>
 
+@property (strong, nonatomic) NSMutableArray *events;
 
 + (void)createHouse:(Persona *)persona;
 - (void)addToHouse:(Persona *)persona;
 - (void)removeFromHouse:(Persona *)persona;
 + (House *)getHouse:(Persona *)persona;
 - (void) deleteHouse;
+- (void)addEventToHouse:(Event *)event;
 
 @end
 

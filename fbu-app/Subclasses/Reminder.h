@@ -5,6 +5,7 @@
 //  Created by lucjia on 7/23/19.
 //  Copyright © 2019 lucjia. All rights reserved.
 //
+//
 
 #import <Parse/Parse.h>
 #import "Persona.h"
@@ -19,9 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSDate *reminderSentDate;
 @property (strong, nonatomic) NSDate *reminderDueDate;
 @property (strong, nonatomic) NSString *dueDateString;
+@property (assign, nonatomic) bool completed;
+@property (assign, nonatomic) bool lockEditing;
 
 // Make sure this is for the Persona
-+ (void) createReminder:(Persona *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate dueDateString:(NSString *)dueDateString withCompletion:(PFBooleanResultBlock _Nullable)completion;
++ (void) createReminder:(Persona *)receiver text:(NSString *)text dueDate:(NSDate *)dueDate dueDateString:(NSString *)dueDateString lockEditing:(BOOL)lock withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

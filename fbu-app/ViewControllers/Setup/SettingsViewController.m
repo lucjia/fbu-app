@@ -22,11 +22,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UIButton *userPreferencesButton;
 @property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
+@property (weak, nonatomic) IBOutlet UITextField *radiusField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
-@property (weak, nonatomic) IBOutlet UIButton *changeBioButton;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIButton *logOutButton;
-@property (weak, nonatomic) IBOutlet UIButton *featuresButton;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
@@ -36,6 +35,7 @@
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) PFGeoPoint *location;
+@property (strong, nonatomic) NSNumber *radius;
 
 @end
 
@@ -52,10 +52,10 @@
     [self createChangeProfileButton];
     [self createFullNameField];
     [self createCityField];
+    [self createRadiusField];
     [self createUserPreferencesButton];
     [self createUserLocationButton];
     [self createUserBioTextView];
-    [self createChangeBioButton];
     [self createContinueButton];
     [self createLogOutButton];
 }
@@ -71,12 +71,10 @@
         NSData *imageData = data;
         self.profileImageView.image = [[UIImage alloc] initWithData:imageData];
     }];
-    if (self.profileImageView.image != nil) {
-        self.profileImage = self.profileImageView.image;
-    } else {
-        self.profileImage = [UIImage imageNamed:@"profileImage"];
+    if (self.profileImageView.image == nil) {
         self.profileImageView.image = [UIImage imageNamed:@"profileImage"];
     }
+    self.profileImage = self.profileImageView.image;
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
 }
 
@@ -106,6 +104,16 @@
     self.cityField.text = existingState;
 }
 
+- (void) createRadiusField {
+    self.radiusField.delegate = self;
+    self.radiusField.borderStyle = UITextBorderStyleRoundedRect;
+    self.radiusField.placeholder = @"Radius";
+    NSNumber *radius = [PFUser currentUser][@"persona"][@"radius"];
+    if (radius > 0) {
+        self.radiusField.text = [NSString stringWithFormat:@"%@", radius];
+    }
+}
+
 - (void) createUserPreferencesButton {
     self.userPreferencesButton.backgroundColor = [UIColor lightGrayColor];
     self.userPreferencesButton.tintColor = [UIColor whiteColor];
@@ -128,9 +136,9 @@
         self.bioTextView.text = @"Write a bio...";
         self.bioTextView.textColor = [UIColor lightGrayColor];
     }
-    self.bioTextView.layer.borderWidth = 1.5f;
-    self.bioTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.bioTextView.layer.cornerRadius = 6;
+    self.bioTextView.layer.borderWidth = 0.5f;
+    self.bioTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor];
+    self.bioTextView.layer.cornerRadius = 5;
     self.bioTextView.delegate = self;
     
     UIToolbar *keyboardToolbar = [[UIToolbar alloc] init];
@@ -143,14 +151,6 @@
                                       target:self action:@selector(yourTextViewDoneButtonPressed)];
     keyboardToolbar.items = @[flexBarButton, doneBarButton];
     self.bioTextView.inputAccessoryView = keyboardToolbar;
-}
-
-- (void) createChangeBioButton {
-    self.changeBioButton.backgroundColor = [UIColor lightGrayColor];
-    self.changeBioButton.tintColor = [UIColor whiteColor];
-    self.changeBioButton.layer.cornerRadius = 6;
-    self.changeBioButton.clipsToBounds = YES;
-    [self.changeBioButton addTarget:self action:@selector(setBio) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) createContinueButton {
@@ -322,7 +322,7 @@
     }
     self.location = [PFUser currentUser][@"persona"][@"geoPoint"];
     // set information in Persona
-    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.profileImage city:self.city state:self.state location:self.location withCompletion:nil];
+    [Persona createPersona:self.firstName lastName:self.lastName bio:self.bio profileImage:self.profileImage city:self.city state:self.state location:self.location radius:self.radius withCompletion:nil];
     [self performSegueWithIdentifier:@"toTimeline" sender:self];
 }
 
@@ -381,12 +381,34 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     
+    if (![self.radiusField.text isEqualToString:@""] && [[self.cityField.text componentsSeparatedByString:@", "] count] == 2) {
+        self.radius = @([self.radiusField.text intValue]);
+        [[PFUser currentUser][@"persona"] setObject:self.radius forKey:@"radius"];
+        [[PFUser currentUser][@"persona"] saveInBackground];
+    } else {
+        // Create alert
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid Radius"
+                                                                       message:@"Please enter an integer."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        // Create a dismiss action
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
     // Set bio
     if ([self.bioTextView.text isEqualToString:@"Write a bio..."] && self.bioTextView.textColor == [UIColor lightGrayColor]) {
         self.bio = @"";
     } else {
         self.bio = self.bioTextView.text;
     }
+    [self setBio];
 }
 
 - (void) logOut {
