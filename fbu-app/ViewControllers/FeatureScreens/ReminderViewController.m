@@ -12,6 +12,7 @@
 #import "ReminderDetailViewController.h"
 #import "CustomButton.h"
 #import "ProgressViewController.h"
+#import "UserNotifications/UserNotifications.h"
 #import "Parse/Parse.h"
 
 @interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (assign, nonatomic) BOOL isGrantedNotificationAccess;
 
 @end
 
@@ -50,6 +52,19 @@
     
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search for a reminder...";
+    
+    // Check for authorization for user interactions (notifications)
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound +UNAuthorizationOptionBadge)
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              // Enable or disable features based on authorization.
+                              if (granted) {
+                                  self.isGrantedNotificationAccess = @YES;
+                                  [self sendNotification];
+                              } else {
+                                  self.isGrantedNotificationAccess = @NO;
+                              }
+                          }];
 }
 
 - (void) fetchReminders {
@@ -259,6 +274,29 @@
                 [self.tableView reloadData];
             }
         }];
+    }
+}
+
+// Notifications
+- (void) sendNotification {
+    if (self.isGrantedNotificationAccess) {
+        // add notification code here
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+        content.title = @"Notification";
+        content.subtitle = @"From FBU App";
+        content.body = @"Notification for reminders";
+        content.categoryIdentifier = @"GENERAL";
+        content.sound = [UNNotificationSound defaultSound];
+        
+        // Configure the trigger for a local wakeup time.
+        NSDateComponents* date = [[NSDateComponents alloc] init];
+        date.hour = 15;
+        date.minute = 37;
+        UNCalendarNotificationTrigger* trigger = [UNCalendarNotificationTrigger
+                                                  triggerWithDateMatchingComponents:date repeats:NO];
+        
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"message" content:content trigger:trigger];
+        [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:request withCompletionHandler:nil];
     }
 }
 
