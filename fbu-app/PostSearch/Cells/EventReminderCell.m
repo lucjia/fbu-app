@@ -53,7 +53,7 @@ static NSDateFormatter *dateFormatter;
     NSString *endTime = [dateFormatter stringFromDate:event.eventEndDate];
     
     eventIntervalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45, self.frame.size.width, 50)];
-    eventIntervalLabel.text = [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
+    eventIntervalLabel.text = event.isAllDay ? @"All day" : [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
     
     [self.contentView addSubview:titleLabel];
     [self.contentView addSubview:locationLabel];
