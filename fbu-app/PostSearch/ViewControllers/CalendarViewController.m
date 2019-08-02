@@ -65,7 +65,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     
     [query whereKey:@"house" equalTo:[persona objectForKey:@"house"]];
-    [query orderByDescending:@"createdAt"];
+    [query orderByAscending:@"eventDate"];
     [query includeKey:@"title"];
     [query includeKey:@"memo"];
     [query includeKey:@"eventDate"];
@@ -313,7 +313,7 @@
 
 //initializes tableView underneath calendar
 - (void)initTableView {
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - calendarHeight) style:UITableViewStylePlain];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - (calendarHeight + calendarYPosition)) style:UITableViewStylePlain];
     [tableView setDataSource:self];
     [tableView setDelegate:self];
     
@@ -326,17 +326,26 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"EvemtReminderCell";
-
     EventReminderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
-    
-    if (!cell)
+    if (!cell) {
         cell = [[EventReminderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+    }
+    
+    [cell initCellWithEvent:eventsArray[indexPath.row]];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return eventsArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
 }
 
 @end
