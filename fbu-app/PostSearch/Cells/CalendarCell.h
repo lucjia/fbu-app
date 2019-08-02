@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCurrentDayTextColor;
 - (void)drawCurrentDayCircle;
 - (void)drawEventCircle;
+- (void)colorSelectedCell;
+- (void)decolorSelectedCell;
 
 @end
 
