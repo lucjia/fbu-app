@@ -952,7 +952,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "fbu-app/fbu-app.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+
 				DEVELOPMENT_TEAM = W2PUF8XW54;
+
 				INFOPLIST_FILE = "fbu-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -971,7 +973,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "fbu-app/fbu-app.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+        
 				DEVELOPMENT_TEAM = W2PUF8XW54;
+
 				INFOPLIST_FILE = "fbu-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
