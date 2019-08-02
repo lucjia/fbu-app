@@ -43,8 +43,8 @@
 
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
         
         [PFInstallation.currentInstallation setValue:PFUser.currentUser[@"username"] forKey:@"user"];
         [PFInstallation.currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
@@ -155,10 +155,8 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     [queryIncomplete findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             receivedReminders = reminders;
-            
-            for (Reminder *rem in receivedReminders) {
-                ReminderViewController *remVC = [[ReminderViewController alloc] init];
-                [remVC sendNotification];
+            ReminderViewController *remVC = [[ReminderViewController alloc] init];
+            [remVC sendNotification];
                 
 //                [PFCloud callFunctionInBackground:@"sendPushPlease"
 //                                       withParameters:@{}
@@ -169,7 +167,6 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 //                                                        NSLog(@"ERROR SENDING PUSH: %@",error.localizedDescription);
 //                                                    }
 //                                                }];
-            }
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
