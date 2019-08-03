@@ -33,6 +33,9 @@
 		774B123222E62954000764BD /* PlainRoomateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123122E62954000764BD /* PlainRoomateCell.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
+		77D6AD1022F3A82E00541502 /* HousemateBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D6AD0F22F3A82E00541502 /* HousemateBalanceCell.m */; };
+		77D6AD1322F3B76A00541502 /* Balance.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D6AD1222F3B76A00541502 /* Balance.m */; };
+		77D6AD1622F6331100541502 /* HouseBalancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D6AD1522F6331100541502 /* HouseBalancesViewController.m */; };
 		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
 		85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DBD22E62A59009AD717 /* CustomTextField.m */; };
 		85729DC122E62ED5009AD717 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC022E62ED5009AD717 /* CustomButton.m */; };
@@ -130,6 +133,12 @@
 		7794307F22DE7E2A00D9FDDA /* House.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = House.m; sourceTree = "<group>"; };
 		7794308122DE8F1A00D9FDDA /* RuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleCell.h; sourceTree = "<group>"; };
 		7794308222DE8F1A00D9FDDA /* RuleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuleCell.m; sourceTree = "<group>"; };
+		77D6AD0E22F3A82E00541502 /* HousemateBalanceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HousemateBalanceCell.h; sourceTree = "<group>"; };
+		77D6AD0F22F3A82E00541502 /* HousemateBalanceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HousemateBalanceCell.m; sourceTree = "<group>"; };
+		77D6AD1122F3B76A00541502 /* Balance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Balance.h; sourceTree = "<group>"; };
+		77D6AD1222F3B76A00541502 /* Balance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Balance.m; sourceTree = "<group>"; };
+		77D6AD1422F6331100541502 /* HouseBalancesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HouseBalancesViewController.h; sourceTree = "<group>"; };
+		77D6AD1522F6331100541502 /* HouseBalancesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HouseBalancesViewController.m; sourceTree = "<group>"; };
 		7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.debug.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.debug.xcconfig"; sourceTree = "<group>"; };
 		85729DB622E141B7009AD717 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		85729DB722E141B7009AD717 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
@@ -241,6 +250,8 @@
 				85CB80B022ECB44E0070AC4E /* CustomDatePicker.m */,
 				64678F8722EFA3FF00F75070 /* Event.h */,
 				64678F8822EFA3FF00F75070 /* Event.m */,
+				77D6AD1122F3B76A00541502 /* Balance.h */,
+				77D6AD1222F3B76A00541502 /* Balance.m */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -322,6 +333,8 @@
 				64678F8522EF9FA000F75070 /* CreateEventViewController.m */,
 				648B6BF122F2114B00DD87B0 /* EventLocationViewController.h */,
 				648B6BF222F2114B00DD87B0 /* EventLocationViewController.m */,
+				77D6AD1422F6331100541502 /* HouseBalancesViewController.h */,
+				77D6AD1522F6331100541502 /* HouseBalancesViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -331,6 +344,8 @@
 			children = (
 				645088D622EBA29F00319C93 /* CalendarCell.h */,
 				645088D722EBA29F00319C93 /* CalendarCell.m */,
+				77D6AD0E22F3A82E00541502 /* HousemateBalanceCell.h */,
+				77D6AD0F22F3A82E00541502 /* HousemateBalanceCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -721,11 +736,14 @@
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
 				85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */,
 				85CB80B122ECB44F0070AC4E /* CustomDatePicker.m in Sources */,
+				77D6AD1022F3A82E00541502 /* HousemateBalanceCell.m in Sources */,
 				64678F8922EFA3FF00F75070 /* Event.m in Sources */,
 				85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
+				77D6AD1322F3B76A00541502 /* Balance.m in Sources */,
 				85CB80A822EA5AD60070AC4E /* ReminderCell.m in Sources */,
 				85C5C0B922F26BC2001982F1 /* ProgressViewController.m in Sources */,
+				77D6AD1622F6331100541502 /* HouseBalancesViewController.m in Sources */,
 				64678F8622EF9FA000F75070 /* CreateEventViewController.m in Sources */,
 				85729DC122E62ED5009AD717 /* CustomButton.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,

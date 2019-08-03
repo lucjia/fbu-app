@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray *requestsSent; // by the user
 @property (strong, nonatomic) NSMutableArray *requestsReceived; // to the user
 @property (strong, nonatomic) NSMutableArray *acceptedRequests;
+@property (strong, nonatomic) NSMutableArray *balances;
 
 + (void) createPersonaUponRegistrationWithCompletion:(PFBooleanResultBlock _Nullable)completion;
 

@@ -42,6 +42,7 @@
                          @"📋 Reminders",
                          @"      📨 Sent Reminders",
                          @"      🌱 Progress",
+                         @"Finances",
                          @"⚙ Settings"];
 }
 
@@ -91,6 +92,16 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
         
         [viewController setSelectedIndex:1];
+        [currentController presentViewController:viewController animated:YES completion:nil];
+        
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Finances"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [viewController setSelectedIndex:2];
         [currentController presentViewController:viewController animated:YES completion:nil];
         
     // Reminder Subfeatures

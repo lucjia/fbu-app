@@ -120,6 +120,7 @@
     persona.requestsSent = [[NSMutableArray alloc] init];
     persona.requestsReceived = [[NSMutableArray alloc] init];
     persona.acceptedRequests = [[NSMutableArray alloc] init];
+    persona.balances = [[NSMutableArray alloc] init];
 }
   
 - (void)addToAcceptedRequests:(Persona *)persona {
