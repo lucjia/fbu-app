@@ -16,6 +16,7 @@
 		6429400322E277D600961F29 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400222E277D600961F29 /* RequestsViewController.m */; };
 		6429400622E2781200961F29 /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400522E2781200961F29 /* RequestCell.m */; };
 		644B15E522F3726200E4A60B /* EventReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 644B15E422F3726200E4A60B /* EventReminderCell.m */; };
+		644B15EB22F4FC6300E4A60B /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644B15EA22F4FC6300E4A60B /* EventDetailsViewController.m */; };
 		645088BF22EA788400319C93 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088BE22EA788400319C93 /* LeftViewController.m */; };
 		645088C322EA7B2800319C93 /* LeftViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088C222EA7B2800319C93 /* LeftViewCell.m */; };
 		645088C722EA827300319C93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645088C622EA827300319C93 /* MainViewController.m */; };
@@ -100,6 +101,8 @@
 		6429400522E2781200961F29 /* RequestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestCell.m; sourceTree = "<group>"; };
 		644B15E322F3726200E4A60B /* EventReminderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventReminderCell.h; sourceTree = "<group>"; };
 		644B15E422F3726200E4A60B /* EventReminderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventReminderCell.m; sourceTree = "<group>"; };
+		644B15E922F4FC6300E4A60B /* EventDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
+		644B15EA22F4FC6300E4A60B /* EventDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		645088BD22EA788400319C93 /* LeftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
 		645088BE22EA788400319C93 /* LeftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		645088C122EA7B2800319C93 /* LeftViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftViewCell.h; sourceTree = "<group>"; };
@@ -332,6 +335,8 @@
 				64678F8522EF9FA000F75070 /* CreateEventViewController.m */,
 				648B6BF122F2114B00DD87B0 /* EventLocationViewController.h */,
 				648B6BF222F2114B00DD87B0 /* EventLocationViewController.m */,
+				644B15E922F4FC6300E4A60B /* EventDetailsViewController.h */,
+				644B15EA22F4FC6300E4A60B /* EventDetailsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -753,6 +758,7 @@
 				85729DC122E62ED5009AD717 /* CustomButton.m in Sources */,
 				640603BA22DE94BB00C24301 /* User.m in Sources */,
 				644B15E522F3726200E4A60B /* EventReminderCell.m in Sources */,
+				644B15EB22F4FC6300E4A60B /* EventDetailsViewController.m in Sources */,
 				6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */,
 				7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,

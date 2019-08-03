@@ -12,6 +12,7 @@
 #import "Event.h"
 #import "CreateEventViewController.h"
 #import "EventReminderCell.h"
+#import "EventDetailsViewController.h"
 
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -269,12 +270,10 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
     UINavigationController *navigationController = [segue destinationViewController];
     CreateEventViewController *createEventViewController = (CreateEventViewController*)navigationController.topViewController;
     createEventViewController.delegate = self;
+
 }
 
 
@@ -408,6 +407,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Event *event = eventsForSelectedDay[indexPath.row];
+    
+    EventDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetailsViewController"];
+    viewController.event = event;
+    
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 @end
