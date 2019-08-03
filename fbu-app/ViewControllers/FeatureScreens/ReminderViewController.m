@@ -265,21 +265,60 @@
 }
 
 // Notifications
-- (void) sendNotification {
+- (void) queryForReminders {
+    // query for received reminders that you have not completed
+    PFQuery *queryIncomplete = [PFQuery queryWithClassName:@"Reminder"];
+    
+    [queryIncomplete includeKey:@"reminderSender"];
+    [queryIncomplete includeKey:@"reminderReceiver"];
+    [queryIncomplete includeKey:@"reminderText"];
+    [queryIncomplete includeKey:@"reminderDueDate"];
+    [queryIncomplete includeKey:@"completed"];
+    
+    [queryIncomplete whereKey:@"completed" equalTo:@NO];
+    
+    // query for reminders that are assigned to the current user
+    [queryIncomplete whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
+    [queryIncomplete findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+        if (reminders != nil) {
+            [self sendNotificationWithArray:reminders];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void) sendNotificationWithArray:(NSArray *)reminders {
     // add notification code here
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-    content.title = @"Notification";
-    content.subtitle = @"From FBU App";
-    content.body = @"You have x reminders for today!";
-    content.categoryIdentifier = @"GENERAL";
+    content.title = @"FBU App";
+    content.subtitle = [NSString stringWithFormat:@"%zd current reminders", reminders.count];
+    
+    NSString *contentBody = @"";
+    for (int i = 0; i < reminders.count; i++) {
+        NSString *sender = [reminders objectAtIndex:i][@"reminderSender"][@"firstName"];
+        contentBody = [contentBody stringByAppendingString:sender];
+        if (i < reminders.count - 2) {
+            contentBody = [contentBody stringByAppendingString:@", "];
+        } else if (i == reminders.count - 2) {
+            contentBody = [contentBody stringByAppendingString:@", and "];
+        }
+    }
+    content.body = [NSString stringWithFormat:@"You have not completed reminders from %@!", contentBody];
+    content.categoryIdentifier = @"TIMER_EXPIRED";
     content.sound = [UNNotificationSound defaultSound];
     
+    [self setReminderTriggerWithHour:9 minute:0 content:content];
+    [self setReminderTriggerWithHour:17 minute:0 content:content];
+}
+
+- (void) setReminderTriggerWithHour:(NSInteger)hr minute:(NSInteger)min content:(UNMutableNotificationContent *)content {
     // Configure the trigger for a local wakeup time.
     NSDateComponents* date = [[NSDateComponents alloc] init];
-    date.hour = 15;
-    date.minute = 58;
+    date.hour = hr;
+    date.minute = min;
     UNCalendarNotificationTrigger* trigger = [UNCalendarNotificationTrigger
-                                              triggerWithDateMatchingComponents:date repeats:YES];
+                                                     triggerWithDateMatchingComponents:date repeats:YES];
     
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"message" content:content trigger:trigger];
     [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:request withCompletionHandler:nil];

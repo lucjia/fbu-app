@@ -120,6 +120,9 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     NSLog( @"Handle push from background or closed" );
     // if you set a member variable in didReceiveRemoteNotification, you will know if this is from closed or background
     NSLog(@"%@", response.notification.request.content.userInfo);
+    
+    // Increment badge number
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -139,38 +142,8 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
         }
     }];
     
-    // query for received reminders that you have not completed
-    PFQuery *queryIncomplete = [PFQuery queryWithClassName:@"Reminder"];
-    
-    [queryIncomplete includeKey:@"reminderSender"];
-    [queryIncomplete includeKey:@"reminderReceiver"];
-    [queryIncomplete includeKey:@"reminderText"];
-    [queryIncomplete includeKey:@"reminderDueDate"];
-    [queryIncomplete includeKey:@"completed"];
-    
-    [queryIncomplete whereKey:@"completed" equalTo:@NO];
-    
-    // query for reminders that are assigned to the current user
-    [queryIncomplete whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
-    [queryIncomplete findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
-        if (reminders != nil) {
-            receivedReminders = reminders;
-            ReminderViewController *remVC = [[ReminderViewController alloc] init];
-            [remVC sendNotification];
-                
-//                [PFCloud callFunctionInBackground:@"sendPushPlease"
-//                                       withParameters:@{}
-//                                                block:^(id object, NSError *error) {
-//                                                    if (!error) {
-//                                                        NSLog(@"PUSH SENT");
-//                                                    }else{
-//                                                        NSLog(@"ERROR SENDING PUSH: %@",error.localizedDescription);
-//                                                    }
-//                                                }];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
+    ReminderViewController *reminderVC = [[ReminderViewController alloc] init];
+    [reminderVC queryForReminders];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -192,6 +165,8 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // Removes badge
+    application.applicationIconBadgeNumber = 0;
 }
 
 
