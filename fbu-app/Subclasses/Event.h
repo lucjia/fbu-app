@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) House *house; // house the event is associated with
 
 + (Event *) createEvent:(NSString *)title eventMemo:(NSString *)memo isAllDay:(BOOL)allDay eventLocation:(PFGeoPoint *)geo eventVenue:(NSString *)venue eventStartDate:(NSDate *)startDate eventEndDate:(NSDate *)endDate withCompletion:(PFBooleanResultBlock  _Nullable)completion;
+- (NSComparisonResult)compare:(id)other;
+- (BOOL)isDateBetweenEventStartAndEndDates:(NSDate *)date;
 
 @end
 

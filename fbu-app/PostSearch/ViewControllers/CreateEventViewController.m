@@ -8,6 +8,7 @@
 
 #import "CreateEventViewController.h"
 #import "EventLocationViewController.h"
+#import "DetailsViewController.h"
 #import "CustomDatePicker.h"
 #import "Event.h"
 
@@ -48,9 +49,25 @@
 }
 
 - (IBAction)didTapSaveEvent:(id)sender {
-    Event *event = [Event createEvent:self.titleTextField.text eventMemo:self.memoTextView.text isAllDay:self.allDaySwitch.isOn eventLocation:locationGeoPoint eventVenue:_eventLocationLabel.text eventStartDate:self.startDatePicker.date eventEndDate:self.endDatePicker.date withCompletion:nil];
-    [self.delegate didCreateEvent:event];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([self checkMinimumRequirements]){
+        Event *event = [Event createEvent:self.titleTextField.text eventMemo:self.memoTextView.text isAllDay:self.allDaySwitch.isOn eventLocation:locationGeoPoint eventVenue:_eventLocationLabel.text eventStartDate:self.startDatePicker.date eventEndDate:self.endDatePicker.date withCompletion:nil];
+        [self.delegate didCreateEvent:event];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (BOOL)checkMinimumRequirements {
+    BOOL canCreateEvent = YES;
+    if (![self.titleTextField hasText]){
+        [DetailsViewController createAlertController:@"No Title" message:@"Please enter a title" sender:self];
+        canCreateEvent = NO;
+    }
+    if ([self.startDatePicker.date compare:self.endDatePicker.date] == 1 || [self.startDatePicker.date compare:self.endDatePicker.date] == 0) {
+        [DetailsViewController createAlertController:@"Invalid Dates" message:@"Please try again" sender:self];
+        canCreateEvent = NO;
+    }
+    
+    return canCreateEvent;
 }
 
 - (void) showSelectedDate {
