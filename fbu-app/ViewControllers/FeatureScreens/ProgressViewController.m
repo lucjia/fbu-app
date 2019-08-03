@@ -9,15 +9,23 @@
 #import "ProgressViewController.h"
 #import "ReminderViewController.h"
 #import "Parse/Parse.h"
+#import "Persona.h"
 
 @interface ProgressViewController () {
     NSInteger completedCount;
     NSInteger overdueCount;
+    
+    NSInteger houseCompletedCount;
+    NSInteger houseOverdueCount;
+    
+    NSArray *housemates;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *yourProgressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yourOverdueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *houseProgressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *houseOverdueLabel;
 @property (weak, nonatomic) IBOutlet UIButton *keyButton;
 
 @end
@@ -29,8 +37,12 @@
     
     completedCount = 0;
     overdueCount = 0;
+    houseCompletedCount = 0;
+    houseOverdueCount = 0;
+    housemates = [[NSArray alloc] init];
     
     [self setYourProgress];
+    [self findHousematesAndSetProgress];
 }
 
 - (IBAction)didPressBack:(id)sender {
@@ -60,67 +72,148 @@
     [queryCompleted findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             completedCount = [reminders count];
-            
-            NSString *progressText;
-            if (completedCount == 0) {
-                progressText = @"No completed reminders!";
-            } else if (completedCount < 5) {
-                progressText = @"🍃";
-            } else if (completedCount >= 5) {
-                progressText = @"🌱";
-                if (completedCount >= 10) {
-                    progressText = [progressText stringByAppendingString:@"🌿"];
-                    if (completedCount >= 15) {
-                        progressText = [progressText stringByAppendingString:@"🌷"];
-                        if (completedCount >= 20) {
-                            progressText = [progressText stringByAppendingString:@"🌹"];
-                        }
-                    }
-                }
-            }
-            self.yourProgressLabel.text = progressText;
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-            self.yourProgressLabel.text = @"No data!";
+            [self setYourCompletedLabels];
         }
     }];
     
     // query for reminders that you've received that are overdue
-    PFQuery *query = [PFQuery queryWithClassName:@"Reminder"];
+    PFQuery *queryOverdue = [PFQuery queryWithClassName:@"Reminder"];
     
-    [query includeKey:@"reminderReceiver"];
-    [query includeKey:@"completed"];
+    [queryOverdue includeKey:@"reminderReceiver"];
+    [queryOverdue includeKey:@"completed"];
     
-    [query whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
-    [query whereKey:@"completed" equalTo:@NO];
+    [queryOverdue whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
+    [queryOverdue whereKey:@"completed" equalTo:@NO];
     // checks if overdue
-    [query whereKey:@"reminderDueDate" lessThan:[NSDate date]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+    [queryOverdue whereKey:@"reminderDueDate" lessThan:[NSDate date]];
+    [queryOverdue findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             overdueCount = [reminders count];
-            
-            NSString *overdueText = @"";
-            if (overdueCount > 0) {
-                for (int i = 0; i < overdueCount; i++) {
-                    overdueText = [overdueText stringByAppendingString:@"🐛"];
-                }
-                self.yourOverdueLabel.text = overdueText;
-            } else {
-                self.yourOverdueLabel.text = @"🐝";
-            }
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-            self.yourOverdueLabel.text = @"No data!";
+            [self setYourOverdueLabels];
         }
     }];
 }
 
+- (void) setYourCompletedLabels {
+    NSString *progressText;
+    if (completedCount == 0) {
+        progressText = @"No completed reminders!";
+    } else if (completedCount < 5) {
+        progressText = @"🍃";
+    } else if (completedCount >= 5) {
+        progressText = @"🌱";
+        if (completedCount >= 10) {
+            progressText = [progressText stringByAppendingString:@"🌿"];
+            if (completedCount >= 15) {
+                progressText = [progressText stringByAppendingString:@"🌷"];
+                if (completedCount >= 20) {
+                    progressText = [progressText stringByAppendingString:@"🌹"];
+                }
+            }
+        }
+        self.yourProgressLabel.text = progressText;
+    } else {
+        self.yourProgressLabel.text = @"No data!";
+    }
+}
+     
+ - (void) setYourOverdueLabels {
+     NSString *overdueText = @"";
+     if (overdueCount > 0) {
+         for (int i = 0; i < overdueCount; i++) {
+             overdueText = [overdueText stringByAppendingString:@"🐛"];
+         }
+         self.yourOverdueLabel.text = overdueText;
+     } else {
+         self.yourOverdueLabel.text = @"🐝";
+     }
+ }
+
 // HOUSE PROGRESS
-// if they have collectively completed house * 5 reminders, they get a rosette
-// if they have collectively completed house * 10 reminders, they get a blossom
+// if they have collectively completed house * 5 reminders, they get a blossom
+// if they have collectively completed house * 10 reminders, they get a rosette
 // if they have collectively completed house * 15 reminders, they get a hibiscus
 // if they have collectively completed house * 20 reminders, they get a sunflower
 // if they have house * 5 overdue reminders, they get a wilted flower
+
+- (void) setHouseProgress {
+    PFQuery *queryHouseCompleted = [PFQuery queryWithClassName:@"Reminder"];
+    
+    [queryHouseCompleted includeKey:@"reminderReceiver"];
+    [queryHouseCompleted includeKey:@"completed"];
+    
+    [queryHouseCompleted whereKey:@"reminderReceiver" containedIn:housemates];
+    [queryHouseCompleted whereKey:@"completed" equalTo:@YES];
+    [queryHouseCompleted findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+        if (reminders != nil) {
+            houseCompletedCount = [reminders count];
+            [self setHouseCompletedLabels];
+        }
+    }];
+    
+    // query for reminders that you've received that are overdue
+    PFQuery *queryHouseOverdue = [PFQuery queryWithClassName:@"Reminder"];
+    
+    [queryHouseOverdue includeKey:@"reminderReceiver"];
+    [queryHouseOverdue includeKey:@"completed"];
+    
+    [queryHouseOverdue whereKey:@"reminderReceiver" containedIn:housemates];
+    [queryHouseOverdue whereKey:@"completed" equalTo:@NO];
+    // checks if overdue
+    [queryHouseOverdue whereKey:@"reminderDueDate" lessThan:[NSDate date]];
+    [queryHouseOverdue findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
+        if (reminders != nil) {
+            houseOverdueCount = [reminders count];
+            [self setHouseOverdueLabels];
+        }
+    }];
+}
+
+- (void) setHouseCompletedLabels {
+    NSString *progressText;
+    if (completedCount == 0) {
+        progressText = @"No completed reminders!";
+    } else if (completedCount < 5) {
+        progressText = @"🍃";
+    } else if (completedCount >= 5) {
+        progressText = @"🌼";
+        if (completedCount >= 10) {
+            progressText = [progressText stringByAppendingString:@"🏵"];
+            if (completedCount >= 15) {
+                progressText = [progressText stringByAppendingString:@"🌺"];
+                if (completedCount >= 20) {
+                    progressText = [progressText stringByAppendingString:@"🌻"];
+                }
+            }
+        }
+        self.yourProgressLabel.text = progressText;
+    } else {
+        self.yourProgressLabel.text = @"No data!";
+    }
+}
+
+- (void) setHouseOverdueLabels {
+    NSString *overdueText = @"";
+    if (overdueCount > 5) {
+        for (int i = 0; i < overdueCount / 5; i++) {
+            overdueText = [overdueText stringByAppendingString:@"🥀"];
+        }
+        self.yourOverdueLabel.text = overdueText;
+    } else {
+        self.yourOverdueLabel.text = @"🐝";
+    }
+}
+
+- (void) findHousematesAndSetProgress {
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [persona objectForKey:@"house"];
+        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            housemates = [house objectForKey:@"housemates"];
+            [self setHouseProgress];
+        }];
+    }];
+}
 
 /*
 #pragma mark - Navigation

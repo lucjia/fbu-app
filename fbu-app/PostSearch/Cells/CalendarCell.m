@@ -8,12 +8,6 @@
 
 #import "CalendarCell.h"
 
-@interface CalendarCell()
-
-@property (strong, nonatomic) UILabel *dateLabel;
-
-@end
-
 @implementation CalendarCell
 
 - (void)initDateLabelInCell:(NSUInteger)date newLabel:(BOOL)label {
@@ -45,6 +39,16 @@
 
 - (void)drawEventCircle {
     [self drawCircleForCalendar:20 verticalPosition:10 circleColor:[UIColor blueColor]];
+}
+
+- (void)colorSelectedCell {
+    self.layer.borderWidth = 2.0;
+    self.layer.borderColor = [[UIColor colorWithRed:66/255.0 green:245/255.0 blue:152/255.0 alpha:1] CGColor];
+}
+
+- (void)decolorSelectedCell {
+    self.layer.borderWidth = 2.0;
+    self.layer.borderColor = [[UIColor clearColor] CGColor];
 }
 
 @end
