@@ -33,8 +33,8 @@
     if (newEvent.isAllDay) {
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *comps = [calendar components:NSCalendarUnitDay |
-                                                      NSCalendarUnitMonth |
-                                                      NSCalendarUnitYear fromDate:startDate];
+                                                       NSCalendarUnitMonth |
+                                                       NSCalendarUnitYear fromDate:startDate];
         
         [comps setHour:0];
         
@@ -80,5 +80,20 @@
     return [self.eventDate compare:other.eventDate];
 }
 
+- (BOOL)isDateBetweenEventStartAndEndDates:(NSDate *)date {
+    return [Event date:date isBetweenDate:self.eventDate andDate:self.eventEndDate];
+}
+
++ (BOOL)date:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate {
+    if ([date compare:beginDate] == NSOrderedAscending) {
+        return NO;
+    }
+    
+    if ([date compare:endDate] == NSOrderedDescending) {
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

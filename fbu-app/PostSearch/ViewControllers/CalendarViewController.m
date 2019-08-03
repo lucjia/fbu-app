@@ -30,12 +30,12 @@
     CalendarCell *selectedCell; // the cell the user has most recently tapped
     double calendarHeight;
     double calendarYPosition;
-    BOOL addPaths;
-    BOOL isOnSameDay;
+    BOOL addPaths; // should index paths of cells continue to be added to dayIndexPaths
+    BOOL isOnSameDay; // are two dates on the same aay
     
     // Table view instance variables
     UITableView *tableView;
-    NSArray *eventsForSelectedDay;
+    NSArray *eventsForSelectedDay; // events that occur on the most recently tapped cell
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -73,8 +73,6 @@
     [query includeKey:@"eventDate"];
     [query includeKey:@"isAllDay"];
     [query includeKey:@"house"];
-    
-    query.limit = 20;
     
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
@@ -209,19 +207,20 @@
     [components setYear:year];
     [components setMonth:month];
     [components setDay:day];
+    [components setHour:0];
     return [calendar dateFromComponents:components];
 }
 
 // checks if array contains an event on the same day as date
 - (void)doesArrayContainDateOnSameDay:(NSDate *)date forCell:(CalendarCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row - weekday + 2 != 0) {
+    if (indexPath.row - weekday + 2 > 0 && indexPath.row - weekday + 2 < 32) {
         // the check is made on a thread in the background in order to avoid blocking the main thread from running
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.9), ^{
             // switch to a background thread and perform your expensive operation
             for (int i = 0; i < self->eventsArray.count; i++) {
                 // object for is is SYNCHRONOUS
-                NSDate *event = [self->eventsArray[i] objectForKey:@"eventDate"];
-                if ([self->calendar isDate:date inSameDayAsDate:event]) {
+                NSDate *eventStart = [self->eventsArray[i] objectForKey:@"eventDate"];
+                if ([self->calendar isDate:date inSameDayAsDate:eventStart] || [self->eventsArray[i] isDateBetweenEventStartAndEndDates:date]) {
                     self->isOnSameDay = YES;
                     break;
                 } else {
@@ -258,6 +257,11 @@
                                                  ascending:YES];
     eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
     [tableView reloadData];
+}
+
+- (int)daysInBetweenDates:(NSDate *)date otherDate:(NSDate *)secondDate {
+    NSTimeInterval secondsBetween = [secondDate timeIntervalSinceDate:date];
+    return secondsBetween / 86400;
 }
 
 
