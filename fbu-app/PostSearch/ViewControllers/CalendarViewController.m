@@ -27,6 +27,7 @@
     NSDate *currentDate; // today
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
+    CalendarCell *selectedCell; // the cell the user has most recently tapped
     double calendarHeight;
     double calendarYPosition;
     BOOL addPaths;
@@ -34,7 +35,7 @@
     
     // Table view instance variables
     UITableView *tableView;
-    NSMutableArray *eventsForSelectedDay;
+    NSArray *eventsForSelectedDay;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -251,6 +252,12 @@
     // [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
+    // sorts the array by eventDate in order to maintain order
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
+                                                 ascending:YES];
+    eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
+    [tableView reloadData];
 }
 
 
@@ -315,14 +322,22 @@
     return [self numberDaysInMonthFromDate:[NSDate date]] + (weekday - 1);
 }
 
+// called when a CalendarCell is tapped
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    CalendarCell* cell = (CalendarCell *)[collectionView  cellForItemAtIndexPath:indexPath];
-    [cell colorSelectedCell];
+    selectedCell = (CalendarCell *)[collectionView  cellForItemAtIndexPath:indexPath];
+    [selectedCell colorSelectedCell];
+    [self filterArrayForSelectedDate];
+    if (eventsForSelectedDay > 0) {
+        [tableView setHidden:NO];
+        [self initTableView];
+    } else {
+        [tableView setHidden:YES];
+    }
 }
 
+// called when a different CalendarCell is tapped
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-    CalendarCell* cell = (CalendarCell *)[collectionView  cellForItemAtIndexPath:indexPath];
-    [cell decolorSelectedCell];
+    [selectedCell decolorSelectedCell];
 }
 
 /***********************************
@@ -331,15 +346,40 @@
 
 //initializes tableView underneath calendar
 - (void)initTableView {
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - (calendarHeight + calendarYPosition)) style:UITableViewStylePlain];
-    [tableView setDataSource:self];
-    [tableView setDelegate:self];
+    if (eventsForSelectedDay > 0) {
+        tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - (calendarHeight + calendarYPosition)) style:UITableViewStylePlain];
+        [tableView setDataSource:self];
+        [tableView setDelegate:self];
+        
+        [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
+        [tableView setShowsVerticalScrollIndicator:NO];
+        tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        tableView.rowHeight = UITableViewAutomaticDimension;
+        [self.view addSubview:tableView];
+    }
+}
+
+- (void)filterArrayForSelectedDate {
+    NSInteger day = [selectedCell.dateLabel.text intValue];
     
-    [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
-    [tableView setShowsVerticalScrollIndicator:NO];
-    tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    tableView.rowHeight = UITableViewAutomaticDimension;
-    [self.view addSubview:tableView];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:day];
+    [comps setMonth:currentMonth];
+    [comps setYear:currentYear];
+    [comps setHour:0];
+    NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventDate >= %@", date];
+    eventsForSelectedDay = [eventsArray filteredArrayUsingPredicate:predicate];
+    
+    [comps setDay:day + 1];
+    [comps setMonth:currentMonth];
+    [comps setYear:currentYear];
+    [comps setHour:0];
+    date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    
+    predicate = [NSPredicate predicateWithFormat:@"eventDate <= %@", date];
+    eventsForSelectedDay = [eventsForSelectedDay filteredArrayUsingPredicate:predicate];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -349,13 +389,13 @@
         cell = [[EventReminderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
     
-    [cell initCellWithEvent:eventsArray[indexPath.row]];
+    [cell initCellWithEvent:eventsForSelectedDay[indexPath.row]];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return eventsArray.count;
+    return eventsForSelectedDay.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

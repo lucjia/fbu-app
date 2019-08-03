@@ -8,12 +8,6 @@
 
 #import "CalendarCell.h"
 
-@interface CalendarCell()
-
-@property (strong, nonatomic) UILabel *dateLabel;
-
-@end
-
 @implementation CalendarCell
 
 - (void)initDateLabelInCell:(NSUInteger)date newLabel:(BOOL)label {

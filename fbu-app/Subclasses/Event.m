@@ -30,8 +30,25 @@
     newEvent.title = title;
     newEvent.memo = memo;
     newEvent.isAllDay = allDay;
-    newEvent.eventDate = startDate;
-    newEvent.eventEndDate = endDate;
+    if (newEvent.isAllDay) {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *comps = [calendar components:NSCalendarUnitDay |
+                                                      NSCalendarUnitMonth |
+                                                      NSCalendarUnitYear fromDate:startDate];
+        
+        [comps setHour:0];
+        
+        NSDate *date = [calendar dateFromComponents:comps];
+        newEvent.eventDate = date;
+        
+        [comps setHour:24];
+        
+        date = [calendar dateFromComponents:comps];
+        newEvent.eventEndDate = date;
+    } else {
+        newEvent.eventDate = startDate;
+        newEvent.eventEndDate = endDate;
+    }
     newEvent.location = geo;
     newEvent.venue = venue;
     
@@ -56,6 +73,11 @@
     });
     
     return newEvent;
+}
+
+- (NSComparisonResult)compare:(Event *)other {
+    //Event *otherEvent = (Event *)other;
+    return [self.eventDate compare:other.eventDate];
 }
 
 
