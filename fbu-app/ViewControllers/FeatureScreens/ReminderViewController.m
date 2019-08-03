@@ -301,6 +301,9 @@
         if (i < reminders.count - 2) {
             contentBody = [contentBody stringByAppendingString:@", "];
         } else if (i == reminders.count - 2) {
+            if (reminders.count == 2) {
+                contentBody = [contentBody stringByAppendingString:@" and "];
+            }
             contentBody = [contentBody stringByAppendingString:@", and "];
         }
     }
