@@ -36,9 +36,9 @@
 
 - (void) addToHouse: (Persona *) persona {
     
-    House *house = [House getHouse:persona];
     [self addUniqueObject:persona forKey:@"housemates"];
     [self saveInBackground];
+
     
     [persona setObject:self forKey:@"house"];
     [persona saveInBackground];
@@ -48,8 +48,8 @@
 - (void) removeFromHouse: (Persona *) persona {
     
     [self removeObject:persona forKey:@"housemates"];
-    [self saveInBackground];
-    
+    [self save];
+     
     [persona removeObjectForKey:@"house"];
     [persona saveInBackground];
 }
@@ -59,13 +59,13 @@
     for(Persona *housemate in housemates){
         [self removeFromHouse:housemate];
     }
-    [self delete];
+    [self deleteInBackground];
     
 }
 
 + (House *) getHouse: (Persona *) persona {
     House *house = [persona objectForKey:@"house"];
-    [house fetchIfNeeded];
+    [house fetchIfNeededInBackground];
     return house;
 }
 

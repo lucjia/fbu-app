@@ -30,8 +30,25 @@
     newEvent.title = title;
     newEvent.memo = memo;
     newEvent.isAllDay = allDay;
-    newEvent.eventDate = startDate;
-    newEvent.eventEndDate = endDate;
+    if (newEvent.isAllDay) {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *comps = [calendar components:NSCalendarUnitDay |
+                                                       NSCalendarUnitMonth |
+                                                       NSCalendarUnitYear fromDate:startDate];
+        
+        [comps setHour:0];
+        
+        NSDate *date = [calendar dateFromComponents:comps];
+        newEvent.eventDate = date;
+        
+        [comps setHour:24];
+        
+        date = [calendar dateFromComponents:comps];
+        newEvent.eventEndDate = date;
+    } else {
+        newEvent.eventDate = startDate;
+        newEvent.eventEndDate = endDate;
+    }
     newEvent.location = geo;
     newEvent.venue = venue;
     
@@ -58,5 +75,25 @@
     return newEvent;
 }
 
+- (NSComparisonResult)compare:(Event *)other {
+    //Event *otherEvent = (Event *)other;
+    return [self.eventDate compare:other.eventDate];
+}
+
+- (BOOL)isDateBetweenEventStartAndEndDates:(NSDate *)date {
+    return [Event date:date isBetweenDate:self.eventDate andDate:self.eventEndDate];
+}
+
++ (BOOL)date:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate {
+    if ([date compare:beginDate] == NSOrderedAscending) {
+        return NO;
+    }
+    
+    if ([date compare:endDate] == NSOrderedDescending) {
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

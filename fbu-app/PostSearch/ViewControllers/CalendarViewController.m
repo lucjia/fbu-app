@@ -12,6 +12,7 @@
 #import "Event.h"
 #import "CreateEventViewController.h"
 #import "EventReminderCell.h"
+#import "EventDetailsViewController.h"
 
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -27,13 +28,15 @@
     NSDate *currentDate; // today
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
+    CalendarCell *selectedCell; // the cell the user has most recently tapped
     double calendarHeight;
     double calendarYPosition;
-    BOOL addPaths;
-    BOOL isOnSameDay;
+    BOOL addPaths; // should index paths of cells continue to be added to dayIndexPaths
+    BOOL isOnSameDay; // are two dates on the same aay
     
     // Table view instance variables
     UITableView *tableView;
+    NSArray *eventsForSelectedDay; // events that occur on the most recently tapped cell
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -65,14 +68,12 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     
     [query whereKey:@"house" equalTo:[persona objectForKey:@"house"]];
-    [query orderByDescending:@"createdAt"];
+    [query orderByAscending:@"eventDate"];
     [query includeKey:@"title"];
     [query includeKey:@"memo"];
     [query includeKey:@"eventDate"];
     [query includeKey:@"isAllDay"];
     [query includeKey:@"house"];
-    
-    query.limit = 20;
     
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
@@ -207,19 +208,20 @@
     [components setYear:year];
     [components setMonth:month];
     [components setDay:day];
+    [components setHour:0];
     return [calendar dateFromComponents:components];
 }
 
 // checks if array contains an event on the same day as date
 - (void)doesArrayContainDateOnSameDay:(NSDate *)date forCell:(CalendarCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row - weekday + 2 != 0) {
+    if (indexPath.row - weekday + 2 > 0 && indexPath.row - weekday + 2 < 32) {
         // the check is made on a thread in the background in order to avoid blocking the main thread from running
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.9), ^{
             // switch to a background thread and perform your expensive operation
             for (int i = 0; i < self->eventsArray.count; i++) {
                 // object for is is SYNCHRONOUS
-                NSDate *event = [self->eventsArray[i] objectForKey:@"eventDate"];
-                if ([self->calendar isDate:date inSameDayAsDate:event]) {
+                NSDate *eventStart = [self->eventsArray[i] objectForKey:@"eventDate"];
+                if ([self->calendar isDate:date inSameDayAsDate:eventStart] || [self->eventsArray[i] isDateBetweenEventStartAndEndDates:date]) {
                     self->isOnSameDay = YES;
                     break;
                 } else {
@@ -250,6 +252,17 @@
     // [self fetchEvents];
     [self initCollectionView];
     [self initCalendar:[NSDate date]];
+    // sorts the array by eventDate in order to maintain order
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
+                                                 ascending:YES];
+    eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
+    [tableView reloadData];
+}
+
+- (int)daysInBetweenDates:(NSDate *)date otherDate:(NSDate *)secondDate {
+    NSTimeInterval secondsBetween = [secondDate timeIntervalSinceDate:date];
+    return secondsBetween / 86400;
 }
 
 
@@ -257,12 +270,10 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
     UINavigationController *navigationController = [segue destinationViewController];
     CreateEventViewController *createEventViewController = (CreateEventViewController*)navigationController.topViewController;
     createEventViewController.delegate = self;
+
 }
 
 
@@ -287,6 +298,14 @@
         }
     }
     
+    if (cell.selected) {
+        [cell colorSelectedCell]; // highlight selection
+    }
+    else
+    {
+        cell.backgroundColor = [UIColor clearColor]; // Default color
+    }
+    
     // adds date label to content view of cell
     
     [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:YES];
@@ -306,6 +325,23 @@
     return [self numberDaysInMonthFromDate:[NSDate date]] + (weekday - 1);
 }
 
+// called when a CalendarCell is tapped
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    selectedCell = (CalendarCell *)[collectionView  cellForItemAtIndexPath:indexPath];
+    [selectedCell colorSelectedCell];
+    [self filterArrayForSelectedDate];
+    if (eventsForSelectedDay > 0) {
+        [tableView setHidden:NO];
+        [self initTableView];
+    } else {
+        [tableView setHidden:YES];
+    }
+}
+
+// called when a different CalendarCell is tapped
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [selectedCell decolorSelectedCell];
+}
 
 /***********************************
  Table View of Reminders and Events
@@ -313,30 +349,73 @@
 
 //initializes tableView underneath calendar
 - (void)initTableView {
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - calendarHeight) style:UITableViewStylePlain];
-    [tableView setDataSource:self];
-    [tableView setDelegate:self];
+    if (eventsForSelectedDay > 0) {
+        tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - (calendarHeight + calendarYPosition)) style:UITableViewStylePlain];
+        [tableView setDataSource:self];
+        [tableView setDelegate:self];
+        
+        [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
+        [tableView setShowsVerticalScrollIndicator:NO];
+        tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        tableView.rowHeight = UITableViewAutomaticDimension;
+        [self.view addSubview:tableView];
+    }
+}
+
+- (void)filterArrayForSelectedDate {
+    NSInteger day = [selectedCell.dateLabel.text intValue];
     
-    [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
-    [tableView setShowsVerticalScrollIndicator:NO];
-    tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    tableView.rowHeight = UITableViewAutomaticDimension;
-    [self.view addSubview:tableView];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:day];
+    [comps setMonth:currentMonth];
+    [comps setYear:currentYear];
+    [comps setHour:0];
+    NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventDate >= %@", date];
+    eventsForSelectedDay = [eventsArray filteredArrayUsingPredicate:predicate];
+    
+    [comps setDay:day + 1];
+    [comps setMonth:currentMonth];
+    [comps setYear:currentYear];
+    [comps setHour:0];
+    date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    
+    predicate = [NSPredicate predicateWithFormat:@"eventDate <= %@", date];
+    eventsForSelectedDay = [eventsForSelectedDay filteredArrayUsingPredicate:predicate];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"EvemtReminderCell";
-
     EventReminderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
-    
-    if (!cell)
+    if (!cell) {
         cell = [[EventReminderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+    }
+    
+    [cell initCellWithEvent:eventsForSelectedDay[indexPath.row]];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return eventsArray.count;
+    return eventsForSelectedDay.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Event *event = eventsForSelectedDay[indexPath.row];
+    
+    EventDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetailsViewController"];
+    viewController.event = event;
+    
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 @end
