@@ -36,7 +36,7 @@
     
     // Table view instance variables
     UITableView *tableView;
-    NSArray *eventsForSelectedDay; // events that occur on the most recently tapped cell
+    NSMutableArray *eventsForSelectedDay; // events that occur on the most recently tapped cell
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -123,6 +123,7 @@
                                        NSCalendarUnitMonth |
                                        NSCalendarUnitDay |
                                        NSCalendarUnitWeekday fromDate:date];
+    
     currentMonth = [dateComponent month];
     currentDay = [dateComponent day];
     currentYear = [dateComponent year];
@@ -209,6 +210,7 @@
     [components setMonth:month];
     [components setDay:day];
     [components setHour:0];
+    
     return [calendar dateFromComponents:components];
 }
 
@@ -259,12 +261,6 @@
     eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
     [tableView reloadData];
 }
-
-- (int)daysInBetweenDates:(NSDate *)date otherDate:(NSDate *)secondDate {
-    NSTimeInterval secondsBetween = [secondDate timeIntervalSinceDate:date];
-    return secondsBetween / 86400;
-}
-
 
 #pragma mark - Navigation
 
@@ -373,7 +369,7 @@
     NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventDate >= %@", date];
-    eventsForSelectedDay = [eventsArray filteredArrayUsingPredicate:predicate];
+    eventsForSelectedDay = [NSMutableArray arrayWithArray:[eventsArray filteredArrayUsingPredicate:predicate]];
     
     [comps setDay:day + 1];
     [comps setMonth:currentMonth];
@@ -382,7 +378,21 @@
     date = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
     predicate = [NSPredicate predicateWithFormat:@"eventDate <= %@", date];
-    eventsForSelectedDay = [eventsForSelectedDay filteredArrayUsingPredicate:predicate];
+    eventsForSelectedDay = [NSMutableArray arrayWithArray:[eventsForSelectedDay filteredArrayUsingPredicate:predicate]];
+    
+    [comps setDay:day];
+    date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    
+    for (Event *event in eventsArray) {
+        if([event isDateBetweenEventStartAndEndDates:date]) {
+            [eventsForSelectedDay addObject:event];
+        }
+    }
+    
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
+                                                 ascending:YES];
+    eventsForSelectedDay = [NSMutableArray arrayWithArray:[eventsForSelectedDay sortedArrayUsingDescriptors:@[sortDescriptor]]];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
