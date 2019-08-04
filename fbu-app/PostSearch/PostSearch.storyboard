@@ -96,6 +96,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Calendar" id="Xg1-qj-R4g"/>
                     <navigationItem key="navigationItem" id="T3u-e2-Qel">
+                        <barButtonItem key="leftBarButtonItem" title="Left" id="HEv-hr-Z3s">
+                            <connections>
+                                <action selector="didTapPostLeftMenu:" destination="qB5-Kg-4Ob" id="Nka-9W-MDN"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+" id="sqk-es-GN9">
                             <connections>
                                 <segue destination="KKh-9I-YNv" kind="show" id="5xo-Ja-7tW"/>
@@ -295,7 +300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OuN-K2-ZYD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2534.7826086956525" y="517.63392857142856"/>
+            <point key="canvasLocation" x="338" y="518"/>
         </scene>
         <!--Reminders-->
         <scene sceneID="Dx6-Yl-0Ed">

@@ -13,6 +13,8 @@
 #import "CreateEventViewController.h"
 #import "EventReminderCell.h"
 #import "EventDetailsViewController.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -428,4 +430,7 @@
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
+- (IBAction)didTapPostLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
+}
 @end

@@ -849,10 +849,10 @@
             </objects>
             <point key="canvasLocation" x="-620.28985507246387" y="1368.75"/>
         </scene>
-        <!--Side Menu Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tfG-or-PZv">
             <objects>
-                <viewController storyboardIdentifier="SearchingSideMenuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uya-kf-udz" customClass="LGSideMenuController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchingSideMenuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uya-kf-udz" customClass="MainViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xOz-P3-Vvr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
