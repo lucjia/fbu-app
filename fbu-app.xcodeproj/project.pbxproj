@@ -346,10 +346,10 @@
 				64678F8522EF9FA000F75070 /* CreateEventViewController.m */,
 				648B6BF122F2114B00DD87B0 /* EventLocationViewController.h */,
 				648B6BF222F2114B00DD87B0 /* EventLocationViewController.m */,
-				77D6AD1422F6331100541502 /* HouseBalancesViewController.h */,
-				77D6AD1522F6331100541502 /* HouseBalancesViewController.m */,
 				644B15E922F4FC6300E4A60B /* EventDetailsViewController.h */,
 				644B15EA22F4FC6300E4A60B /* EventDetailsViewController.m */,
+				77D6AD1422F6331100541502 /* HouseBalancesViewController.h */,
+				77D6AD1522F6331100541502 /* HouseBalancesViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

@@ -11,12 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Balance : PFObject
+@interface Balance : PFObject<PFSubclassing>
 
 @property (strong, nonatomic) NSArray *housemates;
 @property (strong, nonatomic) NSNumber* total;
 
 + (Balance *) createBalance:(Persona *)housemateOne housemateTwo:(Persona *)housemateTwo totalBalance:(NSNumber *)total withCompletion:(PFBooleanResultBlock  _Nullable)completion;
+- (void) deleteBalance;
++ (Balance *) getBalance:(Persona *)housemateOne housemateTwo:(Persona *)housemateTwo;
 
 @end
 
