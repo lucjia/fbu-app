@@ -38,6 +38,10 @@
         [locationManager requestWhenInUseAuthorization];
 }
 
+- (IBAction)didTap:(id)sender {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)didPressPost:(id)sender {
     if (trackedLocations != nil) {
         currLocation = [[PFGeoPoint alloc] init];
