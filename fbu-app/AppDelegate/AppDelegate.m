@@ -44,7 +44,7 @@
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
         [PFInstallation.currentInstallation setValue:PFUser.currentUser[@"username"] forKey:@"user"];
         [PFInstallation.currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
