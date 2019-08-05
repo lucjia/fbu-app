@@ -39,6 +39,7 @@
     
     self.titlesArray = @[@"🏠 Create a House",
                          @"📜 House Rules",
+                         @"📌 Bulletin Board",
                          @"📅 Calendar",
                          @"📋 Reminders",
                          @"      📨 Sent Reminders",
@@ -75,6 +76,18 @@
         [currentController pushViewController:viewController animated:YES];
         
     // Features (Separate storyboard)
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"📌 Bulletin Board"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
+        
+        UITabBarController *rootView = (UITabBarController *)sideMenuController.rootViewController;
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [rootView setSelectedIndex:2];
+        [currentController presentViewController:sideMenuController animated:YES completion:nil];
+        
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"📅 Calendar"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
