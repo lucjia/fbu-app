@@ -11,6 +11,8 @@
 @interface LeftViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *postSearchTitleLabel;
+
 
 @end
 
@@ -29,6 +31,10 @@
 
 - (void)updateProperties:(NSString *)title {
     self.titleLabel.text = title;
+}
+
+- (void)updatePostSearchProperties:(NSString *)title {
+    self.postSearchTitleLabel.text = title;
 }
 
 @end
