@@ -49,6 +49,10 @@
 		85C5C0B922F26BC2001982F1 /* ProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0B822F26BC2001982F1 /* ProgressViewController.m */; };
 		85C5C0BC22F366CA001982F1 /* KeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0BB22F366CA001982F1 /* KeyViewController.m */; };
 		85C5C0C022F3AFF1001982F1 /* KeyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0BF22F3AFF1001982F1 /* KeyCell.m */; };
+		85C5C0C322F3C2F6001982F1 /* BulletinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0C222F3C2F6001982F1 /* BulletinViewController.m */; };
+		85C5C0C622F7F852001982F1 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0C522F7F852001982F1 /* PostCell.m */; };
+		85C5C0C922F80BE3001982F1 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0C822F80BE3001982F1 /* Post.m */; };
+		85C5C0CC22F81071001982F1 /* ComposePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C5C0CB22F81071001982F1 /* ComposePostViewController.m */; };
 		85CB809F22EA20000070AC4E /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB809E22EA20000070AC4E /* Persona.m */; };
 		85CB80A522EA4E010070AC4E /* ReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80A422EA4E010070AC4E /* ReminderViewController.m */; };
 		85CB80A822EA5AD60070AC4E /* ReminderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CB80A722EA5AD60070AC4E /* ReminderCell.m */; };
@@ -174,6 +178,14 @@
 		85C5C0BD22F37C93001982F1 /* fbu-app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "fbu-app.entitlements"; sourceTree = "<group>"; };
 		85C5C0BE22F3AFF1001982F1 /* KeyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyCell.h; sourceTree = "<group>"; };
 		85C5C0BF22F3AFF1001982F1 /* KeyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyCell.m; sourceTree = "<group>"; };
+		85C5C0C122F3C2F6001982F1 /* BulletinViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BulletinViewController.h; sourceTree = "<group>"; };
+		85C5C0C222F3C2F6001982F1 /* BulletinViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BulletinViewController.m; sourceTree = "<group>"; };
+		85C5C0C422F7F852001982F1 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
+		85C5C0C522F7F852001982F1 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
+		85C5C0C722F80BE3001982F1 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
+		85C5C0C822F80BE3001982F1 /* Post.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		85C5C0CA22F81071001982F1 /* ComposePostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposePostViewController.h; sourceTree = "<group>"; };
+		85C5C0CB22F81071001982F1 /* ComposePostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposePostViewController.m; sourceTree = "<group>"; };
 		85CB809E22EA20000070AC4E /* Persona.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		85CB80A022EA20340070AC4E /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
 		85CB80A322EA4E010070AC4E /* ReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderViewController.h; sourceTree = "<group>"; };
@@ -272,6 +284,8 @@
 				85CB80B022ECB44E0070AC4E /* CustomDatePicker.m */,
 				64678F8722EFA3FF00F75070 /* Event.h */,
 				64678F8822EFA3FF00F75070 /* Event.m */,
+				85C5C0C722F80BE3001982F1 /* Post.h */,
+				85C5C0C822F80BE3001982F1 /* Post.m */,
 				77D6AD1122F3B76A00541502 /* Balance.h */,
 				77D6AD1222F3B76A00541502 /* Balance.m */,
 				77DAB40822F6BE3A0000840C /* Bill.h */,
@@ -425,6 +439,8 @@
 				85CB80B322EFB12C0070AC4E /* UserCollectionCell.m */,
 				85C5C0BE22F3AFF1001982F1 /* KeyCell.h */,
 				85C5C0BF22F3AFF1001982F1 /* KeyCell.m */,
+				85C5C0C422F7F852001982F1 /* PostCell.h */,
+				85C5C0C522F7F852001982F1 /* PostCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -451,6 +467,10 @@
 				85C5C0B822F26BC2001982F1 /* ProgressViewController.m */,
 				85C5C0BA22F366CA001982F1 /* KeyViewController.h */,
 				85C5C0BB22F366CA001982F1 /* KeyViewController.m */,
+				85C5C0C122F3C2F6001982F1 /* BulletinViewController.h */,
+				85C5C0C222F3C2F6001982F1 /* BulletinViewController.m */,
+				85C5C0CA22F81071001982F1 /* ComposePostViewController.h */,
+				85C5C0CB22F81071001982F1 /* ComposePostViewController.m */,
 			);
 			path = FeatureScreens;
 			sourceTree = "<group>";
@@ -781,8 +801,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				85CB809F22EA20000070AC4E /* Persona.m in Sources */,
+				85C5C0CC22F81071001982F1 /* ComposePostViewController.m in Sources */,
 				85729DC422E652A7009AD717 /* CustomLabel.m in Sources */,
 				85E7A18122DF9217006C1F38 /* LogInViewController.m in Sources */,
+				85C5C0C622F7F852001982F1 /* PostCell.m in Sources */,
 				85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */,
 				85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */,
 				85CB80B122ECB44F0070AC4E /* CustomDatePicker.m in Sources */,
@@ -830,7 +852,9 @@
 				7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */,
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
+				85C5C0C922F80BE3001982F1 /* Post.m in Sources */,
 				85CB80B422EFB12C0070AC4E /* UserCollectionCell.m in Sources */,
+				85C5C0C322F3C2F6001982F1 /* BulletinViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
 				645088D822EBA29F00319C93 /* CalendarCell.m in Sources */,
 				85729DCA22E76EFA009AD717 /* Reminder.m in Sources */,
