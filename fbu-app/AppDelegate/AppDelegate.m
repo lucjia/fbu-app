@@ -15,12 +15,16 @@
 #import "TimelineViewController.h"
 #import "SettingsViewController.h"
 #import "House.h"
+#import "Reminder.h"
+#import "ReminderViewController.h"
 #import "UserNotifications/UserNotifications.h"
 @import GoogleMaps;
 @import GooglePlaces;
 
 
-@interface AppDelegate () <UIApplicationDelegate, UNUserNotificationCenterDelegate>
+@interface AppDelegate () <UIApplicationDelegate, UNUserNotificationCenterDelegate> {
+    NSArray *receivedReminders;
+}
 
 @end
 
@@ -39,8 +43,15 @@
 
     // Cache logged in user for a persisting user session
     if (PFUser.currentUser) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
+        
+        [PFInstallation.currentInstallation setValue:PFUser.currentUser[@"username"] forKey:@"user"];
+        [PFInstallation.currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"ERROR with NOTIFICATIONS in AppDelegate");
+            }
+        }];
     }
     
     // Notification center
@@ -53,12 +64,44 @@
                 [[UIApplication sharedApplication] registerForRemoteNotifications];
             });
             NSLog( @"Push registration success." );
+            
+            // to show actions on the push notifications
+            UNNotificationCategory* generalCategory = [UNNotificationCategory
+                                                       categoryWithIdentifier:@"GENERAL"
+                                                       actions:@[]
+                                                       intentIdentifiers:@[]
+                                                       options:UNNotificationCategoryOptionCustomDismissAction];
+            
+            // Create the custom actions for expired timer notifications.
+            UNNotificationAction* snoozeAction = [UNNotificationAction
+                                                  actionWithIdentifier:@"SNOOZE_ACTION"
+                                                  title:@"Snooze"
+                                                  options:UNNotificationActionOptionNone];
+            
+            UNNotificationAction* stopAction = [UNNotificationAction
+                                                actionWithIdentifier:@"STOP_ACTION"
+                                                title:@"Stop"
+                                                options:UNNotificationActionOptionForeground];
+            
+            // Create the category with the custom actions.
+            UNNotificationCategory* expiredCategory = [UNNotificationCategory
+                                                       categoryWithIdentifier:@"TIMER_EXPIRED"
+                                                       actions:@[snoozeAction, stopAction]
+                                                       intentIdentifiers:@[]
+                                                       options:UNNotificationCategoryOptionNone];
+            
+            // Register the notification categories.
+            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+            [center setNotificationCategories:[NSSet setWithObjects:generalCategory, expiredCategory,
+                                               nil]];
+            
         } else {
             NSLog( @"Push registration FAILED" );
             NSLog( @"ERROR: %@ - %@", error.localizedFailureReason, error.localizedDescription );
             NSLog( @"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
         }
     }];
+    
     return YES;
 }
 
@@ -67,6 +110,7 @@
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
     NSLog( @"Handle push from foreground" );
     // custom code to handle push while app is in the foreground
+    [PFPush handlePush:notification.request.content.userInfo];
     NSLog(@"%@", notification.request.content.userInfo);
 }
 
@@ -74,23 +118,33 @@
 didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void (^)(void))completionHandler {
     NSLog( @"Handle push from background or closed" );
-    // if you set a member variable in didReceiveRemoteNotification, you  will know if this is from closed or background
+    // if you set a member variable in didReceiveRemoteNotification, you will know if this is from closed or background
     NSLog(@"%@", response.notification.request.content.userInfo);
+    
+    // Increment badge number
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
 }
 
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
-    NSString * token = [NSString stringWithFormat:@"%@", deviceToken];
-    //Format token as you need:
-    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
-    token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
-    NSLog(@"deviceToken: %@", token);
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    PFInstallation *const installation = PFInstallation.currentInstallation;
+    // Add a user column to Parse's Installation object which holds a pointer to the user
+    installation[@"user"] = [PFUser currentUser][@"username"];
+    [installation setDeviceTokenFromData:deviceToken];
+    [installation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"ERROR with NOTIFICATIONS in AppDelegate");
+        } else {
+            [installation setValue:@[PFUser.currentUser[@"username"]] forKey:@"channels"];
+            [installation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                }
+            }];
+        }
+    }];
+    
+    ReminderViewController *reminderVC = [[ReminderViewController alloc] init];
+    [reminderVC queryForReminders];
 }
-
-//- (void)userNotificationCenter:(UNUserNotificationCenter *)center
-//   openSettingsForNotification:(UNNotification *)notification {
-//    Open notification settings screen in app
-//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -111,12 +165,13 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // Removes badge
+    application.applicationIconBadgeNumber = 0;
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 
 @end
