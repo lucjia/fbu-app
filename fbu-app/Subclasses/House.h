@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface House : PFObject<PFSubclassing>
 
+@property (strong, nonatomic) NSMutableArray *housemates;
+@property (strong, nonatomic) NSMutableArray *rules;
 @property (strong, nonatomic) NSMutableArray *events;
 
 + (void)createHouse:(Persona *)persona;

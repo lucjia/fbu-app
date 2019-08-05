@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray *receivedReminderArrayTotal;
 @property (assign, nonatomic) NSInteger segmentIndex;
 
+- (void) queryForReminders;
+
 @end
 
 NS_ASSUME_NONNULL_END
