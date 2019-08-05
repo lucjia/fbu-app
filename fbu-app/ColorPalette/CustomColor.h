@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIColor *)lightyellowGreen:(CGFloat)colorAlpha;
 + (UIColor *)lightGreen:(CGFloat)colorAlpha;
-+ (UIColor *)Green:(CGFloat)colorAlpha;
-+ (UIColor *)DarkGreen:(CGFloat)colorAlpha;
++ (UIColor *)green:(CGFloat)colorAlpha;
++ (UIColor *)darkGreen:(CGFloat)colorAlpha;
 
 @end
 

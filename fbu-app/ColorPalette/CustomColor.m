@@ -18,11 +18,11 @@
     return [UIColor colorWithRed:(198 / 255.0) green:(277 / 255.0) blue:(119 / 255.0) alpha:colorAlpha];
 }
 
-+ (UIColor *)Green:(CGFloat)colorAlpha {
++ (UIColor *)green:(CGFloat)colorAlpha {
     return [UIColor colorWithRed:(114 / 255.0) green:(157 / 255.0) blue:(57 / 255.0) alpha:colorAlpha];
 }
 
-+ (UIColor *)DarkGreen:(CGFloat)colorAlpha {
++ (UIColor *)darkGreen:(CGFloat)colorAlpha {
     return [UIColor colorWithRed:(54 / 255.0) green:(98 / 255.0) blue:(43 / 255.0) alpha:colorAlpha];
 }
 
