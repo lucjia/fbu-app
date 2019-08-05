@@ -32,6 +32,7 @@
 @dynamic requestsSent;
 @dynamic requestsReceived;
 @dynamic acceptedRequests;
+@dynamic balances;
 
 + (nonnull NSString *)parseClassName {
     return @"Persona";
@@ -120,6 +121,7 @@
     persona.requestsSent = [[NSMutableArray alloc] init];
     persona.requestsReceived = [[NSMutableArray alloc] init];
     persona.acceptedRequests = [[NSMutableArray alloc] init];
+    persona.balances = [[NSMutableArray alloc] init];
 }
   
 - (void)addToAcceptedRequests:(Persona *)persona {

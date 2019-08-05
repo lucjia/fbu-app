@@ -77,7 +77,7 @@
     // soonest reminder Due Dates are first
     [queryWithDate whereKeyExists:@"reminderDueDate"];
     [queryWithDate orderByAscending:@"reminderDueDate"];
-    
+        
     // query for reminders that are assigned to the current user
     [queryWithDate whereKey:@"reminderReceiver" equalTo:[PFUser currentUser][@"persona"]];
     [queryWithDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {

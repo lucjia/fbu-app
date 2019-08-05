@@ -10,10 +10,13 @@
 #import "Parse/Parse.h"
 #import "Persona.h"
 #import "Event.h"
+#import "Balance.h"
 
 @implementation House
 
 @dynamic events;
+@dynamic rules;
+@dynamic housemates;
 
 + (nonnull NSString *)parseClassName {
     return @"House";
@@ -28,36 +31,49 @@
     if (!house.events) {
         house.events = [[NSMutableArray alloc] init];
     }
-    [house saveInBackground];
-    [persona setObject:house forKey:@"house"];
-    [persona saveInBackground];
+    [house saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        [persona setObject:house forKey:@"house"];
+        [persona save];
+    }];
+    
 }
 
 
 - (void) addToHouse: (Persona *) persona {
-    
+    NSArray *housemates = [self objectForKey:@"housemates"];
+    [Persona fetchAllIfNeededInBackground:housemates block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        for(Persona* housemate in housemates){
+            [Balance createBalance:persona housemateTwo:housemate totalBalance:[NSDecimalNumber zero] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {}];
+        }
+    }];
     [self addUniqueObject:persona forKey:@"housemates"];
-    [self saveInBackground];
-
+    [self save];
     
     [persona setObject:self forKey:@"house"];
-    [persona saveInBackground];
+    [persona save];
+
 }
 
-
 - (void) removeFromHouse: (Persona *) persona {
+    NSArray *balances = persona.balances;
+    [Balance fetchAllIfNeededInBackground:balances block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        for(Balance *balance in balances){
+            [balance deleteBalance];
+        }
+    }];
     
     [self removeObject:persona forKey:@"housemates"];
     [self save];
-     
+    
     [persona removeObjectForKey:@"house"];
-    [persona saveInBackground];
+    [persona save];
 }
 
 - (void) deleteHouse {
     NSArray *housemates = [self objectForKey:@"housemates"];
     for(Persona *housemate in housemates){
         [self removeFromHouse:housemate];
+        
     }
     [self deleteInBackground];
     
@@ -65,7 +81,7 @@
 
 + (House *) getHouse: (Persona *) persona {
     House *house = [persona objectForKey:@"house"];
-    [house fetchIfNeededInBackground];
+    [house fetchIfNeeded];
     return house;
 }
 
