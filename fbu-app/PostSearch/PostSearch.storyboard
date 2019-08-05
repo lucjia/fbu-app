@@ -130,7 +130,6 @@
         <!--Item-->
         <scene sceneID="8lJ-vi-EoZ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zF4-Ze-iVe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="vr9-py-Oyv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="RFH-CN-aY5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0aF-vB-lMH">
@@ -141,6 +140,7 @@
                         <segue destination="5MS-bn-Nak" kind="relationship" relationship="rootViewController" id="e9a-6Y-mMJ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zF4-Ze-iVe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5649" y="-210"/>
         </scene>
@@ -943,17 +943,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lmB-zD-i2y">
-                                <rect key="frame" x="65" y="213" width="283" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lmB-zD-i2y">
+                                <rect key="frame" x="130" y="148" width="254" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cost" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DrX-WQ-KAR">
-                                <rect key="frame" x="65" y="273" width="283" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cost" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DrX-WQ-KAR">
+                                <rect key="frame" x="130" y="198" width="254" height="30"/>
                                 <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDX-px-pPn">
@@ -964,33 +963,38 @@
                                     <action selector="tapAdd:" destination="t5K-h7-cgS" eventType="touchUpInside" id="Pnm-ws-yhp"/>
                                 </connections>
                             </button>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="quk-TQ-zZR">
-                                <rect key="frame" x="0.0" y="403" width="414" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <date key="date" timeIntervalSinceReferenceDate="586595444.45100105">
-                                    <!--2019-08-04 07:10:44 +0000-->
-                                </date>
-                            </datePicker>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JNh-qj-eB0">
-                                <rect key="frame" x="30" y="188" width="80" height="80"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JNh-qj-eB0">
+                                <rect key="frame" x="30" y="148" width="80" height="80"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="anW-0Q-v1g"/>
                                     <constraint firstAttribute="width" constant="80" id="k84-VT-Rc6"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="fxa-wd-Dtu" appends="YES" id="5ey-0E-Kyo"/>
+                                </connections>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Bill" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8c-hN-xpn">
-                                <rect key="frame" x="152.5" y="118" width="109" height="36"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="quk-TQ-zZR">
+                                <rect key="frame" x="0.0" y="278" width="414" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="586595444.45100105">
+                                    <!--2019-08-04 07:10:44 +0000-->
+                                </date>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JNh-qj-eB0" firstAttribute="top" secondItem="pVr-aG-FnU" secondAttribute="top" constant="100" id="DyF-ab-gF3"/>
-                            <constraint firstItem="c8c-hN-xpn" firstAttribute="centerX" secondItem="pVr-aG-FnU" secondAttribute="centerX" id="jWD-u6-Shu"/>
+                            <constraint firstItem="lmB-zD-i2y" firstAttribute="top" secondItem="JNh-qj-eB0" secondAttribute="top" id="5sh-nW-c0w"/>
+                            <constraint firstItem="lmB-zD-i2y" firstAttribute="leading" secondItem="JNh-qj-eB0" secondAttribute="trailing" constant="20" id="Dp5-P9-g1Y"/>
+                            <constraint firstItem="JNh-qj-eB0" firstAttribute="top" secondItem="pVr-aG-FnU" secondAttribute="top" constant="60" id="DyF-ab-gF3"/>
+                            <constraint firstItem="quk-TQ-zZR" firstAttribute="top" secondItem="DrX-WQ-KAR" secondAttribute="bottom" constant="50" id="EuB-3s-hgs"/>
+                            <constraint firstItem="quk-TQ-zZR" firstAttribute="leading" secondItem="pVr-aG-FnU" secondAttribute="leading" id="K0w-UI-L98"/>
+                            <constraint firstItem="DrX-WQ-KAR" firstAttribute="bottom" secondItem="JNh-qj-eB0" secondAttribute="bottom" id="Nje-hh-nYz"/>
+                            <constraint firstItem="DrX-WQ-KAR" firstAttribute="leading" secondItem="JNh-qj-eB0" secondAttribute="trailing" constant="20" id="eLH-R8-Aet"/>
                             <constraint firstItem="JNh-qj-eB0" firstAttribute="leading" secondItem="pVr-aG-FnU" secondAttribute="leading" constant="30" id="k8m-50-U7e"/>
-                            <constraint firstItem="c8c-hN-xpn" firstAttribute="top" secondItem="pVr-aG-FnU" secondAttribute="top" constant="30" id="pmK-U0-Czk"/>
+                            <constraint firstItem="pVr-aG-FnU" firstAttribute="trailing" secondItem="DrX-WQ-KAR" secondAttribute="trailing" constant="30" id="vkC-NL-JNn"/>
+                            <constraint firstItem="quk-TQ-zZR" firstAttribute="trailing" secondItem="pVr-aG-FnU" secondAttribute="trailing" id="wyt-Wj-buN"/>
+                            <constraint firstItem="pVr-aG-FnU" firstAttribute="trailing" secondItem="lmB-zD-i2y" secondAttribute="trailing" constant="30" id="zal-VP-Bzc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pVr-aG-FnU"/>
                     </view>
@@ -998,11 +1002,18 @@
                         <outlet property="dateField" destination="quk-TQ-zZR" id="BOm-Na-TR6"/>
                         <outlet property="memoField" destination="lmB-zD-i2y" id="r8I-Pt-yHE"/>
                         <outlet property="paidField" destination="DrX-WQ-KAR" id="RzU-L3-rI6"/>
+                        <outlet property="pictureView" destination="JNh-qj-eB0" id="l7S-is-ju7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y5b-QL-NFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="fxa-wd-Dtu">
+                    <connections>
+                        <action selector="tapAddImage:" destination="t5K-h7-cgS" id="iVO-wC-xAG"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="6573.913043478261" y="527.67857142857144"/>
+        </scene>
         <!--Post Search Left View Controller-->
         <scene sceneID="AMs-or-8n1">
             <objects>
