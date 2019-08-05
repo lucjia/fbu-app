@@ -1114,6 +1114,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y5b-QL-NFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6573.913043478261" y="527.67857142857144"/>
+        </scene>
         <!--Post Search Left View Controller-->
         <scene sceneID="AMs-or-8n1">
             <objects>
