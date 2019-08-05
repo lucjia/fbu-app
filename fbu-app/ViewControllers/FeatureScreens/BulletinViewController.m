@@ -10,6 +10,8 @@
 
 @interface BulletinViewController ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
+
 @end
 
 @implementation BulletinViewController
@@ -17,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.backgroundImage.image = [UIImage imageNamed:@"corkboard"];
+    self.backgroundImage.clipsToBounds = YES;
 }
 
 /*
