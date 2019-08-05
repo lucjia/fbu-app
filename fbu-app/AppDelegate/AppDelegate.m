@@ -50,10 +50,16 @@
         [PFInstallation.currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"ERROR with NOTIFICATIONS in AppDelegate");
+            } else {
+                [self setUpNotificationCenter];
             }
         }];
     }
     
+    return YES;
+}
+
+- (void) setUpNotificationCenter {
     // Notification center
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     center.delegate = self;
@@ -101,8 +107,6 @@
             NSLog( @"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
         }
     }];
-    
-    return YES;
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
