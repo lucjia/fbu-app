@@ -13,6 +13,8 @@
 #import "CreateEventViewController.h"
 #import "EventReminderCell.h"
 #import "EventDetailsViewController.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -62,6 +64,7 @@
         }
     }];
     
+    [self initSwipeGestureRecognizers];
 }
 
 - (void)fetchEvents:(Persona *)persona {
@@ -114,6 +117,16 @@
     [self.view addSubview:collectionView];
 }
 
+- (void)initSwipeGestureRecognizers {
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeft];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipe:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRight];
+}
+
 // initialized the calendar
 - (void)initCalendar:(NSDate *)date {
     calendar = [NSCalendar currentCalendar];
@@ -157,14 +170,6 @@
     NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
     
     return range.length;
-}
-
-- (IBAction)didTapNextMonth:(id)sender {
-    [self changeMonth:12 toMonth:1 changeBy:1];
-}
-
-- (IBAction)didTapPreviousMonth:(id)sender {
-    [self changeMonth:1 toMonth:12 changeBy:-1];
 }
 
 // changes currentMonth to next or previous month respectively
@@ -248,6 +253,22 @@
     
 }
 
+- (void)didSwipe:(UISwipeGestureRecognizer*)swipe{
+    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
+        [self changeMonth:12 toMonth:1 changeBy:1];
+    } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self changeMonth:1 toMonth:12 changeBy:-1];
+    }
+}
+
+- (IBAction)didTapNextMonth:(id)sender {
+    [self changeMonth:12 toMonth:1 changeBy:1];
+}
+
+- (IBAction)didTapPreviousMonth:(id)sender {
+    [self changeMonth:1 toMonth:12 changeBy:-1];
+}
+
 - (void)didCreateEvent:(Event *)event {
     [eventsArray addObject:event];
     addPaths = NO;
@@ -269,7 +290,7 @@
     UINavigationController *navigationController = [segue destinationViewController];
     CreateEventViewController *createEventViewController = (CreateEventViewController*)navigationController.topViewController;
     createEventViewController.delegate = self;
-
+    
 }
 
 
@@ -428,4 +449,7 @@
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
+- (IBAction)didTapPostLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
+}
 @end
