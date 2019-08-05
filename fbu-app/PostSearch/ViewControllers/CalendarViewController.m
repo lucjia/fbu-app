@@ -15,6 +15,7 @@
 #import "EventDetailsViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "CustomColor.h"
 
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -104,7 +105,7 @@
     
     // allows for CalendarCell to be used
     [collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
-    [collectionView setBackgroundColor:[UIColor whiteColor]];
+    [collectionView setBackgroundColor:[CustomColor lightyellowGreen:1.0]];
     
     layout.minimumInteritemSpacing = 5;
     layout.minimumLineSpacing = 5;
@@ -242,7 +243,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // switch back to the main thread to update your UI
                     [cell setHidden:NO];
-                    cell.backgroundColor = [UIColor whiteColor];
+                    cell.backgroundColor = [CustomColor lightyellowGreen:1.0];
                     [cell drawEventCircle];
                     
                     if ([self isCellToday:indexPath.row - self->monthStartweekday + 2]) {
@@ -307,12 +308,12 @@
     } else {
         if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
             [cell setHidden:NO];
-            cell.backgroundColor = [UIColor whiteColor];
+            cell.backgroundColor = [CustomColor lightyellowGreen:1.0];
             [cell drawCurrentDayCircle];
             
         } else {
             [cell setHidden:NO];
-            cell.backgroundColor = [UIColor whiteColor];
+            cell.backgroundColor = [CustomColor lightyellowGreen:1.0];
             
         }
     }
