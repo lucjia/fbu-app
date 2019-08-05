@@ -12,10 +12,13 @@
 
 @interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     NSMutableArray *posts;
+    NSLayoutConstraint *heightConstraint;
+    UIRefreshControl *refreshControl;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) UICollectionViewLayout *layout;
 
 @end
 
@@ -31,6 +34,18 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    
+    self.layout = self.collectionView.collectionViewLayout;
+    [self.layout collectionViewContentSize];
+    
+    CGFloat height = self.collectionView.collectionViewLayout.collectionViewContentSize.height;
+    heightConstraint.constant = height;
+    [self.view layoutIfNeeded];
+    
+    // Refresh control for "pull to refresh"
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
+    [self.collectionView insertSubview:refreshControl atIndex:0];
     
     [self fetchPosts];
 }
@@ -53,6 +68,12 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+    
+    [refreshControl endRefreshing];
+}
+
+- (CGSize)sizeThatFits:(CGSize)size {
+    return self.layout.collectionViewContentSize;
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
