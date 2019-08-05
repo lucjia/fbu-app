@@ -135,7 +135,6 @@
         <!--Item-->
         <scene sceneID="8lJ-vi-EoZ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zF4-Ze-iVe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="vr9-py-Oyv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="RFH-CN-aY5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0aF-vB-lMH">
@@ -146,6 +145,7 @@
                         <segue destination="5MS-bn-Nak" kind="relationship" relationship="rootViewController" id="e9a-6Y-mMJ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zF4-Ze-iVe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5649" y="-210"/>
         </scene>
@@ -373,7 +373,6 @@
                 <exit id="cOg-fY-dZD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6698.5507246376819" y="-210.26785714285714"/>
-            <point key="canvasLocation" x="-455" y="-210"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="nMy-Gk-et0">
@@ -1104,6 +1103,7 @@
                                 <rect key="frame" x="65" y="273" width="283" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                         </subviews>
@@ -1139,7 +1139,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22Q-N1-GHn">
                                             <rect key="frame" x="20" y="4" width="374" height="48"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" red="0.21176470588235294" green="0.38431372549019605" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -1150,6 +1150,7 @@
                                         <constraint firstAttribute="bottom" secondItem="22Q-N1-GHn" secondAttribute="bottom" constant="5.5" id="vTD-7Y-Bgi"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.77647058820000003" green="0.89019607840000003" blue="0.46666666670000001" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="postSearchTitleLabel" destination="22Q-N1-GHn" id="jX1-8G-dAn"/>
                                 </connections>
@@ -1180,7 +1181,7 @@
                             <real key="value" value="250"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="leftViewBackgroundColor">
-                            <color key="value" red="0.43137254899999999" green="0.58823529409999997" blue="0.43137254899999999" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.77647058823529413" green="0.8901960784313725" blue="0.46666666666666667" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
