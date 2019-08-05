@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (nonatomic, strong) NSMutableArray *balances;
 @property (nonatomic, strong) Persona *currentPersona;
+@property (nonatomic, strong) NSDecimalNumber *negative;
+@property (nonatomic, strong) NSDecimalNumber *positive;
 
 @end
 
@@ -35,26 +37,24 @@
     self.currentPersona = [PFUser.currentUser objectForKey:@"persona"];
     [self.currentPersona fetchIfNeededInBackground];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self reloadView];
+}
+
+- (void) reloadView {
     [self fetchBalances];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView reloadData];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void) fetchBalances {
-    self.balances = [PFUser.currentUser objectForKey:@"balances"];
-    /*
-     if(self.balances.count == 0 && self.currentPersona.house != nil){
-        House *house = [House getHouse:self.currentPersona];
-        for(Persona* housemate )
-        Balance *balance = [Balance createBalance:self.currentPersona housemateTwo:housemate totalBalance:(NSNumber)0 withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            housemate
-        }]
-    }
-     */
+    self.negative = [NSDecimalNumber zero];
+    self.positive = [NSDecimalNumber zero];
+    
+    self.balances = [self.currentPersona objectForKey:@"balances"];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
@@ -66,13 +66,28 @@
         NSUInteger indexOfHousemate = [self getIndex:balance];
         Persona *housemate = [self getHousemate:balance indexOfHousemate:indexOfHousemate];
         
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+        
         cell.nameLabel.text = [[housemate.firstName stringByAppendingString:@" "] stringByAppendingString:housemate.lastName];
-        cell.balanceLabel.text = [[NSNumber numberWithDouble:fabs([balance.total doubleValue])] stringValue];
-        if([self inDebt:balance indexOfHousemate:indexOfHousemate]){
+        NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
+        if ([balanceTotal isEqual:[NSDecimalNumber zero]]){
+            cell.stateLabel.text = @"all even";
+            cell.stateLabel.textColor = [UIColor grayColor];
+        }
+        else if([self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"you owe";
+            cell.stateLabel.textColor = [UIColor redColor];
+            self.negative = [self.negative decimalNumberByAdding:[self abs:balanceTotal]];
+            cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
+            [self setTotals];
             
-        }else{
+        }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"owes you";
+            cell.stateLabel.textColor = [UIColor greenColor];
+            self.positive = [self.positive decimalNumberByAdding:[self abs:balanceTotal]];
+            cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
+            [self setTotals];
         }
         
         PFFileObject *imageFile = housemate.profileImage;
@@ -84,18 +99,31 @@
     }];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.height /2;
     cell.profileView.layer.masksToBounds = YES;
+    
     return cell;
     
+}
+
+-(void) setTotals {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    
+    self.negativeLabel.text = [numberFormatter stringFromNumber:self.negative];
+    self.negativeLabel.textColor = [UIColor redColor];
+    self.positiveLabel.text = [numberFormatter stringFromNumber:self.positive];
+    self.positiveLabel.textColor = [UIColor greenColor];
+    self.totalLabel.text = [numberFormatter stringFromNumber:[self.positive decimalNumberBySubtracting:self.negative]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.balances.count;
 }
 
+
 - (Persona *)getHousemate:(Balance *)balance indexOfHousemate:(NSUInteger)index {
     NSArray *housemates = [balance objectForKey:@"housemates"];
     Persona *housemate = [housemates objectAtIndex:index];
-    [housemate fetchInBackground];
+    [housemate fetchIfNeeded];
     return housemate;
 }
 
@@ -107,14 +135,25 @@
 }
 
 - (BOOL) inDebt:(Balance *)balance indexOfHousemate:(NSUInteger)index {
+    NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
     if (index == (NSUInteger)0) {
-        if (balance.total >= 0) return NO;
+        if (balanceTotal > 0) return NO;
         else return YES;
     }else{
-        if (balance.total >= 0) return YES;
+        if (balanceTotal > 0) return YES;
         else return NO;
     }
+    return nil;
 }
-
-
+        
+- (NSDecimalNumber *)abs:(NSDecimalNumber *)num {
+    if ([num compare:[NSDecimalNumber zero]] == NSOrderedAscending ) {
+        NSDecimalNumber *negativeOne = [NSDecimalNumber decimalNumberWithMantissa:1 exponent:0 isNegative:YES];
+        return [num decimalNumberByMultiplyingBy:negativeOne];
+    } else {
+        return num;
+    }
+}
+        
+        
 @end

@@ -32,6 +32,7 @@
 @dynamic requestsSent;
 @dynamic requestsReceived;
 @dynamic acceptedRequests;
+@dynamic balances;
 
 + (nonnull NSString *)parseClassName {
     return @"Persona";

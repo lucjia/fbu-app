@@ -43,7 +43,7 @@
     NSArray *housemates = [self objectForKey:@"housemates"];
     [Persona fetchAllIfNeededInBackground:housemates block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         for(Persona* housemate in housemates){
-            [Balance createBalance:persona housemateTwo:housemate totalBalance:(NSNumber *)0 withCompletion:^(BOOL succeeded, NSError * _Nullable error) {}];
+            [Balance createBalance:persona housemateTwo:housemate totalBalance:[NSDecimalNumber zero] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {}];
         }
     }];
     [self addUniqueObject:persona forKey:@"housemates"];
@@ -81,7 +81,7 @@
 
 + (House *) getHouse: (Persona *) persona {
     House *house = [persona objectForKey:@"house"];
-    [house fetchIfNeededInBackground];
+    [house fetchIfNeeded];
     return house;
 }
 
