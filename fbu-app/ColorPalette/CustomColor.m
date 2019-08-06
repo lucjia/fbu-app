@@ -26,4 +26,8 @@
     return [UIColor colorWithRed:(237 / 255.0) green:(18 / 255.0) blue:(80 / 255.0) alpha:colorAlpha];
 }
 
++ (UIColor *)lightGrey:(CGFloat)colorAlpha {
+    return [UIColor colorWithRed:(111 / 255.0) green: (113 / 255.0) blue:(121 / 255.0) alpha:colorAlpha];
+}
+
 @end

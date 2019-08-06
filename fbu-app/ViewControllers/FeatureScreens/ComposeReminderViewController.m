@@ -12,6 +12,7 @@
 #import "CustomDatePicker.h"
 #import "UserCollectionCell.h"
 #import "House.h"
+#import "CustomColor.h"
 
 @interface ComposeReminderViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -52,6 +53,8 @@
     self.tap.cancelsTouchesInView = NO;
     self.previousCell = [[UserCollectionCell alloc] init];
     
+    self.lockEditingSwitch.onTintColor = [CustomColor accentColor:1.0];
+    
     CustomDatePicker *dp = [[CustomDatePicker alloc] init];
     self.datePicker = [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
     [self initializeTextView];
@@ -82,13 +85,13 @@
     self.reminderTextView.delegate = self;
     
     if ([self.reminderTextView.text isEqualToString:@""]) {
-        self.reminderTextView.text = @"Write a bio...";
+        self.reminderTextView.text = @"Write a reminder...";
         self.reminderTextView.textColor = [UIColor lightGrayColor];
     }
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    if ([self.reminderTextView.text isEqualToString:@"Write a bio..."]) {
+    if ([self.reminderTextView.text isEqualToString:@"Write a reminder..."]) {
         self.reminderTextView.text = @"";
         self.reminderTextView.textColor = [UIColor blackColor];
     }
@@ -97,7 +100,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if ([self.reminderTextView.text isEqualToString:@""]) {
-        self.reminderTextView.text = @"Write a bio...";
+        self.reminderTextView.text = @"Write a reminder...";
         self.reminderTextView.textColor = [UIColor lightGrayColor];
     }
     [self.reminderTextView resignFirstResponder];

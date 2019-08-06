@@ -27,6 +27,8 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 @property (weak, nonatomic) IBOutlet UIButton *shareLocationButton;
 @property (weak, nonatomic) IBOutlet UITextView *postTextView;
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIView *locationButtonView;
+@property (weak, nonatomic) IBOutlet UIView *postButtonView;
 
 @end
 
@@ -45,8 +47,14 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
         [locationManager requestWhenInUseAuthorization];
     
-    self.backgroundView.layer.cornerRadius = 10;
-    self.backgroundView.layer.masksToBounds = YES;
+    [self roundCornersWithView:self.backgroundView radius:10];
+    [self roundCornersWithView:self.locationButtonView radius:5];
+    [self roundCornersWithView:self.postButtonView radius:5];
+}
+
+- (void) roundCornersWithView:(UIView *)view radius:(double)radius {
+    view.layer.cornerRadius = radius;
+    view.layer.masksToBounds = YES;
 }
 
 - (IBAction)didTap:(id)sender {

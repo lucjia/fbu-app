@@ -28,7 +28,7 @@
     [super viewDidLoad];
     
     // set background image
-    self.backgroundImage.image = [UIImage imageNamed:@"corkboard"];
+    self.backgroundImage.image = [UIImage imageNamed:@"grid"];
     self.backgroundImage.clipsToBounds = YES;
     self.backgroundImage.alpha = 0.8;
     
