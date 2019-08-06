@@ -31,11 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.titlesArray = @[@"🏠 Create a House",
                          @"📜 House Rules",
@@ -128,13 +125,15 @@
     
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Finances"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
-        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
+        LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
+        
+        UITabBarController *rootView = (UITabBarController *)sideMenuController.rootViewController;
         
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [viewController setSelectedIndex:3];
-        [currentController presentViewController:viewController animated:YES completion:nil];
+        [rootView setSelectedIndex:3];
+        [currentController presentViewController:sideMenuController animated:YES completion:nil];
     
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"      🌱 Progress"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];

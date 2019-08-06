@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "Request.h"
 #import "SentRequestsCell.h"
+#import "CustomColor.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
@@ -28,6 +29,10 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    [self.tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
     [self fetchSentRequestTimeline];
 }
 
@@ -73,6 +78,7 @@
     
     Request *request = self.receiversArray[indexPath.row];
     
+    cell.backgroundColor = [CustomColor darkMainColor:1.0];
     [cell updateProperties:request];
     
     return cell;
