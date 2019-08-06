@@ -849,10 +849,10 @@
             </objects>
             <point key="canvasLocation" x="-620.28985507246387" y="1368.75"/>
         </scene>
-        <!--Side Menu Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tfG-or-PZv">
             <objects>
-                <viewController storyboardIdentifier="SearchingSideMenuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uya-kf-udz" customClass="LGSideMenuController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchingSideMenuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uya-kf-udz" customClass="MainViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xOz-P3-Vvr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -862,6 +862,9 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="leftViewWidth">
                             <real key="value" value="250"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="leftViewBackgroundColor">
+                            <color key="value" red="0.43137254899999999" green="0.58823529409999997" blue="0.43137254899999999" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>

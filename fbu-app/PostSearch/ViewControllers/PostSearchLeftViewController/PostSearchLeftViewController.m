@@ -9,8 +9,10 @@
 #import "PostSearchLeftViewController.h"
 #import "LeftViewCell.h"
 #import "MainViewController.h"
+#import "SettingsViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+
 @interface PostSearchLeftViewController ()
 {
     NSArray *titlesArray;
@@ -56,7 +58,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MainViewController *mainViewController = (MainViewController *)self.sideMenuController;
     
-    // Create a House
+    // back to main timeline
     if (indexPath.row == [titlesArray indexOfObject:@"Back to roommate search"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
@@ -68,8 +70,17 @@
         
         [rootView setSelectedIndex:0];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
-    } else if (indexPath.row == [titlesArray indexOfObject:@"⚙ Settings"]) {
         
+    // settings
+    } else if (indexPath.row == [titlesArray indexOfObject:@"⚙ Settings"]) {
+        UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        SettingsViewController *viewController = [main instantiateViewControllerWithIdentifier:@"SettingsVC"];
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [currentController pushViewController:viewController animated:YES];
     }
     
     [mainViewController hideLeftViewAnimated:YES delay:0.0 completionHandler:nil];
