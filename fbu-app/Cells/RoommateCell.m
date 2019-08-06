@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UIView *sendButtonView;
 
 @end
 
@@ -35,12 +36,17 @@
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)updateProperties:(Persona *)persona {
+    self.sendButtonView.layer.cornerRadius = 5;
+    
     [[persona objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
         NSData *imageData = data;
         self.profileImage.image = [[UIImage alloc] initWithData:imageData];
+        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
+        self.profileImage.layer.masksToBounds = YES;
     }];
     
     self.usernameLabel.text = [persona objectForKey:@"username"];

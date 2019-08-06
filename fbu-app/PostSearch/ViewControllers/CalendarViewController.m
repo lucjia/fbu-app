@@ -449,12 +449,9 @@
     
     [self presentViewController:viewController animated:YES completion:nil];
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 50;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 50;
+    return 100;
 }
 
 - (IBAction)didTapPostLeftMenu:(id)sender {
