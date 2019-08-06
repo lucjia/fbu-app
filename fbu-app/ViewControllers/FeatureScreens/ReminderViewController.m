@@ -44,6 +44,8 @@
     self.receivedReminderArrayTotal = [[NSMutableArray alloc] init];
     
     self.segmentedControl.selectedSegmentIndex = self.segmentIndex;
+    self.segmentedControl.layer.cornerRadius = 4.0;
+    self.segmentedControl.clipsToBounds = YES;
     
     [self fetchReminders];
     

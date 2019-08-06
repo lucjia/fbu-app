@@ -680,9 +680,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SUk-of-WOd">
                                 <rect key="frame" x="0.0" y="753" width="414" height="60"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d1h-g1-56q">
+                                    <segmentedControl opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d1h-g1-56q">
                                         <rect key="frame" x="20" y="16" width="374" height="29"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <segments>
                                             <segment title="My Reminders"/>
                                             <segment title="Sent Reminders"/>
@@ -694,7 +694,7 @@
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="d1h-g1-56q" secondAttribute="trailing" constant="20" id="7Pv-rv-j35"/>
                                     <constraint firstItem="d1h-g1-56q" firstAttribute="leading" secondItem="SUk-of-WOd" secondAttribute="leading" constant="20" id="Hfm-jK-Xg4"/>
