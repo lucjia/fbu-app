@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CustomColor : UIView
 
-+ (UIColor *)darkColor:(CGFloat)colorAlpha;
++ (UIColor *)darkMainColor:(CGFloat)colorAlpha;
 + (UIColor *)midToneOne:(CGFloat)colorAlpha;
 + (UIColor *)midToneTwo:(CGFloat)colorAlpha;
 + (UIColor *)accentColor:(CGFloat)colorAlpha;

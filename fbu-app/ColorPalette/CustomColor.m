@@ -10,7 +10,7 @@
 
 @implementation CustomColor
 
-+ (UIColor *)darkColor:(CGFloat)colorAlpha {
++ (UIColor *)darkMainColor:(CGFloat)colorAlpha {
     return [UIColor colorWithRed:(4 / 255.0) green:(47 / 255.0) blue:(75 / 255.0) alpha:colorAlpha];
 }
 
