@@ -367,6 +367,11 @@
                         <viewLayoutGuide key="safeArea" id="MHM-KO-mt1"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="YDr-Nf-Op6">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="fN2-Nw-1qK">
+                            <connections>
+                                <action selector="didPressLeft:" destination="2Lw-TE-DW8" id="cdh-n5-VTY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+" id="5Lv-ND-DUC">
                             <connections>
                                 <action selector="addPostButton:" destination="2Lw-TE-DW8" id="9vh-h0-l6l"/>
@@ -715,6 +720,11 @@
                         <viewLayoutGuide key="safeArea" id="ikb-fZ-1NZ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Reminders" id="LzA-2R-9wO">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="UAe-7z-CPe">
+                            <connections>
+                                <action selector="didPressLeft:" destination="sZC-bC-TiA" id="3qJ-bc-lLP"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+" id="0ke-jD-iH6">
                             <connections>
                                 <segue destination="W2u-EQ-PO4" kind="show" id="cpb-S4-KbN"/>

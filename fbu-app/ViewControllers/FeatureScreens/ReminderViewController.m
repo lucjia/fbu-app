@@ -14,6 +14,8 @@
 #import "ProgressViewController.h"
 #import "UserNotifications/UserNotifications.h"
 #import "Parse/Parse.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     // different way of declaring property
@@ -332,6 +334,10 @@
     
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"message" content:content trigger:trigger];
     [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:request withCompletionHandler:nil];
+}
+
+- (IBAction)didPressLeft:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 @end

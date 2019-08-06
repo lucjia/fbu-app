@@ -115,16 +115,19 @@
     // Reminder Subfeatures
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"      📨 Sent Reminders"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
-        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
+        LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
+        
+        UITabBarController *rootView = (UITabBarController *)sideMenuController.rootViewController;
         
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [viewController setSelectedIndex:1];
-        UINavigationController *navController = viewController.selectedViewController;
+        [rootView setSelectedIndex:1];
+        
+        UINavigationController *navController = rootView.selectedViewController;
         ReminderViewController *reminderController = (ReminderViewController *)navController.visibleViewController;
         reminderController.segmentIndex = 1;
-        [currentController presentViewController:viewController animated:YES completion:nil];
+        [currentController presentViewController:sideMenuController animated:YES completion:nil];
     
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Finances"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
