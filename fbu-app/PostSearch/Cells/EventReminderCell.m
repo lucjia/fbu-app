@@ -9,6 +9,7 @@
 #import "EventReminderCell.h"
 #import "Event.h"
 #import "Reminder.h"
+#import "CustomColor.h"
 
 static NSDateFormatter *dateFormatter;
 
@@ -36,13 +37,20 @@ static NSDateFormatter *dateFormatter;
 }
 
 - (void)initCellWithEvent:(Event *)event {
+    self.layer.cornerRadius = 25;
+    self.contentView.layer.masksToBounds = YES;
+    
+    [self setBackgroundColor:[CustomColor midToneOne:1.0]];
+    
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, self.frame.size.width, 50)];
     titleLabel.numberOfLines = 0;
     titleLabel.text = event.title;
+    titleLabel.textColor = [CustomColor darkMainColor:1.0];
     
     locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 25, self.frame.size.width, 50)];
     locationLabel.numberOfLines = 0;
     locationLabel.text = [NSString stringWithFormat:@"%@", event.venue];
+    locationLabel.textColor = [CustomColor darkMainColor:1.0];
     
     // date formatter setup
     dateFormatter = [[NSDateFormatter alloc] init];
@@ -54,6 +62,7 @@ static NSDateFormatter *dateFormatter;
     
     eventIntervalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45, self.frame.size.width, 50)];
     eventIntervalLabel.text = event.isAllDay ? @"All day" : [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
+    eventIntervalLabel.textColor = [CustomColor darkMainColor:1.0];
     
     [self.contentView addSubview:titleLabel];
     [self.contentView addSubview:locationLabel];

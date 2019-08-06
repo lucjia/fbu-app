@@ -52,6 +52,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    
     addPaths = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
     
@@ -105,7 +107,7 @@
     
     // allows for CalendarCell to be used
     [collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
-    [collectionView setBackgroundColor:[UIColor clearColor]];
+    [collectionView setBackgroundColor:[CustomColor darkMainColor:1.0]];
     
     layout.minimumInteritemSpacing = 5;
     layout.minimumLineSpacing = 5;
@@ -299,7 +301,6 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
-    //cell.layer.cornerRadius = cell.frame.size.width / 2;
     eventDate = [self dateWithYear:currentYear month:currentMonth day:indexPath.row - monthStartweekday + 2];
     // will check in background thread
     [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
@@ -324,8 +325,6 @@
     // adds date label to content view of cell
     
     [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
-    
-    // [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
     
     if (addPaths){
         [dayIndexPaths addObject:indexPath];
@@ -370,7 +369,7 @@
         [tableView setDataSource:self];
         [tableView setDelegate:self];
         
-        [tableView setBackgroundColor:[CustomColor accentColor:0.5]];
+        [tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
         [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
         [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
@@ -449,6 +448,13 @@
     viewController.event = event;
     
     [self presentViewController:viewController animated:YES completion:nil];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 50;
 }
 
 - (IBAction)didTapPostLeftMenu:(id)sender {
