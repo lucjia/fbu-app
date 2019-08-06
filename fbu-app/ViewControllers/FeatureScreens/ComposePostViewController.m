@@ -12,6 +12,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "QuartzCore/QuartzCore.h"
 #import "BulletinViewController.h"
+#import "CustomColor.h"
 
 // Foursquare API
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
@@ -29,6 +30,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 @property (weak, nonatomic) IBOutlet UIView *locationButtonView;
 @property (weak, nonatomic) IBOutlet UIView *postButtonView;
+@property (weak, nonatomic) IBOutlet UIButton *postButton;
 
 @end
 
@@ -50,6 +52,8 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     [self roundCornersWithView:self.backgroundView radius:10];
     [self roundCornersWithView:self.locationButtonView radius:5];
     [self roundCornersWithView:self.postButtonView radius:5];
+    
+    [self initializeTextView];
 }
 
 - (void) roundCornersWithView:(UIView *)view radius:(double)radius {
@@ -72,6 +76,8 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         currLocation.latitude = loc.coordinate.latitude;
         currLocation.longitude = loc.coordinate.longitude;
         [self reverseGeocode];
+    } else {
+        [self postToParse];
     }
 }
 
@@ -105,7 +111,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 
 - (void) postToParse {
     BulletinViewController *bulletinVC = [[BulletinViewController alloc] init];
-    if ([self.postTextView.text isEqualToString:@""] && currLocation == nil) {
+    if (([self.postTextView.text isEqualToString:@""] || [self.postTextView.text isEqualToString:@"Write a note..."]) && currLocation == nil) {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Post"
                                                                        message:@"Please enter a memo or share a location."
@@ -137,6 +143,30 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         [bulletinVC fetchPosts];
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void) initializeTextView {
+    self.postTextView.delegate = self;
+    if ([self.postTextView.text isEqualToString:@""]) {
+        self.postTextView.text = @"Write a note...";
+        self.postTextView.textColor = [CustomColor midToneTwo:1.0];
+    }
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([self.postTextView.text isEqualToString:@"Write a note..."]) {
+        self.postTextView.text = @"";
+        self.postTextView.textColor = [CustomColor midToneOne:1.0];
+    }
+    [self.postTextView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([self.postTextView.text isEqualToString:@""]) {
+        self.postTextView.text = @"Write a note...";
+        self.postTextView.textColor = [CustomColor midToneTwo:1.0];
+    }
+    [self.postTextView resignFirstResponder];
 }
 
 /*

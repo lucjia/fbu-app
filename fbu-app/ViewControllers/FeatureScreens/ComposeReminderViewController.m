@@ -86,14 +86,14 @@
     
     if ([self.reminderTextView.text isEqualToString:@""]) {
         self.reminderTextView.text = @"Write a reminder...";
-        self.reminderTextView.textColor = [UIColor lightGrayColor];
+        self.reminderTextView.textColor = [CustomColor midToneTwo:1.0];
     }
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if ([self.reminderTextView.text isEqualToString:@"Write a reminder..."]) {
         self.reminderTextView.text = @"";
-        self.reminderTextView.textColor = [UIColor blackColor];
+        self.reminderTextView.textColor = [CustomColor midToneOne:1.0];
     }
     [self.reminderTextView becomeFirstResponder];
 }
@@ -101,7 +101,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if ([self.reminderTextView.text isEqualToString:@""]) {
         self.reminderTextView.text = @"Write a reminder...";
-        self.reminderTextView.textColor = [UIColor lightGrayColor];
+        self.reminderTextView.textColor = [CustomColor midToneTwo:1.0];
     }
     [self.reminderTextView resignFirstResponder];
 }
