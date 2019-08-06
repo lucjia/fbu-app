@@ -112,16 +112,6 @@
         [rootView setSelectedIndex:1];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Finances"]) {
-        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
-        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
-        
-        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
-        UINavigationController *currentController = tabBarController.selectedViewController;
-        
-        [viewController setSelectedIndex:2];
-        [currentController presentViewController:viewController animated:YES completion:nil];
-        
     // Reminder Subfeatures
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"      📨 Sent Reminders"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
@@ -134,6 +124,16 @@
         UINavigationController *navController = viewController.selectedViewController;
         ReminderViewController *reminderController = (ReminderViewController *)navController.visibleViewController;
         reminderController.segmentIndex = 1;
+        [currentController presentViewController:viewController animated:YES completion:nil];
+    
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Finances"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        UITabBarController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [viewController setSelectedIndex:3];
         [currentController presentViewController:viewController animated:YES completion:nil];
     
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"      🌱 Progress"]) {

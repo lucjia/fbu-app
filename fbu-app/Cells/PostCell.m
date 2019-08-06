@@ -21,6 +21,15 @@
     [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
     NSString *dateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.post.createdAt]];
     self.dateLabel.text = dateString;
+    
+    // shadow
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowOffset = CGSizeMake(0, 2.0f);
+    self.layer.shadowRadius = 2.0f;
+    self.layer.shadowOpacity = 0.8f;
+    self.layer.masksToBounds = NO;
+    self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.contentView.layer.cornerRadius].CGPath;
+
 }
 
 @end

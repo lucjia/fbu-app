@@ -10,15 +10,23 @@
 #import "Parse/Parse.h"
 #import "Post.h"
 #import <CoreLocation/CoreLocation.h>
+#import "QuartzCore/QuartzCore.h"
+#import "BulletinViewController.h"
+
+// Foursquare API
+static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
+static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ1X1S0RLYV";
 
 @interface ComposePostViewController () <CLLocationManagerDelegate> {
     CLLocationManager *locationManager;
     NSArray *trackedLocations;
     PFGeoPoint *currLocation;
+    NSString *currLocationString;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *shareLocationButton;
 @property (weak, nonatomic) IBOutlet UITextView *postTextView;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 @end
 
@@ -36,9 +44,16 @@
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
         [locationManager requestWhenInUseAuthorization];
+    
+    self.backgroundView.layer.cornerRadius = 10;
+    self.backgroundView.layer.masksToBounds = YES;
 }
 
 - (IBAction)didTap:(id)sender {
+    [self.postTextView resignFirstResponder];
+}
+
+- (IBAction)didPressBack:(id)sender {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -48,8 +63,40 @@
         CLLocation *loc = [trackedLocations lastObject];
         currLocation.latitude = loc.coordinate.latitude;
         currLocation.longitude = loc.coordinate.longitude;
+        [self reverseGeocode];
     }
-        
+}
+
+- (IBAction)didPressLocation:(id)sender {
+    // access user's current location and create post based on that
+    [locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    trackedLocations = locations;
+}
+
+- (void) reverseGeocode {
+    NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
+    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&ll=%f,%f", clientID, clientSecret, currLocation.latitude, currLocation.longitude];
+    queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            currLocationString = [[[responseDictionary valueForKeyPath:@"response.venues"] objectAtIndex:0] valueForKey:@"name"];
+            [self postToParse];
+        }
+    }];
+    [task resume];
+}
+
+- (void) postToParse {
+    BulletinViewController *bulletinVC = [[BulletinViewController alloc] init];
     if ([self.postTextView.text isEqualToString:@""] && currLocation == nil) {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Post"
@@ -67,21 +114,21 @@
         [self presentViewController:alert animated:YES completion:nil];
     } else if (currLocation == nil) {
         [Post createPostWithSender:[PFUser currentUser][@"persona"] text:self.postTextView.text withCompletion:nil];
+        [bulletinVC fetchPosts];
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     } else {
-        [Post createPostWithSender:[PFUser currentUser][@"persona"] text:[self.postTextView.text stringByAppendingString:[NSString stringWithFormat:@"%@", currLocation]] location:currLocation withCompletion:nil];
+        NSString *postText;
+        if ([self.postTextView.text isEqualToString:@""]) {
+            postText = [NSString stringWithFormat:@"I am at this location: %@", currLocationString];
+        } else {
+            postText = [self.postTextView.text stringByAppendingString:[NSString stringWithFormat:@"\r\rI am at this location: %@", currLocationString]];
+        }
+        [Post createPostWithSender:[PFUser currentUser][@"persona"] text:postText location:currLocation withCompletion:nil];
         // stop tracking location
         [locationManager stopUpdatingLocation];
+        [bulletinVC fetchPosts];
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
-}
-
-- (IBAction)didPressLocation:(id)sender {
-    // access user's current location and create post based on that
-    [locationManager startUpdatingLocation];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    trackedLocations = locations;
 }
 
 /*
