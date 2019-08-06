@@ -62,6 +62,9 @@
     // set tint color of all text fields and views
     [[UITextField appearance] setTintColor:[CustomColor accentColor:1.0]];
     [[UITextView appearance] setTintColor:[CustomColor accentColor:1.0]];
+    
+    self.addReminderButton.layer.cornerRadius = 5;
+    self.addReminderButton.layer.masksToBounds = YES;
 }
 
 - (IBAction)didTap:(id)sender {

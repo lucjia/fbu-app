@@ -907,7 +907,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reminder Date and Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jiB-OS-L0l">
-                                <rect key="frame" x="87" y="599" width="240" height="30"/>
+                                <rect key="frame" x="87" y="579" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="dEn-EC-eS8"/>
@@ -917,9 +917,15 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DnN-v7-UbL">
-                                <rect key="frame" x="171.5" y="689" width="71" height="30"/>
+                                <rect key="frame" x="87" y="669" width="240" height="50"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="40s-70-p90"/>
+                                    <constraint firstAttribute="width" constant="240" id="EWW-zg-F2b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Save Edits">
-                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="didPressEdit:" destination="fm1-Fe-T5x" eventType="touchUpInside" id="AZF-Xr-f3d"/>
@@ -932,7 +938,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Reminder text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tD8-9T-WfG">
-                                <rect key="frame" x="87" y="205.5" width="240" height="333.5"/>
+                                <rect key="frame" x="87" y="205.5" width="240" height="313.5"/>
                                 <color key="backgroundColor" red="0.015686274509803921" green="0.18431372549019609" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -945,7 +951,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EW5-Ez-T5w">
                                 <rect key="frame" x="150" y="743" width="114" height="30"/>
                                 <state key="normal" title="Delete Reminder">
-                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="0.98431372549999996" green="0.78823529410000004" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="didPressDelete:" destination="fm1-Fe-T5x" eventType="touchUpInside" id="MYc-OW-1M2"/>
@@ -998,14 +1004,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipient" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FbN-Il-gR9">
-                                <rect key="frame" x="87" y="486" width="240" height="30"/>
+                                <rect key="frame" x="87" y="488" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="0.98431372549999996" green="0.78823529410000004" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reminder Date and Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RBu-bz-QWH">
-                                <rect key="frame" x="87" y="540" width="240" height="30"/>
+                                <rect key="frame" x="87" y="542" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="30B-pl-FpL"/>
@@ -1015,16 +1021,22 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6h-kk-XBc">
-                                <rect key="frame" x="158.5" y="582" width="97" height="30"/>
+                                <rect key="frame" x="87" y="612" width="240" height="50"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5lE-uI-eZk"/>
+                                    <constraint firstAttribute="width" constant="240" id="OAl-b8-IPK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Add Reminder">
-                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="didPressAdd:" destination="W2u-EQ-PO4" eventType="touchUpInside" id="luo-Qy-1OK"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JkX-H1-U5J">
-                                <rect key="frame" x="87" y="148" width="240" height="314"/>
+                                <rect key="frame" x="87" y="148" width="240" height="316"/>
                                 <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -1050,14 +1062,14 @@
                             <constraint firstItem="FbN-Il-gR9" firstAttribute="top" secondItem="JkX-H1-U5J" secondAttribute="bottom" constant="24" id="5js-i8-sqH"/>
                             <constraint firstItem="JkX-H1-U5J" firstAttribute="top" secondItem="esR-25-jdy" secondAttribute="top" constant="60" id="8IY-bZ-aF3"/>
                             <constraint firstItem="S6h-kk-XBc" firstAttribute="centerX" secondItem="VlR-B4-7nh" secondAttribute="centerX" id="9MJ-iQ-Egg"/>
-                            <constraint firstItem="S6h-kk-XBc" firstAttribute="top" secondItem="RBu-bz-QWH" secondAttribute="bottom" constant="12" id="Bte-A9-MGN"/>
+                            <constraint firstItem="S6h-kk-XBc" firstAttribute="top" secondItem="RBu-bz-QWH" secondAttribute="bottom" constant="40" id="Bte-A9-MGN"/>
                             <constraint firstItem="RBu-bz-QWH" firstAttribute="top" secondItem="FbN-Il-gR9" secondAttribute="bottom" constant="24" id="CeN-Tx-z4u"/>
                             <constraint firstItem="JkX-H1-U5J" firstAttribute="centerX" secondItem="VlR-B4-7nh" secondAttribute="centerX" id="Imc-WL-tT2"/>
                             <constraint firstItem="RBu-bz-QWH" firstAttribute="trailing" secondItem="FbN-Il-gR9" secondAttribute="trailing" id="Kcl-Ww-qjY"/>
                             <constraint firstItem="bVo-Eb-SuR" firstAttribute="leading" secondItem="sIr-St-1IS" secondAttribute="trailing" constant="20" id="N1N-7f-9nQ"/>
                             <constraint firstItem="bVo-Eb-SuR" firstAttribute="centerY" secondItem="sIr-St-1IS" secondAttribute="centerY" id="RJd-gN-Xu6"/>
                             <constraint firstItem="FbN-Il-gR9" firstAttribute="centerX" secondItem="VlR-B4-7nh" secondAttribute="centerX" id="UZf-dT-qxF"/>
-                            <constraint firstItem="bVo-Eb-SuR" firstAttribute="top" secondItem="S6h-kk-XBc" secondAttribute="bottom" constant="150" id="j9d-jS-KRa"/>
+                            <constraint firstItem="bVo-Eb-SuR" firstAttribute="top" secondItem="S6h-kk-XBc" secondAttribute="bottom" constant="100" id="j9d-jS-KRa"/>
                             <constraint firstItem="RBu-bz-QWH" firstAttribute="centerX" secondItem="VlR-B4-7nh" secondAttribute="centerX" id="luO-8f-mo3"/>
                             <constraint firstItem="esR-25-jdy" firstAttribute="bottom" secondItem="bVo-Eb-SuR" secondAttribute="bottom" constant="30" id="m7r-Jn-sXd"/>
                             <constraint firstItem="sIr-St-1IS" firstAttribute="leading" secondItem="esR-25-jdy" secondAttribute="leading" constant="20" id="p1R-Dh-AUw"/>

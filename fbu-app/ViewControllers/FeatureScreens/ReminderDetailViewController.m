@@ -40,6 +40,9 @@
         self.editButton.hidden = YES;
         self.deleteButton.hidden = YES;
     }
+    
+    self.editButton.layer.cornerRadius = 5;
+    self.editButton.layer.masksToBounds = YES;
 }
 
 - (void) initializeTextView {
