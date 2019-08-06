@@ -9,13 +9,24 @@
 #import "NewBillViewController.h"
 #import "Bill.h"
 #import "Persona.h"
+#import "ChangeSplitViewController.h"
 
-@interface NewBillViewController () <UITextFieldDelegate>
+@interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIDatePicker *dateField;
-- (IBAction)tapAdd:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *memoField;
 @property (weak, nonatomic) IBOutlet UITextField *paidField;
+@property (weak, nonatomic) IBOutlet UIImageView *pictureView;
+- (IBAction)tapAddBill:(id)sender;
+- (IBAction)tapChangeSplit:(id)sender;
+@property (strong, nonatomic) IBOutlet NSMutableArray* debtors;
+@property (strong, nonatomic) IBOutlet NSMutableArray* portions;
+@property (strong, nonatomic) IBOutlet Persona* payer;
+@property (weak, nonatomic) IBOutlet UITextField *dateField;
+@property (weak, nonatomic) NSDate *date;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UIView *dateView;
+- (IBAction)tapDateField:(id)sender;
+
 
 @end
 
@@ -25,6 +36,21 @@
     [super viewDidLoad];
     
     self.paidField.delegate = self;
+    self.navigationItem.title = @"Add a bill";
+    
+    self.payer = [PFUser.currentUser objectForKey:@"persona"];
+    [self.payer fetchIfNeeded];
+    
+    House *house = [House getHouse:self.payer];
+    self.debtors = house.housemates;
+    [self.debtors removeObject:self.payer];
+    
+    [self.dateView setHidden:YES];
+    self.dateView.tag=99;
+    
+    self.dateField.placeholder = [self formatDate:[NSDate date]];
+    self.date = [NSDate date];
+
     
     // Do any additional setup after loading the view.
 }
@@ -39,27 +65,15 @@
 }
 */
 
-- (IBAction)tapAdd:(id)sender {
-    NSDecimalNumber *paid = [NSDecimalNumber decimalNumberWithString:self.paidField.text];
-    Persona *payer = [PFUser.currentUser objectForKey:@"persona"];
-    [payer fetchIfNeeded];
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
     
-    House *house = [House getHouse:payer];
-    NSMutableArray *debtors = house.housemates;
-    [debtors removeObject:payer];
-    
-    NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(debtors.count+1)];
-    NSDecimalNumber *portion = [paid decimalNumberByDividingBy:numSplit];
-    NSArray *portions = [NSArray array];
-    for (int i = 0; i < debtors.count; i++) {
-        portions = [portions arrayByAddingObject:portion];
+    if(touch.view.tag!=99){
+        [self.dateView setHidden:YES];
+        self.date = self.datePicker.date;
+        self.dateField.text = [self formatDate:self.datePicker.date];
     }
     
-    [Bill createBill:self.dateField.date billMemo:self.memoField.text payer:payer totalPaid:paid debtors:debtors portionLent:portions image:nil withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        NSLog(@"new bill created");
-    }];
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -82,6 +96,103 @@
         }
     }
     return YES;
+}
+
+- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+
+
+- (IBAction)tapAddImage:(id)sender {
+    
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera 🚫 available so we will use photo library instead");
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    // Get the image captured by the UIImagePickerController
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    
+    // Do something with the images (based on your use case)
+    editedImage = [self resizeImage:editedImage
+                           withSize:CGSizeMake(200, 200)];
+    [self.pictureView setImage:editedImage];
+    
+    // Dismiss UIImagePickerController to go back to your original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+
+- (IBAction)tapChangeSplit:(id)sender {
+    
+}
+
+
+- (IBAction)tapAddBill:(id)sender {
+    
+    NSDecimalNumber *paid = [NSDecimalNumber decimalNumberWithString:self.paidField.text];
+    
+    NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
+    NSDecimalNumber *portion = [paid decimalNumberByDividingBy:numSplit];
+    NSArray *portions = [NSArray array];
+    for (int i = 0; i < self.debtors.count; i++) {
+        portions = [portions arrayByAddingObject:portion];
+    }
+    
+    [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:paid debtors:self.debtors portionLent:portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        NSLog(@"new bill created");
+    }];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+- (void)changeSplit:(Persona *)payer debtors:(NSMutableArray*)debtors portions:(NSMutableArray*)portions{
+    self.payer = payer;
+    self.debtors = debtors;
+    self.portions = portions;
+    
+}
+
+- (IBAction)tapDateField:(id)sender {
+    [self.dateView setHidden:NO];
+}
+
+
+- (NSString *)formatDate:(NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+    NSString *formattedDate = [dateFormatter stringFromDate:date];
+    return formattedDate;
 }
 
 @end
