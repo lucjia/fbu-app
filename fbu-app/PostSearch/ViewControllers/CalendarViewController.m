@@ -376,8 +376,49 @@
         [tableView setShowsVerticalScrollIndicator:NO];
         tableView.translatesAutoresizingMaskIntoConstraints = NO;
         tableView.rowHeight = UITableViewAutomaticDimension;
+        
         [self.view addSubview:tableView];
+        [self updateTableViewConstraints];
     }
+}
+
+- (void)updateTableViewConstraints {
+    // Left
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:tableView
+                              attribute:NSLayoutAttributeTrailing
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:self.view
+                              attribute:NSLayoutAttributeTrailing
+                              multiplier:1.0f
+                              constant:0.f]];
+    // Right
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:tableView
+                              attribute:NSLayoutAttributeLeading
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:self.view
+                              attribute:NSLayoutAttributeLeading
+                              multiplier:1.0f
+                              constant:0.f]];
+    // Top
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:tableView
+                              attribute:NSLayoutAttributeTop
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:collectionView
+                              attribute:NSLayoutAttributeBottom
+                              multiplier:1.0f
+                              constant:0.f]];
+    // Bottom
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:tableView
+                              attribute:NSLayoutAttributeBottom
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:self.view
+                              attribute:NSLayoutAttributeBottom
+                              multiplier:1.0f
+                              constant:0.f]];
 }
 
 - (void)filterArrayForSelectedDate {
@@ -457,4 +498,5 @@
 - (IBAction)didTapPostLeftMenu:(id)sender {
     [self showLeftViewAnimated:self];
 }
+
 @end
