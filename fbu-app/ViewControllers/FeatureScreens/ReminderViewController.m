@@ -56,9 +56,9 @@
 
 - (void) fetchReminders {
     if (self.segmentIndex == 0) {
-        [self fetchReceivedReminders];
+        [self fetchReceivedRemindersWithDate];
     } else if (self.segmentIndex == 1) {
-        [self fetchSentReminders];
+        [self fetchSentRemindersWithDate];
     } else if (self.segmentIndex == 2) {
         // segue to another view controller to see progress
         ProgressViewController *progressVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProgressVC"];
@@ -66,7 +66,7 @@
     }
 }
 
-- (void) fetchReceivedReminders {
+- (void) fetchReceivedRemindersWithDate {
     PFQuery *queryWithDate = [PFQuery queryWithClassName:@"Reminder"];
     
     [queryWithDate includeKey:@"reminderSender"];
@@ -83,11 +83,15 @@
     [queryWithDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             self.receivedReminderArrayDates = (NSMutableArray *)reminders;
+            [self fetchReceivedRemindersWithoutDate];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-    
+    [self.refreshControl endRefreshing];
+}
+
+- (void) fetchReceivedRemindersWithoutDate {
     // QUERY WITHOUT DATE (cannot do order by on compound queries)
     PFQuery *queryWithoutDate = [PFQuery queryWithClassName:@"Reminder"];
     
@@ -111,10 +115,9 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-    [self.refreshControl endRefreshing];
 }
 
-- (void) fetchSentReminders {
+- (void) fetchSentRemindersWithDate {
     PFQuery *queryWithDate = [PFQuery queryWithClassName:@"Reminder"];
     
     [queryWithDate includeKey:@"reminderSender"];
@@ -131,11 +134,16 @@
     [queryWithDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             self.receivedReminderArrayDates = (NSMutableArray *)reminders;
+            [self fetchSentRemindersWithoutDate];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-    
+
+    [self.refreshControl endRefreshing];
+}
+
+- (void) fetchSentRemindersWithoutDate {
     // QUERY WITHOUT DATE (cannot do order by on compound queries)
     PFQuery *queryWithoutDate = [PFQuery queryWithClassName:@"Reminder"];
     
@@ -159,7 +167,6 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-    [self.refreshControl endRefreshing];
 }
 
 - (IBAction)segmentedControlTapped:(id)sender {

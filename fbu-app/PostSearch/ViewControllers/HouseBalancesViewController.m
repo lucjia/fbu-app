@@ -53,7 +53,6 @@
 - (void) fetchBalances {
     self.negative = [NSDecimalNumber zero];
     self.positive = [NSDecimalNumber zero];
-    
     self.balances = [self.currentPersona objectForKey:@"balances"];
 }
 
@@ -73,21 +72,25 @@
         NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
         if ([balanceTotal isEqual:[NSDecimalNumber zero]]){
             cell.stateLabel.text = @"all even";
-            cell.stateLabel.textColor = [UIColor grayColor];
+            cell.stateLabel.textColor = [UIColor darkGrayColor];
+            cell.topConstraint.constant = 19;
         }
         else if([self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"you owe";
             cell.stateLabel.textColor = [UIColor redColor];
             self.negative = [self.negative decimalNumberByAdding:[self abs:balanceTotal]];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
+            cell.balanceLabel.textColor = [UIColor redColor];
             [self setTotals];
-            
+            cell.topConstraint.constant = 8;
         }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"owes you";
             cell.stateLabel.textColor = [UIColor greenColor];
             self.positive = [self.positive decimalNumberByAdding:[self abs:balanceTotal]];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
+            cell.balanceLabel.textColor = [UIColor greenColor];
             [self setTotals];
+            cell.topConstraint.constant = 8;
         }
         
         PFFileObject *imageFile = housemate.profileImage;
@@ -104,14 +107,13 @@
     
 }
 
+
 -(void) setTotals {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     
     self.negativeLabel.text = [numberFormatter stringFromNumber:self.negative];
-    self.negativeLabel.textColor = [UIColor redColor];
     self.positiveLabel.text = [numberFormatter stringFromNumber:self.positive];
-    self.positiveLabel.textColor = [UIColor greenColor];
     self.totalLabel.text = [numberFormatter stringFromNumber:[self.positive decimalNumberBySubtracting:self.negative]];
 }
 
