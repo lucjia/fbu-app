@@ -9,6 +9,8 @@
 #import "BulletinViewController.h"
 #import "PostCell.h"
 #import "Parse/Parse.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     NSMutableArray *posts;
@@ -79,6 +81,10 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [posts count];
+}
+
+- (IBAction)didPressLeft:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 @end
