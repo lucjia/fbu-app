@@ -11,6 +11,7 @@
 #import "LocationCell.h"
 #import "Persona.h"
 #import "DetailsViewController.h"
+#import "CustomColor.h"
 
 // Foursquare API
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
@@ -35,6 +36,9 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
