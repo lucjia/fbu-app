@@ -13,6 +13,7 @@
 #import "CustomButton.h"
 #import "CustomLabel.h"
 #import "Persona.h"
+#import "CustomColor.h"
 
 @interface RegisterViewController ()
 
@@ -96,7 +97,7 @@
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
-            alert.view.tintColor = [UIColor redColor];
+            alert.view.tintColor = [CustomColor accentColor:1.0];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
             // User registered successfully, automatically log in

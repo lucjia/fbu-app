@@ -58,6 +58,10 @@
     CustomDatePicker *dp = [[CustomDatePicker alloc] init];
     self.datePicker = [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
     [self initializeTextView];
+    
+    // set tint color of all text fields and views
+    [[UITextField appearance] setTintColor:[CustomColor accentColor:1.0]];
+    [[UITextView appearance] setTintColor:[CustomColor accentColor:1.0]];
 }
 
 - (IBAction)didTap:(id)sender {
@@ -122,7 +126,7 @@
                                                               }];
         // Add the cancel action to the alertController
         [alert addAction:dismissAction];
-        alert.view.tintColor = [UIColor redColor];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         // query for persona of the user with the given username IN THE HOUSE

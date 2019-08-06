@@ -124,7 +124,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
                                                               }];
         // Add the cancel action to the alertController
         [alert addAction:dismissAction];
-        alert.view.tintColor = [UIColor redColor];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
         [self presentViewController:alert animated:YES completion:nil];
     } else if (currLocation == nil) {
         [Post createPostWithSender:[PFUser currentUser][@"persona"] text:self.postTextView.text withCompletion:nil];
