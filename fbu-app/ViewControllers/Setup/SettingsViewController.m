@@ -26,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *radiusField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
-@property (weak, nonatomic) IBOutlet UIButton *logOutButton;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
