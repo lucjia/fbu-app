@@ -105,7 +105,7 @@
     
     // allows for CalendarCell to be used
     [collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
-    [collectionView setBackgroundColor:[CustomColor lightyellowGreen:1.0]];
+    [collectionView setBackgroundColor:[UIColor clearColor]];
     
     layout.minimumInteritemSpacing = 5;
     layout.minimumLineSpacing = 5;
@@ -193,6 +193,7 @@
     
     NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
+    [collectionView removeFromSuperview];
     [self initCollectionView];
     [self initCalendar:date];
     [self setMonthLabelText];
@@ -243,11 +244,10 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // switch back to the main thread to update your UI
                     [cell setHidden:NO];
-                    cell.backgroundColor = [CustomColor lightyellowGreen:1.0];
                     [cell drawEventCircle];
                     
                     if ([self isCellToday:indexPath.row - self->monthStartweekday + 2]) {
-                        [cell drawCurrentDayCircle];
+                        [cell setCurrentDayTextColor];
                     }
                 });
             }
@@ -299,6 +299,7 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
+    //cell.layer.cornerRadius = cell.frame.size.width / 2;
     eventDate = [self dateWithYear:currentYear month:currentMonth day:indexPath.row - monthStartweekday + 2];
     // will check in background thread
     [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
@@ -308,22 +309,16 @@
     } else {
         if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
             [cell setHidden:NO];
-            cell.backgroundColor = [CustomColor lightyellowGreen:1.0];
-            [cell drawCurrentDayCircle];
+            [cell setCurrentDayTextColor];
             
         } else {
             [cell setHidden:NO];
-            cell.backgroundColor = [CustomColor lightyellowGreen:1.0];
             
         }
     }
     
     if (cell.selected) {
         [cell colorSelectedCell]; // highlight selection
-    }
-    else
-    {
-        cell.backgroundColor = [UIColor clearColor]; // Default color
     }
     
     // adds date label to content view of cell
@@ -347,10 +342,11 @@
 
 // called when a CalendarCell is tapped
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    selectedCell = (CalendarCell *)[collectionView  cellForItemAtIndexPath:indexPath];
+    selectedCell = (CalendarCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [selectedCell colorSelectedCell];
     [self filterArrayForSelectedDate];
     if (eventsForSelectedDay > 0) {
+        [tableView removeFromSuperview];
         [tableView setHidden:NO];
         [self initTableView];
     } else {
@@ -373,6 +369,9 @@
         tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - (calendarHeight + calendarYPosition)) style:UITableViewStylePlain];
         [tableView setDataSource:self];
         [tableView setDelegate:self];
+        
+        [tableView setBackgroundColor:[CustomColor accentColor:0.5]];
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
         [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
         [tableView setShowsVerticalScrollIndicator:NO];
