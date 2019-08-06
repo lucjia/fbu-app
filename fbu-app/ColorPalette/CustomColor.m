@@ -10,20 +10,20 @@
 
 @implementation CustomColor
 
-+ (UIColor *)lightyellowGreen:(CGFloat)colorAlpha {
-    return [UIColor colorWithRed:(251 / 255.0) green:(250 / 255.0) blue:(211 / 255.0) alpha:colorAlpha];
++ (UIColor *)darkMainColor:(CGFloat)colorAlpha {
+    return [UIColor colorWithRed:(4 / 255.0) green:(47 / 255.0) blue:(75 / 255.0) alpha:colorAlpha];
 }
 
-+ (UIColor *)lightGreen:(CGFloat)colorAlpha {
-    return [UIColor colorWithRed:(198 / 255.0) green:(277 / 255.0) blue:(119 / 255.0) alpha:colorAlpha];
++ (UIColor *)midToneOne:(CGFloat)colorAlpha {
+    return [UIColor colorWithRed:(255 / 255.0) green:(246 / 255.0) blue:(218 / 255.0) alpha:colorAlpha];
 }
 
-+ (UIColor *)green:(CGFloat)colorAlpha {
-    return [UIColor colorWithRed:(114 / 255.0) green:(157 / 255.0) blue:(57 / 255.0) alpha:colorAlpha];
++ (UIColor *)midToneTwo:(CGFloat)colorAlpha {
+    return [UIColor colorWithRed:(251 / 255.0) green:(201 / 255.0) blue:(157 / 255.0) alpha:colorAlpha];
 }
 
-+ (UIColor *)darkGreen:(CGFloat)colorAlpha {
-    return [UIColor colorWithRed:(54 / 255.0) green:(98 / 255.0) blue:(43 / 255.0) alpha:colorAlpha];
++ (UIColor *)accentColor:(CGFloat)colorAlpha {
+    return [UIColor colorWithRed:(237 / 255.0) green:(18 / 255.0) blue:(80 / 255.0) alpha:colorAlpha];
 }
 
 @end
