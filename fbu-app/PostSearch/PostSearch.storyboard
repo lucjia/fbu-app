@@ -252,12 +252,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wfE-HV-26h">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3aq-wm-1bI">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.15575428299492389" green="0.11866736722006793" blue="0.027405628807402164" alpha="0.55179794520547931" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="corkboard" translatesAutoresizingMaskIntoConstraints="NO" id="wfE-HV-26h">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.12910453680203049" green="0.068413947930329386" blue="0.020530720163461226" alpha="0.78507598458904104" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fkY-ef-Axf">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="685"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YyR-a9-8CK">
                                     <size key="itemSize" width="220" height="364"/>
@@ -347,8 +353,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fkY-ef-Axf" firstAttribute="leading" secondItem="MHM-KO-mt1" secondAttribute="leading" id="OPt-kX-74A"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="fkY-ef-Axf" secondAttribute="bottom" id="TdJ-9A-4Fd"/>
-                            <constraint firstItem="fkY-ef-Axf" firstAttribute="top" secondItem="MHM-KO-mt1" secondAttribute="top" id="vTR-wo-2bL"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="fkY-ef-Axf" secondAttribute="bottom" constant="20" id="TdJ-9A-4Fd"/>
+                            <constraint firstItem="fkY-ef-Axf" firstAttribute="top" secondItem="MHM-KO-mt1" secondAttribute="top" constant="20" id="vTR-wo-2bL"/>
                             <constraint firstItem="fkY-ef-Axf" firstAttribute="trailing" secondItem="MHM-KO-mt1" secondAttribute="trailing" id="x3Q-rS-ybo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MHM-KO-mt1"/>
@@ -459,8 +465,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6698.5507246376819" y="-210.26785714285714"/>
-            <point key="canvasLocation" x="7395.652173913044" y="-210.26785714285714"/>
+            <point key="canvasLocation" x="7316" y="-210"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="nMy-Gk-et0">
@@ -571,13 +576,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Sent by: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTO-Bj-ZIj">
                                                     <rect key="frame" x="70" y="76.5" width="66" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqn-jf-fhp">
                                                     <rect key="frame" x="136" y="76.5" width="232" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jqn-9H-UxF">
@@ -1595,5 +1600,6 @@
     </scenes>
     <resources>
         <image name="Checkmarkempty" width="30" height="30"/>
+        <image name="corkboard" width="1928" height="1516"/>
     </resources>
 </document>

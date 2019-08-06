@@ -35,13 +35,6 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    self.layout = self.collectionView.collectionViewLayout;
-    [self.layout collectionViewContentSize];
-    
-    CGFloat height = self.collectionView.collectionViewLayout.collectionViewContentSize.height;
-    heightConstraint.constant = height;
-    [self.view layoutIfNeeded];
-    
     // Refresh control for "pull to refresh"
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
