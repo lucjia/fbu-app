@@ -99,9 +99,9 @@
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gTc-9g-PEH"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Calendar" id="Xg1-qj-R4g"/>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar35" id="Xg1-qj-R4g"/>
                     <navigationItem key="navigationItem" id="T3u-e2-Qel">
-                        <barButtonItem key="leftBarButtonItem" title="Left" id="HEv-hr-Z3s">
+                        <barButtonItem key="leftBarButtonItem" image="menu25-2" id="HEv-hr-Z3s">
                             <connections>
                                 <action selector="didTapPostLeftMenu:" destination="qB5-Kg-4Ob" id="Nka-9W-MDN"/>
                             </connections>
@@ -124,7 +124,7 @@
         <scene sceneID="pI8-ic-5b9">
             <objects>
                 <navigationController id="625-IT-BRN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Reminders" id="kKv-VP-OAo"/>
+                    <tabBarItem key="tabBarItem" title="Reminders" image="todo" id="kKv-VP-OAo"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oyP-xo-9g4">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -142,7 +142,7 @@
         <scene sceneID="8lJ-vi-EoZ">
             <objects>
                 <navigationController id="vr9-py-Oyv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Finances" id="RFH-CN-aY5"/>
+                    <tabBarItem key="tabBarItem" title="Finances" image="piggybank" id="RFH-CN-aY5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0aF-vB-lMH">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -367,7 +367,7 @@
                         <viewLayoutGuide key="safeArea" id="MHM-KO-mt1"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="YDr-Nf-Op6">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="fN2-Nw-1qK">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="menu25-2" id="fN2-Nw-1qK">
                             <connections>
                                 <action selector="didPressLeft:" destination="2Lw-TE-DW8" id="cdh-n5-VTY"/>
                             </connections>
@@ -720,7 +720,7 @@
                         <viewLayoutGuide key="safeArea" id="ikb-fZ-1NZ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Reminders" id="LzA-2R-9wO">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="UAe-7z-CPe">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="menu25-2" id="UAe-7z-CPe">
                             <connections>
                                 <action selector="didPressLeft:" destination="sZC-bC-TiA" id="3qJ-bc-lLP"/>
                             </connections>
@@ -1655,7 +1655,7 @@
         <scene sceneID="qqe-4C-yig">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="069-SJ-7yH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="Gt1-Zp-4CX"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home" id="Gt1-Zp-4CX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Aro-A6-NPG">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1673,7 +1673,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar35" width="35" height="35"/>
         <image name="emptycheck" width="50" height="50"/>
         <image name="grid" width="772" height="1050"/>
+        <image name="home" width="35" height="35"/>
+        <image name="menu25-2" width="25" height="25"/>
+        <image name="piggybank" width="35" height="35"/>
+        <image name="todo" width="35" height="35"/>
     </resources>
 </document>
