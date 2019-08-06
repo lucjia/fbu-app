@@ -116,7 +116,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="FeS-1c-2Wi">
-                        <barButtonItem key="leftBarButtonItem" title="Left" id="bi1-T2-liN">
+                        <barButtonItem key="leftBarButtonItem" title="Left" image="menu25-2" id="bi1-T2-liN">
                             <connections>
                                 <action selector="didTapLeftMenu:" destination="BYZ-38-t0r" id="doM-wh-7ke"/>
                             </connections>
@@ -216,7 +216,7 @@
                         <viewLayoutGuide key="safeArea" id="Khq-0p-kfA"/>
                     </view>
                     <navigationItem key="navigationItem" title="Requests Received" id="hSo-JK-s2P">
-                        <barButtonItem key="leftBarButtonItem" title="Left" id="kZ9-CV-aP3">
+                        <barButtonItem key="leftBarButtonItem" title="Left" image="menu25-2" id="kZ9-CV-aP3">
                             <connections>
                                 <action selector="didTapLeftMenu:" destination="ye3-hK-E3X" id="GsB-2i-vG2"/>
                             </connections>
@@ -811,7 +811,7 @@
                         <viewLayoutGuide key="safeArea" id="5gs-k6-whS"/>
                     </view>
                     <navigationItem key="navigationItem" id="ol5-Lm-mMl">
-                        <barButtonItem key="leftBarButtonItem" title="Left" id="btP-41-hRC">
+                        <barButtonItem key="leftBarButtonItem" title="Left" image="menu25-2" id="btP-41-hRC">
                             <connections>
                                 <action selector="didTapLeftMenu:" destination="SJB-s8-7P5" id="aX7-Uh-ToN"/>
                             </connections>
@@ -1276,6 +1276,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="menu25-2" width="25" height="25"/>
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
@@ -1283,6 +1284,6 @@
         <segue reference="gWT-7N-jNe"/>
         <segue reference="jds-2Y-IW3"/>
         <segue reference="PfE-T3-26N"/>
-        <segue reference="N8j-jp-Paw"/>
+        <segue reference="kil-6z-1zJ"/>
     </inferredMetricsTieBreakers>
 </document>
