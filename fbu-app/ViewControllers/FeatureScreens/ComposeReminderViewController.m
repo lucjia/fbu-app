@@ -14,7 +14,9 @@
 #import "House.h"
 #import "CustomColor.h"
 
-@interface ComposeReminderViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ComposeReminderViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
+    Persona *recipient;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *dateSelectionTextField;
 @property (strong, nonatomic) UIDatePicker *datePicker;
@@ -142,7 +144,7 @@
         [query includeKey:@"persona"];
         
         // query for Persona that is the recipient
-        [query whereKey:@"username" equalTo:self.recipientLabel.text];
+        [query whereKey:@"username" equalTo:recipient.username];
         [query findObjectsInBackgroundWithBlock:^(NSArray *recipient, NSError *error) {
             if (recipient != nil) {
                 self.receiver = [recipient objectAtIndex:0];
@@ -153,7 +155,9 @@
                     dueDate = nil;
                 }
                 
-                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
+                Reminder *new = [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
+                
+                [self.delegate refreshWithNewReminder:new];
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }
@@ -195,7 +199,7 @@
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    Persona *persona = self.housemates[indexPath.item];
+    recipient = self.housemates[indexPath.item];
     
     // change alpha to 1.0 and have alpha of last selection return to 0.5
     self.previousCell.profileView.alpha = 0.5;
@@ -203,7 +207,7 @@
     UserCollectionCell *tappedCell = [self.collectionView cellForItemAtIndexPath:(indexPath)];
     self.previousCell = tappedCell;
     tappedCell.profileView.alpha = 1.0;
-    self.recipientLabel.text = [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    self.recipientLabel.text = [[recipient.firstName stringByAppendingString:@" "] stringByAppendingString:recipient.lastName];
 }
 
 @end

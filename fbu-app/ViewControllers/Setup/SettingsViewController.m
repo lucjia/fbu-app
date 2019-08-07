@@ -13,6 +13,7 @@
 #import "Persona.h"
 #import "Parse/Parse.h"
 #import "CustomColor.h"
+#import "Accessibility.h"
 
 @interface SettingsViewController () <UITextViewDelegate, LocationViewControllerDelegate>
 
@@ -27,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *radiusField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
+@property (weak, nonatomic) IBOutlet UILabel *milesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currLocLabel;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
@@ -57,6 +60,17 @@
     [self createUserPreferencesButton];
     [self createUserLocationButtonLabel];
     [self createUserBioTextView];
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(preferredContentSizeChanged:)
+         name:UIContentSizeCategoryDidChangeNotification
+         object:nil];
+}
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
 }
 
 - (IBAction)didTap:(id)sender {
@@ -65,6 +79,7 @@
 
 - (void) setLocationLabelWithLocation:(NSString *)location {
     self.currentLocationLabel.text = location;
+    self.currentLocationLabel.adjustsFontForContentSizeCategory = YES;
 }
 
 - (void) createProfileImageView {
@@ -79,12 +94,14 @@
     }
     self.profileImage = self.profileImageView.image;
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
-    self.profileImageView.layer.borderWidth = 5;
-    self.profileImageView.layer.borderColor = [CustomColor midToneOne:1.0].CGColor;
+    self.profileImageView.layer.borderWidth = 4;
+    self.profileImageView.layer.borderColor = [CustomColor darkMainColor:1.0].CGColor;
 }
 
 - (void) createChangeProfileButton {
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.changeProfileButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 - (void) createFullNameField {
@@ -94,6 +111,8 @@
     NSString *firstName = [[PFUser currentUser][@"persona"][@"firstName"] stringByAppendingString:@" "];
     NSString *fullName = [firstName stringByAppendingString:[PFUser currentUser][@"persona"][@"lastName"]];
     self.fullNameField.text = fullName;
+    
+    [Accessibility largeTextCompatibilityWithField:self.fullNameField style:UIFontTextStyleBody];
 }
 
 - (void) createCityField {
@@ -103,6 +122,8 @@
     NSString *existingCity = [[PFUser currentUser][@"persona"][@"city"] stringByAppendingString:@", "];
     NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"persona"][@"state"]];
     self.cityField.text = existingState;
+    
+    [Accessibility largeTextCompatibilityWithField:self.cityField style:UIFontTextStyleBody];
 }
 
 - (void) createRadiusField {
@@ -113,16 +134,24 @@
     if (radius > 0) {
         self.radiusField.text = [NSString stringWithFormat:@"%@", radius];
     }
+    
+    [Accessibility largeTextCompatibilityWithField:self.radiusField style:UIFontTextStyleBody];
 }
 
 - (void) createUserPreferencesButton {
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
-    [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 - (void) createUserLocationButtonLabel {
     self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.userLocationButton.titleLabel style:UIFontTextStyleHeadline];
+    [Accessibility largeTextCompatibilityWithLabel:self.currLocLabel style:UIFontTextStyleHeadline];
+    [Accessibility largeTextCompatibilityWithLabel:self.currentLocationLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.milesLabel style:UIFontTextStyleBody];
 }
 
 - (void) createUserBioTextView {
@@ -146,6 +175,9 @@
                                       target:self action:@selector(yourTextViewDoneButtonPressed)];
     keyboardToolbar.items = @[flexBarButton, doneBarButton];
     self.bioTextView.inputAccessoryView = keyboardToolbar;
+    
+    [Accessibility largeTextCompatibilityWithView:self.bioTextView style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.continueButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 // Dismiss keyboard after typing
@@ -263,7 +295,7 @@
     [self.bioTextView resignFirstResponder];
 }
 
-- (void)setPreferences {
+- (IBAction)didPressSetPreferences:(id)sender {
     [self performSegueWithIdentifier:@"toPreferences" sender:self];
 }
 
@@ -383,6 +415,9 @@
     [self setFieldInformation];
     LocationViewController *locationViewController = (LocationViewController *)[segue destinationViewController];
     locationViewController.delegate = self;
+    
+    PreferencesViewController *prefVC = (PreferencesViewController *)[segue destinationViewController];
+    prefVC.delegate = self;
 }
 
 @end

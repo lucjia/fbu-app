@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "Request.h"
 #import "Persona.h"
+#import "CustomColor.h"
 
 @interface RoommateCell()
 
@@ -113,6 +114,7 @@
     }];
     // add the OK action to the alert controller
     [alert addAction:okAction];
+    alert.view.tintColor = [CustomColor accentColor:1.0];
     
     [self.delegate showAlertOnTimeline:alert];
 }

@@ -9,6 +9,7 @@
 #import "ReminderViewController.h"
 #import "ReminderCell.h"
 #import "Reminder.h"
+#import "ComposeReminderViewController.h"
 #import "ReminderDetailViewController.h"
 #import "CustomButton.h"
 #import "ProgressViewController.h"
@@ -16,8 +17,9 @@
 #import "Parse/Parse.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "CustomColor.h"
 
-@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
+@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate, ReminderDetailViewControllerDelegate> {
     // different way of declaring property
     NSMutableArray *filteredResults;
 }
@@ -42,6 +44,8 @@
     self.receivedReminderArrayDates = [[NSMutableArray alloc] init];
     self.receivedReminderArrayNoDates = [[NSMutableArray alloc] init];
     self.receivedReminderArrayTotal = [[NSMutableArray alloc] init];
+    
+    filteredResults = [[NSMutableArray alloc] init];
     
     self.segmentedControl.selectedSegmentIndex = self.segmentIndex;
     self.segmentedControl.layer.cornerRadius = 4.0;
@@ -68,6 +72,16 @@
         ProgressViewController *progressVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProgressVC"];
         [self presentViewController:progressVC animated:YES completion:nil];
     }
+}
+
+- (void) refreshWithNewReminder:(Reminder *)rem {
+    [self fetchReminders];
+    [self.tableView reloadData];
+}
+
+- (void) refresh {
+    [self fetchReminders];
+    [self.tableView reloadData];
 }
 
 - (void) fetchReceivedRemindersWithDate {
@@ -112,8 +126,12 @@
     [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
-            self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
-            self->filteredResults = self.receivedReminderArrayTotal;
+            if (self.receivedReminderArrayTotal.count > 0) {
+                [self.receivedReminderArrayTotal removeAllObjects];
+            }
+            [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayDates];
+            [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayNoDates];
+            self->filteredResults = (NSMutableArray *)self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -165,7 +183,7 @@
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
             self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
-            filteredResults = self.receivedReminderArrayTotal;
+            self->filteredResults = self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -204,10 +222,16 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Reminder *currentReminder = filteredResults[indexPath.row];
         
-        ReminderDetailViewController *reminderDetailVC = [segue destinationViewController];
+        ReminderDetailViewController *reminderDetailVC = (ReminderDetailViewController *)[segue destinationViewController];
+        reminderDetailVC.delegate = self;
         reminderDetailVC.reminder = currentReminder;
         
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    
+    if ([[segue identifier] isEqualToString:@"toReminderCompose"]) {
+        ComposeReminderViewController *composeVC = (ComposeReminderViewController *)[segue destinationViewController];
+        composeVC.delegate = self;
     }
 }
 
@@ -248,7 +272,7 @@
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
-    filteredResults = self.receivedReminderArrayTotal;
+    filteredResults = (NSMutableArray *)self.receivedReminderArrayTotal;
     [self.tableView reloadData];
     [self scrollToTopAfterSearch];
 }
@@ -259,20 +283,17 @@
 }
 
 // Swipe to delete
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //remove the deleted object from Parse
-        Reminder *swipedReminder = [filteredResults objectAtIndex:indexPath.row];
-        [swipedReminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error != nil) {
-                [self.tableView reloadData];
-            }
-        }];
-    }
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        // remove the deleted object from Parse
+        Reminder *swipedReminder = [self->filteredResults objectAtIndex:indexPath.row];
+        [swipedReminder deleteInBackground];
+        [self->filteredResults removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadData];
+    }];
+    deleteAction.backgroundColor = [CustomColor accentColor:1.0];
+    return @[deleteAction];
 }
 
 // Notifications

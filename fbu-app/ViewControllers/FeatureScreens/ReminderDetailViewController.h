@@ -11,9 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ReminderDetailViewControllerDelegate
+
+- (void) refresh;
+
+@end
+
 @interface ReminderDetailViewController : UIViewController
 
 @property (strong, nonatomic) Reminder *reminder;
+@property (nonatomic, weak) id<ReminderDetailViewControllerDelegate> delegate;
 
 @end
 

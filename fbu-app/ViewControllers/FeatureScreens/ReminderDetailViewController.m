@@ -75,7 +75,7 @@
     if ([self.reminderTextView.text isEqualToString:@""]) {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Edit Reminder"
-                                                                       message:@"This reminder is locked for editing."
+                                                                       message:@"Please enter a reminder."
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
         // Create a dismiss action
         UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
@@ -99,6 +99,7 @@
                                              reminder[@"dueDateString"] = self.dateField.text;
                                          }
                                          [reminder saveInBackground];
+                                         [self.delegate refresh];
                                          [self.navigationController popViewControllerAnimated:YES];
                                      }];
     }
@@ -114,6 +115,7 @@
                                                           handler:^(UIAlertAction * _Nonnull action) {
                                                               // delete reminder and go back to reminder list
                                                               [self.reminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                                                                  [self.delegate refresh];
                                                                   [self.navigationController popViewControllerAnimated:YES];
                                                               }];
                                                           }];
