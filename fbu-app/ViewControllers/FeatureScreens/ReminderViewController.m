@@ -19,7 +19,7 @@
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 #import "CustomColor.h"
 
-@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate> {
+@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate, ReminderDetailViewControllerDelegate> {
     // different way of declaring property
     NSMutableArray *filteredResults;
 }
@@ -75,6 +75,11 @@
 }
 
 - (void) refreshWithNewReminder:(Reminder *)rem {
+    [self fetchReminders];
+    [self.tableView reloadData];
+}
+
+- (void) refresh {
     [self fetchReminders];
     [self.tableView reloadData];
 }
@@ -217,7 +222,8 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Reminder *currentReminder = filteredResults[indexPath.row];
         
-        ReminderDetailViewController *reminderDetailVC = [segue destinationViewController];
+        ReminderDetailViewController *reminderDetailVC = (ReminderDetailViewController *)[segue destinationViewController];
+        reminderDetailVC.delegate = self;
         reminderDetailVC.reminder = currentReminder;
         
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
