@@ -280,7 +280,7 @@
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         // remove the deleted object from Parse
-        Reminder *swipedReminder = [filteredResults objectAtIndex:indexPath.row];
+        Reminder *swipedReminder = [self->filteredResults objectAtIndex:indexPath.row];
         [swipedReminder deleteInBackground];
         [self->filteredResults removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
