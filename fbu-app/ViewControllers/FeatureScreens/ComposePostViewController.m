@@ -13,6 +13,7 @@
 #import "QuartzCore/QuartzCore.h"
 #import "BulletinViewController.h"
 #import "CustomColor.h"
+#import "Accessibility.h"
 
 // Foursquare API
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
@@ -31,6 +32,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 @property (weak, nonatomic) IBOutlet UIView *locationButtonView;
 @property (weak, nonatomic) IBOutlet UIView *postButtonView;
 @property (weak, nonatomic) IBOutlet UIButton *postButton;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @end
 
@@ -54,6 +56,26 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     [self roundCornersWithView:self.postButtonView radius:5];
     
     [self initializeTextView];
+    
+    [self initializeLargeTextCompatibility];
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(preferredContentSizeChanged:)
+     name:UIContentSizeCategoryDidChangeNotification
+     object:nil];
+}
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+}
+
+- (void) initializeLargeTextCompatibility {
+    [Accessibility largeTextCompatibilityWithLabel:self.shareLocationButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithView:self.postTextView style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.postButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.backButton.titleLabel style:UIFontTextStyleSubheadline];
 }
 
 - (void) roundCornersWithView:(UIView *)view radius:(double)radius {

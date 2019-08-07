@@ -142,7 +142,7 @@
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
     
-    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel style:UIFontTextStyleHeadline];
+    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel style:UIFontTextStyleBody];
 }
 
 - (void) createUserLocationButtonLabel {

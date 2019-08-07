@@ -448,6 +448,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="Sv8-dc-XEr" id="lxS-Fz-e2f"/>
                         <outlet property="backgroundView" destination="LFr-gk-CcM" id="yYw-Fe-svc"/>
                         <outlet property="locationButtonView" destination="qRU-NY-sbD" id="rf8-m8-n26"/>
                         <outlet property="postButton" destination="g04-0L-Kpn" id="Cze-ul-aYV"/>
@@ -855,7 +856,7 @@
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="40s-70-p90"/>
-                                    <constraint firstAttribute="width" constant="240" id="EWW-zg-F2b"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="EWW-zg-F2b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Save Edits">
@@ -952,7 +953,7 @@
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="5lE-uI-eZk"/>
-                                    <constraint firstAttribute="width" constant="240" id="OAl-b8-IPK"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="OAl-b8-IPK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Add Reminder">
@@ -1055,6 +1056,7 @@
                         <outlet property="addReminderButton" destination="S6h-kk-XBc" id="u2u-4W-naX"/>
                         <outlet property="collectionView" destination="WbQ-kZ-JZN" id="Iox-qE-Eet"/>
                         <outlet property="dateSelectionTextField" destination="RBu-bz-QWH" id="v5y-uA-eUa"/>
+                        <outlet property="lockEditingLabel" destination="bVo-Eb-SuR" id="fuL-2Y-VS1"/>
                         <outlet property="lockEditingSwitch" destination="sIr-St-1IS" id="YnA-65-Vgf"/>
                         <outlet property="recipientLabel" destination="kle-L6-Zon" id="yCq-4s-Gt6"/>
                         <outlet property="reminderTextView" destination="JkX-H1-U5J" id="C3Q-jh-xto"/>
