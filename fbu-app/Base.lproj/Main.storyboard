@@ -797,8 +797,8 @@
                                                         <constraint firstAttribute="height" constant="60" id="Uav-4u-XhJ"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting For Bob to respond" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNN-Yg-HLZ">
-                                                    <rect key="frame" x="94" y="39.5" width="209" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting For Bob to respond" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNN-Yg-HLZ">
+                                                    <rect key="frame" x="94" y="40" width="300" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -806,6 +806,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Diw-XX-tRn" firstAttribute="leading" secondItem="9e8-7L-Uiy" secondAttribute="leading" constant="20" id="3zU-Oe-srd"/>
+                                                <constraint firstAttribute="trailing" secondItem="RNN-Yg-HLZ" secondAttribute="trailing" constant="20" id="4B1-CL-aJf"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RNN-Yg-HLZ" secondAttribute="bottom" constant="41" id="Zud-7H-Lp1"/>
                                                 <constraint firstItem="RNN-Yg-HLZ" firstAttribute="leading" secondItem="Diw-XX-tRn" secondAttribute="trailing" constant="14" id="b6z-dr-aa5"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Diw-XX-tRn" secondAttribute="bottom" constant="21.5" id="byt-DE-Zsc"/>
