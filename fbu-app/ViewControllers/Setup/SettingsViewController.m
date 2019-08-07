@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *radiusField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
+@property (weak, nonatomic) IBOutlet UILabel *milesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currLocLabel;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
@@ -57,14 +59,37 @@
     [self createUserPreferencesButton];
     [self createUserLocationButtonLabel];
     [self createUserBioTextView];
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(preferredContentSizeChanged:)
+         name:UIContentSizeCategoryDidChangeNotification
+         object:nil];
 }
 
 - (IBAction)didTap:(id)sender {
     [self.view endEditing:YES];
 }
 
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+    self.changeProfileButton.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.fullNameField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.cityField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.currentLocationLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.userPreferencesButton.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.userLocationButton.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.radiusField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.bioTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.continueButton.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.milesLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.currLocLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+}
+
 - (void) setLocationLabelWithLocation:(NSString *)location {
     self.currentLocationLabel.text = location;
+    self.currentLocationLabel.adjustsFontForContentSizeCategory = YES;
 }
 
 - (void) createProfileImageView {

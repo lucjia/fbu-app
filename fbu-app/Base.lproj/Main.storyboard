@@ -1093,14 +1093,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="fay-Rl-Pi3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileImage" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fay-Rl-Pi3">
                                 <rect key="frame" x="40" y="84" width="110" height="110"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="Pck-6f-U9i"/>
                                     <constraint firstAttribute="height" constant="110" id="YN9-bS-SHT"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xn-gE-IOK">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xn-gE-IOK">
                                 <rect key="frame" x="37.5" y="199" width="115" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="thJ-jU-Qwl"/>
@@ -1123,7 +1123,7 @@
                                     <segue destination="Uya-kf-udz" kind="presentation" identifier="toTimelineTabBar" id="kFA-SJ-iRa"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aji-eh-h7t">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aji-eh-h7t">
                                 <rect key="frame" x="102" y="257" width="210" height="30"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.78823529410000004" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -1134,7 +1134,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State (ex: Seattle, WA)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w5c-G0-0tl">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State (ex: Seattle, WA)" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w5c-G0-0tl">
                                 <rect key="frame" x="102" y="311" width="210" height="30"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.78823529410000004" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -1145,11 +1145,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ual-aL-KJL">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ual-aL-KJL">
                                 <rect key="frame" x="87" y="528" width="240" height="40"/>
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="MaH-lr-yda"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="MaH-lr-yda"/>
                                     <constraint firstAttribute="height" constant="40" id="Pum-RN-M1j"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1160,7 +1160,7 @@
                                     <action selector="didPressSetPreferences:" destination="qmT-Kq-rNQ" eventType="touchUpInside" id="vfq-3i-VsX"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Radius" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="COt-Vb-pEL">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Radius" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="COt-Vb-pEL">
                                 <rect key="frame" x="102" y="365" width="160" height="30"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.78823529410000004" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -1170,7 +1170,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" text="hi" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XC3-rj-kb8">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" text="hi" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XC3-rj-kb8">
                                 <rect key="frame" x="216" y="84" width="158" height="143"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.78823529410000004" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -1193,7 +1193,7 @@
                                     <segue destination="sg7-0I-vg5" kind="show" identifier="pressLocationButton" id="H70-ju-lxV"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="current location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uou-7d-4E0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="current location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uou-7d-4E0">
                                 <rect key="frame" x="107" y="444" width="200" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="vdN-Qs-Rep"/>
@@ -1202,13 +1202,13 @@
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voI-1n-iI2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voI-1n-iI2">
                                 <rect key="frame" x="274" y="370.5" width="38" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Location:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMB-iT-xhQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Location:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMB-iT-xhQ">
                                 <rect key="frame" x="107" y="415" width="200" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="0Wq-f0-7hx"/>
@@ -1263,8 +1263,10 @@
                         <outlet property="changeProfileButton" destination="3xn-gE-IOK" id="K6I-fR-bPY"/>
                         <outlet property="cityField" destination="w5c-G0-0tl" id="HcT-d8-bej"/>
                         <outlet property="continueButton" destination="Dy5-In-iWy" id="h4Y-hM-qxK"/>
+                        <outlet property="currLocLabel" destination="JMB-iT-xhQ" id="l6d-0g-KxS"/>
                         <outlet property="currentLocationLabel" destination="uou-7d-4E0" id="uoC-Ct-W9C"/>
                         <outlet property="fullNameField" destination="aji-eh-h7t" id="8dO-vq-g5h"/>
+                        <outlet property="milesLabel" destination="voI-1n-iI2" id="8F3-4O-rA6"/>
                         <outlet property="profileImageView" destination="fay-Rl-Pi3" id="ame-fi-isU"/>
                         <outlet property="radiusField" destination="COt-Vb-pEL" id="hzk-bi-aBY"/>
                         <outlet property="userLocationButton" destination="Y24-5j-YDu" id="5on-mn-6us"/>
