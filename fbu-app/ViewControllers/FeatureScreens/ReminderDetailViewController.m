@@ -8,6 +8,7 @@
 
 #import "ReminderDetailViewController.h"
 #import "CustomDatePicker.h"
+#import "CustomColor.h"
 
 @interface ReminderDetailViewController ()
 
@@ -39,6 +40,9 @@
         self.editButton.hidden = YES;
         self.deleteButton.hidden = YES;
     }
+    
+    self.editButton.layer.cornerRadius = 5;
+    self.editButton.layer.masksToBounds = YES;
 }
 
 - (void) initializeTextView {
@@ -81,7 +85,7 @@
                                                               }];
         // Add the cancel action to the alertController
         [alert addAction:dismissAction];
-        alert.view.tintColor = [UIColor redColor];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         // save new reminder
@@ -121,7 +125,7 @@
     // Add the cancel action to the alertController
     [alert addAction:disagreeAction];
     [alert addAction:agreeAction];
-    alert.view.tintColor = [UIColor redColor];
+    alert.view.tintColor = [CustomColor accentColor:1.0];
     [self presentViewController:alert animated:YES completion:nil];
 }
 

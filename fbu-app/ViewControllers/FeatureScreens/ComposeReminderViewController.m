@@ -19,12 +19,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *dateSelectionTextField;
 @property (strong, nonatomic) UIDatePicker *datePicker;
 @property (strong, nonatomic) NSDate *dueDate;
-@property (weak, nonatomic) IBOutlet UITextField *recipientTextField;
 @property (weak, nonatomic) IBOutlet UITextView *reminderTextView;
+@property (weak, nonatomic) IBOutlet UILabel *recipientLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addReminderButton;
 @property (strong, nonatomic) Persona *receiver;
-@property (strong, nonatomic) NSString *dueDateString;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) NSString *dueDateString;
 @property (strong, nonatomic) NSMutableArray *housemates;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tap;
 @property (strong, nonatomic) UserCollectionCell *previousCell;
@@ -40,8 +40,12 @@
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    UICollectionViewFlowLayout *layout = self.collectionView.collectionViewLayout;
     [self fetchHousemates];
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing = 2;
+    layout.minimumLineSpacing = 2;
     
     CGFloat photosPerLine = 3;
     CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing*(photosPerLine - 1)) / photosPerLine;
@@ -58,6 +62,13 @@
     CustomDatePicker *dp = [[CustomDatePicker alloc] init];
     self.datePicker = [dp initializeDatePickerWithDatePicker:self.datePicker textField:self.dateSelectionTextField];
     [self initializeTextView];
+    
+    // set tint color of all text fields and views
+    [[UITextField appearance] setTintColor:[CustomColor accentColor:1.0]];
+    [[UITextView appearance] setTintColor:[CustomColor accentColor:1.0]];
+    
+    self.addReminderButton.layer.cornerRadius = 5;
+    self.addReminderButton.layer.masksToBounds = YES;
 }
 
 - (IBAction)didTap:(id)sender {
@@ -86,14 +97,14 @@
     
     if ([self.reminderTextView.text isEqualToString:@""]) {
         self.reminderTextView.text = @"Write a reminder...";
-        self.reminderTextView.textColor = [UIColor lightGrayColor];
+        self.reminderTextView.textColor = [CustomColor midToneTwo:1.0];
     }
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if ([self.reminderTextView.text isEqualToString:@"Write a reminder..."]) {
         self.reminderTextView.text = @"";
-        self.reminderTextView.textColor = [UIColor blackColor];
+        self.reminderTextView.textColor = [CustomColor midToneOne:1.0];
     }
     [self.reminderTextView becomeFirstResponder];
 }
@@ -101,7 +112,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if ([self.reminderTextView.text isEqualToString:@""]) {
         self.reminderTextView.text = @"Write a reminder...";
-        self.reminderTextView.textColor = [UIColor lightGrayColor];
+        self.reminderTextView.textColor = [CustomColor midToneTwo:1.0];
     }
     [self.reminderTextView resignFirstResponder];
 }
@@ -109,7 +120,7 @@
 
 - (IBAction)didPressAdd:(id)sender {
     // Check if fields are empty OR invalid
-    if ([self.recipientTextField.text isEqualToString:@""] || [self.reminderTextView.text isEqualToString:@""]) {
+    if ([self.recipientLabel.text isEqualToString:@""] || [self.reminderTextView.text isEqualToString:@""]) {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Add Reminder"
                                                                        message:@"Please enter a username or reminder."
@@ -122,7 +133,7 @@
                                                               }];
         // Add the cancel action to the alertController
         [alert addAction:dismissAction];
-        alert.view.tintColor = [UIColor redColor];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         // query for persona of the user with the given username IN THE HOUSE
@@ -131,7 +142,7 @@
         [query includeKey:@"persona"];
         
         // query for Persona that is the recipient
-        [query whereKey:@"username" equalTo:self.recipientTextField.text];
+        [query whereKey:@"username" equalTo:self.recipientLabel.text];
         [query findObjectsInBackgroundWithBlock:^(NSArray *recipient, NSError *error) {
             if (recipient != nil) {
                 self.receiver = [recipient objectAtIndex:0];
@@ -161,14 +172,10 @@
         [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
             if (!error) {
                 cell.profileView.image = [UIImage imageWithData:data];
+                cell.profileView.alpha = 0.5;
             }
         }];
     }];
-    cell.profileView.layer.cornerRadius = self.cellHeight / 2;
-    cell.profileView.alpha = 0.5;
-    cell.profileView.layer.masksToBounds = YES;
-    cell.profileView.contentMode = UIViewContentModeScaleAspectFill;
-    
     return cell;
 }
 
@@ -193,10 +200,10 @@
     // change alpha to 1.0 and have alpha of last selection return to 0.5
     self.previousCell.profileView.alpha = 0.5;
     
-    UserCollectionCell *tappedCell = [collectionView cellForItemAtIndexPath:(indexPath)];
+    UserCollectionCell *tappedCell = [self.collectionView cellForItemAtIndexPath:(indexPath)];
     self.previousCell = tappedCell;
     tappedCell.profileView.alpha = 1.0;
-    self.recipientTextField.text = persona.username;
+    self.recipientLabel.text = persona.username;
 }
 
 @end

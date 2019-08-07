@@ -12,6 +12,7 @@
 #import "LogInViewController.h"
 #import "Persona.h"
 #import "Parse/Parse.h"
+#import "CustomColor.h"
 
 @interface SettingsViewController () <UITextViewDelegate>
 
@@ -20,12 +21,12 @@
 @property (strong, nonatomic) UIImagePickerController *imagePickerVC;
 @property (weak, nonatomic) IBOutlet UITextField *fullNameField;
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
+@property (weak, nonatomic) IBOutlet UILabel *currentLocationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *userPreferencesButton;
 @property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
 @property (weak, nonatomic) IBOutlet UITextField *radiusField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
-@property (weak, nonatomic) IBOutlet UIButton *logOutButton;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
@@ -54,10 +55,8 @@
     [self createCityField];
     [self createRadiusField];
     [self createUserPreferencesButton];
-    [self createUserLocationButton];
+    [self createUserLocationButtonLabel];
     [self createUserBioTextView];
-    [self createContinueButton];
-    [self createLogOutButton];
 }
 
 - (IBAction)didTap:(id)sender {
@@ -79,10 +78,6 @@
 }
 
 - (void) createChangeProfileButton {
-    self.changeProfileButton.backgroundColor = [UIColor lightGrayColor];
-    self.changeProfileButton.tintColor = [UIColor whiteColor];
-    self.changeProfileButton.layer.cornerRadius = 6;
-    self.changeProfileButton.clipsToBounds = YES;
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -115,18 +110,13 @@
 }
 
 - (void) createUserPreferencesButton {
-    self.userPreferencesButton.backgroundColor = [UIColor lightGrayColor];
-    self.userPreferencesButton.tintColor = [UIColor whiteColor];
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
     [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void) createUserLocationButton {
-    self.userLocationButton.backgroundColor = [UIColor lightGrayColor];
-    self.userLocationButton.tintColor = [UIColor whiteColor];
-    self.userLocationButton.layer.cornerRadius = 6;
-    self.userLocationButton.clipsToBounds = YES;
+- (void) createUserLocationButtonLabel {
+    self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
     [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -134,7 +124,7 @@
     self.bioTextView.text = [PFUser currentUser][@"persona"][@"bio"];
     if ([self.bioTextView.text isEqualToString:@""]) {
         self.bioTextView.text = @"Write a bio...";
-        self.bioTextView.textColor = [UIColor lightGrayColor];
+        self.bioTextView.textColor = [CustomColor midToneOne:1.0];
     }
     self.bioTextView.layer.borderWidth = 0.5f;
     self.bioTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor];
@@ -151,22 +141,6 @@
                                       target:self action:@selector(yourTextViewDoneButtonPressed)];
     keyboardToolbar.items = @[flexBarButton, doneBarButton];
     self.bioTextView.inputAccessoryView = keyboardToolbar;
-}
-
-- (void) createContinueButton {
-    self.continueButton.backgroundColor = [UIColor lightGrayColor];
-    self.continueButton.tintColor = [UIColor whiteColor];
-    self.continueButton.layer.cornerRadius = 6;
-    self.continueButton.clipsToBounds = YES;
-    [self.continueButton addTarget:self action:@selector(goToTimeline) forControlEvents:UIControlEventTouchUpInside];
-}
-
--(void) createLogOutButton {
-    self.logOutButton.backgroundColor = [UIColor lightGrayColor];
-    self.logOutButton.tintColor = [UIColor whiteColor];
-    self.logOutButton.layer.cornerRadius = 6;
-    self.logOutButton.clipsToBounds = YES;
-    [self.logOutButton addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
 }
 
 // Dismiss keyboard after typing
@@ -256,7 +230,7 @@
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
-            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+            alert.view.tintColor = [CustomColor accentColor:1.0];
             [self presentViewController:alert animated:YES completion:nil];
         }
     }];
@@ -265,30 +239,13 @@
 // Change User Bio / About Me
 - (void)setBio {
     [[PFUser currentUser][@"persona"] setObject:self.bioTextView.text forKey:@"bio"];
-    [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            // Create alert
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Bio Changed"
-                                                                           message:@"Your bio has been changed."
-                                                                    preferredStyle:(UIAlertControllerStyleAlert)];
-            // Create a dismiss action
-            UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
-                                                                    style:UIAlertActionStyleCancel
-                                                                  handler:^(UIAlertAction * _Nonnull action) {
-                                                                      // Handle cancel response here. Doing nothing will dismiss the view.
-                                                                  }];
-            // Add the cancel action to the alertController
-            [alert addAction:dismissAction];
-            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-    }];
+    [[PFUser currentUser][@"persona"] saveInBackground];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if ([self.bioTextView.text isEqualToString:@"Write a bio..."]) {
         self.bioTextView.text = @"";
-        self.bioTextView.textColor = [UIColor blackColor];
+        self.bioTextView.textColor = [CustomColor darkMainColor:1.0];
     }
     [self.bioTextView becomeFirstResponder];
 }
@@ -296,7 +253,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if ([self.bioTextView.text isEqualToString:@""]) {
         self.bioTextView.text = @"Write a bio...";
-        self.bioTextView.textColor = [UIColor lightGrayColor];
+        self.bioTextView.textColor = [CustomColor midToneOne:1.0];
     }
     [self.bioTextView resignFirstResponder];
 }
@@ -351,7 +308,7 @@
                                                               }];
         // Add the cancel action to the alertController
         [alert addAction:dismissAction];
-        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
         [self presentViewController:alert animated:YES completion:nil];
     }
     
@@ -377,7 +334,7 @@
                                                               }];
         // Add the cancel action to the alertController
         [alert addAction:dismissAction];
-        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
         [self presentViewController:alert animated:YES completion:nil];
     }
     
@@ -398,12 +355,12 @@
                                                               }];
         // Add the cancel action to the alertController
         [alert addAction:dismissAction];
-        alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
         [self presentViewController:alert animated:YES completion:nil];
     }
     
     // Set bio
-    if ([self.bioTextView.text isEqualToString:@"Write a bio..."] && self.bioTextView.textColor == [UIColor lightGrayColor]) {
+    if ([self.bioTextView.text isEqualToString:@"Write a bio..."] && self.bioTextView.textColor == [CustomColor midToneOne:1.0]) {
         self.bio = @"";
     } else {
         self.bio = self.bioTextView.text;

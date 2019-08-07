@@ -37,13 +37,21 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search for a location...";
     
-    
     if ([[PFUser currentUser][@"persona"] objectForKey:@"venue"] == nil) {
         self.currentLocationLabel.text = @"Choose a location close to where you wish to live!";
     } else {
         self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
     }
     [self setCity];
+}
+
+- (IBAction)didPressSet:(id)sender {
+    if (self.userLocation) {
+        // Set location in Parse
+        [[PFUser currentUser][@"persona"] setObject:self.userLocation forKey:@"geoPoint"];
+        [[PFUser currentUser][@"persona"] saveInBackground];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) setCity {
@@ -67,27 +75,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     double lat = [[venue valueForKeyPath:@"location.lat"] doubleValue];
     double lng = [[venue valueForKeyPath:@"location.lng"] doubleValue];
     
-    // Set location in Parse
     self.userLocation = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
-    [[PFUser currentUser][@"persona"] setObject:self.userLocation forKey:@"geoPoint"];
-    [[PFUser currentUser][@"persona"] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) { 
-            // Create alert
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location Changed"
-                                                                           message:@"Your location has been changed."
-                                                                    preferredStyle:(UIAlertControllerStyleAlert)];
-            // Create a dismiss action
-            UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
-                                                                    style:UIAlertActionStyleCancel
-                                                                  handler:^(UIAlertAction * _Nonnull action) {
-                                                                      [self.navigationController popViewControllerAnimated:YES];
-                                                                  }];
-            // Add the cancel action to the alertController
-            [alert addAction:dismissAction];
-            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-    }];
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

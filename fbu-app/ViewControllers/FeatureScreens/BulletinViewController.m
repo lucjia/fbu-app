@@ -11,6 +11,8 @@
 #import "Parse/Parse.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "House.h"
+#import "Persona.h"
 
 @interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     NSMutableArray *posts;
@@ -55,16 +57,22 @@
     
     [query orderByDescending:@"createdAt"];
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *fetchedPosts, NSError *error) {
-        if (fetchedPosts != nil) {
-            posts = (NSMutableArray *)fetchedPosts;
-            [self.collectionView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
+    House *currentHouse = [[House alloc] init];
+    currentHouse = [PFUser currentUser][@"persona"][@"house"];
+    [currentHouse fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        [query whereKey:@"postSender" containedIn:currentHouse.housemates];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *fetchedPosts, NSError *error) {
+            if (fetchedPosts != nil) {
+                self->posts = (NSMutableArray *)fetchedPosts;
+                [self.collectionView reloadData];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
+        
+        [self->refreshControl endRefreshing];
     }];
-    
-    [refreshControl endRefreshing];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
