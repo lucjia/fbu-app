@@ -43,21 +43,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     SplitDebtorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SplitDebtorCell"];
     
-    NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
-    NSDecimalNumber *portion = [self.paid decimalNumberByDividingBy:numSplit];
-    
-    cell.moneyField.placeholder = [portion stringValue];
     cell.delegate = self;
     Persona *possibleDebtor = self.possibleDebtors[indexPath.row];
     [possibleDebtor fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         cell.nameLabel.text = [[possibleDebtor.firstName stringByAppendingString:@" "] stringByAppendingString:possibleDebtor.lastName];
         cell.debtor = possibleDebtor;
+        cell.indexPath = indexPath;
         if(![self.debtors containsObject:possibleDebtor]){
             cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
             cell.moneyField.backgroundColor = [UIColor groupTableViewBackgroundColor];
             cell.moneyField.text = @"";
-            cell.moneyField.placeholder = @"0.00";
+            cell.moneyField.placeholder = [self formatCurrency:[NSDecimalNumber zero]];
             [cell.debtorSwitch setOn:NO];
+        }
+        else{
+            NSUInteger index = [self.debtors indexOfObject:possibleDebtor];
+            cell.backgroundColor = [UIColor clearColor];
+            cell.moneyField.backgroundColor = [UIColor clearColor];
+            [cell.debtorSwitch setOn:YES];
+            cell.moneyField.text = [self formatCurrency:self.portions[index]];
         }
     }];
     
@@ -70,23 +74,42 @@
     return self.possibleDebtors.count;
 }
 
-- (void)addDebtor:(Persona*)debtor portion:(NSDecimalNumber*)portion {
+- (void)addDebtor:(Persona*)debtor portion:(NSDecimalNumber*)portion indexPath:(NSIndexPath*)indexPath {
     [self.debtors addObject:debtor];
     [self.portions addObject:portion];
-    
+    NSArray* indexArray = [NSArray arrayWithObjects:indexPath, nil];
+    [self.tableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationFade];
     
 }
-- (void)removeDebtor:(Persona*)debtor {
+- (void)removeDebtor:(Persona*)debtor indexPath:(NSIndexPath*)indexPath {
     NSUInteger index = [self.debtors indexOfObject:debtor];
     [self.debtors removeObjectAtIndex:index];
     [self.portions removeObjectAtIndex:index];
-    
+    NSArray* indexArray = [NSArray arrayWithObjects:indexPath, nil];
+    [self.tableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void) splitEvenly {
+    NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
+    NSDecimalNumber *portion = [self.paid decimalNumberByDividingBy:numSplit];
+    self.portions = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.debtors.count; i++) {
+        [self.portions addObject:portion];
+    }
+    [self reloadView];
 }
 
 - (IBAction)tapSave:(id)sender {
     [self.delegate changeSplit:self.payer debtors:self.debtors portions:self.portions];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (NSString *) formatCurrency:(NSDecimalNumber*)money {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    return [numberFormatter stringFromNumber:money];
+}
+
 
 @end
 

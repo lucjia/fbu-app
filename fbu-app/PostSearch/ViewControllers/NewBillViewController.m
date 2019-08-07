@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *payerButton;
 @property (weak, nonatomic) IBOutlet UIButton *debtorsButton;
 @property (strong,nonatomic) NSMutableArray* possibleDebtors;
+- (IBAction)tapDateDone:(id)sender;
 
 
 @end
@@ -46,9 +47,6 @@
     
     [self fetchpossibleDebtors];
     self.debtors = [self.possibleDebtors mutableCopy];
-    
-    [self.dateView setHidden:YES];
-    self.dateView.tag=99;
     
     self.dateField.placeholder = [self formatDate:[NSDate date]];
     self.date = [NSDate date];
@@ -75,17 +73,6 @@
     House *house = [House getHouse:persona];
     self.possibleDebtors = [[house objectForKey:@"housemates"] mutableCopy];
     [self.possibleDebtors removeObject:self.payer];
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-    
-    if(touch.view.tag!=99){
-        [self.dateView setHidden:YES];
-        self.date = self.datePicker.date;
-        self.dateField.text = [self formatDate:self.datePicker.date];
-    }
-    
 }
 
 - (NSString *) getName:(Persona*)persona {
@@ -168,14 +155,7 @@
     
     if ((self.paidField.text && self.paidField.text.length > 0) && (self.memoField.text && self.memoField.text.length > 0)) {
         
-        NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
-        NSDecimalNumber *portion = [[self getPaid] decimalNumberByDividingBy:numSplit];
-        NSArray *portions = [NSArray array];
-        for (int i = 0; i < self.debtors.count; i++) {
-            portions = [portions arrayByAddingObject:portion];
-        }
-        
-        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:self.portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             NSLog(@"new bill created");
         }];
         
@@ -215,13 +195,28 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if(self.portions == nil){
+        NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
+        NSDecimalNumber *portion = [[self getPaid] decimalNumberByDividingBy:numSplit];
+        self.portions = [[NSMutableArray alloc] init];
+        for (int i = 0; i < self.debtors.count; i++) {
+            [self.portions addObject:portion];
+        }
+    }
+    
     ChangeSplitViewController *controller = (ChangeSplitViewController *)segue.destinationViewController;
     controller.delegate = self;
     controller.debtors = self.debtors;
+    controller.portions = self.portions;
     controller.payer = self.payer;
     controller.paid = [self getPaid];
     controller.possibleDebtors = self.possibleDebtors;
     
 }
 
+- (IBAction)tapDateDone:(id)sender {
+    [self.dateView setHidden:YES];
+    self.date = self.datePicker.date;
+    self.dateField.text = [self formatDate:self.datePicker.date];
+}
 @end

@@ -1222,10 +1222,10 @@
             </objects>
             <point key="canvasLocation" x="6174" y="1252"/>
         </scene>
-        <!--New Bill View Controller-->
+        <!--Add a bill-->
         <scene sceneID="an3-GB-kfT">
             <objects>
-                <viewController id="t5K-h7-cgS" customClass="NewBillViewController" sceneMemberID="viewController">
+                <viewController title="Add a bill" id="t5K-h7-cgS" customClass="NewBillViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EKG-7S-Kzf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1257,19 +1257,44 @@
                                     <action selector="tapDateField:" destination="t5K-h7-cgS" eventType="touchDown" id="GZ4-cs-Ivy"/>
                                 </connections>
                             </textField>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glH-lV-22p">
-                                <rect key="frame" x="0.0" y="570" width="414" height="326"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glH-lV-22p">
+                                <rect key="frame" x="0.0" y="563" width="414" height="250"/>
                                 <subviews>
-                                    <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="iDe-hd-Bmj">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="204"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A0S-L6-efl">
+                                        <rect key="frame" x="0.0" y="206" width="414" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="IMw-9B-Dj2"/>
+                                        </constraints>
+                                        <items>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="doY-Yh-1Zp"/>
+                                            <barButtonItem title="Done" id="lYR-BT-1pP">
+                                                <connections>
+                                                    <action selector="tapDateDone:" destination="t5K-h7-cgS" id="Xjy-vm-Dm6"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </toolbar>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="iDe-hd-Bmj">
+                                        <rect key="frame" x="0.0" y="2" width="414" height="204"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="204" id="6CF-UQ-Ahu"/>
+                                        </constraints>
                                         <date key="date" timeIntervalSinceReferenceDate="586757899.103315">
                                             <!--2019-08-06 04:18:19 +0000-->
                                         </date>
                                     </datePicker>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="28H-hr-K1q"/>
+                                    <constraint firstItem="A0S-L6-efl" firstAttribute="top" secondItem="iDe-hd-Bmj" secondAttribute="bottom" id="5xe-Gz-dik"/>
+                                    <constraint firstAttribute="bottom" secondItem="A0S-L6-efl" secondAttribute="bottom" id="AH5-A2-rPb"/>
+                                    <constraint firstAttribute="trailing" secondItem="iDe-hd-Bmj" secondAttribute="trailing" id="LOg-BX-h8m"/>
+                                    <constraint firstAttribute="trailing" secondItem="A0S-L6-efl" secondAttribute="trailing" id="W3A-I6-gRk"/>
+                                    <constraint firstItem="iDe-hd-Bmj" firstAttribute="leading" secondItem="glH-lV-22p" secondAttribute="leading" id="vMv-Hy-Vc6"/>
+                                    <constraint firstItem="A0S-L6-efl" firstAttribute="leading" secondItem="glH-lV-22p" secondAttribute="leading" id="x2u-UF-X7b"/>
+                                </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cost" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DrX-WQ-KAR">
                                 <rect key="frame" x="130" y="198" width="254" height="30"/>
@@ -1324,11 +1349,13 @@
                             <constraint firstItem="lmB-zD-i2y" firstAttribute="top" secondItem="JNh-qj-eB0" secondAttribute="top" id="5sh-nW-c0w"/>
                             <constraint firstItem="lmB-zD-i2y" firstAttribute="leading" secondItem="JNh-qj-eB0" secondAttribute="trailing" constant="20" id="Dp5-P9-g1Y"/>
                             <constraint firstItem="JNh-qj-eB0" firstAttribute="top" secondItem="pVr-aG-FnU" secondAttribute="top" constant="60" id="DyF-ab-gF3"/>
+                            <constraint firstItem="pVr-aG-FnU" firstAttribute="bottom" secondItem="glH-lV-22p" secondAttribute="bottom" id="EfO-DI-rlb"/>
                             <constraint firstItem="pVr-aG-FnU" firstAttribute="trailing" secondItem="SST-d4-J2d" secondAttribute="trailing" constant="30" id="MfB-yl-0PX"/>
                             <constraint firstItem="DrX-WQ-KAR" firstAttribute="bottom" secondItem="JNh-qj-eB0" secondAttribute="bottom" id="Nje-hh-nYz"/>
                             <constraint firstItem="BOO-bU-vXr" firstAttribute="top" secondItem="HKs-v8-ttz" secondAttribute="bottom" constant="20" id="O0k-qT-1oo"/>
                             <constraint firstItem="pVr-aG-FnU" firstAttribute="trailing" secondItem="ij4-TM-gdI" secondAttribute="trailing" constant="30" id="OAR-yL-b0n"/>
                             <constraint firstItem="DrX-WQ-KAR" firstAttribute="leading" secondItem="JNh-qj-eB0" secondAttribute="trailing" constant="20" id="eLH-R8-Aet"/>
+                            <constraint firstItem="glH-lV-22p" firstAttribute="trailing" secondItem="pVr-aG-FnU" secondAttribute="trailing" id="g4R-8q-VG6"/>
                             <constraint firstItem="JNh-qj-eB0" firstAttribute="leading" secondItem="pVr-aG-FnU" secondAttribute="leading" constant="30" id="k8m-50-U7e"/>
                             <constraint firstItem="F0l-5l-9Ge" firstAttribute="leading" secondItem="HKs-v8-ttz" secondAttribute="trailing" constant="12" id="kh8-By-rbu"/>
                             <constraint firstItem="SST-d4-J2d" firstAttribute="leading" secondItem="DrX-WQ-KAR" secondAttribute="leading" id="nC1-pD-zdN"/>
@@ -1337,6 +1364,7 @@
                             <constraint firstItem="BOO-bU-vXr" firstAttribute="leading" secondItem="HKs-v8-ttz" secondAttribute="leading" id="uQR-do-7RO"/>
                             <constraint firstItem="HKs-v8-ttz" firstAttribute="top" secondItem="JNh-qj-eB0" secondAttribute="bottom" constant="100" id="vCX-uf-kcL"/>
                             <constraint firstItem="pVr-aG-FnU" firstAttribute="trailing" secondItem="DrX-WQ-KAR" secondAttribute="trailing" constant="30" id="vkC-NL-JNn"/>
+                            <constraint firstItem="glH-lV-22p" firstAttribute="leading" secondItem="pVr-aG-FnU" secondAttribute="leading" id="x0a-ab-RCz"/>
                             <constraint firstItem="gVd-bR-jr6" firstAttribute="top" secondItem="ij4-TM-gdI" secondAttribute="bottom" constant="30" id="x7I-hw-gza"/>
                             <constraint firstItem="HKs-v8-ttz" firstAttribute="leading" secondItem="JNh-qj-eB0" secondAttribute="leading" id="xKu-nL-xG7"/>
                             <constraint firstItem="gVd-bR-jr6" firstAttribute="centerX" secondItem="pVr-aG-FnU" secondAttribute="centerX" id="yIf-4U-QyH"/>

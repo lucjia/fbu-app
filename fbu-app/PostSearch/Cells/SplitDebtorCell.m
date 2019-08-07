@@ -27,15 +27,9 @@
 - (IBAction)tapSwitch:(id)sender {
     
     if([self.debtorSwitch isOn]){
-        self.backgroundColor = [UIColor clearColor];
-        self.moneyField.backgroundColor = [UIColor clearColor];
-        [self.delegate addDebtor:self.debtor portion:[NSDecimalNumber decimalNumberWithString:self.moneyField.text]];
+        [self.delegate addDebtor:self.debtor portion:[NSDecimalNumber zero] indexPath:self.indexPath];
     }else{
-        [self.delegate removeDebtor:self.debtor];
-        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        self.moneyField.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        self.moneyField.text = @"";
-        self.moneyField.placeholder = @"0.00";
+        [self.delegate removeDebtor:self.debtor indexPath:self.indexPath];
     }
     
 }
