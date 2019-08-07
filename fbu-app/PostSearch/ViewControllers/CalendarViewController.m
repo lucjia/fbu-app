@@ -30,6 +30,9 @@
     NSUInteger numberOfDays; // in month
     NSDate *currentDate; // today
     NSDate *displayedMonthStartDate;
+    NSDate *weekStartDate;
+    NSDate *WeekEndDate;
+    NSInteger weekStart;
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
     CalendarCell *selectedCell; // the cell the user has most recently tapped
@@ -38,6 +41,7 @@
     double calendarYPosition;
     BOOL addPaths; // should index paths of cells continue to be added to dayIndexPaths
     BOOL isOnSameDay; // are two dates on the same aay
+    BOOL isInWeeklyMode;
     
     // Table view instance variables
     UITableView *tableView;
@@ -146,7 +150,7 @@
 - (void)initCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     calendarYPosition = 160;
-    calendarHeight = (self.view.bounds.size.height - calendarYPosition) / 2;
+    calendarHeight = isInWeeklyMode ? 94 + self.monthLabel.frame.size.height + 20 : (self.view.bounds.size.height - calendarYPosition) / 2;
     collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, calendarYPosition, self.view.bounds.size.width, calendarHeight) collectionViewLayout:layout];
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
@@ -176,6 +180,14 @@
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipe:)];
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRight];
+    
+    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipe:)];
+    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer:swipeUp];
+    
+    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipe:)];
+    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:swipeDown];
 }
 
 // initialized the calendar
@@ -310,7 +322,27 @@
         [self changeMonth:12 toMonth:1 changeBy:1];
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         [self changeMonth:1 toMonth:12 changeBy:-1];
+    } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp && !isInWeeklyMode) {
+        NSLog(@"ee");
+        weekStart = [calendar component:NSCalendarUnitDay fromDate:displayedMonthStartDate];
+        isInWeeklyMode = YES;
+        [collectionView removeFromSuperview];
+        [self initCollectionView];
+    } else if (swipe.direction == UISwipeGestureRecognizerDirectionDown && isInWeeklyMode) {
+        NSLog(@"yy");
+        isInWeeklyMode = NO;
+        [collectionView removeFromSuperview];
+        [self initCollectionView];
     }
+}
+
+- (IBAction)didTapNextWeek:(id)sender {
+    [collectionView removeFromSuperview];
+    [self initCollectionView];
+}
+
+- (void)changeWeek {
+    
 }
 
 - (void)didCreateEvent:(Event *)event {
@@ -346,20 +378,39 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
-    eventDate = [self dateWithYear:currentYear month:currentMonth day:indexPath.row - monthStartweekday + 2];
-    // will check in background thread
-    [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
     
-    if (indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays) {
-        [cell setHidden:YES];
-    } else {
-        if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
-            [cell setHidden:NO];
-            [cell setCurrentDayTextColor];
-            
+    if (!isInWeeklyMode) {
+        eventDate = [self dateWithYear:currentYear month:currentMonth day:indexPath.row - monthStartweekday + 2];
+        // will check in background thread
+        [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
+        
+        if (indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays) {
+            [cell setHidden:YES];
         } else {
-            [cell setHidden:NO];
-            
+            if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
+                [cell setHidden:NO];
+                [cell setCurrentDayTextColor];
+                
+            } else {
+                [cell setHidden:NO];
+            }
+        }
+    } else {
+        eventDate = [self dateWithYear:currentYear month:currentMonth day:weekStart];
+        // will check in background thread
+        [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
+        NSInteger fistDayOfWeekOfMonth = [calendar component:NSCalendarUnitWeekday fromDate:displayedMonthStartDate];
+        if ([eventDate compare:displayedMonthStartDate] == 0 && indexPath.item < fistDayOfWeekOfMonth - 1) {
+            [cell setHidden:YES];
+        } else {
+            if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
+                [cell setHidden:NO];
+                [cell setCurrentDayTextColor];
+                [cell initDateLabelInCell:(weekStart++) newLabel:YES];
+            } else {
+                [cell setHidden:NO];
+                [cell initDateLabelInCell:(weekStart++) newLabel:YES];
+            }
         }
     }
     
@@ -367,9 +418,20 @@
         [cell colorSelectedCell]; // highlight selection
     }
     
-    // adds date label to content view of cell
+    if (isInWeeklyMode) {
+        if ([eventDate compare:displayedMonthStartDate] >= 0) {
+            weekStartDate = weekStartDate == nil ? [[NSDate alloc] init] : weekStartDate;
+            weekStartDate = [eventDate compare:weekStartDate] < 0 ? eventDate : weekStartDate;
+        }
+        WeekEndDate = eventDate;
+    }
     
-    [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
+    // adds date label to content view of cell
+    if (isInWeeklyMode) {
+        
+    } else {
+        [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
+    }
     
     if (addPaths){
         [dayIndexPaths addObject:indexPath];
@@ -381,7 +443,7 @@
 // returns the number of days in the current month + the day of the week the month starts on - 1 (for indexing starting at 0)
 // additional cells are created in order to have cells displayed on the calendar on the correct day of the week. ex: july starts on monday not sunday
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self numberDaysInMonthFromDate:displayedMonthStartDate] + (monthStartweekday - 1);
+    return isInWeeklyMode ? 7 : [self numberDaysInMonthFromDate:displayedMonthStartDate] + (monthStartweekday - 1);
 }
 
 // called when a CalendarCell is tapped
