@@ -357,12 +357,20 @@
 }
 
 - (IBAction)didTapNextWeek:(id)sender {
-    [collectionView removeFromSuperview];
-    [self initCollectionView];
+    if ([self isLastDayOfMonth]) {
+        weekStart = 1;
+        [self changeMonth:12 toMonth:1 changeBy:1];
+    } else {
+        [collectionView removeFromSuperview];
+        [self initCollectionView];
+    }
+    
 }
 
-- (void)changeWeek {
-    
+// -TO DO-
+// if going from last week in december to 1st week in january and vice versa
+- (BOOL)isLastDayOfMonth {
+    return lastCell.dateLabel == nil;
 }
 
 - (void)didCreateEvent:(Event *)event {
@@ -411,7 +419,7 @@
     [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
    
     NSInteger fistDayOfWeekOfMonth = [calendar component:NSCalendarUnitWeekday fromDate:displayedMonthStartDate];
-    BOOL indexNotInDisplayRange = isInWeeklyMode ? [eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1 :
+    BOOL indexNotInDisplayRange = isInWeeklyMode ? ([eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1) || weekStart > numberOfDays:
     indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays;
     
     if (indexNotInDisplayRange) {
@@ -450,6 +458,7 @@
     if (cell.dateLabel.text == selectedCell.dateLabel.text) {
         selectedCell = cell;
         [cell colorSelectedCell];
+        [self setSelectedcellDateForIndexPath:indexPath];
     }
     
     if (addPaths){
@@ -480,6 +489,10 @@
         [tableView setHidden:YES];
     }
     
+    [self setSelectedcellDateForIndexPath:indexPath];
+}
+
+- (void)setSelectedcellDateForIndexPath:(NSIndexPath *)indexPath {
     NSDateComponents *dateComponent = [[NSDateComponents alloc] init];
     [dateComponent setDay:[selectedCell.dateLabel.text intValue]];
     [dateComponent setMonth:currentMonth];
