@@ -38,6 +38,7 @@
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
     CalendarCell *selectedCell; // the cell the user has most recently tapped
+    CalendarCell *firstCell;
     CalendarCell *lastCell;
     CGFloat cellWidth;
     double calendarHeight;
@@ -45,6 +46,7 @@
     BOOL addPaths; // should index paths of cells continue to be added to dayIndexPaths
     BOOL isOnSameDay; // are two dates on the same aay
     BOOL isInWeeklyMode;
+    BOOL weekDirectionBackWards;
     
     // Table view instance variables
     UITableView *tableView;
@@ -322,9 +324,17 @@
 
 - (void)didSwipe:(UISwipeGestureRecognizer*)swipe{
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [self changeMonth:12 toMonth:1 changeBy:1];
+        if (isInWeeklyMode) {
+            [self goForwardOneWeek];
+        } else {
+            [self changeMonth:12 toMonth:1 changeBy:1];
+        }
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        [self changeMonth:1 toMonth:12 changeBy:-1];
+        if (isInWeeklyMode) {
+            [self goBackwardsOneWeek];
+        } else {
+            [self changeMonth:1 toMonth:12 changeBy:-1];
+        }
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp && !isInWeeklyMode) {
         NSDateComponents *dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
         if (selectedcellDate) {
@@ -356,21 +366,33 @@
     }
 }
 
-- (IBAction)didTapNextWeek:(id)sender {
-    if ([self isLastDayOfMonth]) {
+- (void)goForwardOneWeek {
+    weekDirectionBackWards = NO;
+    if ([self isFirstOrLastDayOfMonth:lastCell]) {
         weekStart = 1;
         [self changeMonth:12 toMonth:1 changeBy:1];
     } else {
         [collectionView removeFromSuperview];
         [self initCollectionView];
     }
-    
+}
+
+- (void)goBackwardsOneWeek {
+    if ([self isFirstOrLastDayOfMonth:firstCell]) {
+        weekStart = numberOfDays - weekStart + 1;
+        [self changeMonth:1 toMonth:12 changeBy:-1];
+    } else {
+        weekStart -= 14;
+        [collectionView removeFromSuperview];
+        [self initCollectionView];
+    }
+    weekDirectionBackWards = TRUE;
 }
 
 // -TO DO-
 // if going from last week in december to 1st week in january and vice versa
-- (BOOL)isLastDayOfMonth {
-    return lastCell.dateLabel == nil;
+- (BOOL)isFirstOrLastDayOfMonth:(CalendarCell *)cell {
+    return cell.dateLabel == nil;
 }
 
 - (void)didCreateEvent:(Event *)event {
@@ -407,6 +429,10 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
     
+    if (!firstCell) {
+        firstCell = cell;
+    }
+    
     if (weekStartForSelectedCell < 0) {
         weekStart = 1;
         weekStartForSelectedCell = 0;
@@ -433,7 +459,7 @@
         }
         
         if (isInWeeklyMode) {
-            [cell initDateLabelInCell:(weekStart++) newLabel:YES];
+            [cell initDateLabelInCell:(weekDirectionBackWards ? weekStart++ : weekStart++) newLabel:YES];
             if ([self isCellToday:weekStart - 1]) {
                 [cell setCurrentDayTextColor];;
             } else {
