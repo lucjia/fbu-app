@@ -42,6 +42,8 @@
 		77D6AD1622F6331100541502 /* HouseBalancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D6AD1522F6331100541502 /* HouseBalancesViewController.m */; };
 		77DAB40722F6BD7F0000840C /* NewBillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB40622F6BD7F0000840C /* NewBillViewController.m */; };
 		77DAB40A22F6BE3A0000840C /* Bill.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB40922F6BE3A0000840C /* Bill.m */; };
+		77DAB41022F8E6580000840C /* ChangeSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */; };
+		77DAB41322F8FE5E0000840C /* SplitDebtorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB41222F8FE5E0000840C /* SplitDebtorCell.m */; };
 		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
 		85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DBD22E62A59009AD717 /* CustomTextField.m */; };
 		85729DC122E62ED5009AD717 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC022E62ED5009AD717 /* CustomButton.m */; };
@@ -163,6 +165,10 @@
 		77DAB40622F6BD7F0000840C /* NewBillViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewBillViewController.m; sourceTree = "<group>"; };
 		77DAB40822F6BE3A0000840C /* Bill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bill.h; sourceTree = "<group>"; };
 		77DAB40922F6BE3A0000840C /* Bill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bill.m; sourceTree = "<group>"; };
+		77DAB40E22F8E6580000840C /* ChangeSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeSplitViewController.h; sourceTree = "<group>"; };
+		77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeSplitViewController.m; sourceTree = "<group>"; };
+		77DAB41122F8FE5E0000840C /* SplitDebtorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitDebtorCell.h; sourceTree = "<group>"; };
+		77DAB41222F8FE5E0000840C /* SplitDebtorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplitDebtorCell.m; sourceTree = "<group>"; };
 		7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.debug.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.debug.xcconfig"; sourceTree = "<group>"; };
 		85729DB622E141B7009AD717 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		85729DB722E141B7009AD717 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
@@ -381,6 +387,8 @@
 				77D6AD1522F6331100541502 /* HouseBalancesViewController.m */,
 				77DAB40522F6BD7F0000840C /* NewBillViewController.h */,
 				77DAB40622F6BD7F0000840C /* NewBillViewController.m */,
+				77DAB40E22F8E6580000840C /* ChangeSplitViewController.h */,
+				77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -394,6 +402,8 @@
 				77D6AD0F22F3A82E00541502 /* HousemateBalanceCell.m */,
 				644B15E322F3726200E4A60B /* EventReminderCell.h */,
 				644B15E422F3726200E4A60B /* EventReminderCell.m */,
+				77DAB41122F8FE5E0000840C /* SplitDebtorCell.h */,
+				77DAB41222F8FE5E0000840C /* SplitDebtorCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -872,7 +882,9 @@
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,
 				645088D822EBA29F00319C93 /* CalendarCell.m in Sources */,
 				85729DCA22E76EFA009AD717 /* Reminder.m in Sources */,
+				77DAB41322F8FE5E0000840C /* SplitDebtorCell.m in Sources */,
 				85E7A17822DE3B24006C1F38 /* RegisterViewController.m in Sources */,
+				77DAB41022F8E6580000840C /* ChangeSplitViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
