@@ -79,8 +79,8 @@
     }
     self.profileImage = self.profileImageView.image;
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
-    self.profileImageView.layer.borderWidth = 5;
-    self.profileImageView.layer.borderColor = [CustomColor midToneOne:1.0].CGColor;
+    self.profileImageView.layer.borderWidth = 4;
+    self.profileImageView.layer.borderColor = [CustomColor darkMainColor:1.0].CGColor;
 }
 
 - (void) createChangeProfileButton {
