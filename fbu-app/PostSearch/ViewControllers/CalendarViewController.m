@@ -33,6 +33,7 @@
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
     CalendarCell *selectedCell; // the cell the user has most recently tapped
+    CGFloat cellWidth;
     double calendarHeight;
     double calendarYPosition;
     BOOL addPaths; // should index paths of cells continue to be added to dayIndexPaths
@@ -41,9 +42,19 @@
     // Table view instance variables
     UITableView *tableView;
     NSMutableArray *eventsForSelectedDay; // events that occur on the most recently tapped cell
+    
+    // Month and day Labels
+    UILabel *sundayLabel;
+    UILabel *mondayLabel;
+    UILabel *tuesdayLabel;
+    UILabel *wednesdayLabel;
+    UILabel *thursdayLabel;
+    UILabel *fridayLabel;
+    UILabel *saturdayLabel;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
+
 @end
 
 @implementation CalendarViewController
@@ -65,6 +76,7 @@
             [self initCalendar:[NSDate date]];
             [self setMonthLabelText];
             [self->collectionView reloadData];
+            [self initLabels];
         }
     }];
     
@@ -96,6 +108,54 @@
     }];
 }
 
+- (void)initLabels {
+    CGFloat spacing = 6;
+    CGFloat labelY = self.monthLabel.frame.size.height;
+    
+    CGFloat sundayX = cellWidth / 4;
+    sundayLabel = [[UILabel alloc] initWithFrame:CGRectMake(sundayX, 94 + labelY, 50, 50)];
+    sundayLabel.text = @"Su";
+    sundayLabel.textColor = [CustomColor midToneOne:1.0];
+
+    CGFloat mondayX = sundayX + cellWidth + spacing;
+    mondayLabel = [[UILabel alloc] initWithFrame:CGRectMake(mondayX, 94 + labelY, 50, 50)];
+    mondayLabel.text = @"Mo";
+    mondayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat tuesdayX = mondayX + cellWidth + spacing;
+    tuesdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(tuesdayX, 94 + labelY, 50, 50)];
+    tuesdayLabel.text = @"Tu";
+    tuesdayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat wednesdayX = tuesdayX + cellWidth + spacing;
+    wednesdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(wednesdayX, 94 + labelY, 50, 50)];
+    wednesdayLabel.text = @"We";
+    wednesdayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat thursdayX = wednesdayX + cellWidth + spacing;
+    thursdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(thursdayX, 94 + labelY, 50, 50)];
+    thursdayLabel.text = @"Th";
+    thursdayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat fridayX = thursdayX + cellWidth + spacing;
+    fridayLabel = [[UILabel alloc] initWithFrame:CGRectMake(fridayX, 94 + labelY, 50, 50)];
+    fridayLabel.text = @"Fr";
+    fridayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat saturdayX = fridayX + cellWidth + spacing;
+    saturdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(saturdayX, 94 + labelY, 50, 50)];
+    saturdayLabel.text = @"Sa";
+    saturdayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    [self.view addSubview:sundayLabel];
+    [self.view addSubview:mondayLabel];
+    [self.view addSubview:tuesdayLabel];
+    [self.view addSubview:wednesdayLabel];
+    [self.view addSubview:thursdayLabel];
+    [self.view addSubview:fridayLabel];
+    [self.view addSubview:saturdayLabel];
+}
+
 // initializes the collection view
 - (void)initCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -113,6 +173,7 @@
     layout.minimumLineSpacing = 5;
     CGFloat postersPerLine = 7; // number of posters in a row
     CGFloat itemWidth = (collectionView.frame.size.width - layout.minimumLineSpacing * (postersPerLine - 1)) / postersPerLine;
+    cellWidth = itemWidth;
     CGFloat itemHeight = 1 * itemWidth;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     
@@ -264,14 +325,6 @@
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         [self changeMonth:1 toMonth:12 changeBy:-1];
     }
-}
-
-- (IBAction)didTapNextMonth:(id)sender {
-    [self changeMonth:12 toMonth:1 changeBy:1];
-}
-
-- (IBAction)didTapPreviousMonth:(id)sender {
-    [self changeMonth:1 toMonth:12 changeBy:-1];
 }
 
 - (void)didCreateEvent:(Event *)event {
