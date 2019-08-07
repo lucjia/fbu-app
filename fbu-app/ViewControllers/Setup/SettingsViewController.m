@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIImagePickerController *imagePickerVC;
 @property (weak, nonatomic) IBOutlet UITextField *fullNameField;
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
+@property (weak, nonatomic) IBOutlet UILabel *currentLocationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *userPreferencesButton;
 @property (weak, nonatomic) IBOutlet UIButton *userLocationButton;
 @property (weak, nonatomic) IBOutlet UITextField *radiusField;
@@ -54,7 +55,7 @@
     [self createCityField];
     [self createRadiusField];
     [self createUserPreferencesButton];
-    [self createUserLocationButton];
+    [self createUserLocationButtonLabel];
     [self createUserBioTextView];
 }
 
@@ -114,7 +115,8 @@
     [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void) createUserLocationButton {
+- (void) createUserLocationButtonLabel {
+    self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
     [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
 }
 

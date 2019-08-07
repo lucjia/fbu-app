@@ -44,6 +44,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     self.tableView.delegate = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.searchBar.delegate = self;
+    self.searchBar.placeholder = @"Search for a location...";
     
     [self setCity];
 }
@@ -53,7 +54,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         [self.delegate didSetLocation:eventLocationString geoPoint:eventLocation];
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
-        [DetailsViewController createAlertController:@"No location set" message:@"pleaes set a location" sender:self];
+        [DetailsViewController createAlertController:@"No location set" message:@"Please set a location." sender:self];
     }
 }
 
