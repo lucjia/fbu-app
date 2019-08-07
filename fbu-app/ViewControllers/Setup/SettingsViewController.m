@@ -14,7 +14,7 @@
 #import "Parse/Parse.h"
 #import "CustomColor.h"
 
-@interface SettingsViewController () <UITextViewDelegate>
+@interface SettingsViewController () <UITextViewDelegate, LocationViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UIButton *changeProfileButton;
@@ -123,7 +123,6 @@
 
 - (void) createUserLocationButtonLabel {
     self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
-    [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) createUserBioTextView {
@@ -264,12 +263,6 @@
     [self.bioTextView resignFirstResponder];
 }
 
-// Set User Location
-- (void)setLocation {
-    [self setFieldInformation];
-    [self performSegueWithIdentifier:@"toLocation" sender:self];
-}
-
 - (void)setPreferences {
     [self performSegueWithIdentifier:@"toPreferences" sender:self];
 }
@@ -382,14 +375,14 @@
     [self presentViewController:logInVC animated:YES completion:nil];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [self setFieldInformation];
+    LocationViewController *locationViewController = (LocationViewController *)[segue destinationViewController];
+    locationViewController.delegate = self;
 }
-*/
 
 @end

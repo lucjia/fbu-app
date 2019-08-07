@@ -53,8 +53,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         // Set location in Parse
         [[PFUser currentUser][@"persona"] setObject:self.userLocation forKey:@"geoPoint"];
         [[PFUser currentUser][@"persona"] saveInBackground];
-        SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
-        [settingsVC setLocationLabelWithLocation:venue];
+        [self.delegate setLocationLabelWithLocation:venue];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

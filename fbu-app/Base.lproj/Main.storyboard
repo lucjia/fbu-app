@@ -1186,6 +1186,9 @@
                                 <state key="normal" title="Change Location">
                                     <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <segue destination="sg7-0I-vg5" kind="show" identifier="pressLocationButton" id="H70-ju-lxV"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="current location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uou-7d-4E0">
                                 <rect key="frame" x="107" y="439" width="200" height="18"/>
@@ -1311,6 +1314,7 @@
         <segue reference="gWT-7N-jNe"/>
         <segue reference="dbJ-VM-uVd"/>
         <segue reference="kFA-SJ-iRa"/>
+        <segue reference="H70-ju-lxV"/>
         <segue reference="N8j-jp-Paw"/>
     </inferredMetricsTieBreakers>
 </document>
