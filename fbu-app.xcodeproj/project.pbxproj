@@ -29,6 +29,7 @@
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
+		64B5719722F8DEB900B9200D /* CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B5719622F8DEB900B9200D /* CustomColor.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
 		64E9CF6722F7549400568125 /* PostSearchLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9CF6622F7549400568125 /* PostSearchLeftViewController.m */; };
 		7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04922EA4FB600F59BCF /* ModifyHouseViewController.m */; };
@@ -138,6 +139,8 @@
 		6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsViewController.m; sourceTree = "<group>"; };
 		6497FFB422E61F17002D1996 /* SentRequestsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsCell.h; sourceTree = "<group>"; };
 		6497FFB522E61F17002D1996 /* SentRequestsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsCell.m; sourceTree = "<group>"; };
+		64B5719522F8DEB900B9200D /* CustomColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomColor.h; sourceTree = "<group>"; };
+		64B5719622F8DEB900B9200D /* CustomColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomColor.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
 		64BBF3D122DE406100FCCABD /* RoommateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoommateCell.m; sourceTree = "<group>"; };
 		64E9CF6522F7549400568125 /* PostSearchLeftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostSearchLeftViewController.h; sourceTree = "<group>"; };
@@ -362,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				645088D422EBA25C00319C93 /* ViewControllers */,
+				64E9CF6422F7544800568125 /* PostSearchLeftViewController */,
 				645088D522EBA26800319C93 /* Cells */,
 				645088C822EB987000319C93 /* PostSearch.storyboard */,
 			);
@@ -371,7 +375,6 @@
 		645088D422EBA25C00319C93 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				64E9CF6422F7544800568125 /* PostSearchLeftViewController */,
 				645088D922EBA2BB00319C93 /* CalendarViewController.h */,
 				645088DA22EBA2BB00319C93 /* CalendarViewController.m */,
 				64678F8422EF9FA000F75070 /* CreateEventViewController.h */,
@@ -412,6 +415,15 @@
 				85E7A13F22DD214D006C1F38 /* AppDelegate.m */,
 			);
 			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		64B5719322F8DE5000B9200D /* ColorPalette */ = {
+			isa = PBXGroup;
+			children = (
+				64B5719522F8DEB900B9200D /* CustomColor.h */,
+				64B5719622F8DEB900B9200D /* CustomColor.m */,
+			);
+			path = ColorPalette;
 			sourceTree = "<group>";
 		};
 		64BBF3CE22DE400E00FCCABD /* ViewControllers */ = {
@@ -511,6 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				85C5C0BD22F37C93001982F1 /* fbu-app.entitlements */,
+				64B5719322F8DE5000B9200D /* ColorPalette */,
 				640603B722DE942C00C24301 /* Subclasses */,
 				64BBF3CE22DE400E00FCCABD /* ViewControllers */,
 				64BBF3CF22DE401900FCCABD /* Cells */,
@@ -836,6 +849,7 @@
 				6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */,
 				7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */,
 				85E7A14322DD214D006C1F38 /* TimelineViewController.m in Sources */,
+				64B5719722F8DEB900B9200D /* CustomColor.m in Sources */,
 				6429400322E277D600961F29 /* RequestsViewController.m in Sources */,
 				645088C322EA7B2800319C93 /* LeftViewCell.m in Sources */,
 				64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */,

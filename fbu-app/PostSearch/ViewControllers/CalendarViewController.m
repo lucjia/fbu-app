@@ -15,6 +15,7 @@
 #import "EventDetailsViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "CustomColor.h"
 
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -32,6 +33,7 @@
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
     CalendarCell *selectedCell; // the cell the user has most recently tapped
+    CGFloat cellWidth;
     double calendarHeight;
     double calendarYPosition;
     BOOL addPaths; // should index paths of cells continue to be added to dayIndexPaths
@@ -40,9 +42,19 @@
     // Table view instance variables
     UITableView *tableView;
     NSMutableArray *eventsForSelectedDay; // events that occur on the most recently tapped cell
+    
+    // Month and day Labels
+    UILabel *sundayLabel;
+    UILabel *mondayLabel;
+    UILabel *tuesdayLabel;
+    UILabel *wednesdayLabel;
+    UILabel *thursdayLabel;
+    UILabel *fridayLabel;
+    UILabel *saturdayLabel;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
+
 @end
 
 @implementation CalendarViewController
@@ -50,6 +62,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
     
     addPaths = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
@@ -62,6 +76,7 @@
             [self initCalendar:[NSDate date]];
             [self setMonthLabelText];
             [self->collectionView reloadData];
+            [self initLabels];
         }
     }];
     
@@ -93,6 +108,54 @@
     }];
 }
 
+- (void)initLabels {
+    CGFloat spacing = 6;
+    CGFloat labelY = self.monthLabel.frame.size.height;
+    
+    CGFloat sundayX = cellWidth / 4;
+    sundayLabel = [[UILabel alloc] initWithFrame:CGRectMake(sundayX, 94 + labelY, 50, 50)];
+    sundayLabel.text = @"Su";
+    sundayLabel.textColor = [CustomColor midToneOne:1.0];
+
+    CGFloat mondayX = sundayX + cellWidth + spacing;
+    mondayLabel = [[UILabel alloc] initWithFrame:CGRectMake(mondayX, 94 + labelY, 50, 50)];
+    mondayLabel.text = @"Mo";
+    mondayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat tuesdayX = mondayX + cellWidth + spacing;
+    tuesdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(tuesdayX, 94 + labelY, 50, 50)];
+    tuesdayLabel.text = @"Tu";
+    tuesdayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat wednesdayX = tuesdayX + cellWidth + spacing;
+    wednesdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(wednesdayX, 94 + labelY, 50, 50)];
+    wednesdayLabel.text = @"We";
+    wednesdayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat thursdayX = wednesdayX + cellWidth + spacing;
+    thursdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(thursdayX, 94 + labelY, 50, 50)];
+    thursdayLabel.text = @"Th";
+    thursdayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat fridayX = thursdayX + cellWidth + spacing;
+    fridayLabel = [[UILabel alloc] initWithFrame:CGRectMake(fridayX, 94 + labelY, 50, 50)];
+    fridayLabel.text = @"Fr";
+    fridayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    CGFloat saturdayX = fridayX + cellWidth + spacing;
+    saturdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(saturdayX, 94 + labelY, 50, 50)];
+    saturdayLabel.text = @"Sa";
+    saturdayLabel.textColor = [CustomColor midToneOne:1.0];
+    
+    [self.view addSubview:sundayLabel];
+    [self.view addSubview:mondayLabel];
+    [self.view addSubview:tuesdayLabel];
+    [self.view addSubview:wednesdayLabel];
+    [self.view addSubview:thursdayLabel];
+    [self.view addSubview:fridayLabel];
+    [self.view addSubview:saturdayLabel];
+}
+
 // initializes the collection view
 - (void)initCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -104,12 +167,13 @@
     
     // allows for CalendarCell to be used
     [collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
-    [collectionView setBackgroundColor:[UIColor whiteColor]];
+    [collectionView setBackgroundColor:[CustomColor darkMainColor:1.0]];
     
     layout.minimumInteritemSpacing = 5;
     layout.minimumLineSpacing = 5;
     CGFloat postersPerLine = 7; // number of posters in a row
     CGFloat itemWidth = (collectionView.frame.size.width - layout.minimumLineSpacing * (postersPerLine - 1)) / postersPerLine;
+    cellWidth = itemWidth;
     CGFloat itemHeight = 1 * itemWidth;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     
@@ -192,6 +256,7 @@
     
     NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
+    [collectionView removeFromSuperview];
     [self initCollectionView];
     [self initCalendar:date];
     [self setMonthLabelText];
@@ -242,11 +307,10 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // switch back to the main thread to update your UI
                     [cell setHidden:NO];
-                    cell.backgroundColor = [UIColor whiteColor];
                     [cell drawEventCircle];
                     
                     if ([self isCellToday:indexPath.row - self->monthStartweekday + 2]) {
-                        [cell drawCurrentDayCircle];
+                        [cell setCurrentDayTextColor];
                     }
                 });
             }
@@ -261,14 +325,6 @@
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         [self changeMonth:1 toMonth:12 changeBy:-1];
     }
-}
-
-- (IBAction)didTapNextMonth:(id)sender {
-    [self changeMonth:12 toMonth:1 changeBy:1];
-}
-
-- (IBAction)didTapPreviousMonth:(id)sender {
-    [self changeMonth:1 toMonth:12 changeBy:-1];
 }
 
 - (void)didCreateEvent:(Event *)event {
@@ -307,12 +363,10 @@
     } else {
         if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
             [cell setHidden:NO];
-            cell.backgroundColor = [UIColor whiteColor];
-            [cell drawCurrentDayCircle];
+            [cell setCurrentDayTextColor];
             
         } else {
             [cell setHidden:NO];
-            cell.backgroundColor = [UIColor whiteColor];
             
         }
     }
@@ -320,16 +374,10 @@
     if (cell.selected) {
         [cell colorSelectedCell]; // highlight selection
     }
-    else
-    {
-        cell.backgroundColor = [UIColor clearColor]; // Default color
-    }
     
     // adds date label to content view of cell
     
     [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
-    
-    // [cell initDateLabelInCell:(indexPath.row - weekday + 2) newLabel:NO];
     
     if (addPaths){
         [dayIndexPaths addObject:indexPath];
@@ -346,10 +394,11 @@
 
 // called when a CalendarCell is tapped
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    selectedCell = (CalendarCell *)[collectionView  cellForItemAtIndexPath:indexPath];
+    selectedCell = (CalendarCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [selectedCell colorSelectedCell];
     [self filterArrayForSelectedDate];
     if (eventsForSelectedDay > 0) {
+        [tableView removeFromSuperview];
         [tableView setHidden:NO];
         [self initTableView];
     } else {
@@ -373,12 +422,56 @@
         [tableView setDataSource:self];
         [tableView setDelegate:self];
         
+        [tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        
         [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
         [tableView setShowsVerticalScrollIndicator:NO];
         tableView.translatesAutoresizingMaskIntoConstraints = NO;
         tableView.rowHeight = UITableViewAutomaticDimension;
+        
         [self.view addSubview:tableView];
+        [self updateTableViewConstraints];
     }
+}
+
+- (void)updateTableViewConstraints {
+    // Left
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:tableView
+                              attribute:NSLayoutAttributeTrailing
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:self.view
+                              attribute:NSLayoutAttributeTrailing
+                              multiplier:1.0f
+                              constant:0.f]];
+    // Right
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:tableView
+                              attribute:NSLayoutAttributeLeading
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:self.view
+                              attribute:NSLayoutAttributeLeading
+                              multiplier:1.0f
+                              constant:0.f]];
+    // Top
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:tableView
+                              attribute:NSLayoutAttributeTop
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:collectionView
+                              attribute:NSLayoutAttributeBottom
+                              multiplier:1.0f
+                              constant:0.f]];
+    // Bottom
+    [self.view addConstraint:[NSLayoutConstraint
+                              constraintWithItem:tableView
+                              attribute:NSLayoutAttributeBottom
+                              relatedBy:NSLayoutRelationEqual
+                              toItem:self.view
+                              attribute:NSLayoutAttributeBottom
+                              multiplier:1.0f
+                              constant:0.f]];
 }
 
 - (void)filterArrayForSelectedDate {
@@ -447,11 +540,16 @@
     
     EventDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetailsViewController"];
     viewController.event = event;
-    
-    [self presentViewController:viewController animated:YES completion:nil];
+
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 100;
 }
 
 - (IBAction)didTapPostLeftMenu:(id)sender {
     [self showLeftViewAnimated:self];
 }
+
 @end

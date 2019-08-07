@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)initDateLabelInCell:(NSUInteger)date newLabel:(BOOL)label;
 - (void)setCurrentDayTextColor;
-- (void)drawCurrentDayCircle;
 - (void)drawEventCircle;
 - (void)colorSelectedCell;
 - (void)decolorSelectedCell;

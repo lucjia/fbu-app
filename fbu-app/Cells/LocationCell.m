@@ -8,6 +8,7 @@
 
 #import "LocationCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "CustomColor.h"
 
 @interface LocationCell()
 
@@ -32,9 +33,15 @@
 }
 
 - (void)updateWithLocation:(NSDictionary *)location {
+    [self setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    
+    
     self.nameLabel.text = location[@"name"];
+    self.nameLabel.textColor = [CustomColor midToneOne:1.0];
+    
     self.addressLabel.text = [location valueForKeyPath:@"location.address"];
-
+    self.addressLabel.textColor = [CustomColor midToneOne:1.0];
+    
     NSArray *categories = location[@"categories"];
     if (categories && categories.count > 0) {
         NSDictionary *category = categories[0];
