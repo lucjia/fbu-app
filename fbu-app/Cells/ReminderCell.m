@@ -8,6 +8,7 @@
 
 #import "ReminderCell.h"
 #import "Reminder.h"
+#import "Accessibility.h"
 
 @interface ReminderCell()
 
@@ -24,7 +25,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    [self largeText];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -53,6 +53,11 @@
         NSString *fullName = [firstName stringByAppendingString:lastName];
         self.reminderSenderLabel.text = fullName;
     }
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.reminderTextLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.reminderDateLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.reminderSenderLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.sentToOrBy style:UIFontTextStyleBody];
     
     if(rem.completed) {
         self.checkmarkButton.selected = YES;
@@ -88,10 +93,6 @@
 
 - (void) refreshCheckState {
     [self.checkmarkButton setImage:[UIImage imageNamed:@"filledcheck"] forState:UIControlStateSelected];
-}
-
-- (void) largeText {
-    self.reminderTextLabel.adjustsFontForContentSizeCategory = YES;
 }
 
 @end

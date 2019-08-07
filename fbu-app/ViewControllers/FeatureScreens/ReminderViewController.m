@@ -18,6 +18,7 @@
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 #import "CustomColor.h"
+#import "Accessibility.h"
 
 @interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate, ReminderDetailViewControllerDelegate> {
     // different way of declaring property
@@ -60,6 +61,17 @@
     
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search for a reminder...";
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(preferredContentSizeChanged:)
+     name:UIContentSizeCategoryDidChangeNotification
+     object:nil];
+}
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
 }
 
 - (void) fetchReminders {

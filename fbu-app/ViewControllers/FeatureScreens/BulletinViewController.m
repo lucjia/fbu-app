@@ -59,7 +59,6 @@
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
 }
 
-
 - (void) fetchPosts {
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     
