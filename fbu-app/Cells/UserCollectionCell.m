@@ -10,4 +10,12 @@
 
 @implementation UserCollectionCell
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self layoutIfNeeded];
+    self.profileView.layer.cornerRadius = self.frame.size.width / 2.0;
+    self.profileView.layer.masksToBounds = YES;
+    self.profileView.contentMode = UIViewContentModeScaleAspectFill;
+}
+
 @end
