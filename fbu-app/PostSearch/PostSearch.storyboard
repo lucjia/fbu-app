@@ -664,7 +664,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+" id="0ke-jD-iH6">
                             <connections>
-                                <segue destination="W2u-EQ-PO4" kind="show" id="cpb-S4-KbN"/>
+                                <segue destination="W2u-EQ-PO4" kind="show" identifier="toReminderCompose" id="cpb-S4-KbN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

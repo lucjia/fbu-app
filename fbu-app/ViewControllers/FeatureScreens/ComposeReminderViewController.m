@@ -155,7 +155,9 @@
                     dueDate = nil;
                 }
                 
-                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
+                Reminder *new = [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
+                
+                [self.delegate refreshWithNewReminder:new];
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }

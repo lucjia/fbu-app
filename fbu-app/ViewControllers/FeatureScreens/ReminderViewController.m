@@ -9,6 +9,7 @@
 #import "ReminderViewController.h"
 #import "ReminderCell.h"
 #import "Reminder.h"
+#import "ComposeReminderViewController.h"
 #import "ReminderDetailViewController.h"
 #import "CustomButton.h"
 #import "ProgressViewController.h"
@@ -17,7 +18,7 @@
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
-@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
+@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate> {
     // different way of declaring property
     NSMutableArray *filteredResults;
 }
@@ -42,6 +43,8 @@
     self.receivedReminderArrayDates = [[NSMutableArray alloc] init];
     self.receivedReminderArrayNoDates = [[NSMutableArray alloc] init];
     self.receivedReminderArrayTotal = [[NSMutableArray alloc] init];
+    
+    filteredResults = [[NSMutableArray alloc] init];
     
     self.segmentedControl.selectedSegmentIndex = self.segmentIndex;
     self.segmentedControl.layer.cornerRadius = 4.0;
@@ -68,6 +71,11 @@
         ProgressViewController *progressVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProgressVC"];
         [self presentViewController:progressVC animated:YES completion:nil];
     }
+}
+
+- (void) refreshWithNewReminder:(Reminder *)rem {
+    [self fetchReminders];
+    [self.tableView reloadData];
 }
 
 - (void) fetchReceivedRemindersWithDate {
@@ -112,8 +120,10 @@
     [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
-            self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
-            self->filteredResults = self.receivedReminderArrayTotal;
+            [self.receivedReminderArrayTotal removeAllObjects];
+            [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayDates];
+            [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayNoDates];
+            self->filteredResults = (NSMutableArray *)self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -209,6 +219,11 @@
         
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+    
+    if ([[segue identifier] isEqualToString:@"toReminderCompose"]) {
+        ComposeReminderViewController *composeVC = (ComposeReminderViewController *)[segue destinationViewController];
+        composeVC.delegate = self;
+    }
 }
 
 // Search through reminders based on keywords / sender
@@ -248,7 +263,7 @@
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
-    filteredResults = self.receivedReminderArrayTotal;
+    filteredResults = (NSMutableArray *)self.receivedReminderArrayTotal;
     [self.tableView reloadData];
     [self scrollToTopAfterSearch];
 }
@@ -267,12 +282,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //remove the deleted object from Parse
         Reminder *swipedReminder = [filteredResults objectAtIndex:indexPath.row];
-        [swipedReminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error != nil) {
-                [self->filteredResults removeObject:swipedReminder];
-                [self.tableView reloadData];
-            }
-        }];
+        [swipedReminder deleteInBackground];
+        [self->filteredResults removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadData];
     }
 }
 
