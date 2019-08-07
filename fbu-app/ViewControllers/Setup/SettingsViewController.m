@@ -13,6 +13,7 @@
 #import "Persona.h"
 #import "Parse/Parse.h"
 #import "CustomColor.h"
+#import "Accessibility.h"
 
 @interface SettingsViewController () <UITextViewDelegate, LocationViewControllerDelegate>
 
@@ -68,23 +69,12 @@
          object:nil];
 }
 
-- (IBAction)didTap:(id)sender {
-    [self.view endEditing:YES];
-}
-
 // change font size based on accessibility setting
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
-    self.changeProfileButton.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.fullNameField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.cityField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.currentLocationLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.userPreferencesButton.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.userLocationButton.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.radiusField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.bioTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.continueButton.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.milesLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.currLocLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+}
+
+- (IBAction)didTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 - (void) setLocationLabelWithLocation:(NSString *)location {
@@ -110,6 +100,8 @@
 
 - (void) createChangeProfileButton {
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.changeProfileButton.titleLabel];
 }
 
 - (void) createFullNameField {
@@ -119,6 +111,8 @@
     NSString *firstName = [[PFUser currentUser][@"persona"][@"firstName"] stringByAppendingString:@" "];
     NSString *fullName = [firstName stringByAppendingString:[PFUser currentUser][@"persona"][@"lastName"]];
     self.fullNameField.text = fullName;
+    
+    [Accessibility largeTextCompatibilityWithField:self.fullNameField];
 }
 
 - (void) createCityField {
@@ -128,6 +122,8 @@
     NSString *existingCity = [[PFUser currentUser][@"persona"][@"city"] stringByAppendingString:@", "];
     NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"persona"][@"state"]];
     self.cityField.text = existingState;
+    
+    [Accessibility largeTextCompatibilityWithField:self.cityField];
 }
 
 - (void) createRadiusField {
@@ -138,15 +134,24 @@
     if (radius > 0) {
         self.radiusField.text = [NSString stringWithFormat:@"%@", radius];
     }
+    
+    [Accessibility largeTextCompatibilityWithField:self.radiusField];
 }
 
 - (void) createUserPreferencesButton {
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel];
 }
 
 - (void) createUserLocationButtonLabel {
     self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.userLocationButton.titleLabel];
+    [Accessibility largeTextCompatibilityWithLabel:self.currLocLabel];
+    [Accessibility largeTextCompatibilityWithLabel:self.currentLocationLabel];
+    [Accessibility largeTextCompatibilityWithLabel:self.milesLabel];
 }
 
 - (void) createUserBioTextView {
@@ -170,6 +175,9 @@
                                       target:self action:@selector(yourTextViewDoneButtonPressed)];
     keyboardToolbar.items = @[flexBarButton, doneBarButton];
     self.bioTextView.inputAccessoryView = keyboardToolbar;
+    
+    [Accessibility largeTextCompatibilityWithView:self.bioTextView];
+    [Accessibility largeTextCompatibilityWithLabel:self.continueButton.titleLabel];
 }
 
 // Dismiss keyboard after typing
