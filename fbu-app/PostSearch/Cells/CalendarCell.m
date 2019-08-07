@@ -7,13 +7,17 @@
 //
 
 #import "CalendarCell.h"
+#import "CustomColor.h"
 
 @implementation CalendarCell
 
 - (void)initDateLabelInCell:(NSUInteger)date newLabel:(BOOL)label {
+    self.layer.cornerRadius = self.frame.size.width / 2;
+    
     self.dateLabel = [[UILabel alloc] initWithFrame:self.bounds];
     self.dateLabel.textAlignment = NSTextAlignmentCenter;
     self.dateLabel.text = [NSString stringWithFormat:@"%lu", date];
+    self.dateLabel.textColor = [CustomColor midToneOne:1.0];
     
     if (label) {
         [self.contentView addSubview:self.dateLabel];
@@ -30,20 +34,16 @@
 }
 
 - (void)setCurrentDayTextColor {
-    self.dateLabel.textColor = [UIColor redColor];
-}
-
-- (void)drawCurrentDayCircle {
-    [self drawCircleForCalendar:10 verticalPosition:10 circleColor:[UIColor redColor]];
+    self.dateLabel.textColor = [CustomColor accentColor:1.0];
 }
 
 - (void)drawEventCircle {
-    [self drawCircleForCalendar:20 verticalPosition:10 circleColor:[UIColor blueColor]];
+    [self drawCircleForCalendar:(self.frame.size.width / 2) - 2 verticalPosition:40 circleColor:[CustomColor midToneTwo:1.0]];
 }
 
 - (void)colorSelectedCell {
     self.layer.borderWidth = 2.0;
-    self.layer.borderColor = [[UIColor colorWithRed:66/255.0 green:245/255.0 blue:152/255.0 alpha:1] CGColor];
+    self.layer.borderColor = [[CustomColor accentColor:1.0] CGColor];
 }
 
 - (void)decolorSelectedCell {

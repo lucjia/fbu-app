@@ -11,6 +11,7 @@
 #import "DetailsViewController.h"
 #import "CustomDatePicker.h"
 #import "Event.h"
+#import "CustomColor.h"
 
 @interface CreateEventViewController () <EventLocationViewControllerDelegate>
 {
@@ -33,6 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
     
     CustomDatePicker *startDatePicker = [[CustomDatePicker alloc] init];
     self.startDatePicker = [startDatePicker initializeDatePickerWithDatePicker:self.startDatePicker textField:self.startDateSelectionTextField];

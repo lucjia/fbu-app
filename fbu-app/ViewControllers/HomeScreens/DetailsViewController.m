@@ -9,6 +9,7 @@
 #import "DetailsViewController.h"
 #import <Parse/Parse.h>
 #import "RoommateCell.h"
+#import "CustomColor.h"
 
 @interface DetailsViewController ()
 
@@ -22,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *preferencesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *answerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *questionLabel;
+@property (weak, nonatomic) IBOutlet UIView *viewInScrollView;
 
 
 @end
@@ -31,6 +33,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.viewInScrollView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    
     [self updateProperties];
     
 }

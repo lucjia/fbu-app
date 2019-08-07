@@ -9,6 +9,7 @@
 #import "EventReminderCell.h"
 #import "Event.h"
 #import "Reminder.h"
+#import "CustomColor.h"
 
 static NSDateFormatter *dateFormatter;
 
@@ -33,16 +34,35 @@ static NSDateFormatter *dateFormatter;
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void)createView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, (self.contentView.frame.size.width * 2) - 225, self.contentView.frame.size.height * 2)];
+    view.layer.cornerRadius = 15;
+    
+    [view setBackgroundColor:[CustomColor midToneOne:1.0]];
+    
+    [self.contentView addSubview:view];
 }
 
 - (void)initCellWithEvent:(Event *)event {
-    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, self.frame.size.width, 50)];
+    [self createView];
+    
+    self.layer.cornerRadius = 15;
+    self.contentView.layer.masksToBounds = YES;
+    
+    [self setBackgroundColor:[UIColor clearColor]];
+    
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.frame.size.width, 50)];
     titleLabel.numberOfLines = 0;
     titleLabel.text = event.title;
+    titleLabel.textColor = [CustomColor darkMainColor:1.0];
     
-    locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 25, self.frame.size.width, 50)];
+    locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, self.frame.size.width, 50)];
     locationLabel.numberOfLines = 0;
     locationLabel.text = [NSString stringWithFormat:@"%@", event.venue];
+    locationLabel.textColor = [CustomColor darkMainColor:1.0];
     
     // date formatter setup
     dateFormatter = [[NSDateFormatter alloc] init];
@@ -52,8 +72,9 @@ static NSDateFormatter *dateFormatter;
     NSString *startTime = [dateFormatter stringFromDate:event.eventDate];
     NSString *endTime = [dateFormatter stringFromDate:event.eventEndDate];
     
-    eventIntervalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 45, self.frame.size.width, 50)];
+    eventIntervalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, self.frame.size.width, 50)];
     eventIntervalLabel.text = event.isAllDay ? @"All day" : [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
+    eventIntervalLabel.textColor = [CustomColor darkMainColor:1.0];
     
     [self.contentView addSubview:titleLabel];
     [self.contentView addSubview:locationLabel];

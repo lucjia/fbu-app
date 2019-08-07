@@ -26,19 +26,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-   // [self.tableView registerClass:[LeftViewCell class] forCellReuseIdentifier:@"LeftViewCell"];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     titlesArray = @[@"Back to roommate search",
                     @"⚙ Settings"];
     
-    //[self.tableView reloadData];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 #pragma mark - Table view data source

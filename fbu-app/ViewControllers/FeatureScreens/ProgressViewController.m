@@ -71,7 +71,7 @@
     [queryCompleted whereKey:@"completed" equalTo:@YES];
     [queryCompleted findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
-            completedCount = [reminders count];
+            self->completedCount = [reminders count];
             [self setYourCompletedLabels];
         }
     }];
@@ -88,7 +88,7 @@
     [queryOverdue whereKey:@"reminderDueDate" lessThan:[NSDate date]];
     [queryOverdue findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
-            overdueCount = [reminders count];
+            self->overdueCount = [reminders count];
             [self setYourOverdueLabels];
         }
     }];
@@ -146,7 +146,7 @@
     [queryHouseCompleted whereKey:@"completed" equalTo:@YES];
     [queryHouseCompleted findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
-            houseCompletedCount = [reminders count];
+            self->houseCompletedCount = [reminders count];
             [self setHouseCompletedLabels];
         }
     }];
@@ -163,7 +163,7 @@
     [queryHouseOverdue whereKey:@"reminderDueDate" lessThan:[NSDate date]];
     [queryHouseOverdue findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
-            houseOverdueCount = [reminders count];
+            self->houseOverdueCount = [reminders count];
             [self setHouseOverdueLabels];
         }
     }];
@@ -209,7 +209,7 @@
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         House *house = [persona objectForKey:@"house"];
         [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            housemates = [house objectForKey:@"housemates"];
+            self->housemates = [house objectForKey:@"housemates"];
             [self setHouseProgress];
         }];
     }];

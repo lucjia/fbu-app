@@ -14,6 +14,8 @@
 #import "ProgressViewController.h"
 #import "UserNotifications/UserNotifications.h"
 #import "Parse/Parse.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     // different way of declaring property
@@ -42,6 +44,8 @@
     self.receivedReminderArrayTotal = [[NSMutableArray alloc] init];
     
     self.segmentedControl.selectedSegmentIndex = self.segmentIndex;
+    self.segmentedControl.layer.cornerRadius = 4.0;
+    self.segmentedControl.clipsToBounds = YES;
     
     [self fetchReminders];
     
@@ -109,7 +113,7 @@
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
             self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
-            filteredResults = self.receivedReminderArrayTotal;
+            self->filteredResults = self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -332,6 +336,10 @@
     
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"message" content:content trigger:trigger];
     [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:request withCompletionHandler:nil];
+}
+
+- (IBAction)didPressLeft:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 
 @end
