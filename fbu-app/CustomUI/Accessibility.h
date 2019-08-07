@@ -13,11 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Accessibility : NSObject
 
-+ (void) largeTextCompatibilityWithLabel:(UILabel *)label;
++ (void) largeTextCompatibilityWithLabel:(UILabel *)label style:(NSString *)style;
 
-+ (void) largeTextCompatibilityWithField:(UITextField *)field;
++ (void) largeTextCompatibilityWithField:(UITextField *)field style:(NSString *)style;
 
-+ (void) largeTextCompatibilityWithView:(UITextView *)view;
++ (void) largeTextCompatibilityWithView:(UITextView *)view style:(NSString *)style;
 
 @end
 

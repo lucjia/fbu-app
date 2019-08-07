@@ -13,6 +13,7 @@
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 #import "House.h"
 #import "Persona.h"
+#import "Accessibility.h"
 
 @interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     NSMutableArray *posts;
@@ -45,7 +46,19 @@
     [self.collectionView insertSubview:refreshControl atIndex:0];
     
     [self fetchPosts];
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(preferredContentSizeChanged:)
+     name:UIContentSizeCategoryDidChangeNotification
+     object:nil];
 }
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+}
+
 
 - (void) fetchPosts {
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];

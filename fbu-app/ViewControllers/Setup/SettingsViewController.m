@@ -101,7 +101,7 @@
 - (void) createChangeProfileButton {
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
     
-    [Accessibility largeTextCompatibilityWithLabel:self.changeProfileButton.titleLabel];
+    [Accessibility largeTextCompatibilityWithLabel:self.changeProfileButton.titleLabel style:UIFontTextStyleBody];
 }
 
 - (void) createFullNameField {
@@ -112,7 +112,7 @@
     NSString *fullName = [firstName stringByAppendingString:[PFUser currentUser][@"persona"][@"lastName"]];
     self.fullNameField.text = fullName;
     
-    [Accessibility largeTextCompatibilityWithField:self.fullNameField];
+    [Accessibility largeTextCompatibilityWithField:self.fullNameField style:UIFontTextStyleBody];
 }
 
 - (void) createCityField {
@@ -123,7 +123,7 @@
     NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"persona"][@"state"]];
     self.cityField.text = existingState;
     
-    [Accessibility largeTextCompatibilityWithField:self.cityField];
+    [Accessibility largeTextCompatibilityWithField:self.cityField style:UIFontTextStyleBody];
 }
 
 - (void) createRadiusField {
@@ -135,23 +135,23 @@
         self.radiusField.text = [NSString stringWithFormat:@"%@", radius];
     }
     
-    [Accessibility largeTextCompatibilityWithField:self.radiusField];
+    [Accessibility largeTextCompatibilityWithField:self.radiusField style:UIFontTextStyleBody];
 }
 
 - (void) createUserPreferencesButton {
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
     
-    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel];
+    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel style:UIFontTextStyleBody];
 }
 
 - (void) createUserLocationButtonLabel {
     self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
     
-    [Accessibility largeTextCompatibilityWithLabel:self.userLocationButton.titleLabel];
-    [Accessibility largeTextCompatibilityWithLabel:self.currLocLabel];
-    [Accessibility largeTextCompatibilityWithLabel:self.currentLocationLabel];
-    [Accessibility largeTextCompatibilityWithLabel:self.milesLabel];
+    [Accessibility largeTextCompatibilityWithLabel:self.userLocationButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.currLocLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.currentLocationLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.milesLabel style:UIFontTextStyleBody];
 }
 
 - (void) createUserBioTextView {
@@ -176,8 +176,8 @@
     keyboardToolbar.items = @[flexBarButton, doneBarButton];
     self.bioTextView.inputAccessoryView = keyboardToolbar;
     
-    [Accessibility largeTextCompatibilityWithView:self.bioTextView];
-    [Accessibility largeTextCompatibilityWithLabel:self.continueButton.titleLabel];
+    [Accessibility largeTextCompatibilityWithView:self.bioTextView style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.continueButton.titleLabel style:UIFontTextStyleBody];
 }
 
 // Dismiss keyboard after typing

@@ -10,18 +10,18 @@
 
 @implementation Accessibility
 
-+ (void) largeTextCompatibilityWithLabel:(UILabel *)label {
-    label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
++ (void) largeTextCompatibilityWithLabel:(UILabel *)label style:(NSString *)style {
+    label.font = [UIFont preferredFontForTextStyle:style];
     label.adjustsFontForContentSizeCategory = YES;
 }
 
-+ (void) largeTextCompatibilityWithField:(UITextField *)field {
-    field.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
++ (void) largeTextCompatibilityWithField:(UITextField *)field style:(NSString *)style {
+    field.font = [UIFont preferredFontForTextStyle:style];
     field.adjustsFontForContentSizeCategory = YES;
 }
 
-+ (void) largeTextCompatibilityWithView:(UITextView *)view {
-    view.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
++ (void) largeTextCompatibilityWithView:(UITextView *)view style:(NSString *)style {
+    view.font = [UIFont preferredFontForTextStyle:style];
     view.adjustsFontForContentSizeCategory = YES;
 }
 
