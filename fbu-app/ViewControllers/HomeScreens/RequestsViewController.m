@@ -32,7 +32,7 @@
     self.tableView.delegate = self;
     
     [self.tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.tableView.separatorColor = [CustomColor midToneOne:1.0];
     
     [self fetchRequestTimeline];
 }
