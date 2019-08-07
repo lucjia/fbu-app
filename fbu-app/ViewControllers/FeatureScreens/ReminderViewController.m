@@ -17,6 +17,7 @@
 #import "Parse/Parse.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "CustomColor.h"
 
 @interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate> {
     // different way of declaring property
@@ -120,7 +121,9 @@
     [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
-            [self.receivedReminderArrayTotal removeAllObjects];
+            if (self.receivedReminderArrayTotal.count > 0) {
+                [self.receivedReminderArrayTotal removeAllObjects];
+            }
             [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayDates];
             [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayNoDates];
             self->filteredResults = (NSMutableArray *)self.receivedReminderArrayTotal;
@@ -274,19 +277,27 @@
 }
 
 // Swipe to delete
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return YES;
+//}
+//
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//
+//    }
+//}
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //remove the deleted object from Parse
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        // remove the deleted object from Parse
         Reminder *swipedReminder = [filteredResults objectAtIndex:indexPath.row];
         [swipedReminder deleteInBackground];
         [self->filteredResults removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView reloadData];
-    }
+    }];
+    deleteAction.backgroundColor = [CustomColor accentColor:1.0];
+    return @[deleteAction];
 }
 
 // Notifications
