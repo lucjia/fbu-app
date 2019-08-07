@@ -14,7 +14,7 @@
 #import "Parse/Parse.h"
 #import "CustomColor.h"
 
-@interface SettingsViewController () <UITextViewDelegate>
+@interface SettingsViewController () <UITextViewDelegate, LocationViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UIButton *changeProfileButton;
@@ -63,6 +63,10 @@
     [self.view endEditing:YES];
 }
 
+- (void) setLocationLabelWithLocation:(NSString *)location {
+    self.currentLocationLabel.text = location;
+}
+
 - (void) createProfileImageView {
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
@@ -75,6 +79,8 @@
     }
     self.profileImage = self.profileImageView.image;
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
+    self.profileImageView.layer.borderWidth = 5;
+    self.profileImageView.layer.borderColor = [CustomColor midToneOne:1.0].CGColor;
 }
 
 - (void) createChangeProfileButton {
@@ -117,7 +123,6 @@
 
 - (void) createUserLocationButtonLabel {
     self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
-    [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) createUserBioTextView {
@@ -258,12 +263,6 @@
     [self.bioTextView resignFirstResponder];
 }
 
-// Set User Location
-- (void)setLocation {
-    [self setFieldInformation];
-    [self performSegueWithIdentifier:@"toLocation" sender:self];
-}
-
 - (void)setPreferences {
     [self performSegueWithIdentifier:@"toPreferences" sender:self];
 }
@@ -376,14 +375,14 @@
     [self presentViewController:logInVC animated:YES completion:nil];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [self setFieldInformation];
+    LocationViewController *locationViewController = (LocationViewController *)[segue destinationViewController];
+    locationViewController.delegate = self;
 }
-*/
 
 @end

@@ -24,6 +24,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [self largeText];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -87,6 +88,10 @@
 
 - (void) refreshCheckState {
     [self.checkmarkButton setImage:[UIImage imageNamed:@"filledcheck"] forState:UIControlStateSelected];
+}
+
+- (void) largeText {
+    self.reminderTextLabel.adjustsFontForContentSizeCategory = YES;
 }
 
 @end

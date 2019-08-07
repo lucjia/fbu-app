@@ -8,13 +8,16 @@
 
 #import "LocationViewController.h"
 #import "LocationCell.h"
+#import "SettingsViewController.h"
 #import "Parse/Parse.h"
 
 // Foursquare API
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
 static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ1X1S0RLYV";
 
-@interface LocationViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface LocationViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate> {
+    NSString *venue;
+}
 
 @property (strong, nonatomic) PFGeoPoint *userLocation;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -50,6 +53,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         // Set location in Parse
         [[PFUser currentUser][@"persona"] setObject:self.userLocation forKey:@"geoPoint"];
         [[PFUser currentUser][@"persona"] saveInBackground];
+        [self.delegate setLocationLabelWithLocation:venue];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -68,12 +72,13 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // This is the selected venue
-    NSDictionary *venue = self.results[indexPath.row];
-    [[PFUser currentUser][@"persona"] setObject:[venue valueForKey:@"name"] forKey:@"venue"];
+    NSDictionary *venueDetails = self.results[indexPath.row];
+    venue = [venueDetails valueForKey:@"name"];
+    [[PFUser currentUser][@"persona"] setObject:venue forKey:@"venue"];
     [[PFUser currentUser][@"persona"] saveInBackground];
     
-    double lat = [[venue valueForKeyPath:@"location.lat"] doubleValue];
-    double lng = [[venue valueForKeyPath:@"location.lng"] doubleValue];
+    double lat = [[venueDetails valueForKeyPath:@"location.lat"] doubleValue];
+    double lng = [[venueDetails valueForKeyPath:@"location.lng"] doubleValue];
     
     self.userLocation = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
 }

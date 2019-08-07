@@ -203,7 +203,7 @@
     UserCollectionCell *tappedCell = [self.collectionView cellForItemAtIndexPath:(indexPath)];
     self.previousCell = tappedCell;
     tappedCell.profileView.alpha = 1.0;
-    self.recipientLabel.text = persona.username;
+    self.recipientLabel.text = [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
 }
 
 @end
