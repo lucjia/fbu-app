@@ -24,9 +24,9 @@
     self.dateLabel.text = dateString;
     
     // large text
-    [Accessibility largeTextCompatibilityWithLabel:self.posterLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.posterLabel style:UIFontTextStyleTitle2];
     [Accessibility largeTextCompatibilityWithLabel:self.textLabel style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.dateLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.dateLabel style:UIFontTextStyleFootnote];
     
     // shadow
     self.layer.shadowColor = [UIColor blackColor].CGColor;

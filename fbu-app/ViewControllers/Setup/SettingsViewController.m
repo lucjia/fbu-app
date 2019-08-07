@@ -101,7 +101,7 @@
 - (void) createChangeProfileButton {
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
     
-    [Accessibility largeTextCompatibilityWithLabel:self.changeProfileButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.changeProfileButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 - (void) createFullNameField {
@@ -142,14 +142,14 @@
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
     
-    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 - (void) createUserLocationButtonLabel {
     self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
     
-    [Accessibility largeTextCompatibilityWithLabel:self.userLocationButton.titleLabel style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.currLocLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.userLocationButton.titleLabel style:UIFontTextStyleHeadline];
+    [Accessibility largeTextCompatibilityWithLabel:self.currLocLabel style:UIFontTextStyleHeadline];
     [Accessibility largeTextCompatibilityWithLabel:self.currentLocationLabel style:UIFontTextStyleBody];
     [Accessibility largeTextCompatibilityWithLabel:self.milesLabel style:UIFontTextStyleBody];
 }
@@ -177,7 +177,7 @@
     self.bioTextView.inputAccessoryView = keyboardToolbar;
     
     [Accessibility largeTextCompatibilityWithView:self.bioTextView style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.continueButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.continueButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 // Dismiss keyboard after typing
