@@ -1290,7 +1290,6 @@
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PC2-ht-tZF"/>
         <segue reference="sAA-b7-1El"/>
         <segue reference="gWT-7N-jNe"/>
         <segue reference="dbJ-VM-uVd"/>

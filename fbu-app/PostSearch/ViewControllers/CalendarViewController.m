@@ -37,6 +37,7 @@
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
     CalendarCell *selectedCell; // the cell the user has most recently tapped
+    CalendarCell *lastCell;
     CGFloat cellWidth;
     double calendarHeight;
     double calendarYPosition;
@@ -150,10 +151,11 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     calendarYPosition = 160;
     calendarHeight = isInWeeklyMode ? 94 + self.monthLabel.frame.size.height + 20 : (self.view.bounds.size.height - calendarYPosition) / 2;
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, calendarYPosition, self.view.bounds.size.width, calendarHeight) collectionViewLayout:layout];
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, calendarYPosition, self.view.bounds.size.width, calendarHeight * 2) collectionViewLayout:layout];
+    
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
-    
+    collectionView.scrollEnabled = NO;
     // allows for CalendarCell to be used
     [collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
     [collectionView setBackgroundColor:[CustomColor darkMainColor:1.0]];
@@ -324,7 +326,7 @@
         [self changeMonth:1 toMonth:12 changeBy:-1];
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp && !isInWeeklyMode) {
         NSDateComponents *dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
-        if (selectedCell) {
+        if (selectedcellDate) {
             NSDateComponents *newDateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:selectedcellDate];
             [dateComponent setDay:[selectedCell.dateLabel.text intValue]];
             NSDate *weekStartDate = [calendar dateFromComponents:newDateComponent];
@@ -443,6 +445,7 @@
         [dayIndexPaths addObject:indexPath];
     }
     
+    lastCell = cell;
     return cell;
 }
 
@@ -528,7 +531,7 @@
                               constraintWithItem:tableView
                               attribute:NSLayoutAttributeTop
                               relatedBy:NSLayoutRelationEqual
-                              toItem:collectionView
+                              toItem:lastCell
                               attribute:NSLayoutAttributeBottom
                               multiplier:1.0f
                               constant:0.f]];
