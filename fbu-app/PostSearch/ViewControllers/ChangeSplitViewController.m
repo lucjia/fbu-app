@@ -16,6 +16,7 @@
 
 @interface ChangeSplitViewController () <UITableViewDataSource, UITableViewDelegate, SplitDebtorCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *arrayCells;
 
 
 @end
@@ -30,6 +31,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    self.arrayCells = [[NSMutableArray alloc] init];
+    
     [self reloadView];
 }
 
@@ -37,8 +40,6 @@
     [self.tableView reloadData];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     SplitDebtorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SplitDebtorCell"];
@@ -64,6 +65,7 @@
             cell.moneyField.text = [self formatCurrency:self.portions[index]];
         }
     }];
+    [self.arrayCells addObject:cell];
     
     return cell;
     
@@ -99,7 +101,22 @@
     [self reloadView];
 }
 
+- (void) updatePortions {
+    for(int i = 0; i < self.possibleDebtors.count; i++){
+        SplitDebtorCell *cell = self.arrayCells[i];
+        if([self.debtors containsObject:cell.debtor]){
+            NSUInteger index = [self.debtors indexOfObject:cell.debtor];
+            if ([cell.moneyField.text length] > 1){
+                self.portions[index] = [NSDecimalNumber decimalNumberWithString:[cell.moneyField.text substringFromIndex:1]];
+            }else{
+                self.portions[index] = [NSDecimalNumber zero];
+            }
+        }
+    }
+}
+
 - (IBAction)tapSave:(id)sender {
+    [self updatePortions];
     [self.delegate changeSplit:self.payer debtors:self.debtors portions:self.portions];
     [self.navigationController popViewControllerAnimated:YES];
 }

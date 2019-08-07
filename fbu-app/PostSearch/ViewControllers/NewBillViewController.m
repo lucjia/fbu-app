@@ -40,7 +40,6 @@
     [super viewDidLoad];
     
     self.paidField.delegate = self;
-    self.navigationItem.title = @"Add a bill";
     
     self.payer = [PFUser.currentUser objectForKey:@"persona"];
     [self.payer fetchIfNeeded];
@@ -48,8 +47,10 @@
     [self fetchpossibleDebtors];
     self.debtors = [self.possibleDebtors mutableCopy];
     
-    self.dateField.placeholder = [self formatDate:[NSDate date]];
+    self.dateField.text = [self formatDate:[NSDate date]];
     self.date = [NSDate date];
+    
+    self.paidField.text = [self formatCurrency:[NSDecimalNumber zero]];
     
     // Do any additional setup after loading the view.
 }
@@ -80,8 +81,10 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    if(string.length > 0){
+    if(range.location == 0){
+        return NO;
+    }
+    else if(string.length > 0){
         NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
         NSCharacterSet *characterSetFromTextField = [NSCharacterSet characterSetWithCharactersInString:string];
         
@@ -153,7 +156,7 @@
 
 - (IBAction)tapAddBill:(id)sender {
     
-    if ((self.paidField.text && self.paidField.text.length > 0) && (self.memoField.text && self.memoField.text.length > 0)) {
+    if (self.paidField.text.length > 1 && (self.memoField.text && self.memoField.text.length > 0)) {
         
         [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:self.portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             NSLog(@"new bill created");
@@ -172,8 +175,8 @@
 }
 
 - (NSDecimalNumber*)getPaid {
-    if (![self.paidField.text isEqualToString:@""]){
-        return [NSDecimalNumber decimalNumberWithString:self.paidField.text];
+    if ([self.paidField.text length] > 1){
+        return [NSDecimalNumber decimalNumberWithString:[self.paidField.text substringFromIndex:1]];
     }else{
         return [NSDecimalNumber zero];
     }
@@ -219,4 +222,11 @@
     self.date = self.datePicker.date;
     self.dateField.text = [self formatDate:self.datePicker.date];
 }
+
+- (NSString *) formatCurrency:(NSDecimalNumber*)money {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    return [numberFormatter stringFromNumber:money];
+}
+
 @end

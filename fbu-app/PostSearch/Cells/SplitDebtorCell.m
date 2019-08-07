@@ -36,7 +36,10 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if([self.debtorSwitch isOn]){
-        if(string.length > 0){
+        if(range.location == 0){
+            return NO;
+        }
+        else if(string.length > 0){
             NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
             NSCharacterSet *characterSetFromTextField = [NSCharacterSet characterSetWithCharactersInString:string];
             
