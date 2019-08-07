@@ -118,7 +118,6 @@
 - (void) createUserPreferencesButton {
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
-    [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) createUserLocationButtonLabel {
@@ -263,7 +262,7 @@
     [self.bioTextView resignFirstResponder];
 }
 
-- (void)setPreferences {
+- (IBAction)didPressSetPreferences:(id)sender {
     [self performSegueWithIdentifier:@"toPreferences" sender:self];
 }
 
@@ -383,6 +382,9 @@
     [self setFieldInformation];
     LocationViewController *locationViewController = (LocationViewController *)[segue destinationViewController];
     locationViewController.delegate = self;
+    
+    PreferencesViewController *prefVC = (PreferencesViewController *)[segue destinationViewController];
+    prefVC.delegate = self;
 }
 
 @end

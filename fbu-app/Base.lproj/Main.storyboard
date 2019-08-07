@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Timeline View Controller-->
+        <!--Roommate Finder-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TimelineViewController" sceneMemberID="viewController">
@@ -119,7 +119,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="FeS-1c-2Wi">
+                    <navigationItem key="navigationItem" title="Roommate Finder" id="FeS-1c-2Wi">
                         <barButtonItem key="leftBarButtonItem" title="Left" image="menu25-2" id="bi1-T2-liN">
                             <connections>
                                 <action selector="didTapLeftMenu:" destination="BYZ-38-t0r" id="doM-wh-7ke"/>
@@ -134,7 +134,7 @@
             </objects>
             <point key="canvasLocation" x="-620.28985507246387" y="2937.7232142857142"/>
         </scene>
-        <!--Requests Received-->
+        <!--Received Requests-->
         <scene sceneID="Ubu-BY-eQJ">
             <objects>
                 <viewController id="ye3-hK-E3X" customClass="RequestsViewController" sceneMemberID="viewController">
@@ -226,7 +226,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Khq-0p-kfA"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Requests Received" id="hSo-JK-s2P">
+                    <navigationItem key="navigationItem" title="Received Requests" id="hSo-JK-s2P">
                         <barButtonItem key="leftBarButtonItem" title="Left" image="menu25-2" id="kZ9-CV-aP3">
                             <connections>
                                 <action selector="didTapLeftMenu:" destination="ye3-hK-E3X" id="GsB-2i-vG2"/>
@@ -771,7 +771,7 @@
             </objects>
             <point key="canvasLocation" x="130" y="2149"/>
         </scene>
-        <!--Sent Requests View Controller-->
+        <!--Sent Requests-->
         <scene sceneID="GG3-f9-pdY">
             <objects>
                 <viewController id="SJB-s8-7P5" customClass="SentRequestsViewController" sceneMemberID="viewController">
@@ -832,7 +832,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5gs-k6-whS"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ol5-Lm-mMl">
+                    <navigationItem key="navigationItem" title="Sent Requests" id="ol5-Lm-mMl">
                         <barButtonItem key="leftBarButtonItem" title="Left" image="menu25-2" id="btP-41-hRC">
                             <connections>
                                 <action selector="didTapLeftMenu:" destination="SJB-s8-7P5" id="aX7-Uh-ToN"/>
@@ -1156,6 +1156,9 @@
                                 <state key="normal" title="Change User Preferences">
                                     <color key="titleColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="didPressSetPreferences:" destination="qmT-Kq-rNQ" eventType="touchUpInside" id="vfq-3i-VsX"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Radius" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="COt-Vb-pEL">
                                 <rect key="frame" x="102" y="360" width="160" height="30"/>
