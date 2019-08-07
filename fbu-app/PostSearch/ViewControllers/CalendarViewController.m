@@ -286,7 +286,9 @@
 
 // checks if array contains an event on the same day as date
 - (void)doesArrayContainDateOnSameDay:(NSDate *)date forCell:(CalendarCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row - monthStartweekday + 2 > 0 && indexPath.row - monthStartweekday + 2 < 32) {
+    NSInteger day = isInWeeklyMode ? weekStart : indexPath.row - monthStartweekday + 2;
+    
+    if (day > 0 && day < 32) {
         // the check is made on a thread in the background in order to avoid blocking the main thread from running
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.9), ^{
             // switch to a background thread and perform your expensive operation
@@ -307,14 +309,13 @@
                     [cell setHidden:NO];
                     [cell drawEventCircle];
                     
-                    if ([self isCellToday:indexPath.row - self->monthStartweekday + 2]) {
+                    if ([self isCellToday:day]) {
                         [cell setCurrentDayTextColor];
                     }
                 });
             }
         });
     }
-    
 }
 
 - (void)didSwipe:(UISwipeGestureRecognizer*)swipe{
@@ -378,59 +379,45 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
+    eventDate = [self dateWithYear:currentYear month:currentMonth day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
+    // will check in background thread
+    [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
+   
+    NSInteger fistDayOfWeekOfMonth = [calendar component:NSCalendarUnitWeekday fromDate:displayedMonthStartDate];
+    BOOL indexNotInDisplayRange = isInWeeklyMode ? [eventDate compare:displayedMonthStartDate] == 0 && indexPath.item < fistDayOfWeekOfMonth - 1 :
+    indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays;
     
-    if (!isInWeeklyMode) {
-        eventDate = [self dateWithYear:currentYear month:currentMonth day:indexPath.row - monthStartweekday + 2];
-        // will check in background thread
-        [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
-        
-        if (indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays) {
-            [cell setHidden:YES];
-        } else {
-            if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
-                [cell setHidden:NO];
-                [cell setCurrentDayTextColor];
-                
-            } else {
-                [cell setHidden:NO];
-            }
-        }
+    if (indexNotInDisplayRange) {
+        [cell setHidden:YES];
     } else {
-        eventDate = [self dateWithYear:currentYear month:currentMonth day:weekStart];
-        // will check in background thread
-        [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
-        NSInteger fistDayOfWeekOfMonth = [calendar component:NSCalendarUnitWeekday fromDate:displayedMonthStartDate];
-        if ([eventDate compare:displayedMonthStartDate] == 0 && indexPath.item < fistDayOfWeekOfMonth - 1) {
-            [cell setHidden:YES];
+        if ([self isCellToday:weekStart]) {
+            [cell setHidden:NO];
+            [cell setCurrentDayTextColor];
         } else {
+            [cell setHidden:NO];
+        }
+        
+        if (isInWeeklyMode) {
+            [cell initDateLabelInCell:(weekStart++) newLabel:YES];
+            if ([self isCellToday:weekStart - 1]) {
+                [cell setCurrentDayTextColor];;
+            } else {
+                cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
+            }
+        } else {
+            [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
+            
             if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
                 [cell setHidden:NO];
                 [cell setCurrentDayTextColor];
-                [cell initDateLabelInCell:(weekStart++) newLabel:YES];
             } else {
-                [cell setHidden:NO];
-                [cell initDateLabelInCell:(weekStart++) newLabel:YES];
+                cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
             }
         }
     }
     
     if (cell.selected) {
         [cell colorSelectedCell]; // highlight selection
-    }
-    
-    if (isInWeeklyMode) {
-        if ([eventDate compare:displayedMonthStartDate] >= 0) {
-            weekStartDate = weekStartDate == nil ? [[NSDate alloc] init] : weekStartDate;
-            weekStartDate = [eventDate compare:weekStartDate] < 0 ? eventDate : weekStartDate;
-        }
-        WeekEndDate = eventDate;
-    }
-    
-    // adds date label to content view of cell
-    if (isInWeeklyMode) {
-        
-    } else {
-        [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
     }
     
     if (addPaths){

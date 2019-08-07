@@ -17,7 +17,7 @@
     self.dateLabel = [[UILabel alloc] initWithFrame:self.bounds];
     self.dateLabel.textAlignment = NSTextAlignmentCenter;
     self.dateLabel.text = [NSString stringWithFormat:@"%lu", date];
-    self.dateLabel.textColor = [CustomColor midToneOne:1.0];
+    
     
     if (label) {
         [self.contentView addSubview:self.dateLabel];
