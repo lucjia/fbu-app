@@ -76,7 +76,7 @@
             [self initCalendar:[NSDate date]];
             [self setMonthLabelText];
             [self->collectionView reloadData];
-            [self initLabels];
+            [self initDayLabels];
         }
     }];
     
@@ -108,52 +108,38 @@
     }];
 }
 
-- (void)initLabels {
+- (void)initLabel:(UILabel *)label xPos:(NSInteger)labelX yPos:(NSInteger)labelY withText:(NSString *)text {
+    label = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 94 + labelY, 50, 50)];
+    label.text = text;
+    label.textColor = [CustomColor midToneOne:1.0];
+    
+    [self.view addSubview:label];
+}
+
+- (void)initDayLabels {
     CGFloat spacing = 6;
     CGFloat labelY = self.monthLabel.frame.size.height;
     
     CGFloat sundayX = cellWidth / 4;
-    sundayLabel = [[UILabel alloc] initWithFrame:CGRectMake(sundayX, 94 + labelY, 50, 50)];
-    sundayLabel.text = @"Su";
-    sundayLabel.textColor = [CustomColor midToneOne:1.0];
+    [self initLabel:sundayLabel xPos:sundayX yPos:labelY withText:@"Su"];
 
     CGFloat mondayX = sundayX + cellWidth + spacing;
-    mondayLabel = [[UILabel alloc] initWithFrame:CGRectMake(mondayX, 94 + labelY, 50, 50)];
-    mondayLabel.text = @"Mo";
-    mondayLabel.textColor = [CustomColor midToneOne:1.0];
+    [self initLabel:mondayLabel xPos:mondayX yPos:labelY withText:@"Mo"];
     
     CGFloat tuesdayX = mondayX + cellWidth + spacing;
-    tuesdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(tuesdayX, 94 + labelY, 50, 50)];
-    tuesdayLabel.text = @"Tu";
-    tuesdayLabel.textColor = [CustomColor midToneOne:1.0];
+    [self initLabel:tuesdayLabel xPos:tuesdayX yPos:labelY withText:@"Tu"];
     
     CGFloat wednesdayX = tuesdayX + cellWidth + spacing;
-    wednesdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(wednesdayX, 94 + labelY, 50, 50)];
-    wednesdayLabel.text = @"We";
-    wednesdayLabel.textColor = [CustomColor midToneOne:1.0];
+    [self initLabel:wednesdayLabel xPos:wednesdayX yPos:labelY withText:@"We"];
     
     CGFloat thursdayX = wednesdayX + cellWidth + spacing;
-    thursdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(thursdayX, 94 + labelY, 50, 50)];
-    thursdayLabel.text = @"Th";
-    thursdayLabel.textColor = [CustomColor midToneOne:1.0];
+    [self initLabel:thursdayLabel xPos:thursdayX yPos:labelY withText:@"Th"];
     
     CGFloat fridayX = thursdayX + cellWidth + spacing;
-    fridayLabel = [[UILabel alloc] initWithFrame:CGRectMake(fridayX, 94 + labelY, 50, 50)];
-    fridayLabel.text = @"Fr";
-    fridayLabel.textColor = [CustomColor midToneOne:1.0];
+    [self initLabel:fridayLabel xPos:fridayX yPos:labelY withText:@"Fr"];
     
     CGFloat saturdayX = fridayX + cellWidth + spacing;
-    saturdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(saturdayX, 94 + labelY, 50, 50)];
-    saturdayLabel.text = @"Sa";
-    saturdayLabel.textColor = [CustomColor midToneOne:1.0];
-    
-    [self.view addSubview:sundayLabel];
-    [self.view addSubview:mondayLabel];
-    [self.view addSubview:tuesdayLabel];
-    [self.view addSubview:wednesdayLabel];
-    [self.view addSubview:thursdayLabel];
-    [self.view addSubview:fridayLabel];
-    [self.view addSubview:saturdayLabel];
+    [self initLabel:saturdayLabel xPos:saturdayX yPos:labelY withText:@"Sa"];
 }
 
 // initializes the collection view
