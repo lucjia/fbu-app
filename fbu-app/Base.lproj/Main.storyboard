@@ -719,11 +719,11 @@
             </objects>
             <point key="canvasLocation" x="1674" y="2875"/>
         </scene>
-        <!--Home-->
+        <!--Finder-->
         <scene sceneID="jk8-fQ-sLe">
             <objects>
                 <navigationController storyboardIdentifier="TimelineNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Tn6-3v-suY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="Mbd-Bs-Qnp"/>
+                    <tabBarItem key="tabBarItem" title="Finder" image="finder" id="Mbd-Bs-Qnp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PfY-bu-NUR">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -743,7 +743,7 @@
         <scene sceneID="NKj-uH-twK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="idW-sO-RGO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Received" id="BQ9-CM-4Wp"/>
+                    <tabBarItem key="tabBarItem" title="Received" image="envelope" id="BQ9-CM-4Wp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jW6-9H-pN8">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -919,6 +919,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="selectedImageTintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
                         <segue destination="Tn6-3v-suY" kind="relationship" relationship="viewControllers" id="p1c-OD-bjk"/>
@@ -1267,7 +1268,7 @@
         <scene sceneID="Jia-eM-K0Z">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dvj-cT-oNK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sent" id="mrO-gh-6HT"/>
+                    <tabBarItem key="tabBarItem" title="Sent" image="paperplane" id="mrO-gh-6HT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Jdm-z7-gO0">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1285,12 +1286,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="envelope" width="35" height="35"/>
+        <image name="finder" width="30" height="30"/>
         <image name="grid" width="772" height="1050"/>
         <image name="menu25-2" width="25" height="25"/>
+        <image name="paperplane" width="35" height="35"/>
         <image name="profileImage" width="1246" height="1164"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PC2-ht-tZF"/>
         <segue reference="sAA-b7-1El"/>
         <segue reference="gWT-7N-jNe"/>
         <segue reference="dbJ-VM-uVd"/>
