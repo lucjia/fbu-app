@@ -540,7 +540,7 @@
     
     EventDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetailsViewController"];
     viewController.event = event;
-    
+
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
