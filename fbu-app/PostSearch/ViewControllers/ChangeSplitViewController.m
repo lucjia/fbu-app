@@ -12,6 +12,7 @@
 #import "Parse/Parse.h"
 #import "Balance.h"
 #import "SplitDebtorCell.h"
+#import "NewBillViewController.h"
 
 @interface ChangeSplitViewController () <UITableViewDataSource, UITableViewDelegate, SplitDebtorCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -23,6 +24,7 @@
 @end
 
 @implementation ChangeSplitViewController
+@synthesize delegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,6 +53,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     SplitDebtorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SplitDebtorCell"];
     
+    NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
+    NSDecimalNumber *portion = [[self.delegate getPaid] decimalNumberByDividingBy:numSplit];
+    
+    cell.moneyField.placeholder = [portion stringValue];
     Persona *debtor = self.possibleDebtors[indexPath.row];
     [debtor fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         
@@ -77,16 +83,12 @@
     NSUInteger *index = [self.debtors indexOfObject:debtor];
     [self.debtors removeObjectAtIndex:index];
     [self.portions removeObjectAtIndex:index];
+    
 }
-
-
 
 - (IBAction)tapSave:(id)sender {
     [self.delegate changeSplit:self.payer debtors:self.debtors portions:self.portions];
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (IBAction)dateField:(id)sender {
-}
-- (IBAction)tapDateField:(id)sender {
-}
+
 @end

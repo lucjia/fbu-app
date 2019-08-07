@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *paidField;
 @property (weak, nonatomic) IBOutlet UIImageView *pictureView;
 - (IBAction)tapAddBill:(id)sender;
-- (IBAction)tapChangeSplit:(id)sender;
 @property (strong, nonatomic) IBOutlet NSMutableArray* debtors;
 @property (strong, nonatomic) IBOutlet NSMutableArray* portions;
 @property (strong, nonatomic) IBOutlet Persona* payer;
@@ -26,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIView *dateView;
 - (IBAction)tapDateField:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *payerButton;
+@property (weak, nonatomic) IBOutlet UIButton *debtorsButton;
 
 
 @end
@@ -55,15 +56,15 @@
     // Do any additional setup after loading the view.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewWillAppear:(BOOL)animated {
+    [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
+    NSMutableArray *debtorNames = [[NSMutableArray alloc] init];
+    for(Persona *debtor in self.debtors) {
+        [debtor fetchIfNeeded];
+        [debtorNames addObject:[self getName:debtor]];
+    }
+    [self.debtorsButton setTitle:[debtorNames componentsJoinedByString:@", "] forState:UIControlStateNormal];
 }
-*/
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
@@ -74,6 +75,10 @@
         self.dateField.text = [self formatDate:self.datePicker.date];
     }
     
+}
+
+- (NSString *) getName:(Persona*)persona {
+    return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -148,30 +153,26 @@
 }
 
 
-
-
-- (IBAction)tapChangeSplit:(id)sender {
-    
-}
-
-
 - (IBAction)tapAddBill:(id)sender {
     
-    NSDecimalNumber *paid = [NSDecimalNumber decimalNumberWithString:self.paidField.text];
-    
-    NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
-    NSDecimalNumber *portion = [paid decimalNumberByDividingBy:numSplit];
-    NSArray *portions = [NSArray array];
-    for (int i = 0; i < self.debtors.count; i++) {
-        portions = [portions arrayByAddingObject:portion];
+    if ((self.paidField.text && self.paidField.text.length > 0) && (self.memoField.text && self.memoField.text.length > 0)) {
+
+        NSDecimalNumber *paid = [NSDecimalNumber decimalNumberWithString:self.paidField.text];
+        
+        NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
+        NSDecimalNumber *portion = [paid decimalNumberByDividingBy:numSplit];
+        NSArray *portions = [NSArray array];
+        for (int i = 0; i < self.debtors.count; i++) {
+            portions = [portions arrayByAddingObject:portion];
+        }
+        
+        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:paid debtors:self.debtors portionLent:portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            NSLog(@"new bill created");
+        }];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
     }
-    
-    [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:paid debtors:self.debtors portionLent:portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        NSLog(@"new bill created");
-    }];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 - (void)changeSplit:(Persona *)payer debtors:(NSMutableArray*)debtors portions:(NSMutableArray*)portions{
@@ -179,6 +180,10 @@
     self.debtors = debtors;
     self.portions = portions;
     
+}
+
+- (NSDecimalNumber*)getPaid {
+    return [NSDecimalNumber decimalNumberWithString:self.paidField.text];
 }
 
 - (IBAction)tapDateField:(id)sender {
