@@ -165,7 +165,7 @@
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
             self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
-            filteredResults = self.receivedReminderArrayTotal;
+            self->filteredResults = self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -269,6 +269,7 @@
         Reminder *swipedReminder = [filteredResults objectAtIndex:indexPath.row];
         [swipedReminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error != nil) {
+                [self->filteredResults removeObject:swipedReminder];
                 [self.tableView reloadData];
             }
         }];
