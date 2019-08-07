@@ -11,6 +11,7 @@
 #import "Persona.h"
 #import "ChangeSplitViewController.h"
 
+
 @interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *memoField;
@@ -27,6 +28,7 @@
 - (IBAction)tapDateField:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *payerButton;
 @property (weak, nonatomic) IBOutlet UIButton *debtorsButton;
+@property (strong,nonatomic) NSMutableArray* possibleDebtors;
 
 
 @end
@@ -42,21 +44,22 @@
     self.payer = [PFUser.currentUser objectForKey:@"persona"];
     [self.payer fetchIfNeeded];
     
-    House *house = [House getHouse:self.payer];
-    self.debtors = house.housemates;
-    [self.debtors removeObject:self.payer];
+    [self fetchpossibleDebtors];
+    self.debtors = [self.possibleDebtors mutableCopy];
     
     [self.dateView setHidden:YES];
     self.dateView.tag=99;
     
     self.dateField.placeholder = [self formatDate:[NSDate date]];
     self.date = [NSDate date];
-
     
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    [self fetchpossibleDebtors];
+    
     [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
     NSMutableArray *debtorNames = [[NSMutableArray alloc] init];
     for(Persona *debtor in self.debtors) {
@@ -64,6 +67,14 @@
         [debtorNames addObject:[self getName:debtor]];
     }
     [self.debtorsButton setTitle:[debtorNames componentsJoinedByString:@", "] forState:UIControlStateNormal];
+}
+
+- (void) fetchpossibleDebtors {
+    Persona *persona = [PFUser.currentUser objectForKey:@"persona"];
+    [persona fetchIfNeeded];
+    House *house = [House getHouse:persona];
+    self.possibleDebtors = [[house objectForKey:@"housemates"] mutableCopy];
+    [self.possibleDebtors removeObject:self.payer];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -100,6 +111,7 @@
                 return NO;
         }
     }
+
     return YES;
 }
 
@@ -129,7 +141,6 @@
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
     }
     else {
-        NSLog(@"Camera 🚫 available so we will use photo library instead");
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
     
@@ -156,17 +167,15 @@
 - (IBAction)tapAddBill:(id)sender {
     
     if ((self.paidField.text && self.paidField.text.length > 0) && (self.memoField.text && self.memoField.text.length > 0)) {
-
-        NSDecimalNumber *paid = [NSDecimalNumber decimalNumberWithString:self.paidField.text];
         
         NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
-        NSDecimalNumber *portion = [paid decimalNumberByDividingBy:numSplit];
+        NSDecimalNumber *portion = [[self getPaid] decimalNumberByDividingBy:numSplit];
         NSArray *portions = [NSArray array];
         for (int i = 0; i < self.debtors.count; i++) {
             portions = [portions arrayByAddingObject:portion];
         }
         
-        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:paid debtors:self.debtors portionLent:portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             NSLog(@"new bill created");
         }];
         
@@ -183,8 +192,13 @@
 }
 
 - (NSDecimalNumber*)getPaid {
-    return [NSDecimalNumber decimalNumberWithString:self.paidField.text];
+    if (![self.paidField.text isEqualToString:@""]){
+        return [NSDecimalNumber decimalNumberWithString:self.paidField.text];
+    }else{
+        return [NSDecimalNumber zero];
+    }
 }
+
 
 - (IBAction)tapDateField:(id)sender {
     [self.dateView setHidden:NO];
@@ -198,6 +212,16 @@
     [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
     NSString *formattedDate = [dateFormatter stringFromDate:date];
     return formattedDate;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ChangeSplitViewController *controller = (ChangeSplitViewController *)segue.destinationViewController;
+    controller.delegate = self;
+    controller.debtors = self.debtors;
+    controller.payer = self.payer;
+    controller.paid = [self getPaid];
+    controller.possibleDebtors = self.possibleDebtors;
+    
 }
 
 @end

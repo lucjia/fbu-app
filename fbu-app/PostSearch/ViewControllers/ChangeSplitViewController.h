@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)tapSave:(id)sender;
 
 @property (nonatomic, weak) id<ChangeSplitViewControllerDelegate> delegate;
+@property (strong,nonatomic) NSMutableArray* possibleDebtors;
+@property (strong,nonatomic) NSMutableArray* debtors;
+@property (strong,nonatomic) Persona* payer;
+@property (strong,nonatomic) NSMutableArray* portions;
+@property (strong,nonatomic) NSDecimalNumber* paid;
 
 
 @end

@@ -16,10 +16,7 @@
 
 @interface ChangeSplitViewController () <UITableViewDataSource, UITableViewDelegate, SplitDebtorCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong,nonatomic) NSMutableArray* possibleDebtors;
-@property (strong,nonatomic) NSMutableArray* debtors;
-@property (strong,nonatomic) Persona* payer;
-@property (strong,nonatomic) NSMutableArray* portions;
+
 
 @end
 
@@ -37,31 +34,31 @@
 }
 
 - (void) reloadView {
-    [self fetchpossibleDebtors];
     [self.tableView reloadData];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
-- (void) fetchpossibleDebtors {
-    Persona *persona = [PFUser.currentUser objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    House *house = [House getHouse:persona];
-    self.possibleDebtors = [house objectForKey:@"housemates"];
-    [self.possibleDebtors removeObject:self.payer];
-}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     SplitDebtorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SplitDebtorCell"];
     
     NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
-    NSDecimalNumber *portion = [[self.delegate getPaid] decimalNumberByDividingBy:numSplit];
+    NSDecimalNumber *portion = [self.paid decimalNumberByDividingBy:numSplit];
     
     cell.moneyField.placeholder = [portion stringValue];
-    Persona *debtor = self.possibleDebtors[indexPath.row];
-    [debtor fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        
-        cell.nameLabel.text = [[debtor.firstName stringByAppendingString:@" "] stringByAppendingString:debtor.lastName];
-        cell.debtor = debtor;
+    cell.delegate = self;
+    Persona *possibleDebtor = self.possibleDebtors[indexPath.row];
+    [possibleDebtor fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        cell.nameLabel.text = [[possibleDebtor.firstName stringByAppendingString:@" "] stringByAppendingString:possibleDebtor.lastName];
+        cell.debtor = possibleDebtor;
+        if(![self.debtors containsObject:possibleDebtor]){
+            cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            cell.moneyField.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            cell.moneyField.text = @"";
+            cell.moneyField.placeholder = @"0.00";
+            [cell.debtorSwitch setOn:NO];
+        }
     }];
     
     return cell;
@@ -80,7 +77,7 @@
     
 }
 - (void)removeDebtor:(Persona*)debtor {
-    NSUInteger *index = [self.debtors indexOfObject:debtor];
+    NSUInteger index = [self.debtors indexOfObject:debtor];
     [self.debtors removeObjectAtIndex:index];
     [self.portions removeObjectAtIndex:index];
     
@@ -92,3 +89,4 @@
 }
 
 @end
+

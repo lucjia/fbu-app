@@ -9,11 +9,12 @@
 #import "SplitDebtorCell.h"
 
 @implementation SplitDebtorCell
-
+@synthesize delegate;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.moneyField.delegate = self;
+    
     // Initialization code
 }
 
@@ -24,6 +25,7 @@
 }
 
 - (IBAction)tapSwitch:(id)sender {
+    
     if([self.debtorSwitch isOn]){
         self.backgroundColor = [UIColor clearColor];
         self.moneyField.backgroundColor = [UIColor clearColor];
@@ -33,6 +35,7 @@
         self.backgroundColor = [UIColor groupTableViewBackgroundColor];
         self.moneyField.backgroundColor = [UIColor groupTableViewBackgroundColor];
         self.moneyField.text = @"";
+        self.moneyField.placeholder = @"0.00";
     }
     
 }
