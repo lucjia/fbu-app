@@ -320,7 +320,7 @@
                         <barButtonItem key="rightBarButtonItem" title="+" id="5Lv-ND-DUC">
                             <connections>
                                 <action selector="addPostButton:" destination="2Lw-TE-DW8" id="9vh-h0-l6l"/>
-                                <segue destination="Kxy-Li-Kc7" kind="presentation" id="phD-C1-qM1"/>
+                                <segue destination="Kxy-Li-Kc7" kind="presentation" identifier="toCompose" id="phD-C1-qM1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

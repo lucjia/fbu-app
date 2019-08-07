@@ -132,7 +132,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 }
 
 - (void) postToParse {
-    BulletinViewController *bulletinVC = [[BulletinViewController alloc] init];
     if (([self.postTextView.text isEqualToString:@""] || [self.postTextView.text isEqualToString:@"Write a note..."]) && currLocation == nil) {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Post"
@@ -150,7 +149,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         [self presentViewController:alert animated:YES completion:nil];
     } else if (currLocation == nil) {
         [Post createPostWithSender:[PFUser currentUser][@"persona"] text:self.postTextView.text withCompletion:nil];
-        [bulletinVC fetchPosts];
+        [self.delegate refresh];
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     } else {
         NSString *postText;
@@ -162,7 +161,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         [Post createPostWithSender:[PFUser currentUser][@"persona"] text:postText location:currLocation withCompletion:nil];
         // stop tracking location
         [locationManager stopUpdatingLocation];
-        [bulletinVC fetchPosts];
+        [self.delegate refresh];
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
 }
