@@ -34,6 +34,7 @@
     NSDate *WeekEndDate;
     NSDate *selectedcellDate;
     NSInteger weekStart;
+    NSInteger weekStartForSelectedCell;
     NSCalendar *calendar;
     NSMutableArray *dayIndexPaths; // index path for cells in calendar
     CalendarCell *selectedCell; // the cell the user has most recently tapped
@@ -330,13 +331,15 @@
             NSDateComponents *newDateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:selectedcellDate];
             [dateComponent setDay:[selectedCell.dateLabel.text intValue]];
             NSDate *weekStartDate = [calendar dateFromComponents:newDateComponent];
-            [dateComponent setDay:[newDateComponent day] - [newDateComponent weekday] + 1];
+            weekStartForSelectedCell = [newDateComponent day] - [newDateComponent weekday] + 1;
+            [dateComponent setDay:weekStartForSelectedCell];
             
              weekStartDate = [calendar dateFromComponents:dateComponent];
             
             weekStart = [calendar component:NSCalendarUnitDay fromDate:weekStartDate];
         } else {
-            [dateComponent setDay:[dateComponent day] - [dateComponent weekday] + 1];
+            weekStartForSelectedCell = [dateComponent day] - [dateComponent weekday] + 1;
+            [dateComponent setDay:weekStartForSelectedCell];
             NSDate *weekStartDate = [calendar dateFromComponents:dateComponent];
             
             weekStart = [calendar component:NSCalendarUnitDay fromDate:weekStartDate];
@@ -395,12 +398,20 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
-    eventDate = [self dateWithYear:currentYear month:currentMonth day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
+    
+    if (weekStartForSelectedCell < 0) {
+        weekStart = 1;
+        weekStartForSelectedCell = 0;
+        eventDate = [self dateWithYear:currentYear month:currentMonth == 1 ? 12 : currentMonth - 1 day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
+    } else {
+        eventDate = [self dateWithYear:currentYear month:currentMonth day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
+    }
+    
     // will check in background thread
     [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
    
     NSInteger fistDayOfWeekOfMonth = [calendar component:NSCalendarUnitWeekday fromDate:displayedMonthStartDate];
-    BOOL indexNotInDisplayRange = isInWeeklyMode ? [eventDate compare:displayedMonthStartDate] == 0 && indexPath.item < fistDayOfWeekOfMonth - 1 :
+    BOOL indexNotInDisplayRange = isInWeeklyMode ? [eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1 :
     indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays;
     
     if (indexNotInDisplayRange) {
