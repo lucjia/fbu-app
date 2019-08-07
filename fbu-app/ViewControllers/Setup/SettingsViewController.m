@@ -63,6 +63,10 @@
     [self.view endEditing:YES];
 }
 
+- (void) setLocationLabelWithLocation:(NSString *)location {
+    self.currentLocationLabel.text = location;
+}
+
 - (void) createProfileImageView {
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2;
     self.profileImageView.clipsToBounds = YES;
@@ -75,6 +79,8 @@
     }
     self.profileImage = self.profileImageView.image;
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
+    self.profileImageView.layer.borderWidth = 5;
+    self.profileImageView.layer.borderColor = [CustomColor midToneOne:1.0].CGColor;
 }
 
 - (void) createChangeProfileButton {
