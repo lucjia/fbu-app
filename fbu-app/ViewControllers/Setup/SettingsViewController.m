@@ -494,10 +494,16 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         if (data) {
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             self->currLocationString = [[[responseDictionary valueForKeyPath:@"response.venues"] objectAtIndex:0] valueForKey:@"name"];
+            self.city = [[[[responseDictionary valueForKeyPath:@"response.venues"] objectAtIndex:0] valueForKey:@"location"] valueForKey:@"city"];
+            self.state = [[[[responseDictionary valueForKeyPath:@"response.venues"] objectAtIndex:0] valueForKey:@"location"] valueForKey:@"state"];
             self.currentLocationLabel.text = [@"Location: " stringByAppendingString:self->currLocationString];
+            self.cityField.text = [[self.city stringByAppendingString:@", "] stringByAppendingString:self.state];
             // Set location in Parse
             [[PFUser currentUser][@"persona"] setObject:self->currLocation forKey:@"geoPoint"];
             [[PFUser currentUser][@"persona"] setObject:self->currLocationString forKey:@"venue"];
+            [[PFUser currentUser][@"persona"] setObject:self.city forKey:@"city"];
+            [[PFUser currentUser][@"persona"] setObject:self.state forKey:@"state"];
+            
             [[PFUser currentUser][@"persona"] saveInBackground];
         }
     }];
