@@ -114,7 +114,6 @@
     }];
     // add the OK action to the alert controller
     [alert addAction:okAction];
-    alert.view.tintColor = [CustomColor accentColor:1.0];
     
     [sender presentViewController:alert animated:YES completion:^{}];
 }

@@ -24,16 +24,6 @@
                                 <color key="textColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJN-uD-eoH">
-                                <rect key="frame" x="350" y="88" width="42" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Today">
-                                    <color key="titleColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTapToday:" destination="qB5-Kg-4Ob" eventType="touchUpInside" id="Oxe-Bk-yUy"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,7 +34,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gTc-9g-PEH"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar50" id="Xg1-qj-R4g"/>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar35" id="Xg1-qj-R4g"/>
                     <navigationItem key="navigationItem" id="T3u-e2-Qel">
                         <barButtonItem key="leftBarButtonItem" image="menu25-2" id="HEv-hr-Z3s">
                             <connections>
@@ -240,7 +230,7 @@
                                                             <color key="textColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvI-BA-jm6">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvI-BA-jm6">
                                                             <rect key="frame" x="20" y="328" width="180" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
                                                             <color key="textColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -320,7 +310,7 @@
                         <barButtonItem key="rightBarButtonItem" title="+" id="5Lv-ND-DUC">
                             <connections>
                                 <action selector="addPostButton:" destination="2Lw-TE-DW8" id="9vh-h0-l6l"/>
-                                <segue destination="Kxy-Li-Kc7" kind="presentation" identifier="toCompose" id="phD-C1-qM1"/>
+                                <segue destination="Kxy-Li-Kc7" kind="presentation" id="phD-C1-qM1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -448,7 +438,6 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="Sv8-dc-XEr" id="lxS-Fz-e2f"/>
                         <outlet property="backgroundView" destination="LFr-gk-CcM" id="yYw-Fe-svc"/>
                         <outlet property="locationButtonView" destination="qRU-NY-sbD" id="rf8-m8-n26"/>
                         <outlet property="postButton" destination="g04-0L-Kpn" id="Cze-ul-aYV"/>
@@ -630,7 +619,7 @@
                                 <subviews>
                                     <segmentedControl opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d1h-g1-56q">
                                         <rect key="frame" x="20" y="16" width="374" height="29"/>
-                                        <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <segments>
                                             <segment title="My Reminders"/>
                                             <segment title="Sent Reminders"/>
@@ -642,7 +631,7 @@
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
-                                <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="d1h-g1-56q" secondAttribute="trailing" constant="20" id="7Pv-rv-j35"/>
                                     <constraint firstItem="d1h-g1-56q" firstAttribute="leading" secondItem="SUk-of-WOd" secondAttribute="leading" constant="20" id="Hfm-jK-Xg4"/>
@@ -675,7 +664,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+" id="0ke-jD-iH6">
                             <connections>
-                                <segue destination="W2u-EQ-PO4" kind="show" identifier="toReminderCompose" id="cpb-S4-KbN"/>
+                                <segue destination="W2u-EQ-PO4" kind="show" id="cpb-S4-KbN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -866,7 +855,7 @@
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="40s-70-p90"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="EWW-zg-F2b"/>
+                                    <constraint firstAttribute="width" constant="240" id="EWW-zg-F2b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Save Edits">
@@ -963,7 +952,7 @@
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="5lE-uI-eZk"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="OAl-b8-IPK"/>
+                                    <constraint firstAttribute="width" constant="240" id="OAl-b8-IPK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Add Reminder">
@@ -1066,7 +1055,6 @@
                         <outlet property="addReminderButton" destination="S6h-kk-XBc" id="u2u-4W-naX"/>
                         <outlet property="collectionView" destination="WbQ-kZ-JZN" id="Iox-qE-Eet"/>
                         <outlet property="dateSelectionTextField" destination="RBu-bz-QWH" id="v5y-uA-eUa"/>
-                        <outlet property="lockEditingLabel" destination="bVo-Eb-SuR" id="fuL-2Y-VS1"/>
                         <outlet property="lockEditingSwitch" destination="sIr-St-1IS" id="YnA-65-Vgf"/>
                         <outlet property="recipientLabel" destination="kle-L6-Zon" id="yCq-4s-Gt6"/>
                         <outlet property="reminderTextView" destination="JkX-H1-U5J" id="C3Q-jh-xto"/>
@@ -2081,7 +2069,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calendar50" width="50" height="50"/>
+        <image name="calendar35" width="35" height="35"/>
         <image name="emptycheck" width="50" height="50"/>
         <image name="grid" width="772" height="1050"/>
         <image name="home" width="35" height="35"/>

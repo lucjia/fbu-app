@@ -8,7 +8,6 @@
 
 #import "ReminderCell.h"
 #import "Reminder.h"
-#import "Accessibility.h"
 
 @interface ReminderCell()
 
@@ -53,11 +52,6 @@
         NSString *fullName = [firstName stringByAppendingString:lastName];
         self.reminderSenderLabel.text = fullName;
     }
-    
-    [Accessibility largeTextCompatibilityWithLabel:self.reminderTextLabel style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.reminderDateLabel style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.reminderSenderLabel style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.sentToOrBy style:UIFontTextStyleBody];
     
     if(rem.completed) {
         self.checkmarkButton.selected = YES;

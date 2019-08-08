@@ -9,7 +9,6 @@
 #import "ReminderViewController.h"
 #import "ReminderCell.h"
 #import "Reminder.h"
-#import "ComposeReminderViewController.h"
 #import "ReminderDetailViewController.h"
 #import "CustomButton.h"
 #import "ProgressViewController.h"
@@ -17,10 +16,8 @@
 #import "Parse/Parse.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
-#import "CustomColor.h"
-#import "Accessibility.h"
 
-@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate, ReminderDetailViewControllerDelegate> {
+@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     // different way of declaring property
     NSMutableArray *filteredResults;
 }
@@ -46,8 +43,6 @@
     self.receivedReminderArrayNoDates = [[NSMutableArray alloc] init];
     self.receivedReminderArrayTotal = [[NSMutableArray alloc] init];
     
-    filteredResults = [[NSMutableArray alloc] init];
-    
     self.segmentedControl.selectedSegmentIndex = self.segmentIndex;
     self.segmentedControl.layer.cornerRadius = 4.0;
     self.segmentedControl.clipsToBounds = YES;
@@ -61,17 +56,6 @@
     
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search for a reminder...";
-    
-    // get notification if font size is changed from settings accessibility
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(preferredContentSizeChanged:)
-     name:UIContentSizeCategoryDidChangeNotification
-     object:nil];
-}
-
-// change font size based on accessibility setting
-- (void)preferredContentSizeChanged:(NSNotification *)notification {
 }
 
 - (void) fetchReminders {
@@ -84,16 +68,6 @@
         ProgressViewController *progressVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProgressVC"];
         [self presentViewController:progressVC animated:YES completion:nil];
     }
-}
-
-- (void) refreshWithNewReminder:(Reminder *)rem {
-    [self fetchReminders];
-    [self.tableView reloadData];
-}
-
-- (void) refresh {
-    [self fetchReminders];
-    [self.tableView reloadData];
 }
 
 - (void) fetchReceivedRemindersWithDate {
@@ -138,12 +112,8 @@
     [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
-            if (self.receivedReminderArrayTotal.count > 0) {
-                [self.receivedReminderArrayTotal removeAllObjects];
-            }
-            [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayDates];
-            [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayNoDates];
-            self->filteredResults = (NSMutableArray *)self.receivedReminderArrayTotal;
+            self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
+            self->filteredResults = self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -195,7 +165,7 @@
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
             self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
-            self->filteredResults = self.receivedReminderArrayTotal;
+            filteredResults = self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -234,16 +204,10 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Reminder *currentReminder = filteredResults[indexPath.row];
         
-        ReminderDetailViewController *reminderDetailVC = (ReminderDetailViewController *)[segue destinationViewController];
-        reminderDetailVC.delegate = self;
+        ReminderDetailViewController *reminderDetailVC = [segue destinationViewController];
         reminderDetailVC.reminder = currentReminder;
         
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
-    
-    if ([[segue identifier] isEqualToString:@"toReminderCompose"]) {
-        ComposeReminderViewController *composeVC = (ComposeReminderViewController *)[segue destinationViewController];
-        composeVC.delegate = self;
     }
 }
 
@@ -284,7 +248,7 @@
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
-    filteredResults = (NSMutableArray *)self.receivedReminderArrayTotal;
+    filteredResults = self.receivedReminderArrayTotal;
     [self.tableView reloadData];
     [self scrollToTopAfterSearch];
 }
@@ -295,17 +259,20 @@
 }
 
 // Swipe to delete
--(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        // remove the deleted object from Parse
-        Reminder *swipedReminder = [self->filteredResults objectAtIndex:indexPath.row];
-        [swipedReminder deleteInBackground];
-        [self->filteredResults removeObjectAtIndex:indexPath.row];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView reloadData];
-    }];
-    deleteAction.backgroundColor = [CustomColor accentColor:1.0];
-    return @[deleteAction];
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //remove the deleted object from Parse
+        Reminder *swipedReminder = [filteredResults objectAtIndex:indexPath.row];
+        [swipedReminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error != nil) {
+                [self.tableView reloadData];
+            }
+        }];
+    }
 }
 
 // Notifications
@@ -336,38 +303,27 @@
     // add notification code here
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.title = @"FBU App";
-    if (reminders.count == 1) {
-        content.subtitle = [NSString stringWithFormat:@"%zd current reminder", reminders.count];
-    } else {
-        content.subtitle = [NSString stringWithFormat:@"%zd current reminders", reminders.count];
-    }
+    content.subtitle = [NSString stringWithFormat:@"%zd current reminders", reminders.count];
     
     NSString *contentBody = @"";
     for (int i = 0; i < reminders.count; i++) {
         NSString *sender = [reminders objectAtIndex:i][@"reminderSender"][@"firstName"];
         contentBody = [contentBody stringByAppendingString:sender];
-        if (reminders.count != 1) {
-            if (i < reminders.count - 2) {
-                contentBody = [contentBody stringByAppendingString:@", "];
-            } else if (i == reminders.count - 2) {
-                if (reminders.count == 2) {
-                    contentBody = [contentBody stringByAppendingString:@" and "];
-                }
-                contentBody = [contentBody stringByAppendingString:@", and "];
+        if (i < reminders.count - 2) {
+            contentBody = [contentBody stringByAppendingString:@", "];
+        } else if (i == reminders.count - 2) {
+            if (reminders.count == 2) {
+                contentBody = [contentBody stringByAppendingString:@" and "];
             }
+            contentBody = [contentBody stringByAppendingString:@", and "];
         }
     }
-    
-    if (reminders.count == 1) {
-        content.body = [NSString stringWithFormat:@"You have not completed a reminder from %@!", contentBody];
-    } else {
-        content.body = [NSString stringWithFormat:@"You have not completed reminders from %@!", contentBody];
-    }
+    content.body = [NSString stringWithFormat:@"You have not completed reminders from %@!", contentBody];
     content.categoryIdentifier = @"TIMER_EXPIRED";
     content.sound = [UNNotificationSound defaultSound];
     
     [self setReminderTriggerWithHour:9 minute:0 content:content];
-    [self setReminderTriggerWithHour:17 minute:34 content:content];
+    [self setReminderTriggerWithHour:17 minute:0 content:content];
 }
 
 - (void) setReminderTriggerWithHour:(NSInteger)hr minute:(NSInteger)min content:(UNMutableNotificationContent *)content {

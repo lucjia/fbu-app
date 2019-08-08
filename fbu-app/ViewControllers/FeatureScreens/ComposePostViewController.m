@@ -13,7 +13,6 @@
 #import "QuartzCore/QuartzCore.h"
 #import "BulletinViewController.h"
 #import "CustomColor.h"
-#import "Accessibility.h"
 
 // Foursquare API
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
@@ -32,7 +31,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 @property (weak, nonatomic) IBOutlet UIView *locationButtonView;
 @property (weak, nonatomic) IBOutlet UIView *postButtonView;
 @property (weak, nonatomic) IBOutlet UIButton *postButton;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @end
 
@@ -56,26 +54,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     [self roundCornersWithView:self.postButtonView radius:5];
     
     [self initializeTextView];
-    
-    [self initializeLargeTextCompatibility];
-    
-    // get notification if font size is changed from settings accessibility
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(preferredContentSizeChanged:)
-     name:UIContentSizeCategoryDidChangeNotification
-     object:nil];
-}
-
-// change font size based on accessibility setting
-- (void)preferredContentSizeChanged:(NSNotification *)notification {
-}
-
-- (void) initializeLargeTextCompatibility {
-    [Accessibility largeTextCompatibilityWithLabel:self.shareLocationButton.titleLabel style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithView:self.postTextView style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.postButton.titleLabel style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.backButton.titleLabel style:UIFontTextStyleSubheadline];
 }
 
 - (void) roundCornersWithView:(UIView *)view radius:(double)radius {
@@ -132,6 +110,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 }
 
 - (void) postToParse {
+    BulletinViewController *bulletinVC = [[BulletinViewController alloc] init];
     if (([self.postTextView.text isEqualToString:@""] || [self.postTextView.text isEqualToString:@"Write a note..."]) && currLocation == nil) {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Post"
@@ -149,7 +128,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         [self presentViewController:alert animated:YES completion:nil];
     } else if (currLocation == nil) {
         [Post createPostWithSender:[PFUser currentUser][@"persona"] text:self.postTextView.text withCompletion:nil];
-        [self.delegate refresh];
+        [bulletinVC fetchPosts];
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     } else {
         NSString *postText;
@@ -161,7 +140,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         [Post createPostWithSender:[PFUser currentUser][@"persona"] text:postText location:currLocation withCompletion:nil];
         // stop tracking location
         [locationManager stopUpdatingLocation];
-        [self.delegate refresh];
+        [bulletinVC fetchPosts];
         [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
 }

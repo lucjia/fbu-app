@@ -12,7 +12,6 @@
 #import "TimelineViewController.h"
 #import "Parse/Parse.h"
 #import "CustomButton.h"
-#import "CustomColor.h"
 
 @interface LogInViewController ()
 
@@ -85,7 +84,7 @@
                                                                   }];
             // Add the cancel action to the alertController
             [alert addAction:dismissAction];
-            alert.view.tintColor = [CustomColor accentColor:1.0];
+            alert.view.tintColor = [UIColor colorWithRed:134.0/255.0f green:43.0/255.0f blue:142.0/255.0f alpha:1.0f];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
             // Display view controller that needs to be shown after successful login

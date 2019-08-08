@@ -11,13 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol PreferencesViewControllerDelegate
-
-@end
-
 @interface PreferencesViewController : UIViewController
-
-@property (nonatomic, weak) id<PreferencesViewControllerDelegate> delegate;
 
 @end
 

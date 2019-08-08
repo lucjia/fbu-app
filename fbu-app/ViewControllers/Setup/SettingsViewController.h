@@ -16,8 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIImage *resizedImage;
 @property (strong, nonatomic) PFUser *user;
 
-- (void) setLocationLabelWithLocation:(NSString *)location;
-
 @end
 
 NS_ASSUME_NONNULL_END

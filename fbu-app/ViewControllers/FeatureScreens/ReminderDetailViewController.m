@@ -9,7 +9,6 @@
 #import "ReminderDetailViewController.h"
 #import "CustomDatePicker.h"
 #import "CustomColor.h"
-#import "Accessibility.h"
 
 @interface ReminderDetailViewController ()
 
@@ -44,27 +43,6 @@
     
     self.editButton.layer.cornerRadius = 5;
     self.editButton.layer.masksToBounds = YES;
-    
-    [self initializeLargeTextCompatibility];
-    
-    // get notification if font size is changed from settings accessibility
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(preferredContentSizeChanged:)
-     name:UIContentSizeCategoryDidChangeNotification
-     object:nil];
-}
-
-// change font size based on accessibility setting
-- (void)preferredContentSizeChanged:(NSNotification *)notification {
-}
-
-- (void) initializeLargeTextCompatibility {
-    [Accessibility largeTextCompatibilityWithLabel:self.senderLabel style:UIFontTextStyleTitle2];
-    [Accessibility largeTextCompatibilityWithView:self.reminderTextView style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithField:self.dateField style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.editButton.titleLabel style:UIFontTextStyleBody];
-    [Accessibility largeTextCompatibilityWithLabel:self.deleteButton.titleLabel style:UIFontTextStyleSubheadline];
 }
 
 - (void) initializeTextView {
@@ -97,7 +75,7 @@
     if ([self.reminderTextView.text isEqualToString:@""]) {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Edit Reminder"
-                                                                       message:@"Please enter a reminder."
+                                                                       message:@"This reminder is locked for editing."
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
         // Create a dismiss action
         UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
@@ -121,7 +99,6 @@
                                              reminder[@"dueDateString"] = self.dateField.text;
                                          }
                                          [reminder saveInBackground];
-                                         [self.delegate refresh];
                                          [self.navigationController popViewControllerAnimated:YES];
                                      }];
     }
@@ -137,7 +114,6 @@
                                                           handler:^(UIAlertAction * _Nonnull action) {
                                                               // delete reminder and go back to reminder list
                                                               [self.reminder deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                                                                  [self.delegate refresh];
                                                                   [self.navigationController popViewControllerAnimated:YES];
                                                               }];
                                                           }];
