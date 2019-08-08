@@ -82,7 +82,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [rootView setSelectedIndex:2];
+        [rootView setSelectedIndex:0];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"📅 Calendar"]) {
@@ -94,7 +94,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [rootView setSelectedIndex:0];
+        [rootView setSelectedIndex:1];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
     
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"📋 Reminders"]) {
@@ -106,7 +106,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [rootView setSelectedIndex:1];
+        [rootView setSelectedIndex:2];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
     // Reminder Subfeatures
@@ -119,7 +119,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [rootView setSelectedIndex:1];
+        [rootView setSelectedIndex:2];
         
         UINavigationController *navController = rootView.selectedViewController;
         ReminderViewController *reminderController = (ReminderViewController *)navController.visibleViewController;

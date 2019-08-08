@@ -204,12 +204,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3aq-wm-1bI">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.98431372549019602" green="0.78823529411764703" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="grid" translatesAutoresizingMaskIntoConstraints="NO" id="wfE-HV-26h">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gradient2" translatesAutoresizingMaskIntoConstraints="NO" id="wfE-HV-26h">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -218,43 +213,43 @@
                                 <rect key="frame" x="0.0" y="108" width="414" height="685"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YyR-a9-8CK">
-                                    <size key="itemSize" width="220" height="364"/>
+                                    <size key="itemSize" width="317" height="314"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PostCell" id="dZl-My-BbR" customClass="PostCell">
-                                        <rect key="frame" x="97" y="0.0" width="220" height="364"/>
+                                        <rect key="frame" x="48.5" y="0.0" width="317" height="314"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="220" height="364"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="317" height="314"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hrh-uc-da1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="220" height="364"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="317" height="314"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XdG-0G-ajh">
-                                                            <rect key="frame" x="20" y="103" width="180" height="20.5"/>
+                                                            <rect key="frame" x="20" y="103" width="277" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                             <color key="textColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvI-BA-jm6">
-                                                            <rect key="frame" x="20" y="328" width="180" height="16"/>
+                                                            <rect key="frame" x="20" y="278" width="277" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
                                                             <color key="textColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5h-M5-896">
-                                                            <rect key="frame" x="0.0" y="0.0" width="220" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="317" height="40"/>
                                                             <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="QPn-u3-HYS"/>
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlQ-Ql-KEG">
-                                                            <rect key="frame" x="20" y="60" width="180" height="23"/>
+                                                            <rect key="frame" x="20" y="60" width="277" height="23"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                                             <color key="textColor" red="0.98431372549999996" green="0.78823529410000004" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
@@ -1550,9 +1545,9 @@
                         <color key="selectedImageTintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
+                        <segue destination="069-SJ-7yH" kind="relationship" relationship="viewControllers" id="0lZ-aa-Par"/>
                         <segue destination="rjn-oS-mWP" kind="relationship" relationship="viewControllers" id="OwS-Dj-Zr1"/>
                         <segue destination="625-IT-BRN" kind="relationship" relationship="viewControllers" id="3ZN-sd-03P"/>
-                        <segue destination="069-SJ-7yH" kind="relationship" relationship="viewControllers" id="0lZ-aa-Par"/>
                         <segue destination="vr9-py-Oyv" kind="relationship" relationship="viewControllers" id="8Cj-m3-VSr"/>
                     </connections>
                 </tabBarController>
@@ -1862,7 +1857,7 @@
     <resources>
         <image name="calendar50" width="50" height="50"/>
         <image name="emptycheck" width="50" height="50"/>
-        <image name="grid" width="772" height="1050"/>
+        <image name="gradient2" width="1108" height="1534"/>
         <image name="home" width="35" height="35"/>
         <image name="menu25-2" width="25" height="25"/>
         <image name="piggybank" width="35" height="35"/>

@@ -34,7 +34,6 @@
     [super viewDidLoad];
     
     // set background image
-    self.backgroundImage.image = [UIImage imageNamed:@"grid"];
     self.backgroundImage.clipsToBounds = YES;
     self.backgroundImage.alpha = 0.8;
     
@@ -75,21 +74,21 @@
     
     [query orderByDescending:@"createdAt"];
     
-    House *currentHouse = [[House alloc] init];
-    currentHouse = [PFUser currentUser][@"persona"][@"house"];
-    [currentHouse fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        [query whereKey:@"postSender" containedIn:currentHouse.housemates];
-        
-        [query findObjectsInBackgroundWithBlock:^(NSArray *fetchedPosts, NSError *error) {
-            if (fetchedPosts != nil) {
-                self->posts = (NSMutableArray *)fetchedPosts;
-                [self.collectionView reloadData];
-            } else {
-                NSLog(@"%@", error.localizedDescription);
-            }
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [persona objectForKey:@"house"];
+        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            [query whereKey:@"postSender" containedIn:house.housemates];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *fetchedPosts, NSError *error) {
+                if (fetchedPosts != nil) {
+                    self->posts = (NSMutableArray *)fetchedPosts;
+                    [self.collectionView reloadData];
+                } else {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }];
+            [self->refreshControl endRefreshing];
         }];
-        
-        [self->refreshControl endRefreshing];
     }];
 }
 
