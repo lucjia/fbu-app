@@ -12,7 +12,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalBalanceLabel;
-@property (assign, nonatomic) NSUInteger *indexOfHousemate;
+@property (assign, nonatomic) NSUInteger indexOfHousemate;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalTopConstraint;
 
 @end
 
@@ -26,10 +27,10 @@
     
     NSUInteger index = [self.balance.housemates indexOfObject:self.currentPersona];
     if(index == 0){
-        self.indexOfHousemate = 1;
+        self.indexOfHousemate = (NSUInteger)1;
         self.housemate = self.balance.housemates[1];
     }else{
-        self.indexOfHousemate = 2;
+        self.indexOfHousemate = (NSUInteger)2;
         self.housemate = self.balance.housemates[0];
     }
     [self.housemate fetchIfNeeded];
@@ -73,12 +74,6 @@
         dateFormatter.dateFormat = @"d";
         cell.dateLabel.text = [dateFormatter stringFromDate:bill.date];
         
-        PFFileObject *imageFile = bill.image;
-        [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-            if (!error) {
-                cell.pictureView.image = [UIImage imageWithData:data];
-            }
-        }];
         cell.moneyLabel.text = [numberFormatter stringFromNumber:bill.paid];
         cell.memoLabel.text = bill.memo;
         
@@ -96,31 +91,34 @@
         }
 
     }];
-    cell.pictureView.layer.cornerRadius = cell.pictureView.frame.size.height /2;
-    cell.pictureView.layer.masksToBounds = YES;
     
     return cell;
     
 }
 
 - (void) setTotals{
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    
+    NSDecimalNumber* total = [NSDecimalNumber decimalNumberWithDecimal:[self.balance.total decimalValue]];
+    
     if ([self.balance.total isEqual:[NSDecimalNumber zero]]){
         self.totalStateLabel.text = @"all even";
         self.totalStateLabel.textColor = [UIColor darkGrayColor];
-        self.totalStateLabel.topConstraint.constant = 19;
+        self.totalTopConstraint.constant = 41;
     }
     else if([self inDebt:self.balance indexOfHousemate:self.indexOfHousemate]){
         self.totalStateLabel.text = @"you owe";
         self.totalStateLabel.textColor = [UIColor redColor];
-        self.totalBalanceLabel.text = [numberFormatter stringFromNumber:[self abs:self.balance.total]];
+        self.totalBalanceLabel.text = [numberFormatter stringFromNumber:[self abs:total]];
         self.totalBalanceLabel.textColor = [UIColor redColor];
-        cell.topConstraint.constant = 8;
-    }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
+        self.totalTopConstraint.constant = 30;
+    }else{
         self.totalStateLabel.text = @"owes you";
         self.totalStateLabel.textColor = [UIColor greenColor];
-        self.totalBalanceLabel.text = [numberFormatter stringFromNumber:[self abs:self.balance.total]];
+        self.totalBalanceLabel.text = [numberFormatter stringFromNumber:[self abs:total]];
         self.totalBalanceLabel.textColor = [UIColor greenColor];
-        cell.topConstraint.constant = 8;
+        self.totalTopConstraint.constant = 30;
     }
 }
 

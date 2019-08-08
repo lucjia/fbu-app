@@ -24,7 +24,7 @@
 @property (strong, nonatomic) IBOutlet NSMutableArray* housemates;
 @property (strong, nonatomic) IBOutlet Persona* payer;
 @property (weak, nonatomic) IBOutlet UITextField *dateField;
-@property (weak, nonatomic) NSDate *date;
+@property (strong, nonatomic) NSDate *date;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIView *dateView;
 - (IBAction)tapDateField:(id)sender;
@@ -167,6 +167,8 @@
 
 - (IBAction)tapAddBill:(id)sender {
     
+    [self getPortions];
+    
     if (self.paidField.text.length > 1 && (self.memoField.text && self.memoField.text.length > 0)) {
         
         [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:self.portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -208,7 +210,7 @@
     return formattedDate;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void) getPortions {
     if(self.portions == nil){
         NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
         NSDecimalNumber *portion = [[self getPaid] decimalNumberByDividingBy:numSplit];
@@ -217,6 +219,10 @@
             [self.portions addObject:portion];
         }
     }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self getPortions];
     
     ChangeSplitViewController *controller = (ChangeSplitViewController *)segue.destinationViewController;
     controller.delegate = self;

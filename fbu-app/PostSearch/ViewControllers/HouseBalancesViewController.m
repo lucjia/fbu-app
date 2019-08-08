@@ -21,8 +21,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (nonatomic, strong) NSMutableArray *balances;
 @property (nonatomic, strong) Persona *currentPersona;
-@property (nonatomic, strong) NSDecimalNumber *negative;
-@property (nonatomic, strong) NSDecimalNumber *positive;
+@property (nonatomic, strong) NSMutableArray *balanceTotals;
+
 
 @end
 
@@ -47,13 +47,17 @@
 
 - (void) reloadView {
     [self fetchBalances];
+    
+    self.balanceTotals = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.balances.count; i++) {
+        [self.balanceTotals addObject:[NSDecimalNumber zero]];
+    }
+    
     [self.tableView reloadData];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void) fetchBalances {
-    self.negative = [NSDecimalNumber zero];
-    self.positive = [NSDecimalNumber zero];
     self.balances = [self.currentPersona objectForKey:@"balances"];
 }
 
@@ -69,6 +73,9 @@
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
         
+        NSDecimalNumber* total = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
+        [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:total];
+
         cell.nameLabel.text = [[housemate.firstName stringByAppendingString:@" "] stringByAppendingString:housemate.lastName];
         NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
         if ([balanceTotal isEqual:[NSDecimalNumber zero]]){
@@ -79,7 +86,6 @@
         else if([self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"you owe";
             cell.stateLabel.textColor = [UIColor redColor];
-            self.negative = [self.negative decimalNumberByAdding:[self abs:balanceTotal]];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
             cell.balanceLabel.textColor = [UIColor redColor];
             [self setTotals];
@@ -87,7 +93,6 @@
         }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"owes you";
             cell.stateLabel.textColor = [UIColor greenColor];
-            self.positive = [self.positive decimalNumberByAdding:[self abs:balanceTotal]];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
             cell.balanceLabel.textColor = [UIColor greenColor];
             [self setTotals];
@@ -108,14 +113,24 @@
     
 }
 
-
 -(void) setTotals {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     
-    self.negativeLabel.text = [numberFormatter stringFromNumber:self.negative];
-    self.positiveLabel.text = [numberFormatter stringFromNumber:self.positive];
-    self.totalLabel.text = [numberFormatter stringFromNumber:[self.positive decimalNumberBySubtracting:self.negative]];
+    NSDecimalNumber *positive = [NSDecimalNumber zero];
+    NSDecimalNumber *negative = [NSDecimalNumber zero];
+    
+    for(NSDecimalNumber* total in self.balanceTotals){
+        if([total compare:[NSDecimalNumber zero]] == NSOrderedDescending){
+            positive = [positive decimalNumberByAdding:total];
+        }else if([total compare:[NSDecimalNumber zero]] == NSOrderedAscending){
+            negative = [negative decimalNumberBySubtracting:total];
+        }
+    }
+    
+    self.negativeLabel.text = [numberFormatter stringFromNumber:negative];
+    self.positiveLabel.text = [numberFormatter stringFromNumber:positive];
+    self.totalLabel.text = [numberFormatter stringFromNumber:[positive decimalNumberBySubtracting:negative]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -162,7 +177,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
+    if ([segue.identifier isEqualToString:@"showDetails"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Balance *balance = self.balances[indexPath.row];
@@ -170,6 +185,7 @@
         BalanceDetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.balance = balance;
         detailsViewController.currentPersona = self.currentPersona;
+    }
 }
      
         
