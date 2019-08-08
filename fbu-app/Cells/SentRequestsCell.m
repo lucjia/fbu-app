@@ -40,6 +40,8 @@
     [[user objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
         NSData *imageData = data;
         self.profileImage.image = [[UIImage alloc] initWithData:imageData];
+        self.profileImage.layer.cornerRadius = self.profileImage.layer.frame.size.height / 2;
+        self.profileImage.layer.masksToBounds = YES;
     }];
     
     self.waitingLabel.text = [NSString stringWithFormat:@"Waiting for %@ to respond", [user objectForKey:@"username"]];

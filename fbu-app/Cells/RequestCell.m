@@ -43,6 +43,8 @@
     [[user objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
         NSData *imageData = data;
         self.senderProfileImage.image = [[UIImage alloc] initWithData:imageData];
+        self.senderProfileImage.layer.cornerRadius = self.senderProfileImage.layer.frame.size.height / 2;
+        self.senderProfileImage.layer.masksToBounds = YES;
     }];
     
     NSString *senderUsername = [user objectForKey:@"username"];
