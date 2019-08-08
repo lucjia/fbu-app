@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CalendarCell : UICollectionViewCell
 
 @property (strong, nonatomic) UILabel *dateLabel;
+@property BOOL isSelected;
 
 - (void)initDateLabelInCell:(NSUInteger)date newLabel:(BOOL)label;
 - (void)setCurrentDayTextColor;
