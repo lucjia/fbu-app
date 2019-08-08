@@ -12,8 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SplitDebtorCellDelegate
-- (void)addDebtor:(Persona*)debtor portion:(NSDecimalNumber*)portion;
-- (void)removeDebtor:(Persona*)debtor;
+- (void)addDebtor:(Persona*)debtor portion:(NSDecimalNumber*)portion indexPath:(NSIndexPath*)indexPath;
+- (void)removeDebtor:(Persona*)debtor indexPath:(NSIndexPath*)indexPath;
 @end
 
 @interface SplitDebtorCell : UITableViewCell <UITextFieldDelegate>
@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UISwitch *debtorSwitch;
 @property (nonatomic, weak) id<SplitDebtorCellDelegate> delegate;
 @property (nonatomic, strong) Persona* debtor;
+@property (nonatomic, strong) NSIndexPath* indexPath;
+@property (nonatomic, strong) NSDecimalNumber* paid;
 
 @end
 
