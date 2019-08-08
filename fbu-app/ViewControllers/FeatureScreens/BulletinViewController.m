@@ -13,8 +13,10 @@
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 #import "House.h"
 #import "Persona.h"
+#import "Accessibility.h"
+#import "ComposePostViewController.h"
 
-@interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
+@interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ComposePostViewControllerDelegate> {
     NSMutableArray *posts;
     NSLayoutConstraint *heightConstraint;
     UIRefreshControl *refreshControl;
@@ -45,6 +47,22 @@
     [self.collectionView insertSubview:refreshControl atIndex:0];
     
     [self fetchPosts];
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(preferredContentSizeChanged:)
+     name:UIContentSizeCategoryDidChangeNotification
+     object:nil];
+}
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+}
+
+- (void) refresh {
+    [self fetchPosts];
+    [self.collectionView reloadData];
 }
 
 - (void) fetchPosts {
@@ -93,6 +111,11 @@
 
 - (IBAction)didPressLeft:(id)sender {
     [self showLeftViewAnimated:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ComposePostViewController *composeVC = (ComposePostViewController *)[segue destinationViewController];
+    composeVC.delegate = self;
 }
 
 @end

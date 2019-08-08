@@ -12,7 +12,6 @@
 #import "Persona.h"
 #import "Parse/Parse.h"
 #import "Balance.h"
-#import "BalanceDetailsViewController.h"
 
 @interface HouseBalancesViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

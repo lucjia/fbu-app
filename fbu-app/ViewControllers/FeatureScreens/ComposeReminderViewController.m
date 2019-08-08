@@ -13,8 +13,11 @@
 #import "UserCollectionCell.h"
 #import "House.h"
 #import "CustomColor.h"
+#import "Accessibility.h"
 
-@interface ComposeReminderViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ComposeReminderViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
+    Persona *recipient;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *dateSelectionTextField;
 @property (strong, nonatomic) UIDatePicker *datePicker;
@@ -30,6 +33,7 @@
 @property (strong, nonatomic) UserCollectionCell *previousCell;
 @property (assign, nonatomic) NSInteger cellHeight;
 @property (weak, nonatomic) IBOutlet UISwitch *lockEditingSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *lockEditingLabel;
 
 @end
 
@@ -69,6 +73,27 @@
     
     self.addReminderButton.layer.cornerRadius = 5;
     self.addReminderButton.layer.masksToBounds = YES;
+    
+    [self initializeLargeTextCompatibility];
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(preferredContentSizeChanged:)
+     name:UIContentSizeCategoryDidChangeNotification
+     object:nil];
+}
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+}
+
+- (void) initializeLargeTextCompatibility {
+    [Accessibility largeTextCompatibilityWithView:self.reminderTextView style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.recipientLabel style:UIFontTextStyleHeadline];
+    [Accessibility largeTextCompatibilityWithField:self.dateSelectionTextField style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.addReminderButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.lockEditingLabel style:UIFontTextStyleBody];
 }
 
 - (IBAction)didTap:(id)sender {
@@ -142,7 +167,7 @@
         [query includeKey:@"persona"];
         
         // query for Persona that is the recipient
-        [query whereKey:@"username" equalTo:self.recipientLabel.text];
+        [query whereKey:@"username" equalTo:recipient.username];
         [query findObjectsInBackgroundWithBlock:^(NSArray *recipient, NSError *error) {
             if (recipient != nil) {
                 self.receiver = [recipient objectAtIndex:0];
@@ -153,7 +178,9 @@
                     dueDate = nil;
                 }
                 
-                [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
+                Reminder *newRem = [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
+                
+                [self.delegate refreshWithNewReminder:newRem];
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }
@@ -195,7 +222,7 @@
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    Persona *persona = self.housemates[indexPath.item];
+    recipient = self.housemates[indexPath.item];
     
     // change alpha to 1.0 and have alpha of last selection return to 0.5
     self.previousCell.profileView.alpha = 0.5;
@@ -203,7 +230,7 @@
     UserCollectionCell *tappedCell = [self.collectionView cellForItemAtIndexPath:(indexPath)];
     self.previousCell = tappedCell;
     tappedCell.profileView.alpha = 1.0;
-    self.recipientLabel.text = persona.username;
+    self.recipientLabel.text = [[recipient.firstName stringByAppendingString:@" "] stringByAppendingString:recipient.lastName];
 }
 
 @end

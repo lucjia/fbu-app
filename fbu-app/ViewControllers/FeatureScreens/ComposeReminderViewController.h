@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reminder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ComposeReminderViewControllerDelegate
+
+- (void) refreshWithNewReminder:(Reminder *)rem;
+
+@end
+
 @interface ComposeReminderViewController : UIViewController
+
+@property (nonatomic, weak) id<ComposeReminderViewControllerDelegate> delegate;
 
 @end
 

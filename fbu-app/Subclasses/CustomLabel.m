@@ -15,6 +15,7 @@
     label.text = text;
     [label setFont: [UIFont systemFontOfSize:textSize]];
     label.textAlignment = NSTextAlignmentCenter;
+    label.adjustsFontForContentSizeCategory = YES;
     return label;
 }
 

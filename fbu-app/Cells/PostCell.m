@@ -8,6 +8,7 @@
 
 #import "PostCell.h"
 #import "Persona.h"
+#import "Accessibility.h"
 
 @implementation PostCell
 
@@ -21,6 +22,11 @@
     [formatter setDateFormat:@"EEE, MMMM d, yyyy h:mm a"];
     NSString *dateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.post.createdAt]];
     self.dateLabel.text = dateString;
+    
+    // large text
+    [Accessibility largeTextCompatibilityWithLabel:self.posterLabel style:UIFontTextStyleTitle2];
+    [Accessibility largeTextCompatibilityWithLabel:self.textLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.dateLabel style:UIFontTextStyleFootnote];
     
     // shadow
     self.layer.shadowColor = [UIColor blackColor].CGColor;

@@ -13,8 +13,18 @@
 #import "Persona.h"
 #import "Parse/Parse.h"
 #import "CustomColor.h"
+#import "Accessibility.h"
 
-@interface SettingsViewController () <UITextViewDelegate>
+// Foursquare API
+static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
+static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ1X1S0RLYV";
+
+@interface SettingsViewController () <UITextViewDelegate, LocationViewControllerDelegate, CLLocationManagerDelegate> {
+    CLLocationManager *locationManager;
+    NSArray *trackedLocations;
+    PFGeoPoint *currLocation;
+    NSString *currLocationString;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UIButton *changeProfileButton;
@@ -27,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *radiusField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextView;
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
+@property (weak, nonatomic) IBOutlet UILabel *milesLabel;
+@property (weak, nonatomic) IBOutlet UIButton *currentLocationButton;
 
 // For saving in Persona via persona method
 @property (strong, nonatomic) NSString *firstName;
@@ -57,10 +69,36 @@
     [self createUserPreferencesButton];
     [self createUserLocationButtonLabel];
     [self createUserBioTextView];
+    
+    // set up location manager
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(preferredContentSizeChanged:)
+         name:UIContentSizeCategoryDidChangeNotification
+         object:nil];
+}
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
 }
 
 - (IBAction)didTap:(id)sender {
     [self.view endEditing:YES];
+}
+
+- (void) setLocationLabelWithLocation:(NSString *)location {
+    self.currentLocationLabel.text = [@"Location: " stringByAppendingString:location];
+    self.currentLocationLabel.adjustsFontForContentSizeCategory = YES;
 }
 
 - (void) createProfileImageView {
@@ -75,10 +113,14 @@
     }
     self.profileImage = self.profileImageView.image;
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
+    self.profileImageView.layer.borderWidth = 4;
+    self.profileImageView.layer.borderColor = [CustomColor darkMainColor:1.0].CGColor;
 }
 
 - (void) createChangeProfileButton {
     [self.changeProfileButton addTarget:self action:@selector(pressedChangePic) forControlEvents:UIControlEventTouchUpInside];
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.changeProfileButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 - (void) createFullNameField {
@@ -88,6 +130,8 @@
     NSString *firstName = [[PFUser currentUser][@"persona"][@"firstName"] stringByAppendingString:@" "];
     NSString *fullName = [firstName stringByAppendingString:[PFUser currentUser][@"persona"][@"lastName"]];
     self.fullNameField.text = fullName;
+    
+    [Accessibility largeTextCompatibilityWithField:self.fullNameField style:UIFontTextStyleBody];
 }
 
 - (void) createCityField {
@@ -97,6 +141,8 @@
     NSString *existingCity = [[PFUser currentUser][@"persona"][@"city"] stringByAppendingString:@", "];
     NSString *existingState = [existingCity stringByAppendingString:[PFUser currentUser][@"persona"][@"state"]];
     self.cityField.text = existingState;
+    
+    [Accessibility largeTextCompatibilityWithField:self.cityField style:UIFontTextStyleBody];
 }
 
 - (void) createRadiusField {
@@ -107,17 +153,28 @@
     if (radius > 0) {
         self.radiusField.text = [NSString stringWithFormat:@"%@", radius];
     }
+    
+    [Accessibility largeTextCompatibilityWithField:self.radiusField style:UIFontTextStyleBody];
 }
 
 - (void) createUserPreferencesButton {
     self.userPreferencesButton.layer.cornerRadius = 6;
     self.userPreferencesButton.clipsToBounds = YES;
-    [self.userPreferencesButton addTarget:self action:@selector(setPreferences) forControlEvents:UIControlEventTouchUpInside];
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.userPreferencesButton.titleLabel style:UIFontTextStyleBody];
 }
 
 - (void) createUserLocationButtonLabel {
-    self.currentLocationLabel.text = [[PFUser currentUser][@"persona"] objectForKey:@"venue"];
-    [self.userLocationButton addTarget:self action:@selector(setLocation) forControlEvents:UIControlEventTouchUpInside];
+    if ([[PFUser currentUser][@"persona"] objectForKey:@"venue"] == nil) {
+        self.currentLocationLabel.text = @"Location: Not set yet!";
+    } else {
+        self.currentLocationLabel.text = [@"Location: " stringByAppendingString:[[PFUser currentUser][@"persona"] objectForKey:@"venue"]];
+    }
+    
+    [Accessibility largeTextCompatibilityWithLabel:self.userLocationButton.titleLabel style:UIFontTextStyleHeadline];
+    [Accessibility largeTextCompatibilityWithLabel:self.currentLocationLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.milesLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.currentLocationButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 - (void) createUserBioTextView {
@@ -141,6 +198,9 @@
                                       target:self action:@selector(yourTextViewDoneButtonPressed)];
     keyboardToolbar.items = @[flexBarButton, doneBarButton];
     self.bioTextView.inputAccessoryView = keyboardToolbar;
+    
+    [Accessibility largeTextCompatibilityWithView:self.bioTextView style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.continueButton.titleLabel style:UIFontTextStyleHeadline];
 }
 
 // Dismiss keyboard after typing
@@ -258,13 +318,7 @@
     [self.bioTextView resignFirstResponder];
 }
 
-// Set User Location
-- (void)setLocation {
-    [self setFieldInformation];
-    [self performSegueWithIdentifier:@"toLocation" sender:self];
-}
-
-- (void)setPreferences {
+- (IBAction)didPressSetPreferences:(id)sender {
     [self performSegueWithIdentifier:@"toPreferences" sender:self];
 }
 
@@ -376,14 +430,85 @@
     [self presentViewController:logInVC animated:YES completion:nil];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [self setFieldInformation];
+    LocationViewController *locationViewController = (LocationViewController *)[segue destinationViewController];
+    locationViewController.delegate = self;
+    
+    PreferencesViewController *prefVC = (PreferencesViewController *)[segue destinationViewController];
+    prefVC.delegate = self;
 }
-*/
+
+- (IBAction)didPressUseCurrLocation:(id)sender {
+    [locationManager startUpdatingLocation];
+    
+    [self performSelector:@selector(searchForLocation) withObject:nil afterDelay:1.0];
+}
+
+- (void) searchForLocation {
+    if (trackedLocations != nil) {
+        // stop tracking location
+        [locationManager stopUpdatingLocation];
+        
+        currLocation = [[PFGeoPoint alloc] init];
+        CLLocation *loc = [trackedLocations lastObject];
+        currLocation.latitude = loc.coordinate.latitude;
+        currLocation.longitude = loc.coordinate.longitude;
+        [self reverseGeocode];
+    } else {
+        // Create alert to display error
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Find Location"
+                                                                       message:@"Your current location cannot be found."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        // Create a dismiss action
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    trackedLocations = locations;
+}
+
+- (void) reverseGeocode {
+    NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
+    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&ll=%f,%f", clientID, clientSecret, currLocation.latitude, currLocation.longitude];
+    queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            self->currLocationString = [[[responseDictionary valueForKeyPath:@"response.venues"] objectAtIndex:0] valueForKey:@"name"];
+            self.city = [[[[responseDictionary valueForKeyPath:@"response.venues"] objectAtIndex:0] valueForKey:@"location"] valueForKey:@"city"];
+            self.state = [[[[responseDictionary valueForKeyPath:@"response.venues"] objectAtIndex:0] valueForKey:@"location"] valueForKey:@"state"];
+            self.currentLocationLabel.text = [@"Location: " stringByAppendingString:self->currLocationString];
+            self.cityField.text = [[self.city stringByAppendingString:@", "] stringByAppendingString:self.state];
+            // Set location in Parse
+            [[PFUser currentUser][@"persona"] setObject:self->currLocation forKey:@"geoPoint"];
+            [[PFUser currentUser][@"persona"] setObject:self->currLocationString forKey:@"venue"];
+            [[PFUser currentUser][@"persona"] setObject:self.city forKey:@"city"];
+            [[PFUser currentUser][@"persona"] setObject:self.state forKey:@"state"];
+            
+            [[PFUser currentUser][@"persona"] saveInBackground];
+        }
+    }];
+    
+    [task resume];
+}
 
 @end

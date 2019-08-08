@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol LocationViewControllerDelegate
+
+- (void) setLocationLabelWithLocation:(NSString *)location;
+
+@end
+
 @interface LocationViewController : UIViewController
+
+@property (nonatomic, weak) id<LocationViewControllerDelegate> delegate;
 
 @end
