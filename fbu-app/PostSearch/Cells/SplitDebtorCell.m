@@ -38,8 +38,7 @@
     if([self.debtorSwitch isOn]){
         if(range.location == 0){
             return NO;
-        }
-        else if(string.length > 0){
+        }else if(string.length > 0){
             NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
             NSCharacterSet *characterSetFromTextField = [NSCharacterSet characterSetWithCharactersInString:string];
             
@@ -55,10 +54,15 @@
                 if([arrayOfString[1] length] > 2)
                     return NO;
             }
+//            NSString *editedString = [self.moneyField.text stringByReplacingCharactersInRange:range withString:string];
+//            editedString = [editedString substringFromIndex:1];
+//            NSInteger editedStringValue = editedString.floatValue;
+//            if(editedStringValue > self.paid.floatValue ){
+//                return NO;
+//            }
         }
         return YES;
-    }
-    else{
+    }else{
         return NO;
     }
 }

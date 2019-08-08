@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<SplitDebtorCellDelegate> delegate;
 @property (nonatomic, strong) Persona* debtor;
 @property (nonatomic, strong) NSIndexPath* indexPath;
+@property (nonatomic, strong) NSDecimalNumber* paid;
 
 @end
 

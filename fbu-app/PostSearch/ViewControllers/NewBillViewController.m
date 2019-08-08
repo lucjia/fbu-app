@@ -10,9 +10,10 @@
 #import "Bill.h"
 #import "Persona.h"
 #import "ChangeSplitViewController.h"
+#import "Parse/Parse.h"
 
 
-@interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate>
+@interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITextField *memoField;
 @property (weak, nonatomic) IBOutlet UITextField *paidField;
@@ -20,6 +21,7 @@
 - (IBAction)tapAddBill:(id)sender;
 @property (strong, nonatomic) IBOutlet NSMutableArray* debtors;
 @property (strong, nonatomic) IBOutlet NSMutableArray* portions;
+@property (strong, nonatomic) IBOutlet NSMutableArray* housemates;
 @property (strong, nonatomic) IBOutlet Persona* payer;
 @property (weak, nonatomic) IBOutlet UITextField *dateField;
 @property (weak, nonatomic) NSDate *date;
@@ -30,6 +32,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *debtorsButton;
 @property (strong,nonatomic) NSMutableArray* possibleDebtors;
 - (IBAction)tapDateDone:(id)sender;
+- (IBAction)tapPayerDone:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *payerView;
+- (IBAction)changePayer:(id)sender;
+@property (weak, nonatomic) IBOutlet UIPickerView *payerPicker;
 
 
 @end
@@ -38,6 +44,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.payerPicker.delegate = self;
+    self.payerPicker.dataSource = self;
     
     self.paidField.delegate = self;
     
@@ -58,11 +67,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [self fetchpossibleDebtors];
-    
     [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
     NSMutableArray *debtorNames = [[NSMutableArray alloc] init];
     for(Persona *debtor in self.debtors) {
-        [debtor fetchIfNeeded];
         [debtorNames addObject:[self getName:debtor]];
     }
     [self.debtorsButton setTitle:[debtorNames componentsJoinedByString:@", "] forState:UIControlStateNormal];
@@ -72,7 +79,11 @@
     Persona *persona = [PFUser.currentUser objectForKey:@"persona"];
     [persona fetchIfNeeded];
     House *house = [House getHouse:persona];
-    self.possibleDebtors = [[house objectForKey:@"housemates"] mutableCopy];
+    self.housemates = [house objectForKey:@"housemates"];
+    for(Persona* housemate in self.housemates){
+        [housemate fetchIfNeeded];
+    }
+    self.possibleDebtors = [self.housemates mutableCopy];
     [self.possibleDebtors removeObject:self.payer];
 }
 
@@ -227,6 +238,43 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     return [numberFormatter stringFromNumber:money];
+}
+
+
+- (IBAction)tapPayerDone:(id)sender {
+    [self.payerView setHidden:YES];
+    [self fetchpossibleDebtors];
+    self.debtors = [self.possibleDebtors mutableCopy];
+    self.portions = nil;
+    [self viewWillAppear:YES];
+    
+}
+
+- (IBAction)changePayer:(id)sender {
+    [self.payerView setHidden:NO];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)thePickerView
+numberOfRowsInComponent:(NSInteger)component {
+    return self.housemates.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)thePickerView
+             titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    Persona *housemate = self.housemates[row];
+    return [self getName:housemate];
+}
+
+- (void)pickerView:(UIPickerView *)thePickerView
+      didSelectRow:(NSInteger)row
+       inComponent:(NSInteger)component {
+    Persona *housemate = self.housemates[row];
+    self.payer = housemate;
+    [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
 }
 
 @end

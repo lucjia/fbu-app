@@ -17,6 +17,7 @@
 @interface ChangeSplitViewController () <UITableViewDataSource, UITableViewDelegate, SplitDebtorCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *arrayCells;
+- (IBAction)tapSplitEqually:(id)sender;
 
 
 @end
@@ -38,6 +39,7 @@
 
 - (void) reloadView {
     [self.tableView reloadData];
+    //self.payerField.text = [[self.payer.firstName stringByAppendingString:@" "] stringByAppendingString:self.payer.lastName];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -47,6 +49,7 @@
     cell.delegate = self;
     Persona *possibleDebtor = self.possibleDebtors[indexPath.row];
     [possibleDebtor fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        cell.paid = self.paid;
         cell.nameLabel.text = [[possibleDebtor.firstName stringByAppendingString:@" "] stringByAppendingString:possibleDebtor.lastName];
         cell.debtor = possibleDebtor;
         cell.indexPath = indexPath;
@@ -91,16 +94,6 @@
     [self.tableView reloadRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
-- (void) splitEvenly {
-    NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
-    NSDecimalNumber *portion = [self.paid decimalNumberByDividingBy:numSplit];
-    self.portions = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.debtors.count; i++) {
-        [self.portions addObject:portion];
-    }
-    [self reloadView];
-}
-
 - (void) updatePortions {
     for(int i = 0; i < self.possibleDebtors.count; i++){
         SplitDebtorCell *cell = self.arrayCells[i];
@@ -127,6 +120,16 @@
     return [numberFormatter stringFromNumber:money];
 }
 
+
+- (IBAction)tapSplitEqually:(id)sender {
+    NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
+    NSDecimalNumber *portion = [self.paid decimalNumberByDividingBy:numSplit];
+    self.portions = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.debtors.count; i++) {
+        [self.portions addObject:portion];
+    }
+    [self reloadView];
+}
 
 @end
 
