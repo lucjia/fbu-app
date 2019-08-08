@@ -48,6 +48,7 @@
     BOOL isOnSameDay; // are two dates on the same aay
     BOOL isInWeeklyMode;
     BOOL weekDirectionBackWards;
+    BOOL swipeToChangeWeek;
     
     // Table view instance variables
     UITableView *tableView;
@@ -407,6 +408,7 @@
 
 - (void)goForwardOneWeek {
     weekDirectionBackWards = NO;
+    swipeToChangeWeek = YES;
     if ([self isFirstOrLastDayOfMonth:lastCell]) {
         weekStart = 1;
         [self changeMonth:12 toMonth:1 changeBy:1 didSwipeLeft:YES];
@@ -417,6 +419,7 @@
 }
 
 - (void)goBackwardsOneWeek {
+    swipeToChangeWeek = YES;
     if ([lastCell.dateLabel.text intValue] <= 7 && lastCell.dateLabel) {
         if ([self isFirstOrLastDayOfMonth:firstCell]) {
             weekStart = numberOfDays - weekStart + 1;
@@ -429,6 +432,7 @@
         [self initCollectionViewFromLeft:NO];
     }
     weekDirectionBackWards = TRUE;
+
 }
 
 // -TO DO-
@@ -487,7 +491,7 @@
     BOOL indexNotInDisplayRange = isInWeeklyMode ? ([eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1) || weekStart > numberOfDays :
     indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays;
     
-    if (isInWeeklyMode && [self isDate:weekStartDate inSameMonthAsDate:displayedMonthStartDate] == NO) {
+    if (isInWeeklyMode && [self isDate:weekStartDate inSameMonthAsDate:displayedMonthStartDate] == NO && !swipeToChangeWeek) {
         [cell setHidden:YES];
         weekStartDate = [self nextDayForDate:weekStartDate];
         weekStart = 1;
@@ -545,6 +549,11 @@
         firstCell = cell;
         [self setFirstCellDateForIndexPath:indexPath];
     }
+    
+    if (swipeToChangeWeek && indexPath.row >= 6) {
+        swipeToChangeWeek = NO;
+    }
+    
     lastCell = cell;
     return cell;
 }
