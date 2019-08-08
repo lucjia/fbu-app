@@ -660,6 +660,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.Siri = {
+								enabled = 1;
+							};
 						};
 					};
 					85E7A15222DD214E006C1F38 = {
