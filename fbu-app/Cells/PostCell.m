@@ -23,6 +23,15 @@
     NSString *dateString = [NSString stringWithFormat:@"%@",[formatter stringFromDate:self.post.createdAt]];
     self.dateLabel.text = dateString;
     
+    PFFileObject *imageFile = sender.profileImage;
+    [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        if (!error) {
+            self.postImage.image = [UIImage imageWithData:data];
+            self.postImage.layer.cornerRadius = self.postImage.frame.size.height / 2;
+            self.postImage.layer.masksToBounds = YES;
+        }
+    }];
+    
     // large text
     [Accessibility largeTextCompatibilityWithLabel:self.posterLabel style:UIFontTextStyleTitle2];
     [Accessibility largeTextCompatibilityWithLabel:self.textLabel style:UIFontTextStyleBody];

@@ -158,7 +158,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
         } else {
             postText = [self.postTextView.text stringByAppendingString:[NSString stringWithFormat:@"\r\rI am at this location: %@", currLocationString]];
         }
-        [Post createPostWithSender:[PFUser currentUser][@"persona"] text:postText location:currLocation withCompletion:nil];
+        [Post createPostWithSender:[PFUser currentUser][@"persona"] text:postText location:currLocation venue:currLocationString withCompletion:nil];
         // stop tracking location
         [locationManager stopUpdatingLocation];
         [self.delegate refresh];

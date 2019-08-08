@@ -17,10 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) Persona *postSender;
 @property (strong, nonatomic) NSString *postText;
 @property (strong, nonatomic) PFGeoPoint *location;
+@property (strong, nonatomic) NSString *venue;
 
 + (void) createPostWithSender:(Persona *)sender text:(NSString *)text withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
-+ (void) createPostWithSender:(Persona *)sender text:(NSString *)text location:(PFGeoPoint *)location withCompletion:(PFBooleanResultBlock _Nullable)completion;
++ (void) createPostWithSender:(Persona *)sender text:(NSString *)text location:(PFGeoPoint *)location venue:(NSString *)venue withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 
