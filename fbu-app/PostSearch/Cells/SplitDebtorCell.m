@@ -27,22 +27,18 @@
 - (IBAction)tapSwitch:(id)sender {
     
     if([self.debtorSwitch isOn]){
-        self.backgroundColor = [UIColor clearColor];
-        self.moneyField.backgroundColor = [UIColor clearColor];
-        [self.delegate addDebtor:self.debtor portion:[NSDecimalNumber decimalNumberWithString:self.moneyField.text]];
+        [self.delegate addDebtor:self.debtor portion:[NSDecimalNumber zero] indexPath:self.indexPath];
     }else{
-        [self.delegate removeDebtor:self.debtor];
-        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        self.moneyField.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        self.moneyField.text = @"";
-        self.moneyField.placeholder = @"0.00";
+        [self.delegate removeDebtor:self.debtor indexPath:self.indexPath];
     }
     
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if([self.debtorSwitch isOn]){
-        if(string.length > 0){
+        if(range.location == 0){
+            return NO;
+        }else if(string.length > 0){
             NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
             NSCharacterSet *characterSetFromTextField = [NSCharacterSet characterSetWithCharactersInString:string];
             
@@ -58,10 +54,15 @@
                 if([arrayOfString[1] length] > 2)
                     return NO;
             }
+//            NSString *editedString = [self.moneyField.text stringByReplacingCharactersInRange:range withString:string];
+//            editedString = [editedString substringFromIndex:1];
+//            NSInteger editedStringValue = editedString.floatValue;
+//            if(editedStringValue > self.paid.floatValue ){
+//                return NO;
+//            }
         }
         return YES;
-    }
-    else{
+    }else{
         return NO;
     }
 }
