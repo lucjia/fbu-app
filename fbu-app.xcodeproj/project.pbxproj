@@ -44,6 +44,8 @@
 		77DAB40A22F6BE3A0000840C /* Bill.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB40922F6BE3A0000840C /* Bill.m */; };
 		77DAB41022F8E6580000840C /* ChangeSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */; };
 		77DAB41322F8FE5E0000840C /* SplitDebtorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB41222F8FE5E0000840C /* SplitDebtorCell.m */; };
+		77DAB41622FBC1AF0000840C /* BalanceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB41522FBC1AF0000840C /* BalanceDetailsViewController.m */; };
+		77DAB41922FBC9250000840C /* BillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DAB41822FBC9250000840C /* BillCell.m */; };
 		85729DB822E141B7009AD717 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DB722E141B7009AD717 /* LocationCell.m */; };
 		85729DBE22E62A59009AD717 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DBD22E62A59009AD717 /* CustomTextField.m */; };
 		85729DC122E62ED5009AD717 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85729DC022E62ED5009AD717 /* CustomButton.m */; };
@@ -169,6 +171,10 @@
 		77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeSplitViewController.m; sourceTree = "<group>"; };
 		77DAB41122F8FE5E0000840C /* SplitDebtorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitDebtorCell.h; sourceTree = "<group>"; };
 		77DAB41222F8FE5E0000840C /* SplitDebtorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplitDebtorCell.m; sourceTree = "<group>"; };
+		77DAB41422FBC1AF0000840C /* BalanceDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceDetailsViewController.h; sourceTree = "<group>"; };
+		77DAB41522FBC1AF0000840C /* BalanceDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceDetailsViewController.m; sourceTree = "<group>"; };
+		77DAB41722FBC9250000840C /* BillCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillCell.h; sourceTree = "<group>"; };
+		77DAB41822FBC9250000840C /* BillCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillCell.m; sourceTree = "<group>"; };
 		7ED3B7321C7E323E198D1E22 /* Pods-fbu-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-app.debug.xcconfig"; path = "Target Support Files/Pods-fbu-app/Pods-fbu-app.debug.xcconfig"; sourceTree = "<group>"; };
 		85729DB622E141B7009AD717 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		85729DB722E141B7009AD717 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
@@ -389,6 +395,8 @@
 				77DAB40622F6BD7F0000840C /* NewBillViewController.m */,
 				77DAB40E22F8E6580000840C /* ChangeSplitViewController.h */,
 				77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */,
+				77DAB41422FBC1AF0000840C /* BalanceDetailsViewController.h */,
+				77DAB41522FBC1AF0000840C /* BalanceDetailsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -404,6 +412,8 @@
 				644B15E422F3726200E4A60B /* EventReminderCell.m */,
 				77DAB41122F8FE5E0000840C /* SplitDebtorCell.h */,
 				77DAB41222F8FE5E0000840C /* SplitDebtorCell.m */,
+				77DAB41722FBC9250000840C /* BillCell.h */,
+				77DAB41822FBC9250000840C /* BillCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -863,6 +873,7 @@
 				85C5C0C022F3AFF1001982F1 /* KeyCell.m in Sources */,
 				645088C722EA827300319C93 /* MainViewController.m in Sources */,
 				6429400022E26F7F00961F29 /* Request.m in Sources */,
+				77DAB41922FBC9250000840C /* BillCell.m in Sources */,
 				6429400622E2781200961F29 /* RequestCell.m in Sources */,
 				7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */,
 				77DAB40722F6BD7F0000840C /* NewBillViewController.m in Sources */,
@@ -877,6 +888,7 @@
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
 				85C5C0C922F80BE3001982F1 /* Post.m in Sources */,
+				77DAB41622FBC1AF0000840C /* BalanceDetailsViewController.m in Sources */,
 				85CB80B422EFB12C0070AC4E /* UserCollectionCell.m in Sources */,
 				85C5C0C322F3C2F6001982F1 /* BulletinViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,

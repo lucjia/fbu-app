@@ -12,6 +12,7 @@
 #import "Persona.h"
 #import "Parse/Parse.h"
 #import "Balance.h"
+#import "BalanceDetailsViewController.h"
 
 @interface HouseBalancesViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -155,6 +156,20 @@
     } else {
         return num;
     }
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Balance *balance = self.balances[indexPath.row];
+        
+        BalanceDetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.balance = balance;
+        detailsViewController.currentPersona = self.currentPersona;
 }
      
         
