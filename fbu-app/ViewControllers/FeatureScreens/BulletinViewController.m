@@ -144,17 +144,6 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Location Shared"
                                                                        message:@"This post does not contain a location."
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
-//        // Create a delete action
-//        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete"
-//                                                                style:UIAlertActionStyleDestructive
-//                                                              handler:^(UIAlertAction * _Nonnull action) {
-//                                                                  Post *currPost = [self->posts objectAtIndex:indexPath.row];
-//                                                                  [currPost deleteInBackground];
-//                                                                  [self->posts removeObjectAtIndex:indexPath.row];
-//                                                                  [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-//                                                                  [self.collectionView reloadData];
-//                                                              }];
-        // Create a cancel action
         UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                                 style:UIAlertActionStyleCancel
                                                               handler:^(UIAlertAction * _Nonnull action) {
@@ -162,7 +151,6 @@
                                                               }];
         // Add the cancel action to the alertController
         [alert addAction:dismissAction];
-//        [alert addAction:deleteAction];
         alert.view.tintColor = [CustomColor accentColor:1.0];
         [self presentViewController:alert animated:YES completion:nil];
     }
