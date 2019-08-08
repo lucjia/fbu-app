@@ -10,6 +10,9 @@
 
 @interface BalanceDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *totalStateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalBalanceLabel;
+@property (assign, nonatomic) NSUInteger *indexOfHousemate;
 
 @end
 
@@ -23,8 +26,10 @@
     
     NSUInteger index = [self.balance.housemates indexOfObject:self.currentPersona];
     if(index == 0){
+        self.indexOfHousemate = 1;
         self.housemate = self.balance.housemates[1];
     }else{
+        self.indexOfHousemate = 2;
         self.housemate = self.balance.housemates[0];
     }
     [self.housemate fetchIfNeeded];
@@ -36,6 +41,7 @@
 
 - (void) reloadView {
     [self fetchBills];
+    [self setTotals];
     [self.tableView reloadData];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -97,6 +103,51 @@
     
 }
 
+- (void) setTotals{
+    if ([balanceTotal isEqual:[NSDecimalNumber zero]]){
+        cell.stateLabel.text = @"all even";
+        cell.stateLabel.textColor = [UIColor darkGrayColor];
+        cell.topConstraint.constant = 19;
+    }
+    else if([self inDebt:balance indexOfHousemate:indexOfHousemate]){
+        cell.stateLabel.text = @"you owe";
+        cell.stateLabel.textColor = [UIColor redColor];
+        self.negative = [self.negative decimalNumberByAdding:[self abs:balanceTotal]];
+        cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
+        cell.balanceLabel.textColor = [UIColor redColor];
+        [self setTotals];
+        cell.topConstraint.constant = 8;
+    }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
+        cell.stateLabel.text = @"owes you";
+        cell.stateLabel.textColor = [UIColor greenColor];
+        self.positive = [self.positive decimalNumberByAdding:[self abs:balanceTotal]];
+        cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
+        cell.balanceLabel.textColor = [UIColor greenColor];
+        [self setTotals];
+        cell.topConstraint.constant = 8;
+    }
+}
+
+- (BOOL) inDebt:(Balance *)balance indexOfHousemate:(NSUInteger)index {
+    NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
+    if (index == (NSUInteger)0) {
+        if (balanceTotal > 0) return NO;
+        else return YES;
+    }else{
+        if (balanceTotal > 0) return YES;
+        else return NO;
+    }
+    return nil;
+}
+
+- (NSDecimalNumber *)abs:(NSDecimalNumber *)num {
+    if ([num compare:[NSDecimalNumber zero]] == NSOrderedAscending ) {
+        NSDecimalNumber *negativeOne = [NSDecimalNumber decimalNumberWithMantissa:1 exponent:0 isNegative:YES];
+        return [num decimalNumberByMultiplyingBy:negativeOne];
+    } else {
+        return num;
+    }
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.bills.count;
