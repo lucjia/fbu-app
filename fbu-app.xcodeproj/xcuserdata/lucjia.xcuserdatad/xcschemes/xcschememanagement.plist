@@ -4,10 +4,48 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>fbu-app.xcscheme_^#shared#^_</key>
+		<key>Intents.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>SiriExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>12</integer>
+		</dict>
+		<key>fbu-app.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>85E7A13A22DD214D006C1F38</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>85E7A15222DD214E006C1F38</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>85E7A15D22DD214E006C1F38</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>85EAAC3322FC70E700EAC240</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>85EAAC4622FC8DE500EAC240</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

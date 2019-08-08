@@ -43,6 +43,11 @@
 	<string>Need location access to share location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need library access to upload images</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>CreateReminderIntent</string>
+		<string>com.lucjia-edrisian.fbu-app</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Heebo-Black.ttf</string>

@@ -150,6 +150,24 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     [reminderVC queryForReminders];
 }
 
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *restorableObjects))restorationHandler {
+    // Check to make sure it's the correct activity type
+    if ([userActivity.activityType isEqualToString:@"com.lucjia-edrisian.fbu-app"]) {
+        // Extract the remote ID from the user info
+        NSString* id = [userActivity.userInfo objectForKey:@"ID"];
+        
+        // Restore the remote screen...
+        if (PFUser.currentUser) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+            self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
+        }
+        
+        return YES;
+    }
+    return NO;
+}
+
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

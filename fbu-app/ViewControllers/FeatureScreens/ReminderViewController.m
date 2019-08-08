@@ -62,6 +62,16 @@
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search for a reminder...";
     
+    // Create NSUserActivity for Siri Shortcuts
+    if (@available(iOS 12.0, *)) {
+        NSUserActivity* userActivity = [[NSUserActivity alloc] initWithActivityType:@"com.lucjia-edrisian.fbu-app"];
+        userActivity.title = @"Open Reminders on Homi app";
+        userActivity.eligibleForPrediction = YES;
+        userActivity.userInfo = @{@"ID" : [PFUser currentUser][@"persona"][@"username"]};
+        userActivity.requiredUserInfoKeys = [NSSet setWithArray:userActivity.userInfo.allKeys];
+        self.userActivity = userActivity;
+    }
+    
     // get notification if font size is changed from settings accessibility
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -72,6 +82,11 @@
 
 // change font size based on accessibility setting
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
+}
+
+// Siri
+-(void)updateUserActivityState:(NSUserActivity *)userActivity {
+    [userActivity addUserInfoEntriesFromDictionary:@{@"ID" : [PFUser currentUser][@"persona"][@"username"]}];
 }
 
 - (void) fetchReminders {
@@ -194,7 +209,11 @@
     [queryWithoutDate findObjectsInBackgroundWithBlock:^(NSArray *reminders, NSError *error) {
         if (reminders != nil) {
             self.receivedReminderArrayNoDates = (NSMutableArray *)reminders;
-            self.receivedReminderArrayTotal = (NSMutableArray *)[self.receivedReminderArrayDates arrayByAddingObjectsFromArray:self.receivedReminderArrayNoDates];
+            if (self.receivedReminderArrayTotal.count > 0) {
+                [self.receivedReminderArrayTotal removeAllObjects];
+            }
+            [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayDates];
+            [self.receivedReminderArrayTotal addObjectsFromArray:self.receivedReminderArrayNoDates];
             self->filteredResults = self.receivedReminderArrayTotal;
             [self.tableView reloadData];
         } else {
