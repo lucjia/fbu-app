@@ -422,15 +422,6 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     [self setBio];
 }
 
-- (void) logOut {
-    [PFUser logOutInBackground];
-    
-    // Set root view controller to be log in screen
-    LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
-    [self presentViewController:logInVC animated:YES completion:nil];
-}
-
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

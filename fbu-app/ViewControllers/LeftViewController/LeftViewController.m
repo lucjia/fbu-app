@@ -14,6 +14,7 @@
 #import "RulesViewController.h"
 #import "ReminderViewController.h"
 #import "ProgressViewController.h"
+#import "LogInViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
@@ -42,7 +43,8 @@
                          @"      📨 Sent Reminders",
                          @"      🌱 Progress",
                          @"Finances",
-                         @"⚙ Settings"];
+                         @"⚙ Settings",
+                         @"Log Out"];
 }
 
 #pragma mark - Table view data source
@@ -152,6 +154,12 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
         
         [currentController pushViewController:viewController animated:YES];
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Log Out"]) {
+        [PFUser logOutInBackground];
+        
+        // Set root view controller to be log in screen
+        LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
+        [self presentViewController:logInVC animated:YES completion:nil];
     }
     
 
