@@ -81,7 +81,7 @@
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if ([object objectForKey:@"house"]) {
             [self fetchEvents:(Persona *)object];
-            [self initCollectionView];
+            [self initCollectionViewFromLeft:NO];
             [self initCalendar:[NSDate date]];
             [self setMonthLabelText];
             [self->collectionView reloadData];
@@ -150,7 +150,7 @@
 }
 
 // initializes the collection view
-- (void)initCollectionView {
+- (void)initCollectionViewFromLeft:(BOOL)direction {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     calendarYPosition = 160;
     calendarHeight = isInWeeklyMode ? 94 + self.monthLabel.frame.size.height + 20 : (self.view.bounds.size.height - calendarYPosition) / 2;
@@ -172,6 +172,20 @@
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     
     collectionView.contentInsetAdjustmentBehavior = NO;
+    
+    if (!direction) {
+        CATransition *transition = [CATransition animation];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromLeft;
+        transition.duration = 0.4;
+        [collectionView.layer addAnimation:transition forKey:nil];
+    } else {
+        CATransition *transition = [CATransition animation];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromRight;
+        transition.duration = 0.4;
+        [collectionView.layer addAnimation:transition forKey:nil];
+    }
     
     [self.view addSubview:collectionView];
 }
@@ -241,7 +255,7 @@
 }
 
 // changes currentMonth to next or previous month respectively
-- (void)changeMonth:(NSInteger)month toMonth:(NSInteger)change changeBy:(NSInteger)delta {
+- (void)changeMonth:(NSInteger)month toMonth:(NSInteger)change changeBy:(NSInteger)delta didSwipeLeft:(BOOL)swipe {
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     
     // handles cases where next button is pressed with December being current month and where
@@ -259,7 +273,7 @@
     NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
     [collectionView removeFromSuperview];
-    [self initCollectionView];
+    [self initCollectionViewFromLeft:swipe];
     [self initCalendar:date];
     [self setMonthLabelText];
     [collectionView reloadData];
@@ -327,13 +341,13 @@
         if (isInWeeklyMode) {
             [self goForwardOneWeek];
         } else {
-            [self changeMonth:12 toMonth:1 changeBy:1];
+            [self changeMonth:12 toMonth:1 changeBy:1 didSwipeLeft:YES];
         }
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         if (isInWeeklyMode) {
             [self goBackwardsOneWeek];
         } else {
-            [self changeMonth:1 toMonth:12 changeBy:-1];
+            [self changeMonth:1 toMonth:12 changeBy:-1 didSwipeLeft:NO];
         }
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp && !isInWeeklyMode) {
         NSDateComponents *dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
@@ -354,13 +368,16 @@
             
             weekStart = [calendar component:NSCalendarUnitDay fromDate:weekStartDate];
         }
-        isInWeeklyMode = YES;
-        [collectionView removeFromSuperview];
-        [self initCollectionView];
+        self->isInWeeklyMode = YES;
+        [self->collectionView removeFromSuperview];
+        [self initCollectionViewFromLeft:YES];
+        [self->tableView removeFromSuperview];
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionDown && isInWeeklyMode) {
         isInWeeklyMode = NO;
         [collectionView removeFromSuperview];
-        [self initCollectionView];
+        [self initCollectionViewFromLeft:NO];
+        
+        [self->tableView removeFromSuperview];
         
         weekStart = 0;
     }
@@ -370,21 +387,21 @@
     weekDirectionBackWards = NO;
     if ([self isFirstOrLastDayOfMonth:lastCell]) {
         weekStart = 1;
-        [self changeMonth:12 toMonth:1 changeBy:1];
+        [self changeMonth:12 toMonth:1 changeBy:1 didSwipeLeft:YES];
     } else {
         [collectionView removeFromSuperview];
-        [self initCollectionView];
+        [self initCollectionViewFromLeft:YES];
     }
 }
 
 - (void)goBackwardsOneWeek {
     if ([self isFirstOrLastDayOfMonth:firstCell]) {
         weekStart = numberOfDays - weekStart + 1;
-        [self changeMonth:1 toMonth:12 changeBy:-1];
+        [self changeMonth:1 toMonth:12 changeBy:-1 didSwipeLeft:NO];
     } else {
         weekStart -= 14;
         [collectionView removeFromSuperview];
-        [self initCollectionView];
+        [self initCollectionViewFromLeft:NO];
     }
     weekDirectionBackWards = TRUE;
 }
@@ -399,7 +416,7 @@
     [eventsArray addObject:event];
     addPaths = NO;
     // [self fetchEvents];
-    [self initCollectionView];
+    [self initCollectionViewFromLeft:YES];
     [self initCalendar:[NSDate date]];
     // sorts the array by eventDate in order to maintain order
     NSSortDescriptor *sortDescriptor;
@@ -412,7 +429,7 @@
 - (IBAction)didTapToday:(id)sender {
     NSDateComponents *dateComponent = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger year = [dateComponent year];
-    [self changeMonth:currentMonth toMonth:[dateComponent month] changeBy:currentYear == year ? 0 : year - currentYear];
+    [self changeMonth:currentMonth toMonth:[dateComponent month] changeBy:currentYear == year ? 0 : year - currentYear didSwipeLeft:YES];
 }
 
 #pragma mark - Navigation
@@ -429,9 +446,6 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
     
-    if (!firstCell) {
-        firstCell = cell;
-    }
     
     if (weekStartForSelectedCell < 0) {
         weekStart = 1;
@@ -439,13 +453,15 @@
         eventDate = [self dateWithYear:currentYear month:currentMonth == 1 ? 12 : currentMonth - 1 day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     } else {
         eventDate = [self dateWithYear:currentYear month:currentMonth day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
+        //if (weekStartDate <= 0)
+            //weekStart++;
     }
     
     // will check in background thread
     [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
    
     NSInteger fistDayOfWeekOfMonth = [calendar component:NSCalendarUnitWeekday fromDate:displayedMonthStartDate];
-    BOOL indexNotInDisplayRange = isInWeeklyMode ? ([eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1) || weekStart > numberOfDays:
+    BOOL indexNotInDisplayRange = isInWeeklyMode ? ([eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1) || weekStart > numberOfDays :
     indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays;
     
     if (indexNotInDisplayRange) {
@@ -491,6 +507,13 @@
         [dayIndexPaths addObject:indexPath];
     }
     
+    if (weekStart <= 0) {
+        weekStart++;
+    }
+    
+    if (firstCell.dateLabel == nil && cell.dateLabel != nil) {
+        firstCell = cell;
+    }
     lastCell = cell;
     return cell;
 }
@@ -551,6 +574,12 @@
         [tableView setShowsVerticalScrollIndicator:NO];
         tableView.translatesAutoresizingMaskIntoConstraints = NO;
         tableView.rowHeight = UITableViewAutomaticDimension;
+        
+        CATransition *transition = [CATransition animation];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromTop;
+        transition.duration = 0.4;
+        [tableView.layer addAnimation:transition forKey:nil];
         
         [self.view addSubview:tableView];
         [self updateTableViewConstraints];
