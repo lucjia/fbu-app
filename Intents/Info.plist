@@ -29,7 +29,7 @@
 			<key>IntentsSupported</key>
 			<array>
 				<string>CreateReminderIntent</string>
-				<string>com.lucjia-edrisian.fbu-app</string>
+				<string>com.lucjia-edrisian.fbu-app.openReminder</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>

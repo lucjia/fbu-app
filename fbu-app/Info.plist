@@ -46,7 +46,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>CreateReminderIntent</string>
-		<string>com.lucjia-edrisian.fbu-app</string>
+		<string>com.lucjia-edrisian.fbu-app.openReminder</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>

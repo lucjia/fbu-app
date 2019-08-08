@@ -64,12 +64,17 @@
     
     // Create NSUserActivity for Siri Shortcuts
     if (@available(iOS 12.0, *)) {
-        NSUserActivity* userActivity = [[NSUserActivity alloc] initWithActivityType:@"com.lucjia-edrisian.fbu-app"];
+        NSUserActivity* userActivity = [[NSUserActivity alloc] initWithActivityType:@"com.lucjia-edrisian.fbu-app.openReminder"];
         userActivity.title = @"Open Reminders on Homi app";
         userActivity.eligibleForPrediction = YES;
         userActivity.userInfo = @{@"ID" : [PFUser currentUser][@"persona"][@"username"]};
         userActivity.requiredUserInfoKeys = [NSSet setWithArray:userActivity.userInfo.allKeys];
         self.userActivity = userActivity;
+        
+        id<UIApplicationDelegate> appDelegate = [[UIApplication sharedApplication] delegate];
+        [appDelegate application:[UIApplication sharedApplication] continueUserActivity:userActivity restorationHandler:^(NSArray<id<UIUserActivityRestoring>> * _Nullable restorableObjects) {
+            
+        }];
     }
     
     // get notification if font size is changed from settings accessibility
