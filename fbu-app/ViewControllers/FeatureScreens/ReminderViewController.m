@@ -336,27 +336,38 @@
     // add notification code here
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.title = @"FBU App";
-    content.subtitle = [NSString stringWithFormat:@"%zd current reminders", reminders.count];
+    if (reminders.count == 1) {
+        content.subtitle = [NSString stringWithFormat:@"%zd current reminder", reminders.count];
+    } else {
+        content.subtitle = [NSString stringWithFormat:@"%zd current reminders", reminders.count];
+    }
     
     NSString *contentBody = @"";
     for (int i = 0; i < reminders.count; i++) {
         NSString *sender = [reminders objectAtIndex:i][@"reminderSender"][@"firstName"];
         contentBody = [contentBody stringByAppendingString:sender];
-        if (i < reminders.count - 2) {
-            contentBody = [contentBody stringByAppendingString:@", "];
-        } else if (i == reminders.count - 2) {
-            if (reminders.count == 2) {
-                contentBody = [contentBody stringByAppendingString:@" and "];
+        if (reminders.count != 1) {
+            if (i < reminders.count - 2) {
+                contentBody = [contentBody stringByAppendingString:@", "];
+            } else if (i == reminders.count - 2) {
+                if (reminders.count == 2) {
+                    contentBody = [contentBody stringByAppendingString:@" and "];
+                }
+                contentBody = [contentBody stringByAppendingString:@", and "];
             }
-            contentBody = [contentBody stringByAppendingString:@", and "];
         }
     }
-    content.body = [NSString stringWithFormat:@"You have not completed reminders from %@!", contentBody];
+    
+    if (reminders.count == 1) {
+        content.body = [NSString stringWithFormat:@"You have not completed a reminder from %@!", contentBody];
+    } else {
+        content.body = [NSString stringWithFormat:@"You have not completed reminders from %@!", contentBody];
+    }
     content.categoryIdentifier = @"TIMER_EXPIRED";
     content.sound = [UNNotificationSound defaultSound];
     
     [self setReminderTriggerWithHour:9 minute:0 content:content];
-    [self setReminderTriggerWithHour:17 minute:0 content:content];
+    [self setReminderTriggerWithHour:17 minute:34 content:content];
 }
 
 - (void) setReminderTriggerWithHour:(NSInteger)hr minute:(NSInteger)min content:(UNMutableNotificationContent *)content {
