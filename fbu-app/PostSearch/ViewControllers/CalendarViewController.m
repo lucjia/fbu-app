@@ -30,10 +30,10 @@
     NSUInteger numberOfDays; // in month
     NSDate *currentDate; // today
     NSDate *displayedMonthStartDate;
-    NSDate *weekStartDate;
     NSDate *WeekEndDate;
     NSDate *selectedcellDate;
     NSDate *firstCellDate;
+    NSDate *weekStartDate;
     NSInteger weekStart;
     NSInteger weekStartForSelectedCell;
     NSCalendar *calendar;
@@ -357,18 +357,20 @@
         if (selectedcellDate) {
             NSDateComponents *newDateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:selectedcellDate];
             [dateComponent setDay:[selectedCell.dateLabel.text intValue]];
-            NSDate *weekStartDate = [calendar dateFromComponents:newDateComponent];
+            weekStartDate = [calendar dateFromComponents:newDateComponent];
             weekStartForSelectedCell = [newDateComponent day] - [newDateComponent weekday] + 1;
             dateComponent = newDateComponent;
             [dateComponent setDay:weekStartForSelectedCell];
             
-             weekStartDate = [calendar dateFromComponents:dateComponent];
+            weekStartDate = [calendar dateFromComponents:dateComponent];
+            
+            
             
             weekStart = [calendar component:NSCalendarUnitDay fromDate:weekStartDate];
         } else {
             weekStartForSelectedCell = [dateComponent day] - [dateComponent weekday] + 1;
             [dateComponent setDay:weekStartForSelectedCell];
-            NSDate *weekStartDate = [calendar dateFromComponents:dateComponent];
+            weekStartDate = [calendar dateFromComponents:dateComponent];
             
             weekStart = [calendar component:NSCalendarUnitDay fromDate:weekStartDate];
         }
@@ -385,6 +387,22 @@
         
         weekStart = 0;
     }
+}
+
+- (NSDate *)nextDayForDate:(NSDate *)date {
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+    dayComponent.day = 1;
+    
+    return [[NSCalendar currentCalendar] dateByAddingComponents:dayComponent toDate:date options:0];
+}
+
+- (BOOL)isDate:(NSDate *)date1 inSameMonthAsDate:(NSDate *)date2 {
+    NSDateComponents *dateComponent = [calendar components:NSCalendarUnitMonth fromDate:date1];
+    NSInteger month = [dateComponent month];
+    
+    dateComponent = [calendar components:NSCalendarUnitMonth fromDate:date2];
+    
+    return month == [dateComponent month];
 }
 
 - (void)goForwardOneWeek {
@@ -469,34 +487,41 @@
     BOOL indexNotInDisplayRange = isInWeeklyMode ? ([eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1) || weekStart > numberOfDays :
     indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays;
     
-    if (indexNotInDisplayRange) {
+    if (isInWeeklyMode && [self isDate:weekStartDate inSameMonthAsDate:displayedMonthStartDate] == NO) {
         [cell setHidden:YES];
+        weekStartDate = [self nextDayForDate:weekStartDate];
+        weekStart = 1;
     } else {
-        if ([self isCellToday:weekStart]) {
-            [cell setHidden:NO];
-            [cell setCurrentDayTextColor];
+        if (indexNotInDisplayRange) {
+            [cell setHidden:YES];
         } else {
-            [cell setHidden:NO];
-        }
-        
-        if (isInWeeklyMode) {
-            [cell initDateLabelInCell:(weekDirectionBackWards ? weekStart++ : weekStart++) newLabel:YES];
-            if ([self isCellToday:weekStart - 1]) {
-                [cell setCurrentDayTextColor];;
-            } else {
-                cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
-            }
-        } else {
-            [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
-            
-            if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
+            if ([self isCellToday:weekStart]) {
                 [cell setHidden:NO];
                 [cell setCurrentDayTextColor];
             } else {
-                cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
+                [cell setHidden:NO];
+            }
+            
+            if (isInWeeklyMode) {
+                [cell initDateLabelInCell:(weekDirectionBackWards ? weekStart++ : weekStart++) newLabel:YES];
+                if ([self isCellToday:weekStart - 1]) {
+                    [cell setCurrentDayTextColor];;
+                } else {
+                    cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
+                }
+            } else {
+                [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
+                
+                if ([self isCellToday:indexPath.row - monthStartweekday + 2]) {
+                    [cell setHidden:NO];
+                    [cell setCurrentDayTextColor];
+                } else {
+                    cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
+                }
             }
         }
     }
+    
     
     if (cell.selected) {
         [cell colorSelectedCell]; // highlight selection
