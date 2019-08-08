@@ -33,6 +33,7 @@
     NSDate *weekStartDate;
     NSDate *WeekEndDate;
     NSDate *selectedcellDate;
+    NSDate *firstCellDate;
     NSInteger weekStart;
     NSInteger weekStartForSelectedCell;
     NSCalendar *calendar;
@@ -76,6 +77,8 @@
     
     addPaths = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
+    
+    
     
     Persona *persona = [PFUser currentUser][@"persona"];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
@@ -356,6 +359,7 @@
             [dateComponent setDay:[selectedCell.dateLabel.text intValue]];
             NSDate *weekStartDate = [calendar dateFromComponents:newDateComponent];
             weekStartForSelectedCell = [newDateComponent day] - [newDateComponent weekday] + 1;
+            dateComponent = newDateComponent;
             [dateComponent setDay:weekStartForSelectedCell];
             
              weekStartDate = [calendar dateFromComponents:dateComponent];
@@ -395,10 +399,13 @@
 }
 
 - (void)goBackwardsOneWeek {
-    if ([self isFirstOrLastDayOfMonth:firstCell]) {
-        weekStart = numberOfDays - weekStart + 1;
-        [self changeMonth:1 toMonth:12 changeBy:-1 didSwipeLeft:NO];
+    if ([lastCell.dateLabel.text intValue] <= 7 && lastCell.dateLabel) {
+        if ([self isFirstOrLastDayOfMonth:firstCell]) {
+            weekStart = numberOfDays - weekStart + 1;
+            [self changeMonth:1 toMonth:12 changeBy:-1 didSwipeLeft:NO];
+        }
     } else {
+        firstCell = nil;
         weekStart -= 14;
         [collectionView removeFromSuperview];
         [self initCollectionViewFromLeft:NO];
@@ -409,7 +416,7 @@
 // -TO DO-
 // if going from last week in december to 1st week in january and vice versa
 - (BOOL)isFirstOrLastDayOfMonth:(CalendarCell *)cell {
-    return cell.dateLabel == nil;
+    return [cell.dateLabel.text isEqualToString:@"1"] || lastCell.dateLabel == nil;
 }
 
 - (void)didCreateEvent:(Event *)event {
@@ -453,8 +460,6 @@
         eventDate = [self dateWithYear:currentYear month:currentMonth == 1 ? 12 : currentMonth - 1 day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     } else {
         eventDate = [self dateWithYear:currentYear month:currentMonth day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
-        //if (weekStartDate <= 0)
-            //weekStart++;
     }
     
     // will check in background thread
@@ -507,12 +512,13 @@
         [dayIndexPaths addObject:indexPath];
     }
     
-    if (weekStart <= 0) {
+    if (weekStart <= 0 || (weekStart > 31 && !cell.dateLabel)) {
         weekStart++;
     }
     
     if (firstCell.dateLabel == nil && cell.dateLabel != nil) {
         firstCell = cell;
+        [self setFirstCellDateForIndexPath:indexPath];
     }
     lastCell = cell;
     return cell;
@@ -551,6 +557,16 @@
     selectedcellDate = [calendar dateFromComponents:dateComponent];
 }
 
+- (void)setFirstCellDateForIndexPath:(NSIndexPath *)indexPath {
+    NSDateComponents *dateComponent = [[NSDateComponents alloc] init];
+    [dateComponent setDay:[selectedCell.dateLabel.text intValue]];
+    [dateComponent setMonth:currentMonth];
+    [dateComponent setYear:currentYear];
+    [dateComponent setWeekday:indexPath.row];
+    
+    firstCellDate = [calendar dateFromComponents:dateComponent];
+}
+
 // called when a different CalendarCell is tapped
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
     [selectedCell decolorSelectedCell];
@@ -577,7 +593,7 @@
         
         CATransition *transition = [CATransition animation];
         transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromTop;
+        transition.subtype = kCATransitionFade;
         transition.duration = 0.4;
         [tableView.layer addAnimation:transition forKey:nil];
         

@@ -1315,30 +1315,29 @@
         <scene sceneID="AMs-or-8n1">
             <objects>
                 <tableViewController storyboardIdentifier="PostSearchLeftViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oyp-B3-xvu" customClass="PostSearchLeftViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Jly-8g-3NO">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Jly-8g-3NO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LeftViewCell" rowHeight="58" id="mIB-ci-09B" customClass="LeftViewCell">
-                                <rect key="frame" x="0.0" y="28" width="414" height="58"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LeftViewCell" rowHeight="93" id="mIB-ci-09B" customClass="LeftViewCell">
+                                <rect key="frame" x="0.0" y="28" width="414" height="93"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mIB-ci-09B" id="CbF-3W-hu4">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="57.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="92.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22Q-N1-GHn">
-                                            <rect key="frame" x="20" y="4" width="374" height="48"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22Q-N1-GHn">
+                                            <rect key="frame" x="20" y="34" width="36" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="22Q-N1-GHn" firstAttribute="leading" secondItem="CbF-3W-hu4" secondAttribute="leading" constant="20" id="6W7-HX-nrR"/>
-                                        <constraint firstAttribute="trailing" secondItem="22Q-N1-GHn" secondAttribute="trailing" constant="20" id="Uke-Ig-y9h"/>
-                                        <constraint firstItem="22Q-N1-GHn" firstAttribute="top" secondItem="CbF-3W-hu4" secondAttribute="top" constant="4" id="gNe-gL-A0z"/>
-                                        <constraint firstAttribute="bottom" secondItem="22Q-N1-GHn" secondAttribute="bottom" constant="5.5" id="vTD-7Y-Bgi"/>
+                                        <constraint firstItem="22Q-N1-GHn" firstAttribute="leading" secondItem="CbF-3W-hu4" secondAttribute="leading" constant="20" id="OAS-g7-Rt7"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="22Q-N1-GHn" secondAttribute="bottom" constant="34.5" id="PdX-6J-vMY"/>
+                                        <constraint firstItem="22Q-N1-GHn" firstAttribute="top" secondItem="CbF-3W-hu4" secondAttribute="top" constant="34" id="yPr-tG-ZXk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="0.96470588239999999" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1355,7 +1354,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IkN-q5-8Fu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2535" y="-938"/>
+            <point key="canvasLocation" x="2534.7826086956525" y="-938.16964285714278"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="WLg-8k-tql">
