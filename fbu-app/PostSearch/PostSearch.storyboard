@@ -44,7 +44,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gTc-9g-PEH"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar35" id="Xg1-qj-R4g"/>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar50" id="Xg1-qj-R4g"/>
                     <navigationItem key="navigationItem" id="T3u-e2-Qel">
                         <barButtonItem key="leftBarButtonItem" image="menu25-2" id="HEv-hr-Z3s">
                             <connections>
@@ -1708,7 +1708,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calendar35" width="35" height="35"/>
+        <image name="calendar50" width="50" height="50"/>
         <image name="emptycheck" width="50" height="50"/>
         <image name="grid" width="772" height="1050"/>
         <image name="home" width="35" height="35"/>
