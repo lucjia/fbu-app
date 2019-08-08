@@ -104,26 +104,22 @@
 }
 
 - (void) setTotals{
-    if ([balanceTotal isEqual:[NSDecimalNumber zero]]){
-        cell.stateLabel.text = @"all even";
-        cell.stateLabel.textColor = [UIColor darkGrayColor];
-        cell.topConstraint.constant = 19;
+    if ([self.balance.total isEqual:[NSDecimalNumber zero]]){
+        self.totalStateLabel.text = @"all even";
+        self.totalStateLabel.textColor = [UIColor darkGrayColor];
+        self.totalStateLabel.topConstraint.constant = 19;
     }
-    else if([self inDebt:balance indexOfHousemate:indexOfHousemate]){
-        cell.stateLabel.text = @"you owe";
-        cell.stateLabel.textColor = [UIColor redColor];
-        self.negative = [self.negative decimalNumberByAdding:[self abs:balanceTotal]];
-        cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
-        cell.balanceLabel.textColor = [UIColor redColor];
-        [self setTotals];
+    else if([self inDebt:self.balance indexOfHousemate:self.indexOfHousemate]){
+        self.totalStateLabel.text = @"you owe";
+        self.totalStateLabel.textColor = [UIColor redColor];
+        self.totalBalanceLabel.text = [numberFormatter stringFromNumber:[self abs:self.balance.total]];
+        self.totalBalanceLabel.textColor = [UIColor redColor];
         cell.topConstraint.constant = 8;
     }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
-        cell.stateLabel.text = @"owes you";
-        cell.stateLabel.textColor = [UIColor greenColor];
-        self.positive = [self.positive decimalNumberByAdding:[self abs:balanceTotal]];
-        cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
-        cell.balanceLabel.textColor = [UIColor greenColor];
-        [self setTotals];
+        self.totalStateLabel.text = @"owes you";
+        self.totalStateLabel.textColor = [UIColor greenColor];
+        self.totalBalanceLabel.text = [numberFormatter stringFromNumber:[self abs:self.balance.total]];
+        self.totalBalanceLabel.textColor = [UIColor greenColor];
         cell.topConstraint.constant = 8;
     }
 }
