@@ -9,6 +9,7 @@
 #import "ReminderDetailViewController.h"
 #import "CustomDatePicker.h"
 #import "CustomColor.h"
+#import "Accessibility.h"
 
 @interface ReminderDetailViewController ()
 
@@ -43,6 +44,27 @@
     
     self.editButton.layer.cornerRadius = 5;
     self.editButton.layer.masksToBounds = YES;
+    
+    [self initializeLargeTextCompatibility];
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(preferredContentSizeChanged:)
+     name:UIContentSizeCategoryDidChangeNotification
+     object:nil];
+}
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+}
+
+- (void) initializeLargeTextCompatibility {
+    [Accessibility largeTextCompatibilityWithLabel:self.senderLabel style:UIFontTextStyleTitle2];
+    [Accessibility largeTextCompatibilityWithView:self.reminderTextView style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithField:self.dateField style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.editButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.deleteButton.titleLabel style:UIFontTextStyleSubheadline];
 }
 
 - (void) initializeTextView {

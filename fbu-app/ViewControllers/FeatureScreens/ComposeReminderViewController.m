@@ -13,6 +13,7 @@
 #import "UserCollectionCell.h"
 #import "House.h"
 #import "CustomColor.h"
+#import "Accessibility.h"
 
 @interface ComposeReminderViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     Persona *recipient;
@@ -32,6 +33,7 @@
 @property (strong, nonatomic) UserCollectionCell *previousCell;
 @property (assign, nonatomic) NSInteger cellHeight;
 @property (weak, nonatomic) IBOutlet UISwitch *lockEditingSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *lockEditingLabel;
 
 @end
 
@@ -71,6 +73,27 @@
     
     self.addReminderButton.layer.cornerRadius = 5;
     self.addReminderButton.layer.masksToBounds = YES;
+    
+    [self initializeLargeTextCompatibility];
+    
+    // get notification if font size is changed from settings accessibility
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(preferredContentSizeChanged:)
+     name:UIContentSizeCategoryDidChangeNotification
+     object:nil];
+}
+
+// change font size based on accessibility setting
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+}
+
+- (void) initializeLargeTextCompatibility {
+    [Accessibility largeTextCompatibilityWithView:self.reminderTextView style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.recipientLabel style:UIFontTextStyleHeadline];
+    [Accessibility largeTextCompatibilityWithField:self.dateSelectionTextField style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.addReminderButton.titleLabel style:UIFontTextStyleBody];
+    [Accessibility largeTextCompatibilityWithLabel:self.lockEditingLabel style:UIFontTextStyleBody];
 }
 
 - (IBAction)didTap:(id)sender {
@@ -155,9 +178,9 @@
                     dueDate = nil;
                 }
                 
-                Reminder *new = [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
+                Reminder *newRem = [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
                 
-                [self.delegate refreshWithNewReminder:new];
+                [self.delegate refreshWithNewReminder:newRem];
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }
