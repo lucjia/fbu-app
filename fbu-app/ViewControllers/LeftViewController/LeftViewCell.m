@@ -28,50 +28,50 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
 - (void)updateProperties:(NSString *)title index:(NSInteger)idx {
     switch (idx) {
         case 0:
-            self.tabImageView.image = [UIImage imageNamed:@"createAHouseW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-home-50"];
             break;
-        
+            
         case 1:
-            self.tabImageView.image = [UIImage imageNamed:@"houseRulesW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-rules-50"];
             break;
             
         case 2:
-            self.tabImageView.image = [UIImage imageNamed:@"bulletinBoardW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-pin-50"];
             break;
             
         case 3:
-            self.tabImageView.image = [UIImage imageNamed:@"calendarW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-calendar-50"];
             break;
             
         case 4:
-            self.tabImageView.image = [UIImage imageNamed:@"remindersW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-todo-list-50"];
             break;
             
         case 5:
-            self.tabImageView.image = [UIImage imageNamed:@"sentRemindersW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-paper-plane-50"];
             break;
             
         case 6:
-            self.tabImageView.image = [UIImage imageNamed:@"progressW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-potted-plant-50"];
             break;
             
         case 7:
-            self.tabImageView.image = [UIImage imageNamed:@"financeW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-money-box-50"];
             break;
             
         case 8:
-            self.tabImageView.image = [UIImage imageNamed:@"settingsW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-settings-50"];
             break;
             
         case 9:
-            self.tabImageView.image = [UIImage imageNamed:@"logoutW.png"];
+            self.tabImageView.image = [UIImage imageNamed:@"icons8-exit-50"];
             break;
             
         default:
@@ -84,26 +84,30 @@
 - (void)updatePostSearchProperties:(NSString *)title index:(NSInteger)idx {
     switch (idx) {
         case 0:
-            self.postSearchImageView.image = [UIImage imageNamed:@"searchW.png"];
+            self.postSearchImageView.image = [UIImage imageNamed:@"icons8-search-50"];
             break;
             
         case 1:
-            self.postSearchImageView.image = [UIImage imageNamed:@"settingsW.png"];
+            self.postSearchImageView.image = [UIImage imageNamed:@"icons8-envelope-50"];
             break;
             
         case 2:
-            self.postSearchImageView.image = [UIImage imageNamed:@"logoutW.png"];
+            self.postSearchImageView.image = [UIImage imageNamed:@"icons8-paper-plane-50"];
+            break;
+            
+        case 3:
+            self.postSearchImageView.image = [UIImage imageNamed:@"icons8-settings-50"];
+            break;
+            
+        case 4:
+            self.postSearchImageView.image = [UIImage imageNamed:@"icons8-exit-50"];
             break;
             
         default:
             break;
     }
     
-    if ([title isEqualToString:@" "]) {
-        [self setHidden:YES];
-    } else {
-        self.postSearchTitleLabel.text = title;
-    }
+    self.postSearchTitleLabel.text = title;
 }
 
 @end

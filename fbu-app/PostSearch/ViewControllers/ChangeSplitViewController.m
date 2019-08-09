@@ -13,6 +13,7 @@
 #import "Balance.h"
 #import "SplitDebtorCell.h"
 #import "NewBillViewController.h"
+#import "CustomColor.h"
 
 @interface ChangeSplitViewController () <UITableViewDataSource, UITableViewDelegate, SplitDebtorCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -31,6 +32,9 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
     self.arrayCells = [[NSMutableArray alloc] init];
     
