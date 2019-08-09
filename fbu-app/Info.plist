@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -50,6 +52,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Baloo-Regular.tff</string>
 		<string>Heebo-Black.ttf</string>
 		<string>Heebo-Bold.ttf</string>
 		<string>Heebo-ExtraBold.ttf</string>

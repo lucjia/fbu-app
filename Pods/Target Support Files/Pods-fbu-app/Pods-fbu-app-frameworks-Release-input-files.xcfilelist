@@ -5,3 +5,4 @@ ${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework
 ${BUILT_PRODUCTS_DIR}/DownPicker/DownPicker.framework
 ${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework
 ${BUILT_PRODUCTS_DIR}/Parse/Parse.framework
+${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework

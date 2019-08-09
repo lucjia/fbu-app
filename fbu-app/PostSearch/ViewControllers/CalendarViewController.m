@@ -85,7 +85,7 @@
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if ([object objectForKey:@"house"]) {
             [self fetchEvents:(Persona *)object];
-            [self initCollectionViewFromLeft:NO];
+            [self initCollectionViewFromDirection:kCATransitionFade];
             [self initCalendar:[NSDate date]];
             [self setMonthLabelText];
             [self->collectionView reloadData];
@@ -154,7 +154,7 @@
 }
 
 // initializes the collection view
-- (void)initCollectionViewFromLeft:(BOOL)direction {
+- (void)initCollectionViewFromDirection:(NSString *)direction {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     calendarYPosition = 160;
     calendarHeight = isInWeeklyMode ? 94 + self.monthLabel.frame.size.height + 20 : (self.view.bounds.size.height - calendarYPosition) / 2;
@@ -177,19 +177,11 @@
     
     collectionView.contentInsetAdjustmentBehavior = NO;
     
-    if (!direction) {
-        CATransition *transition = [CATransition animation];
-        transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromLeft;
-        transition.duration = 0.4;
-        [collectionView.layer addAnimation:transition forKey:nil];
-    } else {
-        CATransition *transition = [CATransition animation];
-        transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromRight;
-        transition.duration = 0.4;
-        [collectionView.layer addAnimation:transition forKey:nil];
-    }
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionPush;
+    transition.subtype = direction;
+    transition.duration = 0.4;
+    [collectionView.layer addAnimation:transition forKey:nil];
     
     [self.view addSubview:collectionView];
 }
@@ -259,7 +251,7 @@
 }
 
 // changes currentMonth to next or previous month respectively
-- (void)changeMonth:(NSInteger)month toMonth:(NSInteger)change changeBy:(NSInteger)delta didSwipeLeft:(BOOL)swipe {
+- (void)changeMonth:(NSInteger)month toMonth:(NSInteger)change changeBy:(NSInteger)delta swipeDirectionAnimation:(NSString *)swipe {
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     
     // handles cases where next button is pressed with December being current month and where
@@ -277,7 +269,7 @@
     NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comps];
     
     [collectionView removeFromSuperview];
-    [self initCollectionViewFromLeft:swipe];
+    [self initCollectionViewFromDirection:swipe];
     [self initCalendar:date];
     [self setMonthLabelText];
     [collectionView reloadData];
@@ -348,13 +340,13 @@
         if (isInWeeklyMode) {
             [self goForwardOneWeek];
         } else {
-            [self changeMonth:12 toMonth:1 changeBy:1 didSwipeLeft:YES];
+            [self changeMonth:12 toMonth:1 changeBy:1 swipeDirectionAnimation:kCATransitionFromRight];
         }
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         if (isInWeeklyMode) {
             [self goBackwardsOneWeek];
         } else {
-            [self changeMonth:1 toMonth:12 changeBy:-1 didSwipeLeft:NO];
+            [self changeMonth:1 toMonth:12 changeBy:-1 swipeDirectionAnimation:kCATransitionFromLeft];
         }
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp && !isInWeeklyMode) {
         NSDateComponents *dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
@@ -376,14 +368,15 @@
             
             weekStart = [calendar component:NSCalendarUnitDay fromDate:weekStartDate];
         }
+        
         self->isInWeeklyMode = YES;
         [self->collectionView removeFromSuperview];
-        [self initCollectionViewFromLeft:YES];
+        [self initCollectionViewFromDirection:kCATransitionFromTop];
         [self->tableView removeFromSuperview];
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionDown && isInWeeklyMode) {
         isInWeeklyMode = NO;
         [collectionView removeFromSuperview];
-        [self initCollectionViewFromLeft:NO];
+        [self initCollectionViewFromDirection:kCATransitionFromBottom];
         
         [self->tableView removeFromSuperview];
         
@@ -419,10 +412,10 @@
     swipeToChangeWeek = YES;
     if ([self isFirstOrLastDayOfMonth:lastCell]) {
         weekStart = 1;
-        [self changeMonth:12 toMonth:1 changeBy:1 didSwipeLeft:YES];
+        [self changeMonth:12 toMonth:1 changeBy:1 swipeDirectionAnimation:kCATransitionFromRight];
     } else {
         [collectionView removeFromSuperview];
-        [self initCollectionViewFromLeft:YES];
+        [self initCollectionViewFromDirection:kCATransitionFromRight];
     }
 }
 
@@ -435,13 +428,13 @@
             NSDate *dayBefore = [self previousDayForDate:displayedMonthStartDate];
             dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay fromDate:dayBefore];
             weekStart = [dateComponent day] - (firstDayOfMonthWeekday - 2);
-            [self changeMonth:1 toMonth:12 changeBy:-1 didSwipeLeft:NO];
+            [self changeMonth:1 toMonth:12 changeBy:-1 swipeDirectionAnimation:kCATransitionFromLeft];
         }
     } else {
         firstCell = nil;
         weekStart -= 14;
         [collectionView removeFromSuperview];
-        [self initCollectionViewFromLeft:NO];
+        [self initCollectionViewFromDirection:kCATransitionFromLeft];
     }
     weekDirectionBackWards = TRUE;
     
@@ -459,7 +452,7 @@
         [eventsArray addObject:event];
         addPaths = NO;
         // [self fetchEvents];
-        [self initCollectionViewFromLeft:YES];
+        [self initCollectionViewFromDirection:kCATransitionFade];
         [self initCalendar:[NSDate date]];
         // sorts the array by eventDate in order to maintain order
         NSSortDescriptor *sortDescriptor;
@@ -473,7 +466,7 @@
 - (IBAction)didTapToday:(id)sender {
     NSDateComponents *dateComponent = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger year = [dateComponent year];
-    [self changeMonth:currentMonth toMonth:[dateComponent month] changeBy:currentYear == year ? 0 : year - currentYear didSwipeLeft:YES];
+    [self changeMonth:currentMonth toMonth:[dateComponent month] changeBy:currentYear == year ? 0 : year - currentYear swipeDirectionAnimation:kCATransitionFade];
 }
 
 #pragma mark - Navigation
