@@ -169,6 +169,7 @@
 		6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsViewController.m; sourceTree = "<group>"; };
 		6497FFB422E61F17002D1996 /* SentRequestsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsCell.h; sourceTree = "<group>"; };
 		6497FFB522E61F17002D1996 /* SentRequestsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsCell.m; sourceTree = "<group>"; };
+		64A322DA22FDED0800795C37 /* Baloo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo-Regular.ttf"; path = "../../../../Downloads/Baloo/Baloo-Regular.ttf"; sourceTree = "<group>"; };
 		64B5719522F8DEB900B9200D /* CustomColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomColor.h; sourceTree = "<group>"; };
 		64B5719622F8DEB900B9200D /* CustomColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomColor.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
@@ -475,6 +476,14 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
+		64A322D922FDECEA00795C37 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				64A322DA22FDED0800795C37 /* Baloo-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		64B5719322F8DE5000B9200D /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +595,7 @@
 		85E7A13D22DD214D006C1F38 /* fbu-app */ = {
 			isa = PBXGroup;
 			children = (
+				64A322D922FDECEA00795C37 /* Fonts */,
 				85C5C0BD22F37C93001982F1 /* fbu-app.entitlements */,
 				64B5719322F8DE5000B9200D /* CustomUI */,
 				640603B722DE942C00C24301 /* Subclasses */,

@@ -12,6 +12,7 @@ target 'fbu-app' do
   pod 'GooglePlaces'
   pod 'DownPicker'
   pod 'AFNetworking'
+  pod 'SVProgressHUD'
   pod 'LGSideMenuController'
 
   target 'fbu-appTests' do

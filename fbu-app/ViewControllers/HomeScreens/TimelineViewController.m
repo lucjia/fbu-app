@@ -15,6 +15,7 @@
 #import "Persona.h"
 #import "CustomColor.h"
 #import "DetailsViewController.h"
+#import "SVProgressHUD.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
@@ -38,6 +39,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
+    
+    [SVProgressHUD show];
     
     currentPersona = [PFUser currentUser][@"persona"];
     [currentPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
@@ -95,6 +98,7 @@
             // do something with the array of object returned by the call
             self.userArray = users;
             [self.tableView reloadData];
+            [SVProgressHUD dismiss];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
