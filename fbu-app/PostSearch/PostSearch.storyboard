@@ -1680,6 +1680,7 @@
                                             <outlet property="moneyLabel" destination="hQL-Xi-N9c" id="2Gt-sO-UCe"/>
                                             <outlet property="monthLabel" destination="dOp-zS-D4C" id="CnA-sd-JwC"/>
                                             <outlet property="payerLabel" destination="ELI-ck-b61" id="xYn-uL-Zl9"/>
+                                            <outlet property="rightArrow" destination="wvH-ys-7em" id="qfe-TW-ICf"/>
                                             <outlet property="stateLabel" destination="XO9-jn-HeR" id="W8r-VO-TSj"/>
                                             <segue destination="atQ-dx-NX2" kind="show" identifier="showDetails" id="Y5c-04-aV0"/>
                                         </connections>

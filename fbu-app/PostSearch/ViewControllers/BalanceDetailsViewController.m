@@ -60,6 +60,12 @@
     Bill *bill = self.bills[indexPath.row];
     [bill fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         
+        if(bill.payment == NO){
+            [cell.rightArrow setHidden:NO];
+        }else{
+            [cell.rightArrow setHidden:YES];
+        }
+        
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
         
@@ -81,10 +87,14 @@
         
         [bill.payer fetchIfNeeded];
         if (![self.currentPersona isEqual:bill.payer]){
-            cell.stateLabel.text = @"you borrowed";
+            if(bill.payment == YES) {
+                cell.stateLabel.text = @"they paid";
+            }else{
+                cell.stateLabel.text = @"you borrowed";
+            }
             cell.stateLabel.textColor = [UIColor redColor];
-            cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getBorrowed:bill]];
             cell.moneyLabel.textColor = [UIColor redColor];
+            cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getBorrowed:bill]];
         }else if([self.currentPersona isEqual:bill.payer]){
             if(bill.payment == YES) {
                 cell.stateLabel.text = @"you paid";
@@ -163,6 +173,22 @@
     return bill.portions[index];
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"makePayment"]){
+        return YES;
+    }else if ([identifier isEqualToString:@"showDetails"]){
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Bill *bill = self.bills[indexPath.row];
+        
+        if(bill.payment == YES){
+            return NO;
+        }else{
+            return YES;
+        }
+    }
+    return YES;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showDetails"]){
