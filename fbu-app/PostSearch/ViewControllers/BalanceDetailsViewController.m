@@ -8,6 +8,7 @@
 #import "BalanceDetailsViewController.h"
 #import "PaymentViewController.h"
 #import "BillDetailsViewController.h"
+#import "CustomColor.h"
 
 @interface BalanceDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -21,11 +22,21 @@
 
 @implementation BalanceDetailsViewController
 
+UIColor *green;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    green = [UIColor colorWithRed:0.0f/255.0f
+                            green:227.0f/255.0f
+                             blue:0.0f/255.0f
+                            alpha:1.0f];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
     NSUInteger index = [self.balance.housemates indexOfObject:self.currentPersona];
     if(index == 0){
@@ -107,9 +118,9 @@
             }else{
                 cell.stateLabel.text = @"you lent";
             }
-            cell.stateLabel.textColor = [UIColor greenColor];
+            cell.stateLabel.textColor = green;
             cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getLent:bill]];
-            cell.moneyLabel.textColor = [UIColor greenColor];
+            cell.moneyLabel.textColor = green;
         }
         
     }];
@@ -137,7 +148,7 @@
         self.totalTopConstraint.constant = 30;
     }else{
         self.totalStateLabel.text = @"owes you";
-        self.totalStateLabel.textColor = [UIColor greenColor];
+        self.totalStateLabel.textColor = green;
         self.totalBalanceLabel.text = [numberFormatter stringFromNumber:[self abs:total]];
         self.totalBalanceLabel.textColor = [UIColor greenColor];
         self.totalTopConstraint.constant = 30;
