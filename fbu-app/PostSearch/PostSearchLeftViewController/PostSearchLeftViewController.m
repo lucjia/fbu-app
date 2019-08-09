@@ -33,6 +33,15 @@
     titlesArray = @[@" ",
                     @"Roommate Finder",
                     @"Settings",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
                     @"Log Out"];
     
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
