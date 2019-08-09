@@ -35,6 +35,8 @@
 		7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04922EA4FB600F59BCF /* ModifyHouseViewController.m */; };
 		7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04C22EA592500F59BCF /* AddHousemateViewController.m */; };
 		774B123222E62954000764BD /* PlainRoomateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123122E62954000764BD /* PlainRoomateCell.m */; };
+		777E890F22FCF6B50086852B /* BalanceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */; };
+		777F344622FCF83A003E5E5D /* BillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F344522FCF83A003E5E5D /* BillCell.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
 		77D6AD1022F3A82E00541502 /* HousemateBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D6AD0F22F3A82E00541502 /* HousemateBalanceCell.m */; };
@@ -152,6 +154,10 @@
 		7705B04C22EA592500F59BCF /* AddHousemateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddHousemateViewController.m; sourceTree = "<group>"; };
 		774B123022E62954000764BD /* PlainRoomateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlainRoomateCell.h; sourceTree = "<group>"; };
 		774B123122E62954000764BD /* PlainRoomateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlainRoomateCell.m; sourceTree = "<group>"; };
+		777E890D22FCF6B50086852B /* BalanceDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceDetailsViewController.h; sourceTree = "<group>"; };
+		777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BalanceDetailsViewController.m; path = "/Users/sophiakaz/Desktop/fbu-app/fbu-app/PostSearch/ViewControllers/BalanceDetailsViewController.m"; sourceTree = "<absolute>"; };
+		777F344422FCF83A003E5E5D /* BillCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillCell.h; sourceTree = "<group>"; };
+		777F344522FCF83A003E5E5D /* BillCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillCell.m; sourceTree = "<group>"; };
 		7794307E22DE7E2A00D9FDDA /* House.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
 		7794307F22DE7E2A00D9FDDA /* House.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = House.m; sourceTree = "<group>"; };
 		7794308122DE8F1A00D9FDDA /* RuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleCell.h; sourceTree = "<group>"; };
@@ -392,6 +398,8 @@
 				77DAB40622F6BD7F0000840C /* NewBillViewController.m */,
 				77DAB40E22F8E6580000840C /* ChangeSplitViewController.h */,
 				77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */,
+				777E890D22FCF6B50086852B /* BalanceDetailsViewController.h */,
+				777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -407,6 +415,8 @@
 				644B15E422F3726200E4A60B /* EventReminderCell.m */,
 				77DAB41122F8FE5E0000840C /* SplitDebtorCell.h */,
 				77DAB41222F8FE5E0000840C /* SplitDebtorCell.m */,
+				777F344422FCF83A003E5E5D /* BillCell.h */,
+				777F344522FCF83A003E5E5D /* BillCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -839,6 +849,7 @@
 				85CB80B122ECB44F0070AC4E /* CustomDatePicker.m in Sources */,
 				77D6AD1022F3A82E00541502 /* HousemateBalanceCell.m in Sources */,
 				85C5C0BC22F366CA001982F1 /* KeyViewController.m in Sources */,
+				777F344622FCF83A003E5E5D /* BillCell.m in Sources */,
 				64678F8922EFA3FF00F75070 /* Event.m in Sources */,
 				85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
@@ -864,6 +875,7 @@
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
 				6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */,
 				6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */,
+				777E890F22FCF6B50086852B /* BalanceDetailsViewController.m in Sources */,
 				85CB80AE22EBB4350070AC4E /* ReminderDetailViewController.m in Sources */,
 				85CB80A522EA4E010070AC4E /* ReminderViewController.m in Sources */,
 				85C5C0C022F3AFF1001982F1 /* KeyCell.m in Sources */,
