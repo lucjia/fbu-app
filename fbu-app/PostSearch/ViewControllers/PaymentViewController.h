@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) Persona *housemate;
 @property (strong, nonatomic) Persona *currentPersona;
-//@property (strong, nonatomic) Balance *balance;
 
 @end
 
