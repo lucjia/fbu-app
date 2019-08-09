@@ -15,10 +15,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *datelabel;
 @property (weak, nonatomic) IBOutlet UILabel *paidLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *people;
-@property (strong, nonatomic) NSDecimalNumber *sumDebt;
 
 @end
+
+NSMutableArray *people;
+NSDecimalNumber *sumDebt;
 
 @implementation BillDetailsViewController
 
@@ -51,10 +52,10 @@
 - (void) reloadView {
     [self fetchPeople];
     
-    self.sumDebt = [NSDecimalNumber zero];
-    for(int i = 0; i < self.people.count - 1; i ++){
+    sumDebt = [NSDecimalNumber zero];
+    for(int i = 0; i < people.count - 1; i ++){
         NSDecimalNumber *portion = [NSDecimalNumber decimalNumberWithDecimal:[self.bill.portions[i] decimalValue]];
-        self.sumDebt = [self.sumDebt decimalNumberByAdding:portion];
+        sumDebt = [sumDebt decimalNumberByAdding:portion];
     }
     
     [self.tableView reloadData];
@@ -62,15 +63,15 @@
 }
 
 - (void) fetchPeople {
-    self.people = [self.bill.debtors mutableCopy];
-    [self.people insertObject:self.bill.payer atIndex:0];
+    people = [self.bill.debtors mutableCopy];
+    [people insertObject:self.bill.payer atIndex:0];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     
     DebtorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DebtorCell"];
     
-    Persona *housemate = self.people[indexPath.row];
+    Persona *housemate = people[indexPath.row];
     [housemate fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
@@ -105,7 +106,7 @@
             cell.pictureView.layer.masksToBounds = YES;
             
             NSDecimalNumber *paid = [NSDecimalNumber decimalNumberWithDecimal:[self.bill.paid decimalValue]];
-            cell.extraMoneyLabel.text = [numberFormatter stringFromNumber:[paid decimalNumberBySubtracting:self.sumDebt]];
+            cell.extraMoneyLabel.text = [numberFormatter stringFromNumber:[paid decimalNumberBySubtracting:sumDebt]];
             
         }else{
         
@@ -134,7 +135,7 @@
     }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.people.count;
+    return people.count;
 }
 
 - (NSString *) getName:(Persona*)persona {
