@@ -13,6 +13,11 @@
 #import "Parse/Parse.h"
 #import "CustomButton.h"
 #import "CustomColor.h"
+#import "Persona.h"
+#import "House.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "MainViewController.h"
 
 @interface LogInViewController ()
 
@@ -88,8 +93,24 @@
             alert.view.tintColor = [CustomColor accentColor:1.0];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
-            // Display view controller that needs to be shown after successful login
-            [self performSegueWithIdentifier:@"toMain" sender:self];
+            Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+            [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                House *house = [persona objectForKey:@"house"];
+                if (house) {
+                    // if the user is already in a house, display post-search
+                    UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+                    LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
+                    
+                    UITabBarController *rootView = (UITabBarController *)sideMenuController.rootViewController;
+                    
+                    [rootView setSelectedIndex:0];
+                    [self presentViewController:sideMenuController animated:YES completion:nil];
+                } else {
+                    // display timeline
+                    // Display view controller that needs to be shown after successful login
+                    [self performSegueWithIdentifier:@"toMain" sender:self];
+                }
+            }];
         }
     }];
 }
