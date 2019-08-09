@@ -37,8 +37,8 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
-    [self.tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

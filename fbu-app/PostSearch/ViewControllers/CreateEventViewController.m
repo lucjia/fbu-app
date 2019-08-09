@@ -35,7 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
     CustomDatePicker *startDatePicker = [[CustomDatePicker alloc] init];
     self.startDatePicker = [startDatePicker initializeDatePickerWithDatePicker:self.startDatePicker textField:self.startDateSelectionTextField];

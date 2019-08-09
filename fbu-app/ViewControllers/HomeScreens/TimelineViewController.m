@@ -37,7 +37,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self.tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.separatorColor = [CustomColor midToneOne:1.0];
     
     currentPersona = [PFUser currentUser][@"persona"];
@@ -112,7 +112,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     RoommateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomateCell"];
     cell.delegate = self;
-    cell.backgroundColor = [CustomColor darkMainColor:1.0];
+    cell.backgroundColor = [UIColor whiteColor];
     
     Persona *user = self.userArray[indexPath.row];
     

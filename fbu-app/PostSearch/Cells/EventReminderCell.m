@@ -43,7 +43,7 @@ static NSDateFormatter *dateFormatter;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, self.contentView.frame.size.height * 2)];
     view.layer.cornerRadius = 15;
     
-    [view setBackgroundColor:[CustomColor midToneOne:1.0]];
+    [view setBackgroundColor:[UIColor whiteColor]];
     
     [self.contentView addSubview:view];
 }
