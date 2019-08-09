@@ -33,7 +33,7 @@
 }
 
 - (void)updateWithLocation:(NSDictionary *)location {
-    [self setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self setBackgroundColor:[UIColor whiteColor]];
     
     
     self.nameLabel.text = location[@"name"];

@@ -35,6 +35,7 @@
 		7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04922EA4FB600F59BCF /* ModifyHouseViewController.m */; };
 		7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04C22EA592500F59BCF /* AddHousemateViewController.m */; };
 		774B123222E62954000764BD /* PlainRoomateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123122E62954000764BD /* PlainRoomateCell.m */; };
+		777B66F222FD2F4300675319 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777B66F122FD2F4300675319 /* PaymentViewController.m */; };
 		777E890F22FCF6B50086852B /* BalanceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */; };
 		777F344622FCF83A003E5E5D /* BillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F344522FCF83A003E5E5D /* BillCell.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
@@ -80,11 +81,11 @@
 		85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18322DF9DA1006C1F38 /* LocationViewController.m */; };
 		85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */; };
 		85E7A19022DFDDF1006C1F38 /* PreferenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */; };
-		85EAAC5922FCC2CD00EAC240 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC5822FCC2CD00EAC240 /* MapViewController.m */; };
 		85EAAC4222FC7E6700EAC240 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */; };
 		85EAAC4B22FC8DE500EAC240 /* IntentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC4A22FC8DE500EAC240 /* IntentHandler.m */; };
 		85EAAC4F22FC8DE500EAC240 /* Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 85EAAC4722FC8DE500EAC240 /* Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		85EAAC5322FC8E2200EAC240 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */; };
+		85EAAC5922FCC2CD00EAC240 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC5822FCC2CD00EAC240 /* MapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +181,8 @@
 		7705B04C22EA592500F59BCF /* AddHousemateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddHousemateViewController.m; sourceTree = "<group>"; };
 		774B123022E62954000764BD /* PlainRoomateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlainRoomateCell.h; sourceTree = "<group>"; };
 		774B123122E62954000764BD /* PlainRoomateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlainRoomateCell.m; sourceTree = "<group>"; };
+		777B66F022FD2F4300675319 /* PaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
+		777B66F122FD2F4300675319 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		777E890D22FCF6B50086852B /* BalanceDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceDetailsViewController.h; sourceTree = "<group>"; };
 		777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceDetailsViewController.m; sourceTree = "<group>"; };
 		777F344422FCF83A003E5E5D /* BillCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillCell.h; sourceTree = "<group>"; };
@@ -272,13 +275,13 @@
 		85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
 		85E7A18E22DFDDF1006C1F38 /* PreferenceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferenceCell.h; sourceTree = "<group>"; };
 		85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferenceCell.m; sourceTree = "<group>"; };
-		85EAAC5722FCC2CD00EAC240 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		85EAAC5822FCC2CD00EAC240 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		85EAAC4722FC8DE500EAC240 /* Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Intents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		85EAAC4922FC8DE500EAC240 /* IntentHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentHandler.h; sourceTree = "<group>"; };
 		85EAAC4A22FC8DE500EAC240 /* IntentHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentHandler.m; sourceTree = "<group>"; };
 		85EAAC4C22FC8DE500EAC240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85EAAC5722FCC2CD00EAC240 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		85EAAC5822FCC2CD00EAC240 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		9ACABEB17CBA90FA88762331 /* Pods_fbu_appUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_appUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F897F31FD7CDA5199E2D8C59 /* Pods_fbu_appTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_appTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF11A48580BE19DA3BF44E01 /* Pods_fbu_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -440,6 +443,8 @@
 				77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */,
 				777E890D22FCF6B50086852B /* BalanceDetailsViewController.h */,
 				777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */,
+				777B66F022FD2F4300675319 /* PaymentViewController.h */,
+				777B66F122FD2F4300675319 /* PaymentViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -985,6 +990,7 @@
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
 				85C5C0C922F80BE3001982F1 /* Post.m in Sources */,
+				777B66F222FD2F4300675319 /* PaymentViewController.m in Sources */,
 				85CB80B422EFB12C0070AC4E /* UserCollectionCell.m in Sources */,
 				85C5C0C322F3C2F6001982F1 /* BulletinViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,

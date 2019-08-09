@@ -74,7 +74,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
     addPaths = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
@@ -122,7 +122,7 @@
 - (void)initLabel:(UILabel *)label xPos:(NSInteger)labelX yPos:(NSInteger)labelY withText:(NSString *)text {
     label = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 94 + labelY, 50, 50)];
     label.text = text;
-    label.textColor = [CustomColor midToneOne:1.0];
+    label.textColor = [CustomColor darkMainColor:1.0];
     
     [self.view addSubview:label];
 }
@@ -133,7 +133,7 @@
     
     CGFloat sundayX = cellWidth / 4;
     [self initLabel:sundayLabel xPos:sundayX yPos:labelY withText:@"Su"];
-
+    
     CGFloat mondayX = sundayX + cellWidth + spacing;
     [self initLabel:mondayLabel xPos:mondayX yPos:labelY withText:@"Mo"];
     
@@ -165,7 +165,7 @@
     collectionView.scrollEnabled = NO;
     // allows for CalendarCell to be used
     [collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
-    [collectionView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [collectionView setBackgroundColor:[UIColor whiteColor]];
     
     layout.minimumInteritemSpacing = 5;
     layout.minimumLineSpacing = 5;
@@ -328,9 +328,12 @@
                 // all UIKit related calls must be done in main thread
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // switch back to the main thread to update your UI
-                    [cell setHidden:NO];
-                    [cell drawEventCircle];
-                    
+                    if (cell.dateLabel) {
+                         [cell setHidden:NO];
+                        [cell drawEventCircle];
+                    } else {
+                         [cell setHidden:YES];
+                    }
                     if ([self isCellToday:day]) {
                         [cell setCurrentDayTextColor];
                     }
@@ -441,7 +444,7 @@
         [self initCollectionViewFromLeft:NO];
     }
     weekDirectionBackWards = TRUE;
-
+    
 }
 
 // -TO DO-
@@ -451,17 +454,20 @@
 }
 
 - (void)didCreateEvent:(Event *)event {
-    [eventsArray addObject:event];
-    addPaths = NO;
-    // [self fetchEvents];
-    [self initCollectionViewFromLeft:YES];
-    [self initCalendar:[NSDate date]];
-    // sorts the array by eventDate in order to maintain order
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
-                                                 ascending:YES];
-    eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
-    [tableView reloadData];
+    [collectionView removeFromSuperview];
+    if (![eventsArray containsObject:event]) {
+        [eventsArray addObject:event];
+        addPaths = NO;
+        // [self fetchEvents];
+        [self initCollectionViewFromLeft:YES];
+        [self initCalendar:[NSDate date]];
+        // sorts the array by eventDate in order to maintain order
+        NSSortDescriptor *sortDescriptor;
+        sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
+                                                     ascending:YES];
+        eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
+        [tableView reloadData];
+    }
 }
 
 - (IBAction)didTapToday:(id)sender {
@@ -495,7 +501,7 @@
     
     // will check in background thread
     [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
-   
+    
     NSInteger fistDayOfWeekOfMonth = [calendar component:NSCalendarUnitWeekday fromDate:displayedMonthStartDate];
     BOOL indexNotInDisplayRange = isInWeeklyMode ? ([eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1) || weekStart > numberOfDays :
     indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays;
@@ -520,7 +526,7 @@
                 if ([self isCellToday:weekStart - 1]) {
                     [cell setCurrentDayTextColor];;
                 } else {
-                    cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
+                    cell.dateLabel.textColor = [CustomColor darkMainColor:1.0];
                 }
             } else {
                 [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
@@ -529,7 +535,7 @@
                     [cell setHidden:NO];
                     [cell setCurrentDayTextColor];
                 } else {
-                    cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
+                    cell.dateLabel.textColor = [CustomColor darkMainColor:1.0];
                 }
             }
         }
@@ -627,7 +633,7 @@
         [tableView setDataSource:self];
         [tableView setDelegate:self];
         
-        [tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+        [tableView setBackgroundColor:[UIColor whiteColor]];
         [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
         [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
@@ -716,6 +722,9 @@
         }
     }
     
+    NSOrderedSet *set = [NSOrderedSet orderedSetWithArray:eventsForSelectedDay];
+    eventsForSelectedDay = [NSMutableArray arrayWithArray:[set array]];
+    
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
                                                  ascending:YES];
@@ -751,7 +760,7 @@
     
     EventDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetailsViewController"];
     viewController.event = event;
-
+    
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

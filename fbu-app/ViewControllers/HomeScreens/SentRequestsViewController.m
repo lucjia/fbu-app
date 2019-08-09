@@ -30,7 +30,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self.tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.separatorColor = [CustomColor midToneOne:1.0];
     
     [self fetchSentRequestTimeline];
@@ -78,7 +78,7 @@
     
     Request *request = self.receiversArray[indexPath.row];
     
-    cell.backgroundColor = [CustomColor darkMainColor:1.0];
+    cell.backgroundColor = [UIColor whiteColor];
     [cell updateProperties:request];
     
     return cell;

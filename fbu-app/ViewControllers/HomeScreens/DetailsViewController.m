@@ -33,8 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
-    [self.viewInScrollView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.viewInScrollView setBackgroundColor:[UIColor whiteColor]];
     
     [self updateProperties];
     

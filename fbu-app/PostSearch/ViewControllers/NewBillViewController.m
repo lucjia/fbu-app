@@ -88,7 +88,11 @@
 }
 
 - (NSString *) getName:(Persona*)persona {
-    return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    if([persona isEqual:[PFUser.currentUser objectForKey:@"persona"]]){
+        return @"You";
+    }else{
+        return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -171,8 +175,7 @@
     
     if (self.paidField.text.length > 1 && (self.memoField.text && self.memoField.text.length > 0)) {
         
-        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:self.portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            NSLog(@"new bill created");
+        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:self.portions image:self.pictureView.image isPayment:NO withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         }];
         
         [self.navigationController popViewControllerAnimated:YES];

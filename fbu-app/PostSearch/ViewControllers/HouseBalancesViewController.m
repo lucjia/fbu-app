@@ -13,6 +13,9 @@
 #import "Parse/Parse.h"
 #import "Balance.h"
 #import "BalanceDetailsViewController.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "CustomColor.h"
 
 @interface HouseBalancesViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -22,6 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *balances;
 @property (nonatomic, strong) Persona *currentPersona;
 @property (nonatomic, strong) NSMutableArray *balanceTotals;
+- (IBAction)tapLeftMenu:(id)sender;
 
 
 @end
@@ -36,7 +40,7 @@
     self.tableView.delegate = self;
     
     self.currentPersona = [PFUser.currentUser objectForKey:@"persona"];
-    [self.currentPersona fetchIfNeededInBackground];
+    [self.currentPersona fetchIfNeeded];
     
 }
 
@@ -67,6 +71,8 @@
     Balance *balance = self.balances[indexPath.row];
     [balance fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         
+        [balance.housemates[0] fetchIfNeeded];
+        [balance.housemates[1] fetchIfNeeded];
         NSUInteger indexOfHousemate = [self getIndex:balance];
         Persona *housemate = [self getHousemate:balance indexOfHousemate:indexOfHousemate];
         
@@ -74,7 +80,6 @@
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
         
         NSDecimalNumber* total = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
-        [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:total];
 
         cell.nameLabel.text = [[housemate.firstName stringByAppendingString:@" "] stringByAppendingString:housemate.lastName];
         NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
@@ -88,15 +93,17 @@
             cell.stateLabel.textColor = [UIColor redColor];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
             cell.balanceLabel.textColor = [UIColor redColor];
-            [self setTotals];
             cell.topConstraint.constant = 8;
+            [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[[self abs:total] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"-1"]]];
+            [self setTotals];
         }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"owes you";
             cell.stateLabel.textColor = [UIColor greenColor];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
             cell.balanceLabel.textColor = [UIColor greenColor];
-            [self setTotals];
             cell.topConstraint.constant = 8;
+            [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[self abs:total]];
+            [self setTotals];
         }
         
         PFFileObject *imageFile = housemate.profileImage;
@@ -141,25 +148,25 @@
 - (Persona *)getHousemate:(Balance *)balance indexOfHousemate:(NSUInteger)index {
     NSArray *housemates = [balance objectForKey:@"housemates"];
     Persona *housemate = [housemates objectAtIndex:index];
-    [housemate fetchIfNeeded];
     return housemate;
 }
 
 - (NSUInteger) getIndex: (Balance *)balance {
     NSArray *housemates = [balance objectForKey:@"housemates"];
-    NSUInteger index = [housemates indexOfObject:self.currentPersona];
-    if (index == (NSUInteger)1) return (NSUInteger)0;
-    else return (NSUInteger)1;
+    if ([housemates[0] isEqual:self.currentPersona])
+            return (NSUInteger)1;
+    else
+        return (NSUInteger)0;
 }
 
 - (BOOL) inDebt:(Balance *)balance indexOfHousemate:(NSUInteger)index {
     NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
     if (index == (NSUInteger)0) {
-        if (balanceTotal > 0) return NO;
-        else return YES;
-    }else{
-        if (balanceTotal > 0) return YES;
+        if ([balanceTotal compare:[NSDecimalNumber zero]] == NSOrderedDescending) return YES;
         else return NO;
+    }else{
+        if ([balanceTotal compare:[NSDecimalNumber zero]] == NSOrderedDescending) return NO;
+        else return YES;
     }
     return nil;
 }
@@ -172,7 +179,6 @@
         return num;
     }
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
@@ -189,4 +195,8 @@
 }
      
         
+- (IBAction)tapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
+}
+
 @end
