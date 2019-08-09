@@ -1676,15 +1676,15 @@
                         <viewLayoutGuide key="safeArea" id="qKO-fP-yBr"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="B4R-vj-xzr" id="R42-o4-vch"/>
-                        <outlet property="totalBalanceLabel" destination="6vp-pw-Pkb" id="yR9-Km-82Q"/>
-                        <outlet property="totalStateLabel" destination="MLc-K1-qhL" id="Knh-Tc-QQG"/>
-                        <outlet property="totalTopConstraint" destination="Ycd-NG-ys9" id="h3I-hX-pnt"/>
+                        <outlet property="tableView" destination="B4R-vj-xzr" id="Lo4-EZ-f8h"/>
+                        <outlet property="totalBalanceLabel" destination="6vp-pw-Pkb" id="1DD-aw-Y2h"/>
+                        <outlet property="totalStateLabel" destination="MLc-K1-qhL" id="Gbt-Ts-Agu"/>
+                        <outlet property="totalTopConstraint" destination="Ycd-NG-ys9" id="dMM-N3-4OM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AGv-zo-E4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7303" y="1268"/>
+            <point key="canvasLocation" x="7302.898550724638" y="1267.6339285714284"/>
         </scene>
         <!--Post Search Left View Controller-->
         <scene sceneID="AMs-or-8n1">
