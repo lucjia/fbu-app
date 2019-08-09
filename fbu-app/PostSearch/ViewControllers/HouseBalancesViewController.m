@@ -78,7 +78,6 @@
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
         
         NSDecimalNumber* total = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
-        [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:total];
 
         cell.nameLabel.text = [[housemate.firstName stringByAppendingString:@" "] stringByAppendingString:housemate.lastName];
         NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
@@ -92,15 +91,17 @@
             cell.stateLabel.textColor = [UIColor redColor];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
             cell.balanceLabel.textColor = [UIColor redColor];
-            [self setTotals];
             cell.topConstraint.constant = 8;
+            [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[[self abs:total] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"-1"]]];
+            [self setTotals];
         }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"owes you";
             cell.stateLabel.textColor = [UIColor greenColor];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
             cell.balanceLabel.textColor = [UIColor greenColor];
-            [self setTotals];
             cell.topConstraint.constant = 8;
+            [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[self abs:total]];
+            [self setTotals];
         }
         
         PFFileObject *imageFile = housemate.profileImage;
