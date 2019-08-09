@@ -101,7 +101,7 @@
             </objects>
             <point key="canvasLocation" x="4925" y="-210"/>
         </scene>
-        <!--Rules View Controller-->
+        <!--House Rules-->
         <scene sceneID="EeV-RX-3pX">
             <objects>
                 <viewController storyboardIdentifier="RulesViewController" id="fbP-bt-mCJ" customClass="RulesViewController" sceneMemberID="viewController">
@@ -186,7 +186,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fwr-oY-yzo"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0XB-ZZ-jza"/>
+                    <navigationItem key="navigationItem" title="House Rules" id="oXp-Xk-ZQC">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="menu25-2" id="PeV-MI-rsE">
+                            <connections>
+                                <action selector="tapLeftMenu:" destination="fbP-bt-mCJ" id="Zn0-dl-M3p"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="ruleField" destination="EwM-S7-Ri8" id="yPb-TX-lZ4"/>
                         <outlet property="tableView" destination="kbG-7E-wGL" id="Cgy-Pf-mh4"/>
@@ -194,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbS-Dh-x6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4435" y="2277"/>
+            <point key="canvasLocation" x="4742.0289855072469" y="-938.16964285714278"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="5V8-l0-dLJ">
@@ -1785,11 +1791,28 @@
                     <connections>
                         <segue destination="Q8I-bF-7dp" kind="custom" identifier="root" customClass="LGSideMenuSegue" id="5zD-If-etW"/>
                         <segue destination="oyp-B3-xvu" kind="custom" identifier="left" customClass="LGSideMenuSegue" id="FF7-Ig-quG"/>
+                        <segue destination="suX-jX-uuZ" kind="show" id="aAq-8t-WFl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hST-ib-tSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3696" y="-1722"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nov-rs-IRe">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="28d-vE-2Yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="HouseRules" id="suX-jX-uuZ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="y9E-yN-iEX">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fbP-bt-mCJ" kind="relationship" relationship="rootViewController" id="1o2-0H-abf"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="4742" y="-1621"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="KEW-eR-0j9">
