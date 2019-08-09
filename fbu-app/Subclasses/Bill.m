@@ -19,12 +19,13 @@
 @dynamic memo;
 @dynamic portions;
 @dynamic paid;
+@dynamic payment;
 
 + (nonnull NSString *)parseClassName {
     return @"Bill";
 }
 
-+ (Bill *) createBill:(NSDate *)date billMemo:(NSString *)memo payer:(Persona*)payer totalPaid:(NSDecimalNumber *)paid debtors:(NSArray *)debtors portionLent:(NSArray*)portions image:(UIImage * _Nullable)image withCompletion:(PFBooleanResultBlock  _Nullable)completion {
++ (Bill *) createBill:(NSDate *)date billMemo:(NSString *)memo payer:(Persona*)payer totalPaid:(NSDecimalNumber *)paid debtors:(NSArray *)debtors portionLent:(NSArray*)portions image:(UIImage * _Nullable)image isPayment:(bool)payment withCompletion:(PFBooleanResultBlock  _Nullable)completion {
     
     Bill *newBill = [Bill objectWithClassName:@"Bill"];
     newBill.date = date;
@@ -33,6 +34,7 @@
     newBill.paid = paid;
     newBill.debtors = debtors;
     newBill.portions = portions;
+    newBill.payment = payment;
     newBill.image = [self getPFFileFromImage:image];
     [newBill save];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0.91), ^{
@@ -74,6 +76,10 @@
     NSData *data = [file getData];
     UIImage *image = [UIImage imageWithData:data];
     return image;
+}
+
+- (void) deleteBill {
+    
 }
 
 @end

@@ -6,6 +6,7 @@
 //
 
 #import "BalanceDetailsViewController.h"
+#import "PaymentViewController.h"
 
 @interface BalanceDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -35,7 +36,7 @@
     }
     [self.housemate fetchIfNeeded];
     
-    self.navigationItem.title = [[self.housemate.firstName stringByAppendingString:@" "] stringByAppendingString:self.housemate.lastName];
+    self.navigationItem.title = [self getName:self.housemate];
     
     [self reloadView];
 }
@@ -62,7 +63,7 @@
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
         
         [bill.payer fetchIfNeeded];
-        cell.payerLabel.text = [[bill.payer.firstName stringByAppendingString:@" "] stringByAppendingString:bill.payer.lastName];
+        cell.payerLabel.text = [self getName:bill.payer];
         cell.payerLabel.text = [cell.payerLabel.text stringByAppendingString:@" paid "];
         cell.payerLabel.text = [cell.payerLabel.text stringByAppendingString:[numberFormatter stringFromNumber:bill.paid]];
         
@@ -84,7 +85,11 @@
             cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getBorrowed:bill]];
             cell.moneyLabel.textColor = [UIColor redColor];
         }else if([self.currentPersona isEqual:bill.payer]){
-            cell.stateLabel.text = @"you lent";
+            if(bill.payment == YES) {
+                cell.stateLabel.text = @"you paid";
+            }else{
+                cell.stateLabel.text = @"you lent";
+            }
             cell.stateLabel.textColor = [UIColor greenColor];
             cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getLent:bill]];
             cell.moneyLabel.textColor = [UIColor greenColor];
@@ -125,11 +130,11 @@
 - (BOOL) inDebt:(Balance *)balance indexOfHousemate:(NSUInteger)index {
     NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
     if (index == (NSUInteger)0) {
-        if (balanceTotal > 0) return NO;
-        else return YES;
-    }else{
-        if (balanceTotal > 0) return YES;
+        if ([balanceTotal compare:[NSDecimalNumber zero]] == NSOrderedDescending) return YES;
         else return NO;
+    }else{
+        if ([balanceTotal compare:[NSDecimalNumber zero]] == NSOrderedDescending) return NO;
+        else return YES;
     }
     return nil;
 }
@@ -156,5 +161,35 @@
     NSUInteger index = [bill.debtors indexOfObject:self.housemate];
     return bill.portions[index];
 }
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    PaymentViewController *controller = (PaymentViewController *)segue.destinationViewController;
+    controller.housemate = self.housemate;
+    controller.currentPersona = self.currentPersona;
+    
+}
+
+- (NSString *) getName:(Persona*)persona {
+    if([persona isEqual:[PFUser.currentUser objectForKey:@"persona"]]){
+        return @"You";
+    }else{
+        return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    }
+}
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Bill *bill = self.bills[indexPath.row];
+        //[bill deleteBill];
+        [self reloadView];
+    }
+}
+
 
 @end

@@ -22,8 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) PFFileObject *image;
 @property (strong, nonatomic) NSString *memo;
 @property (strong, nonatomic) NSDecimalNumber *paid;
+@property (assign, nonatomic) bool payment;
 
-+ (Bill *) createBill:(NSDate *)date billMemo:(NSString *)memo payer:(Persona*)payer totalPaid:(NSDecimalNumber *)paid debtors:(NSArray *)debtors portionLent:(NSArray*)portions image:(UIImage * _Nullable)image withCompletion:(PFBooleanResultBlock  _Nullable)completion;
++ (Bill *) createBill:(NSDate *)date billMemo:(NSString *)memo payer:(Persona*)payer totalPaid:(NSDecimalNumber *)paid debtors:(NSArray *)debtors portionLent:(NSArray*)portions image:(UIImage * _Nullable)image isPayment:(bool)payment withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 
 @end
 
