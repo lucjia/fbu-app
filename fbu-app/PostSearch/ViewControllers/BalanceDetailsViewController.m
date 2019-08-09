@@ -7,6 +7,7 @@
 
 #import "BalanceDetailsViewController.h"
 #import "PaymentViewController.h"
+#import "BillDetailsViewController.h"
 
 @interface BalanceDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -164,10 +165,19 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    PaymentViewController *controller = (PaymentViewController *)segue.destinationViewController;
-    controller.housemate = self.housemate;
-    controller.currentPersona = self.currentPersona;
-    
+    if ([segue.identifier isEqualToString:@"showDetails"]){
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Bill *bill = self.bills[indexPath.row];
+        
+        BillDetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.bill = bill;
+        detailsViewController.currentPersona = self.currentPersona;
+    }else if ([segue.identifier isEqualToString:@"makePayment"]){
+        PaymentViewController *controller = (PaymentViewController *)segue.destinationViewController;
+        controller.housemate = self.housemate;
+        controller.currentPersona = self.currentPersona;
+    }
 }
 
 - (NSString *) getName:(Persona*)persona {
