@@ -30,18 +30,10 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    titlesArray = @[@" ",
-                    @"Roommate Finder",
+    titlesArray = @[@"Roommate Finder",
+                    @"Received Requests",
+                    @"Sent Requests",
                     @"Settings",
-                    @" ",
-                    @" ",
-                    @" ",
-                    @" ",
-                    @" ",
-                    @" ",
-                    @" ",
-                    @" ",
-                    @" ",
                     @"Log Out"];
     
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -77,7 +69,31 @@
         [rootView setSelectedIndex:0];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
-    // settings
+    } else if (indexPath.row == [titlesArray indexOfObject:@"Received Requests"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
+        
+        UITabBarController *rootView = (UITabBarController *)sideMenuController.rootViewController;
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [rootView setSelectedIndex:1];
+        [currentController presentViewController:sideMenuController animated:YES completion:nil];
+        
+    } else if (indexPath.row == [titlesArray indexOfObject:@"Sent Requests"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
+        
+        UITabBarController *rootView = (UITabBarController *)sideMenuController.rootViewController;
+        
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+        
+        [rootView setSelectedIndex:2];
+        [currentController presentViewController:sideMenuController animated:YES completion:nil];
+        
+        // settings
     } else if (indexPath.row == [titlesArray indexOfObject:@"Settings"]) {
         UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
@@ -87,6 +103,8 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
         
         [currentController pushViewController:viewController animated:YES];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
     } else if (indexPath.row == [titlesArray indexOfObject:@"Log Out"]) {
         [PFUser logOutInBackground];
         
