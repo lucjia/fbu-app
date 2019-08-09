@@ -8,6 +8,7 @@
 
 #import "BillDetailsViewController.h"
 #import "DebtorCell.h"
+#import "CustomColor.h"
 
 @interface BillDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *pictureView;
@@ -35,6 +36,9 @@ NSDecimalNumber *sumDebt;
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     self.paidLabel.text = [numberFormatter stringFromNumber:self.bill.paid];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
 
     
     PFFileObject *imageFile = self.bill.image;
