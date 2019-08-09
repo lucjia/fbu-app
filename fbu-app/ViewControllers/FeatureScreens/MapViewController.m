@@ -29,8 +29,8 @@
     // Add an annotation
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = CLLocationCoordinate2DMake(self.center.latitude, self.center.longitude);
-    point.title = [NSString stringWithFormat:@"%@'s Location", self.poster];
-    point.subtitle = self.venue;
+    point.title = self.venue;
+    point.subtitle = [NSString stringWithFormat:@"%@'s Location", self.poster];
     
     [self.mapView addAnnotation:point];
 }
