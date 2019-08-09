@@ -41,11 +41,8 @@ static NSDateFormatter *dateFormatter;
     CGRect screen = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screen.size.width;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, self.contentView.frame.size.height * 2)];
-    CAShapeLayer * maskLayer = [CAShapeLayer layer];
-    maskLayer.path = [UIBezierPath bezierPathWithRoundedRect: view.bounds byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: (CGSize){10.0, 10.}].CGPath;
-    
-    view.layer.mask = maskLayer;
-    [view setBackgroundColor:[UIColor lightGrayColor]];
+    [view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    view.layer.cornerRadius = 15;
     
     [self.contentView addSubview:view];
 }
@@ -53,10 +50,13 @@ static NSDateFormatter *dateFormatter;
 - (void)createSideView {
     CGRect screen = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screen.size.width;
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth / 80, self.contentView.frame.size.height * 2)];
-    //view.layer 
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth / 30, self.contentView.frame.size.height * 2)];
+    CAShapeLayer * maskLayer = [CAShapeLayer layer];
+    maskLayer.path = [UIBezierPath bezierPathWithRoundedRect: view.bounds byRoundingCorners: UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii: (CGSize){15.0, 10.}].CGPath;
     
-    [view setBackgroundColor:[UIColor redColor]];
+    view.layer.mask = maskLayer;
+    
+    [view setBackgroundColor:[CustomColor accentColor:1.0]];
     
     [self.contentView addSubview:view];
 }
