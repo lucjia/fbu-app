@@ -184,9 +184,9 @@
                 }
             }
         }
-        self.yourProgressLabel.text = progressText;
+        self.houseProgressLabel.text = progressText;
     } else {
-        self.yourProgressLabel.text = @"No data!";
+        self.houseProgressLabel.text = @"No data!";
     }
 }
 
@@ -196,9 +196,9 @@
         for (int i = 0; i < overdueCount / 5; i++) {
             overdueText = [overdueText stringByAppendingString:@"🥀"];
         }
-        self.yourOverdueLabel.text = overdueText;
+        self.houseOverdueLabel.text = overdueText;
     } else {
-        self.yourOverdueLabel.text = @"🐝";
+        self.houseOverdueLabel.text = @"🐝";
     }
 }
 

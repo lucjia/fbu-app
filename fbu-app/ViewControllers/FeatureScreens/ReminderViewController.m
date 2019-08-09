@@ -244,7 +244,9 @@
 }
 
 - (IBAction)segmentedControlTapped:(id)sender {
-    previousIndex = self.segmentIndex;
+    if (self.segmentIndex != 2) {
+        previousIndex = self.segmentIndex;
+    }
     self.segmentIndex = self.segmentedControl.selectedSegmentIndex;
     [self fetchReminders];
 }
