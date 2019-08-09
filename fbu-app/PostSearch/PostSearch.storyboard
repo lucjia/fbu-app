@@ -107,111 +107,6 @@
             </objects>
             <point key="canvasLocation" x="4925" y="-210"/>
         </scene>
-        <!--House Rules-->
-        <scene sceneID="EeV-RX-3pX">
-            <objects>
-                <viewController storyboardIdentifier="RulesViewController" id="fbP-bt-mCJ" customClass="RulesViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="pJZ-vy-F64">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Add a new rule" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EwM-S7-Ri8">
-                                <rect key="frame" x="16" y="730" width="362" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="NLI-pZ-lJ8"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rjg-tF-kKg">
-                                <rect key="frame" x="60" y="806" width="294" height="40"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="tEV-MW-mp9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <state key="normal" title="Add Rule">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapAddRule:" destination="fbP-bt-mCJ" eventType="touchUpInside" id="YfD-2a-Jqg"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kbG-7E-wGL">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleCell" rowHeight="109" id="pSA-ea-K3d" customClass="RuleCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="109"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pSA-ea-K3d" id="IxO-wf-ixm" customClass="HouseR">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="108.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LN1-oY-LVB">
-                                                    <rect key="frame" x="28" y="19" width="50.5" height="27"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuM-Cb-S56">
-                                                    <rect key="frame" x="86.5" y="23" width="37" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
-                                                    <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="BuM-Cb-S56" secondAttribute="trailing" constant="8" id="00o-FE-RcJ"/>
-                                                <constraint firstItem="LN1-oY-LVB" firstAttribute="top" secondItem="IxO-wf-ixm" secondAttribute="topMargin" constant="8" id="Gxc-Id-D9Z"/>
-                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="LN1-oY-LVB" secondAttribute="bottom" constant="8" id="QSf-kO-NfL"/>
-                                                <constraint firstItem="BuM-Cb-S56" firstAttribute="top" secondItem="LN1-oY-LVB" secondAttribute="top" constant="4" id="SL3-mp-vLv"/>
-                                                <constraint firstItem="LN1-oY-LVB" firstAttribute="leading" secondItem="IxO-wf-ixm" secondAttribute="leadingMargin" constant="8" id="WBd-FM-kMW"/>
-                                                <constraint firstItem="BuM-Cb-S56" firstAttribute="leading" secondItem="LN1-oY-LVB" secondAttribute="trailing" constant="8" id="jYl-Xi-C3r"/>
-                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="BuM-Cb-S56" secondAttribute="bottom" constant="8" id="s8S-g0-MzX"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="numberLabel" destination="LN1-oY-LVB" id="nIf-YG-wp5"/>
-                                            <outlet property="ruleLabel" destination="BuM-Cb-S56" id="EVT-E3-XJw"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="fwr-oY-yzo" firstAttribute="bottom" secondItem="Rjg-tF-kKg" secondAttribute="bottom" constant="16" id="4Hf-rl-nJt"/>
-                            <constraint firstItem="EwM-S7-Ri8" firstAttribute="top" secondItem="kbG-7E-wGL" secondAttribute="bottom" constant="16" id="5Ez-UR-bFL"/>
-                            <constraint firstItem="Rjg-tF-kKg" firstAttribute="top" secondItem="EwM-S7-Ri8" secondAttribute="bottom" constant="16" id="6ol-5L-gNr"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="EwM-S7-Ri8" secondAttribute="trailing" constant="16" id="Gpy-cI-O58"/>
-                            <constraint firstItem="kbG-7E-wGL" firstAttribute="leading" secondItem="fwr-oY-yzo" secondAttribute="leading" id="Hxb-Su-YAj"/>
-                            <constraint firstItem="kbG-7E-wGL" firstAttribute="top" secondItem="pJZ-vy-F64" secondAttribute="top" id="byF-YB-yXT"/>
-                            <constraint firstItem="kbG-7E-wGL" firstAttribute="trailing" secondItem="fwr-oY-yzo" secondAttribute="trailing" id="cQj-7Z-aV3"/>
-                            <constraint firstItem="Rjg-tF-kKg" firstAttribute="leading" secondItem="fwr-oY-yzo" secondAttribute="leading" constant="60" id="pDE-xD-dxE"/>
-                            <constraint firstItem="fwr-oY-yzo" firstAttribute="trailing" secondItem="Rjg-tF-kKg" secondAttribute="trailing" constant="60" id="uPU-at-bOE"/>
-                            <constraint firstItem="EwM-S7-Ri8" firstAttribute="leading" secondItem="fwr-oY-yzo" secondAttribute="leading" constant="16" id="xyJ-kZ-zUJ"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="fwr-oY-yzo"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="House Rules" id="oXp-Xk-ZQC">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="menu25-2" id="PeV-MI-rsE">
-                            <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <connections>
-                                <action selector="tapLeftMenu:" destination="fbP-bt-mCJ" id="Zn0-dl-M3p"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="ruleField" destination="EwM-S7-Ri8" id="yPb-TX-lZ4"/>
-                        <outlet property="tableView" destination="kbG-7E-wGL" id="Cgy-Pf-mh4"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dbS-Dh-x6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4742.0289855072469" y="-938.16964285714278"/>
-        </scene>
         <!--Map View Controller-->
         <scene sceneID="5V8-l0-dLJ">
             <objects>
@@ -2096,22 +1991,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hST-ib-tSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3696" y="-1722"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="nov-rs-IRe">
-            <objects>
-                <navigationController storyboardIdentifier="HouseRules" id="suX-jX-uuZ" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="y9E-yN-iEX">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="fbP-bt-mCJ" kind="relationship" relationship="rootViewController" id="1o2-0H-abf"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="28d-vE-2Yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4742" y="-1621"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="KEW-eR-0j9">
