@@ -71,6 +71,7 @@
                 <navigationController id="625-IT-BRN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Reminders" image="todo" id="kKv-VP-OAo"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oyP-xo-9g4">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
@@ -88,6 +89,7 @@
                 <navigationController id="vr9-py-Oyv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Finances" image="piggybank" id="RFH-CN-aY5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0aF-vB-lMH">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
@@ -192,7 +194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbS-Dh-x6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4925" y="518"/>
+            <point key="canvasLocation" x="4435" y="2277"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="5V8-l0-dLJ">
@@ -849,6 +851,11 @@
                         <viewLayoutGuide key="safeArea" id="HRa-37-9ae"/>
                     </view>
                     <navigationItem key="navigationItem" id="484-2j-pmO">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="menu25-2" id="vvi-9L-ALh">
+                            <connections>
+                                <action selector="tapLeftMenu:" destination="5MS-bn-Nak" id="k4T-k0-Zau"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add Bill" id="hLy-9p-woS">
                             <connections>
                                 <segue destination="t5K-h7-cgS" kind="show" id="6WT-Iu-7Rp"/>
@@ -1944,6 +1951,7 @@
                     <tabBarItem key="tabBarItem" title="Calendar" id="AhC-Db-ups"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EBu-lN-fFP">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -1962,6 +1970,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KKh-9I-YNv" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8Tp-8T-c0x">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -2089,6 +2098,7 @@
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="Gt1-Zp-4CX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Aro-A6-NPG">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
