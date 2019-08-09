@@ -19,10 +19,13 @@
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 #import "CustomColor.h"
 #import "Accessibility.h"
+#import "ProgressViewController.h"
 
-@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate, ReminderDetailViewControllerDelegate> {
+@interface ReminderViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeReminderViewControllerDelegate, ReminderDetailViewControllerDelegate, ProgressViewControllerDelegate> {
     // different way of declaring property
     NSMutableArray *filteredResults;
+    
+    NSInteger previousIndex;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -42,6 +45,7 @@
     self.tableView.delegate = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.searchBar.delegate = self;
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.receivedReminderArrayDates = [[NSMutableArray alloc] init];
     self.receivedReminderArrayNoDates = [[NSMutableArray alloc] init];
     self.receivedReminderArrayTotal = [[NSMutableArray alloc] init];
@@ -52,14 +56,18 @@
     self.segmentedControl.layer.cornerRadius = 4.0;
     self.segmentedControl.clipsToBounds = YES;
     
+    previousIndex = 0;
+    
     [self fetchReminders];
     
     // Refresh control for "pull to refresh"
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchReminders) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl.layer.zPosition = -1;
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
     self.searchBar.delegate = self;
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.placeholder = @"Search for a reminder...";
     
     // Create NSUserActivity for Siri Shortcuts
@@ -70,11 +78,6 @@
         userActivity.userInfo = @{@"ID" : [PFUser currentUser][@"persona"][@"username"]};
         userActivity.requiredUserInfoKeys = [NSSet setWithArray:userActivity.userInfo.allKeys];
         self.userActivity = userActivity;
-        
-        id<UIApplicationDelegate> appDelegate = [[UIApplication sharedApplication] delegate];
-        [appDelegate application:[UIApplication sharedApplication] continueUserActivity:userActivity restorationHandler:^(NSArray<id<UIUserActivityRestoring>> * _Nullable restorableObjects) {
-            
-        }];
     }
     
     // get notification if font size is changed from settings accessibility
@@ -94,14 +97,34 @@
     [userActivity addUserInfoEntriesFromDictionary:@{@"ID" : [PFUser currentUser][@"persona"][@"username"]}];
 }
 
+- (void) restoreUserActivityState:(NSUserActivity *)activity {
+    
+}
+
 - (void) fetchReminders {
     if (self.segmentIndex == 0) {
+            // animation, occurs every time reminders are changed
+            CATransition *transition = [CATransition animation];
+            transition.type = kCATransitionPush;
+            transition.subtype = kCATransitionFromLeft;
+            transition.duration = 0.25;
+            [self.tableView.layer addAnimation:transition forKey:nil];
         [self fetchReceivedRemindersWithDate];
     } else if (self.segmentIndex == 1) {
+        if (previousIndex == 0) {
+            // animation, occurs every time reminders are changed
+            CATransition *transition = [CATransition animation];
+            transition.type = kCATransitionPush;
+            transition.subtype = kCATransitionFromRight;
+            transition.duration = 0.25;
+            [self.tableView.layer addAnimation:transition forKey:nil];
+        }
         [self fetchSentRemindersWithDate];
     } else if (self.segmentIndex == 2) {
         // segue to another view controller to see progress
         ProgressViewController *progressVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProgressVC"];
+        progressVC.delegate = self;
+        progressVC.lastIndex = previousIndex;
         [self presentViewController:progressVC animated:YES completion:nil];
     }
 }
@@ -228,6 +251,7 @@
 }
 
 - (IBAction)segmentedControlTapped:(id)sender {
+    previousIndex = self.segmentIndex;
     self.segmentIndex = self.segmentedControl.selectedSegmentIndex;
     [self fetchReminders];
 }
@@ -408,6 +432,11 @@
 
 - (IBAction)didPressLeft:(id)sender {
     [self showLeftViewAnimated:self];
+}
+
+- (void) setIndexWithIndex:(NSInteger)index {
+    self.segmentedControl.selectedSegmentIndex = index;
+    [self fetchReminders];
 }
 
 @end

@@ -10,7 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ProgressViewControllerDelegate
+
+- (void) setIndexWithIndex:(NSInteger)index;
+
+@end
+
 @interface ProgressViewController : UIViewController
+
+@property (nonatomic, weak) id<ProgressViewControllerDelegate> delegate;
+@property (assign, nonatomic) NSInteger lastIndex;
 
 @end
 

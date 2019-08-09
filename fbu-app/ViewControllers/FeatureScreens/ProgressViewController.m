@@ -46,10 +46,8 @@
 }
 
 - (IBAction)didPressBack:(id)sender {
-    UITabBarController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
-    
-    [viewController setSelectedIndex:2];
-    [self presentViewController:viewController animated:YES completion:nil];
+    [self.delegate setIndexWithIndex:self.lastIndex];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 // INDIVIDUAL PROGRESS

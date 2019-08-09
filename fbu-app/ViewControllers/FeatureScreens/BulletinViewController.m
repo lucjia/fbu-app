@@ -25,7 +25,6 @@
     Post *currentPost;
 }
 
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) UICollectionViewLayout *layout;
 
@@ -36,16 +35,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // set background image
-    self.backgroundImage.clipsToBounds = YES;
-    self.backgroundImage.alpha = 0.8;
-    
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
     // Refresh control for "pull to refresh"
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
+    refreshControl.layer.zPosition = -1;
     [self.collectionView insertSubview:refreshControl atIndex:0];
     
     [self fetchPosts];
@@ -142,7 +138,7 @@
     } else {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Location Shared"
-                                                                       message:@"This post does not contain a location."
+                                                                       message:@"This post does not include a location."
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                                 style:UIAlertActionStyleCancel
