@@ -180,7 +180,7 @@
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionPush;
     transition.subtype = direction;
-    transition.duration = 0.4;
+    transition.duration = 0.25;
     [collectionView.layer addAnimation:transition forKey:nil];
     
     [self.view addSubview:collectionView];
@@ -448,6 +448,7 @@
 
 - (void)didCreateEvent:(Event *)event {
     [collectionView removeFromSuperview];
+    [collectionView reloadData];
     if (![eventsArray containsObject:event]) {
         [eventsArray addObject:event];
         addPaths = NO;
