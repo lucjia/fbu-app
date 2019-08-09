@@ -29,6 +29,7 @@ PODS:
     - Parse/Core (= 1.17.2)
   - Parse/Core (1.17.2):
     - Bolts/Tasks (~> 1.9)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - AFNetworking
@@ -38,6 +39,7 @@ DEPENDENCIES:
   - GooglePlaces
   - LGSideMenuController
   - Parse
+  - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -49,6 +51,7 @@ SPEC REPOS:
     - GooglePlaces
     - LGSideMenuController
     - Parse
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -59,7 +62,8 @@ SPEC CHECKSUMS:
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   LGSideMenuController: ae40c80983ab8b8801c7cef0a6804d43aaa72d45
   Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 2a97b6944e51297200107ce91447d7344ef43ee0
+PODFILE CHECKSUM: 937768361014138721b47cff3ca5afd3494984c5
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.7.2
