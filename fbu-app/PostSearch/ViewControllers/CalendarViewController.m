@@ -133,7 +133,7 @@
     
     CGFloat sundayX = cellWidth / 4;
     [self initLabel:sundayLabel xPos:sundayX yPos:labelY withText:@"Su"];
-
+    
     CGFloat mondayX = sundayX + cellWidth + spacing;
     [self initLabel:mondayLabel xPos:mondayX yPos:labelY withText:@"Mo"];
     
@@ -328,9 +328,12 @@
                 // all UIKit related calls must be done in main thread
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // switch back to the main thread to update your UI
-                    [cell setHidden:NO];
-                    [cell drawEventCircle];
-                    
+                    if (cell.dateLabel) {
+                         [cell setHidden:NO];
+                        [cell drawEventCircle];
+                    } else {
+                         [cell setHidden:YES];
+                    }
                     if ([self isCellToday:day]) {
                         [cell setCurrentDayTextColor];
                     }
@@ -441,7 +444,7 @@
         [self initCollectionViewFromLeft:NO];
     }
     weekDirectionBackWards = TRUE;
-
+    
 }
 
 // -TO DO-
@@ -451,17 +454,20 @@
 }
 
 - (void)didCreateEvent:(Event *)event {
-    [eventsArray addObject:event];
-    addPaths = NO;
-    // [self fetchEvents];
-    [self initCollectionViewFromLeft:YES];
-    [self initCalendar:[NSDate date]];
-    // sorts the array by eventDate in order to maintain order
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
-                                                 ascending:YES];
-    eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
-    [tableView reloadData];
+    [collectionView removeFromSuperview];
+    if (![eventsArray containsObject:event]) {
+        [eventsArray addObject:event];
+        addPaths = NO;
+        // [self fetchEvents];
+        [self initCollectionViewFromLeft:YES];
+        [self initCalendar:[NSDate date]];
+        // sorts the array by eventDate in order to maintain order
+        NSSortDescriptor *sortDescriptor;
+        sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
+                                                     ascending:YES];
+        eventsArray = [NSMutableArray arrayWithArray:[eventsArray sortedArrayUsingDescriptors:@[sortDescriptor]]];
+        [tableView reloadData];
+    }
 }
 
 - (IBAction)didTapToday:(id)sender {
@@ -495,7 +501,7 @@
     
     // will check in background thread
     [self doesArrayContainDateOnSameDay:eventDate forCell:cell atIndexPath:indexPath];
-   
+    
     NSInteger fistDayOfWeekOfMonth = [calendar component:NSCalendarUnitWeekday fromDate:displayedMonthStartDate];
     BOOL indexNotInDisplayRange = isInWeeklyMode ? ([eventDate compare:displayedMonthStartDate] <= 0 && indexPath.item < fistDayOfWeekOfMonth - 1) || weekStart > numberOfDays :
     indexPath.item <= monthStartweekday - 2 || indexPath.row - monthStartweekday + 2 > numberOfDays;
@@ -716,6 +722,9 @@
         }
     }
     
+    NSOrderedSet *set = [NSOrderedSet orderedSetWithArray:eventsForSelectedDay];
+    eventsForSelectedDay = [NSMutableArray arrayWithArray:[set array]];
+    
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate"
                                                  ascending:YES];
@@ -751,7 +760,7 @@
     
     EventDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetailsViewController"];
     viewController.event = event;
-
+    
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
