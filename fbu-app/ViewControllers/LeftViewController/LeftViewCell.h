@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LeftViewCell : UITableViewCell
 
-- (void)updateProperties:(NSString *)title;
-- (void)updatePostSearchProperties:(NSString *)title;
+- (void)updateProperties:(NSString *)title index:(NSInteger)idx ;
+- (void)updatePostSearchProperties:(NSString *)title index:(NSInteger)idx;
 
 @end
 
