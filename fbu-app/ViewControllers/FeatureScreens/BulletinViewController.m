@@ -46,6 +46,13 @@
     
     [self fetchPosts];
     
+    // animation
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromTop;
+    transition.duration = 0.25;
+    [self.collectionView.layer addAnimation:transition forKey:nil];
+    
     // add double tap gesture recognizer
     UITapGestureRecognizer *doubleTapFolderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processDoubleTap:)];
     [doubleTapFolderGesture setNumberOfTapsRequired:2];

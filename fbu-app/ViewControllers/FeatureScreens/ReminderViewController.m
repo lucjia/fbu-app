@@ -30,7 +30,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (assign, nonatomic) BOOL isGrantedNotificationAccess;
 
@@ -59,12 +58,6 @@
     previousIndex = 0;
     
     [self fetchReminders];
-    
-    // Refresh control for "pull to refresh"
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(fetchReminders) forControlEvents:UIControlEventValueChanged];
-    self.refreshControl.layer.zPosition = -1;
-    [self.tableView insertSubview:self.refreshControl atIndex:0];
     
     self.searchBar.delegate = self;
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
@@ -161,7 +154,6 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-    [self.refreshControl endRefreshing];
 }
 
 - (void) fetchReceivedRemindersWithoutDate {
@@ -216,8 +208,6 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-
-    [self.refreshControl endRefreshing];
 }
 
 - (void) fetchSentRemindersWithoutDate {
