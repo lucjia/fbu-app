@@ -7,6 +7,7 @@
 
 #import "BalanceDetailsViewController.h"
 #import "PaymentViewController.h"
+#import "BillDetailsViewController.h"
 
 @interface BalanceDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -48,9 +49,15 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self reloadView];
+}
+
 - (void) fetchBills {
     self.bills = self.balance.bills;
     self.bills = [[self.bills reverseObjectEnumerator] allObjects];
+    //self.bills = [self.bills subarrayWithRange:NSMakeRange(0, MIN(10, self.bills.count))];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
@@ -58,6 +65,12 @@
     
     Bill *bill = self.bills[indexPath.row];
     [bill fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        
+        if(bill.payment == NO){
+            [cell.rightArrow setHidden:NO];
+        }else{
+            [cell.rightArrow setHidden:YES];
+        }
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
@@ -80,10 +93,14 @@
         
         [bill.payer fetchIfNeeded];
         if (![self.currentPersona isEqual:bill.payer]){
-            cell.stateLabel.text = @"you borrowed";
+            if(bill.payment == YES) {
+                cell.stateLabel.text = @"they paid";
+            }else{
+                cell.stateLabel.text = @"you borrowed";
+            }
             cell.stateLabel.textColor = [UIColor redColor];
-            cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getBorrowed:bill]];
             cell.moneyLabel.textColor = [UIColor redColor];
+            cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getBorrowed:bill]];
         }else if([self.currentPersona isEqual:bill.payer]){
             if(bill.payment == YES) {
                 cell.stateLabel.text = @"you paid";
@@ -162,12 +179,37 @@
     return bill.portions[index];
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"makePayment"]){
+        return YES;
+    }else if ([identifier isEqualToString:@"showDetails"]){
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Bill *bill = self.bills[indexPath.row];
+        
+        if(bill.payment == YES){
+            return NO;
+        }else{
+            return YES;
+        }
+    }
+    return YES;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    PaymentViewController *controller = (PaymentViewController *)segue.destinationViewController;
-    controller.housemate = self.housemate;
-    controller.currentPersona = self.currentPersona;
-    
+    if ([segue.identifier isEqualToString:@"showDetails"]){
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Bill *bill = self.bills[indexPath.row];
+        
+        BillDetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.bill = bill;
+        detailsViewController.currentPersona = self.currentPersona;
+    }else if ([segue.identifier isEqualToString:@"makePayment"]){
+        PaymentViewController *controller = (PaymentViewController *)segue.destinationViewController;
+        controller.housemate = self.housemate;
+        controller.currentPersona = self.currentPersona;
+    }
 }
 
 - (NSString *) getName:(Persona*)persona {
