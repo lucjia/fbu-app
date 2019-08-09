@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Homi</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -37,10 +39,15 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Need camera access to take pictures</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Need library access to upload images</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Need location access to share location</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need library access to upload images</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>CreateReminderIntent</string>
+		<string>com.lucjia-edrisian.fbu-app.openReminder</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Heebo-Black.ttf</string>

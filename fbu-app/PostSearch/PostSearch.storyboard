@@ -71,7 +71,6 @@
                 <navigationController id="625-IT-BRN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Reminders" image="todo" id="kKv-VP-OAo"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oyP-xo-9g4">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
@@ -89,7 +88,6 @@
                 <navigationController id="vr9-py-Oyv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Finances" image="piggybank" id="RFH-CN-aY5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0aF-vB-lMH">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
@@ -906,6 +904,7 @@
                         <color key="backgroundColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="DnN-v7-UbL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rmp-cn-NJ9" secondAttribute="leadingMargin" constant="30" id="2jn-4n-ceM"/>
                             <constraint firstItem="tD8-9T-WfG" firstAttribute="centerX" secondItem="rmp-cn-NJ9" secondAttribute="centerX" id="58s-lm-lyU"/>
                             <constraint firstItem="tD8-9T-WfG" firstAttribute="top" secondItem="Ah5-xc-5TL" secondAttribute="bottom" constant="30" id="7tm-dr-KR8"/>
                             <constraint firstItem="DnN-v7-UbL" firstAttribute="top" secondItem="jiB-OS-L0l" secondAttribute="bottom" constant="60" id="8dX-IG-PtG"/>
@@ -915,6 +914,7 @@
                             <constraint firstItem="Ah5-xc-5TL" firstAttribute="centerX" secondItem="rmp-cn-NJ9" secondAttribute="centerX" id="Zc5-ND-mk5"/>
                             <constraint firstItem="EW5-Ez-T5w" firstAttribute="centerX" secondItem="rmp-cn-NJ9" secondAttribute="centerX" id="Zga-Hk-5jG"/>
                             <constraint firstItem="jiB-OS-L0l" firstAttribute="top" secondItem="tD8-9T-WfG" secondAttribute="bottom" constant="60" id="bxR-fV-dLY"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="DnN-v7-UbL" secondAttribute="trailing" constant="30" id="eyd-Nv-Avy"/>
                             <constraint firstItem="DnN-v7-UbL" firstAttribute="centerX" secondItem="rmp-cn-NJ9" secondAttribute="centerX" id="ixc-iA-vb2"/>
                             <constraint firstItem="jiB-OS-L0l" firstAttribute="centerX" secondItem="rmp-cn-NJ9" secondAttribute="centerX" id="ntL-KX-0BY"/>
                         </constraints>
@@ -1919,7 +1919,6 @@
                     <tabBarItem key="tabBarItem" title="Calendar" id="AhC-Db-ups"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EBu-lN-fFP">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -1938,7 +1937,6 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KKh-9I-YNv" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8Tp-8T-c0x">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -2066,7 +2064,6 @@
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="Gt1-Zp-4CX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Aro-A6-NPG">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
