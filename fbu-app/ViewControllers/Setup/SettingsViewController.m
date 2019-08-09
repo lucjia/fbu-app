@@ -57,6 +57,9 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
+    
     self.user = [PFUser currentUser];
     if (self.user[@"persona"] == nil) {
         [Persona createPersonaUponRegistrationWithCompletion:nil];

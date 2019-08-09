@@ -1139,8 +1139,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4C-Ov-wJY">
-                                <rect key="frame" x="142.5" y="457" width="129" height="30"/>
-                                <state key="normal" title="Back to Reminders">
+                                <rect key="frame" x="190" y="457" width="34" height="30"/>
+                                <state key="normal" title="Back">
                                     <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
@@ -1235,7 +1235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1CD-xt-Kbn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4925" y="1252"/>
+            <point key="canvasLocation" x="4924.6376811594209" y="1251.5625"/>
         </scene>
         <!--Key View Controller-->
         <scene sceneID="PfT-xe-SFU">
@@ -1317,10 +1317,10 @@
             </objects>
             <point key="canvasLocation" x="6174" y="1252"/>
         </scene>
-        <!--Add a bill-->
+        <!--Add a Bill-->
         <scene sceneID="an3-GB-kfT">
             <objects>
-                <viewController title="Add a bill" id="t5K-h7-cgS" customClass="NewBillViewController" sceneMemberID="viewController">
+                <viewController title="Add a Bill" id="t5K-h7-cgS" customClass="NewBillViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EKG-7S-Kzf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1446,7 +1446,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVd-bR-jr6">
                                 <rect key="frame" x="82" y="461.5" width="250" height="40"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="t2l-qt-jxJ"/>
                                     <constraint firstAttribute="width" constant="250" id="tio-wX-5HM"/>
@@ -1463,7 +1463,7 @@
                                 <rect key="frame" x="95.5" y="320.5" width="51" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Button">
-                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="changePayer:" destination="t5K-h7-cgS" eventType="touchUpInside" id="bWq-Kd-mNj"/>
@@ -1473,7 +1473,7 @@
                                 <rect key="frame" x="138.5" y="358.5" width="245.5" height="73"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="NameOne NameTwo NameThree NameFour NameFive NameSix">
-                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <segue destination="XUN-QG-uSZ" kind="show" id="lVk-W7-tHc"/>
@@ -1535,10 +1535,10 @@
             </objects>
             <point key="canvasLocation" x="6573.913043478261" y="527.67857142857144"/>
         </scene>
-        <!--Bill details-->
+        <!--Bill Details-->
         <scene sceneID="JvR-Bg-2ga">
             <objects>
-                <viewController title="Bill details" id="XUN-QG-uSZ" customClass="ChangeSplitViewController" sceneMemberID="viewController">
+                <viewController title="Bill Details" id="XUN-QG-uSZ" customClass="ChangeSplitViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rOg-KB-PEF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1556,7 +1556,7 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oI1-3H-qW0">
                                                     <rect key="frame" x="28" y="19" width="51" height="66"/>
-                                                    <color key="onTintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="onTintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <connections>
                                                         <action selector="tapSwitch:" destination="XOJ-Cb-Y1p" eventType="valueChanged" id="yke-Ze-mw0"/>
                                                     </connections>
@@ -1606,7 +1606,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWm-bB-qse">
                                 <rect key="frame" x="82" y="733" width="250" height="40"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="eBM-WH-8Xg"/>
                                     <constraint firstAttribute="width" constant="250" id="vVO-aF-U7Z"/>
@@ -1752,7 +1752,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8q-l7-2jD">
                                 <rect key="frame" x="134" y="123" width="250" height="40"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="Ejr-ZO-OVS"/>
                                     <constraint firstAttribute="height" constant="40" id="w2E-8r-DKz"/>
@@ -1939,7 +1939,7 @@
                         <subviews>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXE-76-ghj">
                                 <rect key="frame" x="82" y="464" width="250" height="40"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="8K7-2T-2tI"/>
                                     <constraint firstAttribute="width" constant="250" id="fsw-6J-vcC"/>

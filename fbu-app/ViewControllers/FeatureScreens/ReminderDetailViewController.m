@@ -27,7 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
+    
     self.senderLabel.text = self.reminder.reminderSender[@"firstName"];
     self.reminderTextView.text = self.reminder.reminderText;
     self.dateField.text = self.reminder.dueDateString;
