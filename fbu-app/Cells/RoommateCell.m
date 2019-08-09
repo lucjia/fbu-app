@@ -77,17 +77,6 @@
                 }
                 if ([requestsSent containsObject:receiverPersona] == NO && [acceptedRequests containsObject:receiverPersona] == NO) {
                     [RoommateCell sendRequestToPersona:receiverPersona sender:senderPersona requestsSentToUsers:requestsSent allertReceiver:self];
-                    
-                    CABasicAnimation *theAnimation;
-                    
-                    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-                    theAnimation.duration=0.5;
-                    theAnimation.repeatCount=NAN;
-                    theAnimation.autoreverses = NO;
-                    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-                    theAnimation.toValue=[NSNumber numberWithFloat:0.0];
-                    [self.sendButtonView.layer addAnimation:theAnimation forKey:@"animateOpacity"];
-                    
                 } else {
                     [self createAlertController:@"Cannot Send request" message:@"You've already sent this user a request!"];
                 }

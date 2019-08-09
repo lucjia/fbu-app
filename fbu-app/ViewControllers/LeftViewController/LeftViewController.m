@@ -59,7 +59,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LeftViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LeftViewCell" forIndexPath:indexPath];
     
-    [cell updateProperties:self.titlesArray[indexPath.row] index:indexPath.row];
+    [cell updateProperties:self.titlesArray[indexPath.row]];
     
     return cell;
 }
@@ -115,8 +115,7 @@
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
     // Reminder Subfeatures
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Sent Reminders"]) {
-
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"      Sent Reminders"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
@@ -150,7 +149,7 @@
         UINavigationController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"HouseRules"];
         [self presentViewController:viewController animated:YES completion:nil];
         
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Progress"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"      Progress"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         // segue to another view controller to see progress
         ProgressViewController *progressVC = [postSearch instantiateViewControllerWithIdentifier:@"ProgressVC"];
