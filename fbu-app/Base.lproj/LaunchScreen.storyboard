@@ -23,18 +23,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient2" translatesAutoresizingMaskIntoConstraints="NO" id="fk6-vE-Fg5">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house100" translatesAutoresizingMaskIntoConstraints="NO" id="7yh-PN-cXW">
-                                <rect key="frame" x="157" y="348" width="100" height="100"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homiIcon" translatesAutoresizingMaskIntoConstraints="NO" id="E4d-Zt-Yjd">
+                                <rect key="frame" x="107" y="248" width="200" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="cvy-tK-FAl"/>
-                                    <constraint firstAttribute="height" constant="100" id="i0K-9g-rFo"/>
+                                    <constraint firstAttribute="width" constant="200" id="gTD-JD-ADY"/>
+                                    <constraint firstAttribute="height" constant="200" id="mrs-a2-1QS"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Homi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zry-U3-HCH">
-                                <rect key="frame" x="147.5" y="448" width="119.5" height="79"/>
+                                <rect key="frame" x="147.5" y="468" width="119" height="58.5"/>
                                 <fontDescription key="fontDescription" name="Baloo-Regular" family="Baloo" pointSize="50"/>
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -42,14 +39,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Zry-U3-HCH" firstAttribute="centerX" secondItem="7yh-PN-cXW" secondAttribute="centerX" id="28Z-In-eSM"/>
-                            <constraint firstItem="7yh-PN-cXW" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-50" id="2u9-CC-twR"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="fk6-vE-Fg5" secondAttribute="bottom" id="6Qe-Os-Orf"/>
-                            <constraint firstItem="fk6-vE-Fg5" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="Cmo-3d-zP8"/>
-                            <constraint firstItem="7yh-PN-cXW" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="GMf-3C-U53"/>
-                            <constraint firstItem="fk6-vE-Fg5" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="NVd-vR-ZOD"/>
-                            <constraint firstItem="Zry-U3-HCH" firstAttribute="top" secondItem="7yh-PN-cXW" secondAttribute="bottom" id="P4t-EB-M6p"/>
-                            <constraint firstItem="fk6-vE-Fg5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sfH-am-fys"/>
+                            <constraint firstItem="Zry-U3-HCH" firstAttribute="centerX" secondItem="E4d-Zt-Yjd" secondAttribute="centerX" id="02Z-QD-sgb"/>
+                            <constraint firstItem="E4d-Zt-Yjd" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-100" id="GiH-qF-1m4"/>
+                            <constraint firstItem="Zry-U3-HCH" firstAttribute="top" secondItem="E4d-Zt-Yjd" secondAttribute="bottom" constant="20" id="QPq-SX-82G"/>
+                            <constraint firstItem="E4d-Zt-Yjd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="WAl-Fw-gpC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -60,7 +53,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gradient2" width="1108" height="1534"/>
-        <image name="house100" width="100" height="100"/>
+        <image name="homiIcon" width="938" height="938"/>
     </resources>
 </document>
