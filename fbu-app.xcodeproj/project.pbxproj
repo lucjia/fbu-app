@@ -35,6 +35,8 @@
 		7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04922EA4FB600F59BCF /* ModifyHouseViewController.m */; };
 		7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04C22EA592500F59BCF /* AddHousemateViewController.m */; };
 		774B123222E62954000764BD /* PlainRoomateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123122E62954000764BD /* PlainRoomateCell.m */; };
+		777E890F22FCF6B50086852B /* BalanceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */; };
+		777F344622FCF83A003E5E5D /* BillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F344522FCF83A003E5E5D /* BillCell.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
 		7794308322DE8F1A00D9FDDA /* RuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794308222DE8F1A00D9FDDA /* RuleCell.m */; };
 		77D6AD1022F3A82E00541502 /* HousemateBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D6AD0F22F3A82E00541502 /* HousemateBalanceCell.m */; };
@@ -79,6 +81,10 @@
 		85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */; };
 		85E7A19022DFDDF1006C1F38 /* PreferenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */; };
 		85EAAC5922FCC2CD00EAC240 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC5822FCC2CD00EAC240 /* MapViewController.m */; };
+		85EAAC4222FC7E6700EAC240 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */; };
+		85EAAC4B22FC8DE500EAC240 /* IntentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC4A22FC8DE500EAC240 /* IntentHandler.m */; };
+		85EAAC4F22FC8DE500EAC240 /* Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 85EAAC4722FC8DE500EAC240 /* Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		85EAAC5322FC8E2200EAC240 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,7 +102,28 @@
 			remoteGlobalIDString = 85E7A13A22DD214D006C1F38;
 			remoteInfo = "fbu-app";
 		};
+		85EAAC4D22FC8DE500EAC240 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85E7A13322DD214C006C1F38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85EAAC4622FC8DE500EAC240;
+			remoteInfo = Intents;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		85EAAC4022FC70E700EAC240 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				85EAAC4F22FC8DE500EAC240 /* Intents.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0EE81797B7475BB3DA75125D /* Pods-fbu-appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-appTests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-appTests/Pods-fbu-appTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +180,10 @@
 		7705B04C22EA592500F59BCF /* AddHousemateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddHousemateViewController.m; sourceTree = "<group>"; };
 		774B123022E62954000764BD /* PlainRoomateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlainRoomateCell.h; sourceTree = "<group>"; };
 		774B123122E62954000764BD /* PlainRoomateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlainRoomateCell.m; sourceTree = "<group>"; };
+		777E890D22FCF6B50086852B /* BalanceDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceDetailsViewController.h; sourceTree = "<group>"; };
+		777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceDetailsViewController.m; sourceTree = "<group>"; };
+		777F344422FCF83A003E5E5D /* BillCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillCell.h; sourceTree = "<group>"; };
+		777F344522FCF83A003E5E5D /* BillCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillCell.m; sourceTree = "<group>"; };
 		7794307E22DE7E2A00D9FDDA /* House.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = House.h; sourceTree = "<group>"; };
 		7794307F22DE7E2A00D9FDDA /* House.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = House.m; sourceTree = "<group>"; };
 		7794308122DE8F1A00D9FDDA /* RuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleCell.h; sourceTree = "<group>"; };
@@ -243,6 +274,11 @@
 		85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferenceCell.m; sourceTree = "<group>"; };
 		85EAAC5722FCC2CD00EAC240 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		85EAAC5822FCC2CD00EAC240 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
+		85EAAC4722FC8DE500EAC240 /* Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Intents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		85EAAC4922FC8DE500EAC240 /* IntentHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentHandler.h; sourceTree = "<group>"; };
+		85EAAC4A22FC8DE500EAC240 /* IntentHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentHandler.m; sourceTree = "<group>"; };
+		85EAAC4C22FC8DE500EAC240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ACABEB17CBA90FA88762331 /* Pods_fbu_appUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_appUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F897F31FD7CDA5199E2D8C59 /* Pods_fbu_appTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_appTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF11A48580BE19DA3BF44E01 /* Pods_fbu_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbu_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,6 +306,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9EF8C9E32B8080FFEDB5EA /* Pods_fbu_appUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85EAAC4422FC8DE500EAC240 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +438,8 @@
 				77DAB40622F6BD7F0000840C /* NewBillViewController.m */,
 				77DAB40E22F8E6580000840C /* ChangeSplitViewController.h */,
 				77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */,
+				777E890D22FCF6B50086852B /* BalanceDetailsViewController.h */,
+				777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -410,6 +455,8 @@
 				644B15E422F3726200E4A60B /* EventReminderCell.m */,
 				77DAB41122F8FE5E0000840C /* SplitDebtorCell.h */,
 				77DAB41222F8FE5E0000840C /* SplitDebtorCell.m */,
+				777F344422FCF83A003E5E5D /* BillCell.h */,
+				777F344522FCF83A003E5E5D /* BillCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -513,6 +560,7 @@
 				85E7A13D22DD214D006C1F38 /* fbu-app */,
 				85E7A15622DD214E006C1F38 /* fbu-appTests */,
 				85E7A16122DD214E006C1F38 /* fbu-appUITests */,
+				85EAAC4822FC8DE500EAC240 /* Intents */,
 				85E7A13C22DD214D006C1F38 /* Products */,
 				FF8C173761C593207C234818 /* Pods */,
 				C5C72AEF3C73C48D0CBC31C9 /* Frameworks */,
@@ -525,6 +573,7 @@
 				85E7A13B22DD214D006C1F38 /* fbu-app.app */,
 				85E7A15322DD214E006C1F38 /* fbu-appTests.xctest */,
 				85E7A15E22DD214E006C1F38 /* fbu-appUITests.xctest */,
+				85EAAC4722FC8DE500EAC240 /* Intents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -544,6 +593,7 @@
 				85E7A14722DD214E006C1F38 /* Assets.xcassets */,
 				85E7A14C22DD214E006C1F38 /* Info.plist */,
 				85E7A14D22DD214E006C1F38 /* main.m */,
+				85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */,
 			);
 			path = "fbu-app";
 			sourceTree = "<group>";
@@ -564,6 +614,16 @@
 				85E7A16422DD214E006C1F38 /* Info.plist */,
 			);
 			path = "fbu-appUITests";
+			sourceTree = "<group>";
+		};
+		85EAAC4822FC8DE500EAC240 /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				85EAAC4922FC8DE500EAC240 /* IntentHandler.h */,
+				85EAAC4A22FC8DE500EAC240 /* IntentHandler.m */,
+				85EAAC4C22FC8DE500EAC240 /* Info.plist */,
+			);
+			path = Intents;
 			sourceTree = "<group>";
 		};
 		C5C72AEF3C73C48D0CBC31C9 /* Frameworks */ = {
@@ -602,10 +662,12 @@
 				85E7A13922DD214D006C1F38 /* Resources */,
 				B117DF263DCDBCB7F693FB34 /* [CP] Embed Pods Frameworks */,
 				979D54189139AE7957FCF420 /* [CP] Copy Pods Resources */,
+				85EAAC4022FC70E700EAC240 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				85EAAC4E22FC8DE500EAC240 /* PBXTargetDependency */,
 			);
 			name = "fbu-app";
 			productName = "fbu-app";
@@ -650,6 +712,23 @@
 			productReference = 85E7A15E22DD214E006C1F38 /* fbu-appUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		85EAAC4622FC8DE500EAC240 /* Intents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85EAAC5022FC8DE500EAC240 /* Build configuration list for PBXNativeTarget "Intents" */;
+			buildPhases = (
+				85EAAC4322FC8DE500EAC240 /* Sources */,
+				85EAAC4422FC8DE500EAC240 /* Frameworks */,
+				85EAAC4522FC8DE500EAC240 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Intents;
+			productName = Intents;
+			productReference = 85EAAC4722FC8DE500EAC240 /* Intents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -665,6 +744,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.Siri = {
+								enabled = 1;
+							};
 						};
 					};
 					85E7A15222DD214E006C1F38 = {
@@ -674,6 +756,9 @@
 					85E7A15D22DD214E006C1F38 = {
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 85E7A13A22DD214D006C1F38;
+					};
+					85EAAC4622FC8DE500EAC240 = {
+						CreatedOnToolsVersion = 10.3;
 					};
 				};
 			};
@@ -693,6 +778,7 @@
 				85E7A13A22DD214D006C1F38 /* fbu-app */,
 				85E7A15222DD214E006C1F38 /* fbu-appTests */,
 				85E7A15D22DD214E006C1F38 /* fbu-appUITests */,
+				85EAAC4622FC8DE500EAC240 /* Intents */,
 			);
 		};
 /* End PBXProject section */
@@ -717,6 +803,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		85E7A15C22DD214E006C1F38 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85EAAC4522FC8DE500EAC240 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -845,6 +938,7 @@
 				77D6AD1022F3A82E00541502 /* HousemateBalanceCell.m in Sources */,
 				85C5C0BC22F366CA001982F1 /* KeyViewController.m in Sources */,
 				85EAAC5922FCC2CD00EAC240 /* MapViewController.m in Sources */,
+				777F344622FCF83A003E5E5D /* BillCell.m in Sources */,
 				64678F8922EFA3FF00F75070 /* Event.m in Sources */,
 				85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */,
 				85729DB822E141B7009AD717 /* LocationCell.m in Sources */,
@@ -870,8 +964,10 @@
 				85E7A14E22DD214E006C1F38 /* main.m in Sources */,
 				6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */,
 				6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */,
+				777E890F22FCF6B50086852B /* BalanceDetailsViewController.m in Sources */,
 				85CB80AE22EBB4350070AC4E /* ReminderDetailViewController.m in Sources */,
 				85CB80A522EA4E010070AC4E /* ReminderViewController.m in Sources */,
+				85EAAC4222FC7E6700EAC240 /* Intents.intentdefinition in Sources */,
 				85C5C0C022F3AFF1001982F1 /* KeyCell.m in Sources */,
 				645088C722EA827300319C93 /* MainViewController.m in Sources */,
 				6429400022E26F7F00961F29 /* Request.m in Sources */,
@@ -916,6 +1012,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		85EAAC4322FC8DE500EAC240 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85EAAC5322FC8E2200EAC240 /* Intents.intentdefinition in Sources */,
+				85EAAC4B22FC8DE500EAC240 /* IntentHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -928,6 +1033,11 @@
 			isa = PBXTargetDependency;
 			target = 85E7A13A22DD214D006C1F38 /* fbu-app */;
 			targetProxy = 85E7A15F22DD214E006C1F38 /* PBXContainerItemProxy */;
+		};
+		85EAAC4E22FC8DE500EAC240 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85EAAC4622FC8DE500EAC240 /* Intents */;
+			targetProxy = 85EAAC4D22FC8DE500EAC240 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1179,6 +1289,44 @@
 			};
 			name = Release;
 		};
+		85EAAC5122FC8DE500EAC240 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W2PUF8XW54;
+				INFOPLIST_FILE = Intents/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lucjia-edrisian.fbu-app5.Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		85EAAC5222FC8DE500EAC240 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W2PUF8XW54;
+				INFOPLIST_FILE = Intents/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lucjia-edrisian.fbu-app5.Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1214,6 +1362,15 @@
 			buildConfigurations = (
 				85E7A16E22DD214E006C1F38 /* Debug */,
 				85E7A16F22DD214E006C1F38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85EAAC5022FC8DE500EAC240 /* Build configuration list for PBXNativeTarget "Intents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85EAAC5122FC8DE500EAC240 /* Debug */,
+				85EAAC5222FC8DE500EAC240 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

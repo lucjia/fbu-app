@@ -1,4 +1,3 @@
-//
 //  BalanceDetailsViewController.m
 //  fbu-app
 //
@@ -9,6 +8,7 @@
 #import "BalanceDetailsViewController.h"
 
 @interface BalanceDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalBalanceLabel;
@@ -89,7 +89,7 @@
             cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getLent:bill]];
             cell.moneyLabel.textColor = [UIColor greenColor];
         }
-
+        
     }];
     
     return cell;

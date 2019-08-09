@@ -15,6 +15,10 @@
 #import "CustomColor.h"
 #import "Accessibility.h"
 
+// Import intent headers
+#import <Intents/Intents.h>
+#import "CreateReminderIntent.h"
+
 @interface ComposeReminderViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     Persona *recipient;
 }
@@ -181,6 +185,23 @@
                 Reminder *newRem = [Reminder createReminder:self.receiver text:self.reminderTextView.text dueDate:dueDate dueDateString:self.dueDateString lockEditing:self.lockEditingSwitch.isOn withCompletion:nil];
                 
                 [self.delegate refreshWithNewReminder:newRem];
+                
+                CreateReminderIntent* intent = [[CreateReminderIntent alloc] init];
+                intent.text = self.reminderTextView.text;
+                intent.recipient = self.receiver;
+                intent.dueDate = dueDate;
+                
+                // Set suggested phrase (displayed when creating shortcuts)
+                intent.suggestedInvocationPhrase = @"Create Reminder on Homi";
+                
+                // Donate the interaction shortcut
+                INInteraction *interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
+                [interaction donateInteractionWithCompletion:^(NSError *_Nullable error) {
+                    if (error) {
+                        NSLog(@"Failed to donate interaction: %@", error.localizedDescription);
+                    }
+                }];
+                
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>INEnums</key>
+	<array/>
+	<key>INIntentDefinitionModelVersion</key>
+	<string>1.0</string>
+	<key>INIntentDefinitionSystemVersion</key>
+	<string>18F203</string>
+	<key>INIntentDefinitionToolsBuildVersion</key>
+	<string>10G8</string>
+	<key>INIntentDefinitionToolsVersion</key>
+	<string>10.3</string>
+	<key>INIntents</key>
+	<array>
+		<dict>
+			<key>INIntentCategory</key>
+			<string>create</string>
+			<key>INIntentDefaultImageName</key>
+			<string>filledcheck2</string>
+			<key>INIntentDescription</key>
+			<string>Create a reminder on Homi and set its text, recipient, and due date.</string>
+			<key>INIntentDescriptionID</key>
+			<string>SQ0pPa</string>
+			<key>INIntentLastParameterTag</key>
+			<integer>13</integer>
+			<key>INIntentName</key>
+			<string>CreateReminder</string>
+			<key>INIntentParameterCombinations</key>
+			<dict>
+				<key>dueDate,text,recipient</key>
+				<dict>
+					<key>INIntentParameterCombinationIsPrimary</key>
+					<true/>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string>Create a reminder on Homi and set its text, recipient, and due date.</string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>wVIpD6</string>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Create Reminder On Homi</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>mkozGI</string>
+				</dict>
+				<key>text,recipient</key>
+				<dict>
+					<key>INIntentParameterCombinationIsPrimary</key>
+					<false/>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string>Create a reminder on Homi and set its text and recipient.</string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>nLsXaJ</string>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Create Reminder On Homi</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>iFtCd8</string>
+				</dict>
+			</dict>
+			<key>INIntentParameters</key>
+			<array>
+				<dict>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>1</integer>
+					<key>INIntentParameterName</key>
+					<string>text</string>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<false/>
+					<key>INIntentParameterTag</key>
+					<integer>10</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>2</integer>
+					<key>INIntentParameterName</key>
+					<string>recipient</string>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<false/>
+					<key>INIntentParameterTag</key>
+					<integer>13</integer>
+					<key>INIntentParameterType</key>
+					<string>Object</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>3</integer>
+					<key>INIntentParameterName</key>
+					<string>dueDate</string>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<false/>
+					<key>INIntentParameterTag</key>
+					<integer>6</integer>
+					<key>INIntentParameterType</key>
+					<string>Object</string>
+				</dict>
+			</array>
+			<key>INIntentResponse</key>
+			<dict>
+				<key>INIntentResponseCodes</key>
+				<array>
+					<dict>
+						<key>INIntentResponseCodeFormatString</key>
+						<string>Sorry, there is an error.</string>
+						<key>INIntentResponseCodeFormatStringID</key>
+						<string>kHuDX8</string>
+						<key>INIntentResponseCodeName</key>
+						<string>failure</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>INIntentResponseCodeFormatString</key>
+						<string>Your reminder has been set!</string>
+						<key>INIntentResponseCodeFormatStringID</key>
+						<string>lcToPu</string>
+						<key>INIntentResponseCodeName</key>
+						<string>success</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<true/>
+					</dict>
+				</array>
+				<key>INIntentResponseLastParameterTag</key>
+				<integer>0</integer>
+				<key>INIntentResponseParameters</key>
+				<array/>
+			</dict>
+			<key>INIntentRestrictions</key>
+			<integer>0</integer>
+			<key>INIntentTitle</key>
+			<string>Create Reminder On Homi</string>
+			<key>INIntentTitleID</key>
+			<string>OtCdgv</string>
+			<key>INIntentType</key>
+			<string>Custom</string>
+			<key>INIntentUserConfirmationRequired</key>
+			<true/>
+			<key>INIntentVerb</key>
+			<string>Create</string>
+		</dict>
+	</array>
+</dict>
+</plist>
