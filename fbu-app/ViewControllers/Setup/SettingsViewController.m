@@ -181,10 +181,10 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     self.bioTextView.text = [PFUser currentUser][@"persona"][@"bio"];
     if ([self.bioTextView.text isEqualToString:@""]) {
         self.bioTextView.text = @"Write a bio...";
-        self.bioTextView.textColor = [CustomColor midToneOne:1.0];
+        self.bioTextView.textColor = [UIColor lightGrayColor];
     }
     self.bioTextView.layer.borderWidth = 0.5f;
-    self.bioTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor];
+    self.bioTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.4] CGColor];
     self.bioTextView.layer.cornerRadius = 5;
     self.bioTextView.delegate = self;
     
@@ -313,7 +313,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if ([self.bioTextView.text isEqualToString:@""]) {
         self.bioTextView.text = @"Write a bio...";
-        self.bioTextView.textColor = [CustomColor midToneOne:1.0];
+        self.bioTextView.textColor = [UIColor lightGrayColor];
     }
     [self.bioTextView resignFirstResponder];
 }
@@ -414,7 +414,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     }
     
     // Set bio
-    if ([self.bioTextView.text isEqualToString:@"Write a bio..."] && self.bioTextView.textColor == [CustomColor midToneOne:1.0]) {
+    if ([self.bioTextView.text isEqualToString:@"Write a bio..."] && self.bioTextView.textColor == [CustomColor darkMainColor:1.0]) {
         self.bio = @"";
     } else {
         self.bio = self.bioTextView.text;

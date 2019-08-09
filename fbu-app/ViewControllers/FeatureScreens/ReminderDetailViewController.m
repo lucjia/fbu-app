@@ -71,7 +71,7 @@
 
 - (void) initializeTextView {
     self.reminderTextView.layer.borderWidth = 0.5f;
-    self.reminderTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor];
+    self.reminderTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.4] CGColor];
     self.reminderTextView.layer.cornerRadius = 5;
     self.reminderTextView.delegate = self;
 }
