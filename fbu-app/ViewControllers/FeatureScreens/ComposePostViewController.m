@@ -170,14 +170,14 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     self.postTextView.delegate = self;
     if ([self.postTextView.text isEqualToString:@""]) {
         self.postTextView.text = @"Write a note...";
-        self.postTextView.textColor = [CustomColor midToneTwo:1.0];
+        self.postTextView.textColor = [UIColor lightGrayColor];
     }
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if ([self.postTextView.text isEqualToString:@"Write a note..."]) {
         self.postTextView.text = @"";
-        self.postTextView.textColor = [CustomColor midToneOne:1.0];
+        self.postTextView.textColor = [CustomColor darkMainColor:1.0];
     }
     [self.postTextView becomeFirstResponder];
 }
@@ -185,7 +185,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if ([self.postTextView.text isEqualToString:@""]) {
         self.postTextView.text = @"Write a note...";
-        self.postTextView.textColor = [CustomColor midToneTwo:1.0];
+        self.postTextView.textColor = [UIColor lightGrayColor];
     }
     [self.postTextView resignFirstResponder];
 }

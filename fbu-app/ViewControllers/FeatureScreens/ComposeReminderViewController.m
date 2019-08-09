@@ -120,20 +120,20 @@
 
 - (void) initializeTextView {
     self.reminderTextView.layer.borderWidth = 0.5f;
-    self.reminderTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor];
+    self.reminderTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.4] CGColor];
     self.reminderTextView.layer.cornerRadius = 5;
     self.reminderTextView.delegate = self;
     
     if ([self.reminderTextView.text isEqualToString:@""]) {
         self.reminderTextView.text = @"Write a reminder...";
-        self.reminderTextView.textColor = [CustomColor midToneTwo:1.0];
+        self.reminderTextView.textColor = [UIColor lightGrayColor];
     }
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if ([self.reminderTextView.text isEqualToString:@"Write a reminder..."]) {
         self.reminderTextView.text = @"";
-        self.reminderTextView.textColor = [CustomColor midToneOne:1.0];
+        self.reminderTextView.textColor = [CustomColor darkMainColor:1.0];
     }
     [self.reminderTextView becomeFirstResponder];
 }
@@ -141,7 +141,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if ([self.reminderTextView.text isEqualToString:@""]) {
         self.reminderTextView.text = @"Write a reminder...";
-        self.reminderTextView.textColor = [CustomColor midToneTwo:1.0];
+        self.reminderTextView.textColor = [UIColor lightGrayColor];
     }
     [self.reminderTextView resignFirstResponder];
 }
