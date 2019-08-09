@@ -1878,7 +1878,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Myv-oP-cGD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7302.898550724638" y="1944.6428571428571"/>
+            <point key="canvasLocation" x="7303" y="1995"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="aru-Ya-Lnf">

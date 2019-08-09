@@ -49,9 +49,15 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self reloadView];
+}
+
 - (void) fetchBills {
     self.bills = self.balance.bills;
     self.bills = [[self.bills reverseObjectEnumerator] allObjects];
+    //self.bills = [self.bills subarrayWithRange:NSMakeRange(0, MIN(10, self.bills.count))];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
