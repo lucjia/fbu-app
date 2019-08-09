@@ -10,9 +10,10 @@
 #import "Bill.h"
 #import "Persona.h"
 #import "ChangeSplitViewController.h"
+#import "Parse/Parse.h"
 
 
-@interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate>
+@interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITextField *memoField;
 @property (weak, nonatomic) IBOutlet UITextField *paidField;
@@ -20,15 +21,21 @@
 - (IBAction)tapAddBill:(id)sender;
 @property (strong, nonatomic) IBOutlet NSMutableArray* debtors;
 @property (strong, nonatomic) IBOutlet NSMutableArray* portions;
+@property (strong, nonatomic) IBOutlet NSMutableArray* housemates;
 @property (strong, nonatomic) IBOutlet Persona* payer;
 @property (weak, nonatomic) IBOutlet UITextField *dateField;
-@property (weak, nonatomic) NSDate *date;
+@property (strong, nonatomic) NSDate *date;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIView *dateView;
 - (IBAction)tapDateField:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *payerButton;
 @property (weak, nonatomic) IBOutlet UIButton *debtorsButton;
 @property (strong,nonatomic) NSMutableArray* possibleDebtors;
+- (IBAction)tapDateDone:(id)sender;
+- (IBAction)tapPayerDone:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *payerView;
+- (IBAction)changePayer:(id)sender;
+@property (weak, nonatomic) IBOutlet UIPickerView *payerPicker;
 
 
 @end
@@ -38,8 +45,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.payerPicker.delegate = self;
+    self.payerPicker.dataSource = self;
+    
     self.paidField.delegate = self;
-    self.navigationItem.title = @"Add a bill";
     
     self.payer = [PFUser.currentUser objectForKey:@"persona"];
     [self.payer fetchIfNeeded];
@@ -47,11 +56,10 @@
     [self fetchpossibleDebtors];
     self.debtors = [self.possibleDebtors mutableCopy];
     
-    [self.dateView setHidden:YES];
-    self.dateView.tag=99;
-    
-    self.dateField.placeholder = [self formatDate:[NSDate date]];
+    self.dateField.text = [self formatDate:[NSDate date]];
     self.date = [NSDate date];
+    
+    self.paidField.text = [self formatCurrency:[NSDecimalNumber zero]];
     
     // Do any additional setup after loading the view.
 }
@@ -59,11 +67,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [self fetchpossibleDebtors];
-    
     [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
     NSMutableArray *debtorNames = [[NSMutableArray alloc] init];
     for(Persona *debtor in self.debtors) {
-        [debtor fetchIfNeeded];
         [debtorNames addObject:[self getName:debtor]];
     }
     [self.debtorsButton setTitle:[debtorNames componentsJoinedByString:@", "] forState:UIControlStateNormal];
@@ -73,19 +79,12 @@
     Persona *persona = [PFUser.currentUser objectForKey:@"persona"];
     [persona fetchIfNeeded];
     House *house = [House getHouse:persona];
-    self.possibleDebtors = [[house objectForKey:@"housemates"] mutableCopy];
-    [self.possibleDebtors removeObject:self.payer];
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-    
-    if(touch.view.tag!=99){
-        [self.dateView setHidden:YES];
-        self.date = self.datePicker.date;
-        self.dateField.text = [self formatDate:self.datePicker.date];
+    self.housemates = [house objectForKey:@"housemates"];
+    for(Persona* housemate in self.housemates){
+        [housemate fetchIfNeeded];
     }
-    
+    self.possibleDebtors = [self.housemates mutableCopy];
+    [self.possibleDebtors removeObject:self.payer];
 }
 
 - (NSString *) getName:(Persona*)persona {
@@ -93,8 +92,10 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    if(string.length > 0){
+    if(range.location == 0){
+        return NO;
+    }
+    else if(string.length > 0){
         NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
         NSCharacterSet *characterSetFromTextField = [NSCharacterSet characterSetWithCharactersInString:string];
         
@@ -166,16 +167,11 @@
 
 - (IBAction)tapAddBill:(id)sender {
     
-    if ((self.paidField.text && self.paidField.text.length > 0) && (self.memoField.text && self.memoField.text.length > 0)) {
+    [self getPortions];
+    
+    if (self.paidField.text.length > 1 && (self.memoField.text && self.memoField.text.length > 0)) {
         
-        NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
-        NSDecimalNumber *portion = [[self getPaid] decimalNumberByDividingBy:numSplit];
-        NSArray *portions = [NSArray array];
-        for (int i = 0; i < self.debtors.count; i++) {
-            portions = [portions arrayByAddingObject:portion];
-        }
-        
-        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [Bill createBill:self.date billMemo:self.memoField.text payer:self.payer totalPaid:[self getPaid] debtors:self.debtors portionLent:self.portions image:self.pictureView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             NSLog(@"new bill created");
         }];
         
@@ -192,8 +188,8 @@
 }
 
 - (NSDecimalNumber*)getPaid {
-    if (![self.paidField.text isEqualToString:@""]){
-        return [NSDecimalNumber decimalNumberWithString:self.paidField.text];
+    if ([self.paidField.text length] > 1){
+        return [NSDecimalNumber decimalNumberWithString:[self.paidField.text substringFromIndex:1]];
     }else{
         return [NSDecimalNumber zero];
     }
@@ -214,14 +210,77 @@
     return formattedDate;
 }
 
+- (void) getPortions {
+    if(self.portions == nil){
+        NSDecimalNumber* numSplit = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:(self.debtors.count+1)];
+        NSDecimalNumber *portion = [[self getPaid] decimalNumberByDividingBy:numSplit];
+        self.portions = [[NSMutableArray alloc] init];
+        for (int i = 0; i < self.debtors.count; i++) {
+            [self.portions addObject:portion];
+        }
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self getPortions];
+    
     ChangeSplitViewController *controller = (ChangeSplitViewController *)segue.destinationViewController;
     controller.delegate = self;
     controller.debtors = self.debtors;
+    controller.portions = self.portions;
     controller.payer = self.payer;
     controller.paid = [self getPaid];
     controller.possibleDebtors = self.possibleDebtors;
     
+}
+
+- (IBAction)tapDateDone:(id)sender {
+    [self.dateView setHidden:YES];
+    self.date = self.datePicker.date;
+    self.dateField.text = [self formatDate:self.datePicker.date];
+}
+
+- (NSString *) formatCurrency:(NSDecimalNumber*)money {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    return [numberFormatter stringFromNumber:money];
+}
+
+
+- (IBAction)tapPayerDone:(id)sender {
+    [self.payerView setHidden:YES];
+    [self fetchpossibleDebtors];
+    self.debtors = [self.possibleDebtors mutableCopy];
+    self.portions = nil;
+    [self viewWillAppear:YES];
+    
+}
+
+- (IBAction)changePayer:(id)sender {
+    [self.payerView setHidden:NO];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)thePickerView
+numberOfRowsInComponent:(NSInteger)component {
+    return self.housemates.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)thePickerView
+             titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    Persona *housemate = self.housemates[row];
+    return [self getName:housemate];
+}
+
+- (void)pickerView:(UIPickerView *)thePickerView
+      didSelectRow:(NSInteger)row
+       inComponent:(NSInteger)component {
+    Persona *housemate = self.housemates[row];
+    self.payer = housemate;
+    [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
 }
 
 @end
