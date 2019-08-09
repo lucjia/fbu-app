@@ -38,7 +38,6 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    self.tableView.separatorColor = [CustomColor midToneOne:1.0];
     
     currentPersona = [PFUser currentUser][@"persona"];
     [currentPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {

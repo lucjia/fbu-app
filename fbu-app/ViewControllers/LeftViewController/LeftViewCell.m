@@ -35,7 +35,11 @@
 }
 
 - (void)updatePostSearchProperties:(NSString *)title {
-    self.postSearchTitleLabel.text = title;
+    if ([title isEqualToString:@" "]) {
+        [self setHidden:YES];
+    } else {
+        self.postSearchTitleLabel.text = title;
+    }
 }
 
 @end

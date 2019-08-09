@@ -35,15 +35,18 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    self.titlesArray = @[@"🏠 Create a House",
-                         @"📜 House Rules",
-                         @"📌 Bulletin Board",
-                         @"📅 Calendar",
-                         @"📋 Reminders",
-                         @"      📨 Sent Reminders",
-                         @"      🌱 Progress",
+    self.titlesArray = @[@" ",
+                         @"Create a House",
+                         @"House Rules",
+                         @"Bulletin Board",
+                         @"Calendar",
+                         @"Reminders",
                          @"Finances",
-                         @"⚙ Settings",
+                         @"Settings",
+                         @" ",
+                         @" ",
+                         @" ",
+                         @" ",
                          @"Log Out"];
 }
 
@@ -65,7 +68,7 @@
     MainViewController *mainViewController = (MainViewController *)self.sideMenuController;
     
     // Create a House
-    if (indexPath.row == [self.titlesArray indexOfObject:@"🏠 Create a House"]) {
+    if (indexPath.row == [self.titlesArray indexOfObject:@"Create a House"]) {
         // segue to Create a household view controller
         SettingsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HousematesViewController"];
         
@@ -75,7 +78,7 @@
         [currentController pushViewController:viewController animated:YES];
         
     // Features (Separate storyboard)
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"📌 Bulletin Board"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Bulletin Board"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
@@ -87,7 +90,7 @@
         [rootView setSelectedIndex:0];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"📅 Calendar"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Calendar"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
@@ -99,7 +102,7 @@
         [rootView setSelectedIndex:1];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
     
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"📋 Reminders"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Reminders"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
@@ -112,7 +115,7 @@
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
     // Reminder Subfeatures
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"      📨 Sent Reminders"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"      Sent Reminders"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
@@ -140,20 +143,20 @@
         [rootView setSelectedIndex:3];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
     
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"📜 House Rules"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"House Rules"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         // segue to another view controller to see progress
         UINavigationController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"HouseRules"];
         [self presentViewController:viewController animated:YES completion:nil];
         
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"      🌱 Progress"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"      Progress"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         // segue to another view controller to see progress
         ProgressViewController *progressVC = [postSearch instantiateViewControllerWithIdentifier:@"ProgressVC"];
         [self presentViewController:progressVC animated:YES completion:nil];
         
     // Settings
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"⚙ Settings"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Settings"]) {
         SettingsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsVC"];
         
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
