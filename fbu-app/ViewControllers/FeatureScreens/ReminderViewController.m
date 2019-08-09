@@ -57,6 +57,7 @@
     self.segmentedControl.clipsToBounds = YES;
     
     previousIndex = 0;
+    
     [self fetchReminders];
     
     // Refresh control for "pull to refresh"
@@ -102,8 +103,22 @@
 
 - (void) fetchReminders {
     if (self.segmentIndex == 0) {
+            // animation, occurs every time reminders are changed
+            CATransition *transition = [CATransition animation];
+            transition.type = kCATransitionPush;
+            transition.subtype = kCATransitionFromLeft;
+            transition.duration = 0.4;
+            [self.tableView.layer addAnimation:transition forKey:nil];
         [self fetchReceivedRemindersWithDate];
     } else if (self.segmentIndex == 1) {
+        if (previousIndex == 0) {
+            // animation, occurs every time reminders are changed
+            CATransition *transition = [CATransition animation];
+            transition.type = kCATransitionPush;
+            transition.subtype = kCATransitionFromRight;
+            transition.duration = 0.4;
+            [self.tableView.layer addAnimation:transition forKey:nil];
+        }
         [self fetchSentRemindersWithDate];
     } else if (self.segmentIndex == 2) {
         // segue to another view controller to see progress
