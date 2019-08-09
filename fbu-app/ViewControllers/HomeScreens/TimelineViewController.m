@@ -52,6 +52,7 @@
     // Refresh control for "pull to refresh"
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl.layer.zPosition = -1;
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 

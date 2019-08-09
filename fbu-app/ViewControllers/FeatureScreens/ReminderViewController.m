@@ -63,6 +63,7 @@
     // Refresh control for "pull to refresh"
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchReminders) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl.layer.zPosition = -1;
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
     self.searchBar.delegate = self;
@@ -77,11 +78,6 @@
         userActivity.userInfo = @{@"ID" : [PFUser currentUser][@"persona"][@"username"]};
         userActivity.requiredUserInfoKeys = [NSSet setWithArray:userActivity.userInfo.allKeys];
         self.userActivity = userActivity;
-        
-        id<UIApplicationDelegate> appDelegate = [[UIApplication sharedApplication] delegate];
-        [appDelegate application:[UIApplication sharedApplication] continueUserActivity:userActivity restorationHandler:^(NSArray<id<UIUserActivityRestoring>> * _Nullable restorableObjects) {
-            
-        }];
     }
     
     // get notification if font size is changed from settings accessibility
@@ -101,13 +97,17 @@
     [userActivity addUserInfoEntriesFromDictionary:@{@"ID" : [PFUser currentUser][@"persona"][@"username"]}];
 }
 
+- (void) restoreUserActivityState:(NSUserActivity *)activity {
+    
+}
+
 - (void) fetchReminders {
     if (self.segmentIndex == 0) {
             // animation, occurs every time reminders are changed
             CATransition *transition = [CATransition animation];
             transition.type = kCATransitionPush;
             transition.subtype = kCATransitionFromLeft;
-            transition.duration = 0.4;
+            transition.duration = 0.25;
             [self.tableView.layer addAnimation:transition forKey:nil];
         [self fetchReceivedRemindersWithDate];
     } else if (self.segmentIndex == 1) {
@@ -116,7 +116,7 @@
             CATransition *transition = [CATransition animation];
             transition.type = kCATransitionPush;
             transition.subtype = kCATransitionFromRight;
-            transition.duration = 0.4;
+            transition.duration = 0.25;
             [self.tableView.layer addAnimation:transition forKey:nil];
         }
         [self fetchSentRemindersWithDate];

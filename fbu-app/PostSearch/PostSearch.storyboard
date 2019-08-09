@@ -19,13 +19,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MM-Na-i4v">
-                                <rect key="frame" x="20" y="94" width="374" height="24"/>
+                                <rect key="frame" x="20" y="100" width="374" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJN-uD-eoH">
-                                <rect key="frame" x="350" y="88" width="42" height="30"/>
+                                <rect key="frame" x="344" y="100" width="50" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="fTa-QQ-Dut"/>
+                                    <constraint firstAttribute="height" constant="24" id="sWq-8I-jeU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Today">
                                     <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
@@ -38,10 +43,10 @@
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gTc-9g-PEH" firstAttribute="trailing" secondItem="7MM-Na-i4v" secondAttribute="trailing" constant="20" id="0zJ-Kf-usc"/>
-                            <constraint firstItem="lJN-uD-eoH" firstAttribute="top" secondItem="gTc-9g-PEH" secondAttribute="top" id="fO7-1f-UU2"/>
+                            <constraint firstItem="lJN-uD-eoH" firstAttribute="bottom" secondItem="7MM-Na-i4v" secondAttribute="bottom" id="73C-qV-Xvy"/>
                             <constraint firstItem="7MM-Na-i4v" firstAttribute="leading" secondItem="gTc-9g-PEH" secondAttribute="leading" constant="20" id="q2E-Yl-fma"/>
-                            <constraint firstItem="gTc-9g-PEH" firstAttribute="trailing" secondItem="lJN-uD-eoH" secondAttribute="trailing" constant="22" id="r3y-cb-yoz"/>
-                            <constraint firstItem="7MM-Na-i4v" firstAttribute="top" secondItem="gTc-9g-PEH" secondAttribute="top" constant="6" id="vNa-7H-NTV"/>
+                            <constraint firstItem="gTc-9g-PEH" firstAttribute="trailing" secondItem="lJN-uD-eoH" secondAttribute="trailing" constant="20" id="r3y-cb-yoz"/>
+                            <constraint firstItem="7MM-Na-i4v" firstAttribute="top" secondItem="gTc-9g-PEH" secondAttribute="top" constant="12" id="vNa-7H-NTV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gTc-9g-PEH"/>
                     </view>
@@ -1166,7 +1171,7 @@
                                     <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Bh9-kN-0mN" kind="presentation" id="359-2F-Q4n"/>
+                                    <segue destination="Bh9-kN-0mN" kind="presentation" modalTransitionStyle="crossDissolve" id="359-2F-Q4n"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gb4-JK-efO">

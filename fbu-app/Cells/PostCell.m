@@ -33,18 +33,24 @@
     }];
     
     // large text
-    [Accessibility largeTextCompatibilityWithLabel:self.posterLabel style:UIFontTextStyleTitle2];
+    [Accessibility largeTextCompatibilityWithLabel:self.posterLabel style:UIFontTextStyleTitle3];
     [Accessibility largeTextCompatibilityWithLabel:self.textLabel style:UIFontTextStyleBody];
     [Accessibility largeTextCompatibilityWithLabel:self.dateLabel style:UIFontTextStyleFootnote];
     
     // shadow
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowColor = [UIColor grayColor].CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 2.0f);
     self.layer.shadowRadius = 2.0f;
     self.layer.shadowOpacity = 0.8f;
     self.layer.masksToBounds = NO;
     self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.contentView.layer.cornerRadius].CGPath;
-
+    
+    // animation
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromTop;
+    transition.duration = 0.25;
+    [self.layer addAnimation:transition forKey:nil];
 }
 
 @end
