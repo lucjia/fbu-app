@@ -14,6 +14,7 @@
 @dynamic postSender;
 @dynamic postText;
 @dynamic location;
+@dynamic venue;
 
 + (nonnull NSString *)parseClassName {
     return @"Post";
@@ -27,11 +28,12 @@
     [newPost saveInBackgroundWithBlock:completion];
 }
 
-+ (void) createPostWithSender:(Persona *)sender text:(NSString *)text location:(PFGeoPoint *)location withCompletion:(PFBooleanResultBlock _Nullable)completion {
++ (void) createPostWithSender:(Persona *)sender text:(NSString *)text location:(PFGeoPoint *)location venue:(NSString *)venue withCompletion:(PFBooleanResultBlock _Nullable)completion {
     Post *newPost = [Post new];
     newPost.postSender = sender;
     newPost.postText = text;
     newPost.location = location;
+    newPost.venue = venue;
     
     [newPost saveInBackgroundWithBlock:completion];
 }

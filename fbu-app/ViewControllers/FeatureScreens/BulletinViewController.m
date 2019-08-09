@@ -15,11 +15,14 @@
 #import "Persona.h"
 #import "Accessibility.h"
 #import "ComposePostViewController.h"
+#import "CustomColor.h"
+#import "MapViewController.h"
 
 @interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ComposePostViewControllerDelegate> {
     NSMutableArray *posts;
     NSLayoutConstraint *heightConstraint;
     UIRefreshControl *refreshControl;
+    Post *currentPost;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
@@ -34,7 +37,6 @@
     [super viewDidLoad];
     
     // set background image
-    self.backgroundImage.image = [UIImage imageNamed:@"grid"];
     self.backgroundImage.clipsToBounds = YES;
     self.backgroundImage.alpha = 0.8;
     
@@ -47,6 +49,13 @@
     [self.collectionView insertSubview:refreshControl atIndex:0];
     
     [self fetchPosts];
+    
+    // add double tap gesture recognizer
+    UITapGestureRecognizer *doubleTapFolderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processDoubleTap:)];
+    [doubleTapFolderGesture setNumberOfTapsRequired:2];
+    [doubleTapFolderGesture setNumberOfTouchesRequired:1];
+    doubleTapFolderGesture.delaysTouchesBegan = YES;
+    [self.collectionView addGestureRecognizer:doubleTapFolderGesture];
     
     // get notification if font size is changed from settings accessibility
     [[NSNotificationCenter defaultCenter]
@@ -75,21 +84,21 @@
     
     [query orderByDescending:@"createdAt"];
     
-    House *currentHouse = [[House alloc] init];
-    currentHouse = [PFUser currentUser][@"persona"][@"house"];
-    [currentHouse fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        [query whereKey:@"postSender" containedIn:currentHouse.housemates];
-        
-        [query findObjectsInBackgroundWithBlock:^(NSArray *fetchedPosts, NSError *error) {
-            if (fetchedPosts != nil) {
-                self->posts = (NSMutableArray *)fetchedPosts;
-                [self.collectionView reloadData];
-            } else {
-                NSLog(@"%@", error.localizedDescription);
-            }
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [persona objectForKey:@"house"];
+        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            [query whereKey:@"postSender" containedIn:house.housemates];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *fetchedPosts, NSError *error) {
+                if (fetchedPosts != nil) {
+                    self->posts = (NSMutableArray *)fetchedPosts;
+                    [self.collectionView reloadData];
+                } else {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }];
+            [self->refreshControl endRefreshing];
         }];
-        
-        [self->refreshControl endRefreshing];
     }];
 }
 
@@ -114,8 +123,51 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ComposePostViewController *composeVC = (ComposePostViewController *)[segue destinationViewController];
-    composeVC.delegate = self;
+    if ([[segue identifier] isEqualToString:@"toCompose"]) {
+        ComposePostViewController *composeVC = (ComposePostViewController *)[segue destinationViewController];
+        composeVC.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"toMap"]) {
+        MapViewController *mapVC = (MapViewController *)[segue destinationViewController];
+        self.delegate = mapVC;
+        [self.delegate setLocationWithCenter:[currentPost objectForKey:@"location"] poster:[currentPost[@"postSender"] objectForKey:@"firstName"] venue:[currentPost objectForKey:@"venue"]];
+    }
+}
+
+- (void) didPressItemAtIndexPath:(NSIndexPath *)indexPath {
+    // segue to map view which is centered on the location mentioned in the post
+    if ([[posts objectAtIndex:indexPath.row] objectForKey:@"location"]) {
+        currentPost = [posts objectAtIndex:indexPath.row];
+        
+        [self performSegueWithIdentifier:@"toMap" sender:self];
+    } else {
+        // Create alert to display error
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Location Shared"
+                                                                       message:@"This post does not contain a location."
+                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // Handle cancel response here. Doing nothing will dismiss the view.
+                                                              }];
+        // Add the cancel action to the alertController
+        [alert addAction:dismissAction];
+        alert.view.tintColor = [CustomColor accentColor:1.0];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+-(void)processDoubleTap:(UITapGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        CGPoint p = [gestureRecognizer locationInView:self.collectionView];
+        
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:p];
+        if (indexPath == nil){
+            NSLog(@"couldn't find index path");
+        } else {
+            // do stuff with the cell
+            [self didPressItemAtIndexPath:indexPath];
+        }
+    }
 }
 
 @end

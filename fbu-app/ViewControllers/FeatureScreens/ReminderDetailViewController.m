@@ -40,6 +40,8 @@
     if (self.reminder.lockEditing) {
         self.editButton.hidden = YES;
         self.deleteButton.hidden = YES;
+        self.reminderTextView.editable = NO;
+        self.dateField.enabled = NO;
     }
     
     self.editButton.layer.cornerRadius = 5;

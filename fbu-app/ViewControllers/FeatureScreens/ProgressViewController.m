@@ -48,7 +48,7 @@
 - (IBAction)didPressBack:(id)sender {
     UITabBarController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostSearchTabBar"];
     
-    [viewController setSelectedIndex:1];
+    [viewController setSelectedIndex:2];
     [self presentViewController:viewController animated:YES completion:nil];
 }
 

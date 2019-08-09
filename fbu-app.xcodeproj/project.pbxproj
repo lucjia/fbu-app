@@ -80,6 +80,7 @@
 		85E7A18422DF9DA1006C1F38 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18322DF9DA1006C1F38 /* LocationViewController.m */; };
 		85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */; };
 		85E7A19022DFDDF1006C1F38 /* PreferenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */; };
+		85EAAC5922FCC2CD00EAC240 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC5822FCC2CD00EAC240 /* MapViewController.m */; };
 		85EAAC4222FC7E6700EAC240 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */; };
 		85EAAC4B22FC8DE500EAC240 /* IntentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EAAC4A22FC8DE500EAC240 /* IntentHandler.m */; };
 		85EAAC4F22FC8DE500EAC240 /* Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 85EAAC4722FC8DE500EAC240 /* Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -271,6 +272,8 @@
 		85E7A18922DFD3F2006C1F38 /* PreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
 		85E7A18E22DFDDF1006C1F38 /* PreferenceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferenceCell.h; sourceTree = "<group>"; };
 		85E7A18F22DFDDF1006C1F38 /* PreferenceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferenceCell.m; sourceTree = "<group>"; };
+		85EAAC5722FCC2CD00EAC240 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		85EAAC5822FCC2CD00EAC240 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		85EAAC4722FC8DE500EAC240 /* Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Intents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		85EAAC4922FC8DE500EAC240 /* IntentHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentHandler.h; sourceTree = "<group>"; };
@@ -545,6 +548,8 @@
 				85C5C0C222F3C2F6001982F1 /* BulletinViewController.m */,
 				85C5C0CA22F81071001982F1 /* ComposePostViewController.h */,
 				85C5C0CB22F81071001982F1 /* ComposePostViewController.m */,
+				85EAAC5722FCC2CD00EAC240 /* MapViewController.h */,
+				85EAAC5822FCC2CD00EAC240 /* MapViewController.m */,
 			);
 			path = FeatureScreens;
 			sourceTree = "<group>";
@@ -932,6 +937,7 @@
 				85CB80B122ECB44F0070AC4E /* CustomDatePicker.m in Sources */,
 				77D6AD1022F3A82E00541502 /* HousemateBalanceCell.m in Sources */,
 				85C5C0BC22F366CA001982F1 /* KeyViewController.m in Sources */,
+				85EAAC5922FCC2CD00EAC240 /* MapViewController.m in Sources */,
 				777F344622FCF83A003E5E5D /* BillCell.m in Sources */,
 				64678F8922EFA3FF00F75070 /* Event.m in Sources */,
 				85CB80AB22EA80CC0070AC4E /* ComposeReminderViewController.m in Sources */,

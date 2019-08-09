@@ -14,6 +14,7 @@
 #import "RulesViewController.h"
 #import "ReminderViewController.h"
 #import "ProgressViewController.h"
+#import "LogInViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
@@ -42,7 +43,8 @@
                          @"      📨 Sent Reminders",
                          @"      🌱 Progress",
                          @"Finances",
-                         @"⚙ Settings"];
+                         @"⚙ Settings",
+                         @"Log Out"];
 }
 
 #pragma mark - Table view data source
@@ -82,7 +84,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [rootView setSelectedIndex:2];
+        [rootView setSelectedIndex:0];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"📅 Calendar"]) {
@@ -94,7 +96,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [rootView setSelectedIndex:0];
+        [rootView setSelectedIndex:1];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
     
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"📋 Reminders"]) {
@@ -106,7 +108,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [rootView setSelectedIndex:1];
+        [rootView setSelectedIndex:2];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
     // Reminder Subfeatures
@@ -119,7 +121,7 @@
         UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
         UINavigationController *currentController = tabBarController.selectedViewController;
         
-        [rootView setSelectedIndex:1];
+        [rootView setSelectedIndex:2];
         
         UINavigationController *navController = rootView.selectedViewController;
         ReminderViewController *reminderController = (ReminderViewController *)navController.visibleViewController;
@@ -152,6 +154,12 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
         
         [currentController pushViewController:viewController animated:YES];
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Log Out"]) {
+        [PFUser logOutInBackground];
+        
+        // Set root view controller to be log in screen
+        LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
+        [self presentViewController:logInVC animated:YES completion:nil];
     }
     
 

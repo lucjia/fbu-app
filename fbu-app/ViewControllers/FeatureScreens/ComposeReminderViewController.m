@@ -216,7 +216,7 @@
     
     Persona *persona = self.housemates[indexPath.row];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-       PFFileObject *imageFile = persona.profileImage;
+        PFFileObject *imageFile = persona.profileImage;
         [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
             if (!error) {
                 cell.profileView.image = [UIImage imageWithData:data];

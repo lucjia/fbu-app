@@ -12,6 +12,7 @@
 #import "SettingsViewController.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "LogInViewController.h"
 
 @interface PostSearchLeftViewController ()
 {
@@ -30,7 +31,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     titlesArray = @[@"Back to roommate search",
-                    @"⚙ Settings"];
+                    @"⚙ Settings",
+                    @"Log Out"];
     
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
@@ -75,6 +77,12 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
         
         [currentController pushViewController:viewController animated:YES];
+    } else if (indexPath.row == [titlesArray indexOfObject:@"Log Out"]) {
+        [PFUser logOutInBackground];
+        
+        // Set root view controller to be log in screen
+        LogInViewController *logInVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
+        [self presentViewController:logInVC animated:YES completion:nil];
     }
     
     [mainViewController hideLeftViewAnimated:YES delay:0.0 completionHandler:nil];
