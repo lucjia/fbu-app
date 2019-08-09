@@ -35,6 +35,7 @@
 		7705B04A22EA4FB600F59BCF /* ModifyHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04922EA4FB600F59BCF /* ModifyHouseViewController.m */; };
 		7705B04D22EA592500F59BCF /* AddHousemateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7705B04C22EA592500F59BCF /* AddHousemateViewController.m */; };
 		774B123222E62954000764BD /* PlainRoomateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B123122E62954000764BD /* PlainRoomateCell.m */; };
+		777B66F222FD2F4300675319 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777B66F122FD2F4300675319 /* PaymentViewController.m */; };
 		777E890F22FCF6B50086852B /* BalanceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */; };
 		777F344622FCF83A003E5E5D /* BillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F344522FCF83A003E5E5D /* BillCell.m */; };
 		7794308022DE7E2A00D9FDDA /* House.m in Sources */ = {isa = PBXBuildFile; fileRef = 7794307F22DE7E2A00D9FDDA /* House.m */; };
@@ -181,6 +182,8 @@
 		7705B04C22EA592500F59BCF /* AddHousemateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddHousemateViewController.m; sourceTree = "<group>"; };
 		774B123022E62954000764BD /* PlainRoomateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlainRoomateCell.h; sourceTree = "<group>"; };
 		774B123122E62954000764BD /* PlainRoomateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlainRoomateCell.m; sourceTree = "<group>"; };
+		777B66F022FD2F4300675319 /* PaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
+		777B66F122FD2F4300675319 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		777E890D22FCF6B50086852B /* BalanceDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceDetailsViewController.h; sourceTree = "<group>"; };
 		777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceDetailsViewController.m; sourceTree = "<group>"; };
 		777F344422FCF83A003E5E5D /* BillCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillCell.h; sourceTree = "<group>"; };
@@ -441,6 +444,8 @@
 				77DAB40F22F8E6580000840C /* ChangeSplitViewController.m */,
 				777E890D22FCF6B50086852B /* BalanceDetailsViewController.h */,
 				777E890E22FCF6B50086852B /* BalanceDetailsViewController.m */,
+				777B66F022FD2F4300675319 /* PaymentViewController.h */,
+				777B66F122FD2F4300675319 /* PaymentViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -995,6 +1000,7 @@
 				85E7A17B22DE8060006C1F38 /* SettingsViewController.m in Sources */,
 				85E7A18A22DFD3F2006C1F38 /* PreferencesViewController.m in Sources */,
 				85C5C0C922F80BE3001982F1 /* Post.m in Sources */,
+				777B66F222FD2F4300675319 /* PaymentViewController.m in Sources */,
 				85CB80B422EFB12C0070AC4E /* UserCollectionCell.m in Sources */,
 				85C5C0C322F3C2F6001982F1 /* BulletinViewController.m in Sources */,
 				85E7A14022DD214D006C1F38 /* AppDelegate.m in Sources */,

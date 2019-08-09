@@ -44,6 +44,8 @@
     SEL showSelector = @selector(showEndSelectedDate);
     SEL removeSelector = @selector(removeEndDate);
     self.endDatePicker = [endDatePicker initializeDatePickerWithDatePicker:self.endDatePicker textField:self.endDateSelectionTextField selector:showSelector secondSelector:removeSelector];
+    
+    [self initializeTextView];
 }
 
 - (void)didSetLocation:(nonnull NSString *)location geoPoint:(nonnull PFGeoPoint *)geo {
@@ -105,6 +107,33 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void) initializeTextView {
+    self.memoTextView.layer.borderWidth = 0.5f;
+    self.memoTextView.layer.borderColor = [[[UIColor grayColor] colorWithAlphaComponent:0.4] CGColor];
+    self.memoTextView.layer.cornerRadius = 5;
+    self.memoTextView.delegate = self;
+    
+    if ([self.memoTextView.text isEqualToString:@""]) {
+        self.memoTextView.text = @"Write a memo...";
+        self.memoTextView.textColor = [UIColor lightGrayColor];
+    }
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([self.memoTextView.text isEqualToString:@"Write a memo..."]) {
+        self.memoTextView.text = @"";
+        self.memoTextView.textColor = [CustomColor darkMainColor:1.0];
+    }
+    [self.memoTextView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([self.memoTextView.text isEqualToString:@""]) {
+        self.memoTextView.text = @"Write a memo...";
+        self.memoTextView.textColor = [UIColor lightGrayColor];
+    }
+    [self.memoTextView resignFirstResponder];
+}
 
  #pragma mark - Navigation
  

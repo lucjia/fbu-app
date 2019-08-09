@@ -140,6 +140,12 @@
         [rootView setSelectedIndex:3];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
     
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"📜 House Rules"]) {
+        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
+        // segue to another view controller to see progress
+        UINavigationController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"HouseRules"];
+        [self presentViewController:viewController animated:YES completion:nil];
+        
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"      🌱 Progress"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         // segue to another view controller to see progress
