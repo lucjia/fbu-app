@@ -88,7 +88,11 @@
 }
 
 - (NSString *) getName:(Persona*)persona {
-    return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    if([persona isEqual:[PFUser.currentUser objectForKey:@"persona"]]){
+        return @"You";
+    }else{
+        return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

@@ -10,6 +10,9 @@
 #import "Parse/Parse.h"
 #import "House.h"
 #import "RuleCell.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "CustomColor.h"
 
 @interface RulesViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -19,6 +22,7 @@
 @property (strong, nonatomic) House *house;
 @property (weak, nonatomic) IBOutlet UITextField *ruleField;
 - (IBAction)tapAddRule:(id)sender;
+- (IBAction)tapLeftMenu:(id)sender;
 
 @end
 
@@ -86,5 +90,9 @@
     [self fetchRules];
     [self.ruleField setText:@""];
     [self.tableView reloadData];
+}
+
+- (IBAction)tapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
 }
 @end

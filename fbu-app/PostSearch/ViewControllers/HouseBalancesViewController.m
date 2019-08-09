@@ -13,6 +13,9 @@
 #import "Parse/Parse.h"
 #import "Balance.h"
 #import "BalanceDetailsViewController.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "CustomColor.h"
 
 @interface HouseBalancesViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -22,6 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *balances;
 @property (nonatomic, strong) Persona *currentPersona;
 @property (nonatomic, strong) NSMutableArray *balanceTotals;
+- (IBAction)tapLeftMenu:(id)sender;
 
 
 @end
@@ -36,7 +40,7 @@
     self.tableView.delegate = self;
     
     self.currentPersona = [PFUser.currentUser objectForKey:@"persona"];
-    [self.currentPersona fetchIfNeededInBackground];
+    [self.currentPersona fetchIfNeeded];
     
 }
 
@@ -74,7 +78,6 @@
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
         
         NSDecimalNumber* total = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
-        [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:total];
 
         cell.nameLabel.text = [[housemate.firstName stringByAppendingString:@" "] stringByAppendingString:housemate.lastName];
         NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
@@ -88,15 +91,17 @@
             cell.stateLabel.textColor = [UIColor redColor];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
             cell.balanceLabel.textColor = [UIColor redColor];
-            [self setTotals];
             cell.topConstraint.constant = 8;
+            [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[[self abs:total] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"-1"]]];
+            [self setTotals];
         }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"owes you";
             cell.stateLabel.textColor = [UIColor greenColor];
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
             cell.balanceLabel.textColor = [UIColor greenColor];
-            [self setTotals];
             cell.topConstraint.constant = 8;
+            [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[self abs:total]];
+            [self setTotals];
         }
         
         PFFileObject *imageFile = housemate.profileImage;
@@ -173,7 +178,6 @@
     }
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
@@ -189,4 +193,8 @@
 }
      
         
+- (IBAction)tapLeftMenu:(id)sender {
+    [self showLeftViewAnimated:self];
+}
+
 @end

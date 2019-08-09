@@ -39,7 +39,6 @@
 
 - (void) reloadView {
     [self.tableView reloadData];
-    //self.payerField.text = [[self.payer.firstName stringByAppendingString:@" "] stringByAppendingString:self.payer.lastName];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -50,7 +49,7 @@
     Persona *possibleDebtor = self.possibleDebtors[indexPath.row];
     [possibleDebtor fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         cell.paid = self.paid;
-        cell.nameLabel.text = [[possibleDebtor.firstName stringByAppendingString:@" "] stringByAppendingString:possibleDebtor.lastName];
+        cell.nameLabel.text = [self getName:possibleDebtor];
         cell.debtor = possibleDebtor;
         cell.indexPath = indexPath;
         if(![self.debtors containsObject:possibleDebtor]){
@@ -129,6 +128,14 @@
         [self.portions addObject:portion];
     }
     [self reloadView];
+}
+
+- (NSString *) getName:(Persona*)persona {
+    if([persona isEqual:[PFUser.currentUser objectForKey:@"persona"]]){
+        return @"You";
+    }else{
+        return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+    }
 }
 
 @end

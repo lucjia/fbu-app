@@ -30,7 +30,7 @@
         self.indexOfHousemate = (NSUInteger)1;
         self.housemate = self.balance.housemates[1];
     }else{
-        self.indexOfHousemate = (NSUInteger)2;
+        self.indexOfHousemate = (NSUInteger)0;
         self.housemate = self.balance.housemates[0];
     }
     [self.housemate fetchIfNeeded];
