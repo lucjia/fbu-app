@@ -254,8 +254,8 @@
 // returns the number of days in the month for the date passed in
 - (NSUInteger)numberDaysInMonthFromDate:(NSDate *)date {
     NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
-    numberOfDays = range.length;
-    return numberOfDays;
+    
+    return range.length;
 }
 
 // changes currentMonth to next or previous month respectively
@@ -365,8 +365,6 @@
             
             weekStartDate = [calendar dateFromComponents:dateComponent];
             
-            
-            
             weekStart = [calendar component:NSCalendarUnitDay fromDate:weekStartDate];
         } else {
             weekStartForSelectedCell = [dateComponent day] - [dateComponent weekday] + 1;
@@ -397,6 +395,13 @@
     return [[NSCalendar currentCalendar] dateByAddingComponents:dayComponent toDate:date options:0];
 }
 
+- (NSDate *)previousDayForDate:(NSDate *)date {
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+    dayComponent.day = -1;
+    
+    return [[NSCalendar currentCalendar] dateByAddingComponents:dayComponent toDate:date options:0];
+}
+
 - (BOOL)isDate:(NSDate *)date1 inSameMonthAsDate:(NSDate *)date2 {
     NSDateComponents *dateComponent = [calendar components:NSCalendarUnitMonth fromDate:date1];
     NSInteger month = [dateComponent month];
@@ -422,7 +427,11 @@
     swipeToChangeWeek = YES;
     if ([lastCell.dateLabel.text intValue] <= 7 && lastCell.dateLabel) {
         if ([self isFirstOrLastDayOfMonth:firstCell]) {
-            weekStart = numberOfDays - weekStart + 1;
+            NSDateComponents *dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay fromDate:displayedMonthStartDate];
+            NSInteger firstDayOfMonthWeekday = [dateComponent weekday];
+            NSDate *dayBefore = [self previousDayForDate:displayedMonthStartDate];
+            dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay fromDate:dayBefore];
+            weekStart = [dateComponent day] - (firstDayOfMonthWeekday - 2);
             [self changeMonth:1 toMonth:12 changeBy:-1 didSwipeLeft:NO];
         }
     } else {
@@ -561,7 +570,8 @@
 // returns the number of days in the current month + the day of the week the month starts on - 1 (for indexing starting at 0)
 // additional cells are created in order to have cells displayed on the calendar on the correct day of the week. ex: july starts on monday not sunday
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return isInWeeklyMode ? 7 : [self numberDaysInMonthFromDate:displayedMonthStartDate] + (monthStartweekday - 1);
+    numberOfDays = [self numberDaysInMonthFromDate:displayedMonthStartDate];
+    return isInWeeklyMode ? 7 : numberOfDays + (monthStartweekday - 1);
 }
 
 // called when a CalendarCell is tapped
