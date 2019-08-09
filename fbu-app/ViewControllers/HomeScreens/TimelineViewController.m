@@ -39,7 +39,6 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    self.tableView.separatorColor = [CustomColor midToneOne:1.0];
     
     [SVProgressHUD show];
     
@@ -53,6 +52,7 @@
     // Refresh control for "pull to refresh"
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl.layer.zPosition = -1;
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 

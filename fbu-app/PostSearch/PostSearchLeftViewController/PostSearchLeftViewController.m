@@ -30,8 +30,18 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    titlesArray = @[@"Back to roommate search",
-                    @"⚙ Settings",
+    titlesArray = @[@" ",
+                    @"Roommate Finder",
+                    @"Settings",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
+                    @" ",
                     @"Log Out"];
     
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -55,7 +65,7 @@
     MainViewController *mainViewController = (MainViewController *)self.sideMenuController;
     
     // back to main timeline
-    if (indexPath.row == [titlesArray indexOfObject:@"Back to roommate search"]) {
+    if (indexPath.row == [titlesArray indexOfObject:@"Roommate Finder"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"SearchingSideMenuController"];
         
@@ -68,7 +78,7 @@
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
     // settings
-    } else if (indexPath.row == [titlesArray indexOfObject:@"⚙ Settings"]) {
+    } else if (indexPath.row == [titlesArray indexOfObject:@"Settings"]) {
         UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
         SettingsViewController *viewController = [main instantiateViewControllerWithIdentifier:@"SettingsVC"];

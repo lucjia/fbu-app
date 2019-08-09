@@ -41,9 +41,9 @@ static NSDateFormatter *dateFormatter;
     CGRect screen = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screen.size.width;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, self.contentView.frame.size.height * 2)];
-    view.layer.cornerRadius = 15;
+    view.layer.cornerRadius = 10;
     
-    [view setBackgroundColor:[UIColor whiteColor]];
+    [view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     
     [self.contentView addSubview:view];
 }

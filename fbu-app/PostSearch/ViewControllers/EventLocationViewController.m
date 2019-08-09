@@ -45,6 +45,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search for a location...";
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     
     [self setCity];
 }
