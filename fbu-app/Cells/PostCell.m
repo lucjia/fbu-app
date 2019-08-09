@@ -49,7 +49,7 @@
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionPush;
     transition.subtype = kCATransitionFromTop;
-    transition.duration = 0.25;
+    transition.duration = 0.1;
     [self.layer addAnimation:transition forKey:nil];
 }
 
