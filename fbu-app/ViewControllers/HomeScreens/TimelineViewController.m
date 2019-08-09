@@ -42,6 +42,8 @@
     
     [SVProgressHUD show];
     
+    [SVProgressHUD show];
+    
     currentPersona = [PFUser currentUser][@"persona"];
     [currentPersona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if (object) {

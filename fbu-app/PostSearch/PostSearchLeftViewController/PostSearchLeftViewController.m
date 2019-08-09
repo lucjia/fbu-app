@@ -56,7 +56,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LeftViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LeftViewCell" forIndexPath:indexPath];
     
-    [cell updatePostSearchProperties:titlesArray[indexPath.row]];
+    [cell updatePostSearchProperties:titlesArray[indexPath.row] index:indexPath.row];
     
     return cell;
 }
