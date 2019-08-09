@@ -26,13 +26,13 @@ static NSDateFormatter *dateFormatter;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self updateProperties:self.event];
 }
 
 - (void)updateProperties:(Event *)event {
     self.eventTitleLabel.text = event.title;
-    self.eventTitleLabel.textColor = [CustomColor midToneOne:1.0];
+    self.eventTitleLabel.textColor = [CustomColor darkMainColor:1.0];
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"PST"]];
@@ -42,13 +42,13 @@ static NSDateFormatter *dateFormatter;
     NSString *endTime = [dateFormatter stringFromDate:event.eventEndDate];
     
     self.eventTimeLabel.text = event.isAllDay ? @"All day" : [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
-    self.eventTimeLabel.textColor = [CustomColor midToneOne:1.0];
+    self.eventTimeLabel.textColor = [CustomColor darkMainColor:1.0];
     
     self.eventLocationLabel.text = event.venue;
-    self.eventLocationLabel.textColor = [CustomColor midToneOne:1.0];
+    self.eventLocationLabel.textColor = [CustomColor darkMainColor:1.0];
     
     self.eventMemoLabel.text = event.memo;
-    self.eventMemoLabel.textColor = [CustomColor midToneOne:1.0];
+    self.eventMemoLabel.textColor = [CustomColor darkMainColor:1.0];
 }
 
 - (IBAction)didTapExit:(id)sender {

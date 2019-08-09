@@ -74,7 +74,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.view setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
     addPaths = YES;
     dayIndexPaths = [[NSMutableArray alloc] init];
@@ -122,7 +122,7 @@
 - (void)initLabel:(UILabel *)label xPos:(NSInteger)labelX yPos:(NSInteger)labelY withText:(NSString *)text {
     label = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 94 + labelY, 50, 50)];
     label.text = text;
-    label.textColor = [CustomColor midToneOne:1.0];
+    label.textColor = [CustomColor darkMainColor:1.0];
     
     [self.view addSubview:label];
 }
@@ -165,7 +165,7 @@
     collectionView.scrollEnabled = NO;
     // allows for CalendarCell to be used
     [collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
-    [collectionView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+    [collectionView setBackgroundColor:[UIColor whiteColor]];
     
     layout.minimumInteritemSpacing = 5;
     layout.minimumLineSpacing = 5;
@@ -526,7 +526,7 @@
                 if ([self isCellToday:weekStart - 1]) {
                     [cell setCurrentDayTextColor];;
                 } else {
-                    cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
+                    cell.dateLabel.textColor = [CustomColor darkMainColor:1.0];
                 }
             } else {
                 [cell initDateLabelInCell:(indexPath.row - monthStartweekday + 2) newLabel:YES];
@@ -535,7 +535,7 @@
                     [cell setHidden:NO];
                     [cell setCurrentDayTextColor];
                 } else {
-                    cell.dateLabel.textColor = [CustomColor midToneOne:1.0];
+                    cell.dateLabel.textColor = [CustomColor darkMainColor:1.0];
                 }
             }
         }
@@ -633,7 +633,7 @@
         [tableView setDataSource:self];
         [tableView setDelegate:self];
         
-        [tableView setBackgroundColor:[CustomColor darkMainColor:1.0]];
+        [tableView setBackgroundColor:[UIColor whiteColor]];
         [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
         [tableView registerClass:[EventReminderCell class] forCellReuseIdentifier:@"EventReminderCell"];
