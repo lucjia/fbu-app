@@ -31,7 +31,6 @@
     self.tableView.dataSource = self;
     
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    self.tableView.separatorColor = [CustomColor midToneOne:1.0];
     
     [self fetchSentRequestTimeline];
 }

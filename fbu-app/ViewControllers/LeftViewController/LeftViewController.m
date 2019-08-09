@@ -35,15 +35,18 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    self.titlesArray = @[@"Create a House",
+    self.titlesArray = @[@" ",
+                         @"Create a House",
                          @"House Rules",
-                         @"Bulletin Board",
+                         @"Home Screen",
                          @"Calendar",
                          @"Reminders",
-                         @"Sent Reminders",
-                         @"Progress",
                          @"Finances",
                          @"Settings",
+                         @" ",
+                         @" ",
+                         @" ",
+                         @" ",
                          @"Log Out"];
 }
 
@@ -75,7 +78,7 @@
         [currentController pushViewController:viewController animated:YES];
         
     // Features (Separate storyboard)
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Bulletin Board"]) {
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Home Screen"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
@@ -113,6 +116,7 @@
         
     // Reminder Subfeatures
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Sent Reminders"]) {
+
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
