@@ -493,6 +493,11 @@
         weekStartForSelectedCell = 0;
         eventDate = [self dateWithYear:currentYear month:currentMonth == 1 ? 12 : currentMonth - 1 day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     } else {
+        if (((weekStart == 32 && indexPath.row == 0) || (weekStart == 31 && indexPath.row == 0) || (weekStart == 28 && indexPath.row == 0) || (weekStart == 329 && indexPath.row == 0)) && [self isDate:weekStartDate inSameMonthAsDate:displayedMonthStartDate] == NO) {
+            currentMonth = currentMonth == 12 ? 1 : ++currentMonth;
+            weekStart = 1;
+            [self setMonthLabelText];
+        }
         eventDate = [self dateWithYear:currentYear month:currentMonth day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     }
     
