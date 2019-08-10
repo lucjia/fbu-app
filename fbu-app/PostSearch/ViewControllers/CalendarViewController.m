@@ -49,10 +49,13 @@
     BOOL isInWeeklyMode;
     BOOL weekDirectionBackWards;
     BOOL swipeToChangeWeek;
+    BOOL justCreateEvent;
     
     // Table view instance variables
     UITableView *tableView;
     NSMutableArray *eventsForSelectedDay; // events that occur on the most recently tapped cell
+    UIView *noEventsView;
+    UILabel *noEvnetsLabel;
     
     // Month and day Labels
     UILabel *sundayLabel;
@@ -183,7 +186,7 @@
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionPush;
     transition.subtype = direction;
-    transition.duration = 0.4;
+    transition.duration = 0.25;
     [collectionView.layer addAnimation:transition forKey:nil];
     
     [self.view addSubview:collectionView];
@@ -324,10 +327,10 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // switch back to the main thread to update your UI
                     if (cell.dateLabel) {
-                         [cell setHidden:NO];
+                        [cell setHidden:NO];
                         [cell drawEventCircle];
                     } else {
-                         [cell setHidden:YES];
+                        [cell setHidden:YES];
                     }
                     if ([self isCellToday:day]) {
                         [cell setCurrentDayTextColor];
@@ -451,10 +454,11 @@
 
 - (void)didCreateEvent:(Event *)event {
     [collectionView removeFromSuperview];
+    [collectionView reloadData];
+    justCreateEvent = YES;
     if (![eventsArray containsObject:event]) {
         [eventsArray addObject:event];
         addPaths = NO;
-        // [self fetchEvents];
         [self initCollectionViewFromDirection:kCATransitionFade];
         [self initCalendar:[NSDate date]];
         // sorts the array by eventDate in order to maintain order
@@ -492,6 +496,11 @@
         weekStartForSelectedCell = 0;
         eventDate = [self dateWithYear:currentYear month:currentMonth == 1 ? 12 : currentMonth - 1 day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     } else {
+        if (((weekStart == 32 && indexPath.row == 0) || (weekStart == 31 && indexPath.row == 0) || (weekStart == 28 && indexPath.row == 0) || (weekStart == 329 && indexPath.row == 0)) && [self isDate:weekStartDate inSameMonthAsDate:displayedMonthStartDate] == NO) {
+            currentMonth = currentMonth == 12 ? 1 : ++currentMonth;
+            weekStart = 1;
+            [self setMonthLabelText];
+        }
         eventDate = [self dateWithYear:currentYear month:currentMonth day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     }
     
@@ -518,7 +527,8 @@
             }
             
             if (isInWeeklyMode) {
-                [cell initDateLabelInCell:(weekDirectionBackWards ? weekStart++ : weekStart++) newLabel:YES];
+                [cell initDateLabelInCell:(justCreateEvent ? weekStart -= 7 : weekStart++) newLabel:YES];
+                justCreateEvent = NO;
                 if ([self isCellToday:weekStart - 1]) {
                     [cell setCurrentDayTextColor];;
                 } else {
@@ -582,7 +592,7 @@
     selectedCell = (CalendarCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [selectedCell colorSelectedCell];
     [self filterArrayForSelectedDate];
-    if (eventsForSelectedDay > 0) {
+    if (eventsForSelectedDay.count > 0) {
         [tableView removeFromSuperview];
         [tableView setHidden:NO];
         [self initTableView];
@@ -624,7 +634,7 @@
 
 //initializes tableView underneath calendar
 - (void)initTableView {
-    if (eventsForSelectedDay > 0) {
+    if (eventsForSelectedDay.count > 0) {
         tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, calendarHeight + calendarYPosition, self.view.frame.size.width, self.view.frame.size.height - (calendarHeight + calendarYPosition)) style:UITableViewStylePlain];
         [tableView setDataSource:self];
         [tableView setDelegate:self];

@@ -22,7 +22,6 @@
 @property (strong, nonatomic) House *house;
 @property (weak, nonatomic) IBOutlet UITextField *ruleField;
 - (IBAction)tapAddRule:(id)sender;
-- (IBAction)tapLeftMenu:(id)sender;
 
 @end
 
@@ -36,6 +35,9 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
     [self reloadView];
     
@@ -95,7 +97,4 @@
     [self.tableView reloadData];
 }
 
-- (IBAction)tapLeftMenu:(id)sender {
-    [self showLeftViewAnimated:self];
-}
 @end
