@@ -11,11 +11,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol EventDetailsViewControllerDelegate
+
+- (void)deleteEvent:(Event *)event;
+
+@end
+
 @interface EventDetailsViewController : UIViewController
 
 @property (strong, nonatomic) Event *event;
+@property (strong, nonatomic) NSMutableArray *arrayToDeleteFrom;
+@property (nonatomic, weak) id<EventDetailsViewControllerDelegate> delegate;
 
 - (void)updateProperties:(Event *)event;
+
+
 
 @end
 
