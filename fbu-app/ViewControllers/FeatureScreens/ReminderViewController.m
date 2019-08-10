@@ -287,6 +287,7 @@
     if ([[segue identifier] isEqualToString:@"toReminderCompose"]) {
         ComposeReminderViewController *composeVC = (ComposeReminderViewController *)[segue destinationViewController];
         composeVC.delegate = self;
+        self.segmentIndex = self.segmentedControl.selectedSegmentIndex;
     }
 }
 
@@ -431,6 +432,7 @@
 
 - (void) setIndexWithIndex:(NSInteger)index {
     self.segmentedControl.selectedSegmentIndex = index;
+    self.segmentIndex = index;
     [self fetchReminders];
 }
 
