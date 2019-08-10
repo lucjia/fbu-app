@@ -37,8 +37,10 @@
     
     
     self.nameLabel.text = location[@"name"];
+    self.nameLabel.textColor = [CustomColor darkMainColor:1.0];
     
     self.addressLabel.text = [location valueForKeyPath:@"location.address"];
+    self.addressLabel.textColor = [CustomColor darkMainColor:1.0];
     
     NSArray *categories = location[@"categories"];
     if (categories && categories.count > 0) {
