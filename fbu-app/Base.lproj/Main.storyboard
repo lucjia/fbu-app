@@ -593,11 +593,11 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UP5-Gi-dw0">
                                 <rect key="frame" x="40" y="668" width="334" height="55"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="jQE-lT-KXt"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Add Housemates">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -609,7 +609,7 @@
                                 <rect key="frame" x="128" y="731" width="158" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Remove Me From House">
-                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="tapRemove:" destination="ea6-rB-Z5q" eventType="touchUpInside" id="d25-kC-HYd"/>
@@ -652,11 +652,11 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wz6-gf-0jz">
                                 <rect key="frame" x="40" y="668" width="334" height="55"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Cit-6t-jXB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -1312,14 +1312,13 @@
         <!--House Rules-->
         <scene sceneID="aA3-e5-bwj">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bv6-v1-iAp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="RulesViewController" id="Xxa-TW-c1L" customClass="RulesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hJf-Yz-Tcn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Add a new rule" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qLr-Bu-Xmm">
-                                <rect key="frame" x="16" y="730" width="362" height="60"/>
+                                <rect key="frame" x="36" y="730" width="342" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Alf-YU-qwP"/>
                                 </constraints>
@@ -1329,11 +1328,11 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpr-nq-fNG">
                                 <rect key="frame" x="60" y="806" width="294" height="40"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="B1h-Pk-D6B"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Add Rule">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -1386,11 +1385,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="svD-SU-BnS" firstAttribute="bottom" secondItem="Zpr-nq-fNG" secondAttribute="bottom" constant="16" id="4AY-em-8kh"/>
-                            <constraint firstItem="qLr-Bu-Xmm" firstAttribute="leading" secondItem="svD-SU-BnS" secondAttribute="leading" constant="16" id="5eu-Pv-w4W"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qLr-Bu-Xmm" secondAttribute="trailing" constant="16" id="AwZ-Hh-eQ2"/>
                             <constraint firstItem="Uqo-Ub-PzM" firstAttribute="trailing" secondItem="svD-SU-BnS" secondAttribute="trailing" id="EiR-Sm-Jfd"/>
                             <constraint firstItem="Zpr-nq-fNG" firstAttribute="top" secondItem="qLr-Bu-Xmm" secondAttribute="bottom" constant="16" id="K1u-3h-gbq"/>
+                            <constraint firstItem="svD-SU-BnS" firstAttribute="trailing" secondItem="qLr-Bu-Xmm" secondAttribute="trailing" constant="36" id="QsN-uN-y3N"/>
                             <constraint firstItem="Uqo-Ub-PzM" firstAttribute="leading" secondItem="svD-SU-BnS" secondAttribute="leading" id="d5Y-Cd-DJK"/>
+                            <constraint firstItem="qLr-Bu-Xmm" firstAttribute="leading" secondItem="svD-SU-BnS" secondAttribute="leading" constant="36" id="fkJ-k0-lca"/>
                             <constraint firstItem="qLr-Bu-Xmm" firstAttribute="top" secondItem="Uqo-Ub-PzM" secondAttribute="bottom" constant="16" id="l36-cp-YaB"/>
                             <constraint firstItem="Zpr-nq-fNG" firstAttribute="leading" secondItem="svD-SU-BnS" secondAttribute="leading" constant="60" id="rMQ-gz-Zvo"/>
                             <constraint firstItem="Uqo-Ub-PzM" firstAttribute="top" secondItem="hJf-Yz-Tcn" secondAttribute="top" id="sFG-EU-SIO"/>
@@ -1404,13 +1403,13 @@
                         <outlet property="tableView" destination="Uqo-Ub-PzM" id="79W-Le-9Ei"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bv6-v1-iAp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1800" y="383"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Vu9-Dd-1CU">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="58B-ce-v6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="RulesNavigationController" id="jng-Zr-H70" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qyW-Xj-UgN">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1420,6 +1419,7 @@
                         <segue destination="Xxa-TW-c1L" kind="relationship" relationship="rootViewController" id="PiK-Vl-HP8"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="58B-ce-v6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1799" y="-300"/>
         </scene>
