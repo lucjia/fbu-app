@@ -17,7 +17,7 @@
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 #import "CustomColor.h"
 
-@interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateEventViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, EventDetailsViewControllerDelegate>
 {
     // Collection view instance variables
     UICollectionView *collectionView;
@@ -763,6 +763,8 @@
     
     EventDetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetailsViewController"];
     viewController.event = event;
+    viewController.arrayToDeleteFrom = eventsArray;
+    viewController.delegate = self;
     
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -773,6 +775,12 @@
 
 - (IBAction)didTapPostLeftMenu:(id)sender {
     [self showLeftViewAnimated:self];
+}
+
+- (void)deleteEvent:(Event *)event {
+    [eventsArray removeObject:event];
+    [collectionView removeFromSuperview];
+    [self initCollectionViewFromDirection:kCATransitionFade];
 }
 
 @end
