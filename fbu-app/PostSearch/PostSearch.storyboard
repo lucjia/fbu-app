@@ -435,6 +435,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKH-m5-hbQ">
+                                <rect key="frame" x="348" y="754" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="didTapDeleteEvent:" destination="aU9-Py-SfL" eventType="touchUpInside" id="LG5-8c-u4P"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -445,6 +452,8 @@
                             <constraint firstItem="Sbu-iG-BGW" firstAttribute="leading" secondItem="mM9-Cl-h6E" secondAttribute="leading" id="WiG-oY-DxS"/>
                             <constraint firstItem="mM9-Cl-h6E" firstAttribute="leading" secondItem="Ake-TC-1IR" secondAttribute="leading" constant="20" id="fDj-co-wyP"/>
                             <constraint firstItem="MhK-5m-LxD" firstAttribute="top" secondItem="mM9-Cl-h6E" secondAttribute="bottom" constant="8" id="lch-1I-Z5Q"/>
+                            <constraint firstItem="Ake-TC-1IR" firstAttribute="trailing" secondItem="eKH-m5-hbQ" secondAttribute="trailing" constant="20" id="ly3-Tq-Til"/>
+                            <constraint firstItem="Ake-TC-1IR" firstAttribute="bottom" secondItem="eKH-m5-hbQ" secondAttribute="bottom" constant="78" id="rCm-NV-fab"/>
                             <constraint firstItem="mM9-Cl-h6E" firstAttribute="top" secondItem="up6-CQ-SYY" secondAttribute="top" constant="115" id="tXo-hz-Le4"/>
                             <constraint firstItem="j4L-Ca-BTe" firstAttribute="leading" secondItem="mM9-Cl-h6E" secondAttribute="leading" id="waa-e5-qnw"/>
                             <constraint firstItem="b9l-CF-zWd" firstAttribute="leading" secondItem="Ake-TC-1IR" secondAttribute="leading" constant="32" id="yQp-3r-XkE"/>
