@@ -35,6 +35,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
+    
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     CustomDatePicker *startDatePicker = [[CustomDatePicker alloc] init];

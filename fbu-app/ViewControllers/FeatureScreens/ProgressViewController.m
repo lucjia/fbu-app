@@ -43,6 +43,9 @@
     
     [self setYourProgress];
     [self findHousematesAndSetProgress];
+    
+    self.keyButton.layer.cornerRadius = 8;
+    self.keyButton.layer.masksToBounds = YES;
 }
 
 - (IBAction)didPressBack:(id)sender {
@@ -95,9 +98,10 @@
 - (void) setYourCompletedLabels {
     NSString *progressText;
     if (completedCount == 0) {
-        progressText = @"No completed reminders!";
+        self.yourProgressLabel.text = @"No completed reminders!";
+        self.yourProgressLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     } else if (completedCount < 5) {
-        progressText = @"🍃";
+        self.yourProgressLabel.text = @"🍃";
     } else if (completedCount >= 5) {
         progressText = @"🌱";
         if (completedCount >= 10) {
@@ -112,16 +116,15 @@
         self.yourProgressLabel.text = progressText;
     } else {
         self.yourProgressLabel.text = @"No data!";
+        self.yourProgressLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     }
 }
      
  - (void) setYourOverdueLabels {
-     NSString *overdueText = @"";
-     if (overdueCount > 0) {
-         for (int i = 0; i < overdueCount; i++) {
-             overdueText = [overdueText stringByAppendingString:@"🐛"];
-         }
-         self.yourOverdueLabel.text = overdueText;
+     if (overdueCount == 1) {
+         self.yourOverdueLabel.text = @"🐛";
+     } else if (overdueCount >= 2) {
+         self.yourOverdueLabel.text = @"🐛🐛";
      } else {
          self.yourOverdueLabel.text = @"🐝";
      }
@@ -169,36 +172,36 @@
 
 - (void) setHouseCompletedLabels {
     NSString *progressText;
-    if (completedCount == 0) {
-        progressText = @"No completed reminders!";
-    } else if (completedCount < 5) {
-        progressText = @"🍃";
-    } else if (completedCount >= 5) {
+    if (houseCompletedCount == 0) {
+        self.houseProgressLabel.text = @"No completed reminders!";
+        self.houseProgressLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    } else if (houseCompletedCount < housemates.count * 5) {
+        self.houseProgressLabel.text = @"🍃";
+    } else if (completedCount >= housemates.count * 5) {
         progressText = @"🌼";
-        if (completedCount >= 10) {
+        if (houseCompletedCount >= housemates.count * 10) {
             progressText = [progressText stringByAppendingString:@"🏵"];
-            if (completedCount >= 15) {
+            if (houseCompletedCount >= housemates.count * 15) {
                 progressText = [progressText stringByAppendingString:@"🌺"];
-                if (completedCount >= 20) {
+                if (houseCompletedCount >= housemates.count * 20) {
                     progressText = [progressText stringByAppendingString:@"🌻"];
                 }
             }
         }
-        self.yourProgressLabel.text = progressText;
+        self.houseProgressLabel.text = progressText;
     } else {
-        self.yourProgressLabel.text = @"No data!";
+        self.houseProgressLabel.text = @"No data!";
+        self.houseProgressLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     }
 }
 
 - (void) setHouseOverdueLabels {
-    NSString *overdueText = @"";
-    if (overdueCount > 5) {
-        for (int i = 0; i < overdueCount / 5; i++) {
-            overdueText = [overdueText stringByAppendingString:@"🥀"];
-        }
-        self.yourOverdueLabel.text = overdueText;
+    if (houseOverdueCount >= housemates.count * 5 ) {
+        self.houseOverdueLabel.text = @"🥀";
+    } else if (houseOverdueCount >= housemates.count * 10) {
+        self.houseOverdueLabel.text = @"🥀🥀";
     } else {
-        self.yourOverdueLabel.text = @"🐝";
+        self.houseOverdueLabel.text = @"🐝";
     }
 }
 

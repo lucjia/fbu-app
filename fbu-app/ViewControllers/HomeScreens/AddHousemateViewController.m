@@ -12,6 +12,7 @@
 #import "House.h"
 #import "Persona.h"
 #import "Request.h"
+#import "CustomColor.h"
 
 @interface AddHousemateViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -29,6 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
     self.housematesToAdd = [[NSMutableArray alloc] init];
     self.numFetching = 0;
