@@ -61,7 +61,7 @@
     
     if(rem.completed) {
         self.checkmarkButton.selected = YES;
-        [self.checkmarkButton setImage:[UIImage imageNamed:@"filledcheckpink"] forState:UIControlStateSelected];
+        [self.checkmarkButton setImage:[UIImage imageNamed:@"filledcheckteal"] forState:UIControlStateSelected];
     } else {
         self.checkmarkButton.selected = NO;
     }
@@ -92,7 +92,7 @@
 }
 
 - (void) refreshCheckState {
-    [self.checkmarkButton setImage:[UIImage imageNamed:@"filledcheckpink"] forState:UIControlStateSelected];
+    [self.checkmarkButton setImage:[UIImage imageNamed:@"filledcheckteal"] forState:UIControlStateSelected];
 }
 
 @end

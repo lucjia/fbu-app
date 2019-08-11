@@ -9,6 +9,7 @@
 #import "PostCell.h"
 #import "Persona.h"
 #import "Accessibility.h"
+#import "CustomColor.h"
 
 @implementation PostCell
 

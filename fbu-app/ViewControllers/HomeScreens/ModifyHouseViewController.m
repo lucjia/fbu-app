@@ -11,6 +11,7 @@
 #import "Parse/Parse.h"
 #import "House.h"
 #import "Persona.h"
+#import "CustomColor.h"
 
 @interface ModifyHouseViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,6 +28,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

@@ -40,6 +40,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -241,7 +244,9 @@
 }
 
 - (IBAction)segmentedControlTapped:(id)sender {
-    previousIndex = self.segmentIndex;
+    if (self.segmentIndex != 2) {
+        previousIndex = self.segmentIndex;
+    }
     self.segmentIndex = self.segmentedControl.selectedSegmentIndex;
     [self fetchReminders];
 }
@@ -282,6 +287,7 @@
     if ([[segue identifier] isEqualToString:@"toReminderCompose"]) {
         ComposeReminderViewController *composeVC = (ComposeReminderViewController *)[segue destinationViewController];
         composeVC.delegate = self;
+        self.segmentIndex = self.segmentedControl.selectedSegmentIndex;
     }
 }
 
@@ -426,6 +432,7 @@
 
 - (void) setIndexWithIndex:(NSInteger)index {
     self.segmentedControl.selectedSegmentIndex = index;
+    self.segmentIndex = index;
     [self fetchReminders];
 }
 

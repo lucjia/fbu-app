@@ -10,6 +10,7 @@
 #import "LocationCell.h"
 #import "SettingsViewController.h"
 #import "Parse/Parse.h"
+#import "CustomColor.h"
 
 // Foursquare API
 static NSString * const clientID = @"EQAQQVVKNHWZQCKEJA1HUSNOOLCVXZEI3UD5A2XH34VNLPA4";
@@ -33,6 +34,9 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

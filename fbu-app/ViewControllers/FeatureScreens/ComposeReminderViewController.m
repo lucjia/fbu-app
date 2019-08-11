@@ -46,6 +46,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
+    
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self fetchHousemates];
@@ -149,10 +152,10 @@
 
 - (IBAction)didPressAdd:(id)sender {
     // Check if fields are empty OR invalid
-    if ([self.recipientLabel.text isEqualToString:@""] || [self.reminderTextView.text isEqualToString:@""]) {
+    if ([self.recipientLabel.text isEqualToString:@"Select a Recipient"] || [self.reminderTextView.text isEqualToString:@""]) {
         // Create alert to display error
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Add Reminder"
-                                                                       message:@"Please enter a username or reminder."
+                                                                       message:@"Please enter a reminder or recipient."
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
         // Create a dismiss action
         UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss"
@@ -206,7 +209,6 @@
                 NSLog(@"%@", error.localizedDescription);
             }
         }];
-        
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

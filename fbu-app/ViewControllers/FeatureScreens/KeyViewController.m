@@ -9,10 +9,13 @@
 #import "KeyViewController.h"
 #import "ProgressViewController.h"
 #import "KeyCell.h"
+#import "Persona.h"
 
 @interface KeyViewController () <UITableViewDelegate, UITableViewDataSource> {
     NSArray *keyLabels;
     NSArray *emoji;
+    
+    NSInteger housemates;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,13 +30,41 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.bounces = NO;
+    
+    [self getNumberOfHousemates];
+    
     
     self.tableView.clipsToBounds = true;
     self.tableView.layer.cornerRadius = 10;
     self.tableView.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner | kCALayerMaxXMaxYCorner | kCALayerMinXMaxYCorner;
     
-    emoji = [[NSArray alloc] initWithObjects:@"🍃", @"🌱", @"🌿", @"🌷", @"🌹", @"🐛", @"🐝", nil];
-    keyLabels = [[NSArray alloc] initWithObjects:@"< 5 reminders completed", @"5 reminders completed", @"10 reminders completed", @"15 reminders completed", @"20 reminders completed", @"Overdue reminders", @"No overdue reminders", nil];
+    emoji = [[NSArray alloc] initWithObjects:@"🍃", @"🌱", @"🌿", @"🌷", @"🌹", @"🐛",
+                                             @"🍃", @"🌼", @"🏵", @"🌺", @"🌻", @"🥀", @"🐝", nil];
+    keyLabels = [[NSArray alloc] initWithObjects:
+                 @"< 5 reminders completed",
+                 @"5 reminders completed",
+                 @"10 reminders completed",
+                 @"15 reminders completed",
+                 @"20 reminders completed",
+                 @"Overdue reminders",
+                 [NSString stringWithFormat:@"< %ld reminders completed as a house", (housemates * 5)],
+                 [NSString stringWithFormat:@"%ld reminders completed as a house", (housemates * 5)],
+                 [NSString stringWithFormat:@"%ld reminders completed as a house", (housemates * 10)],
+                 [NSString stringWithFormat:@"%ld reminders completed as a house", (housemates * 15)],
+                 [NSString stringWithFormat:@"%ld reminders completed as a house", (housemates * 20)],
+                 [NSString stringWithFormat:@"> %ld overdue reminders as a house", (housemates * 5)],
+                 @"No overdue reminders", nil];
+}
+
+- (void) getNumberOfHousemates {
+    Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [persona objectForKey:@"house"];
+        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            housemates = house.housemates.count;
+        }];
+    }];
 }
 
 - (IBAction)didTap:(id)sender {

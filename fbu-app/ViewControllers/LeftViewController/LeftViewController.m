@@ -149,6 +149,7 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
             
         [currentController pushViewController:viewController animated:YES];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Progress"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
