@@ -11,6 +11,7 @@
 #import "Persona.h"
 #import "ChangeSplitViewController.h"
 #import "Parse/Parse.h"
+#import "CustomColor.h"
 
 
 @interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
@@ -37,7 +38,6 @@
 - (IBAction)changePayer:(id)sender;
 @property (weak, nonatomic) IBOutlet UIPickerView *payerPicker;
 
-
 @end
 
 @implementation NewBillViewController
@@ -49,6 +49,11 @@
     self.payerPicker.dataSource = self;
     
     self.paidField.delegate = self;
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
+    
+    [[UIBarButtonItem appearance] setTintColor:[CustomColor accentColor:1.0]];
     
     self.payer = [PFUser.currentUser objectForKey:@"persona"];
     [self.payer fetchIfNeeded];

@@ -44,13 +44,6 @@
     self.layer.shadowOpacity = 0.8f;
     self.layer.masksToBounds = NO;
     self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.contentView.layer.cornerRadius].CGPath;
-    
-    // animation
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionPush;
-    transition.subtype = kCATransitionFromTop;
-    transition.duration = 0.1;
-    [self.layer addAnimation:transition forKey:nil];
 }
 
 @end

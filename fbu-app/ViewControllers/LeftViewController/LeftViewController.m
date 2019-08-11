@@ -35,18 +35,15 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    self.titlesArray = @[@" ",
-                         @"Create a House",
+    self.titlesArray = @[@"Create a House",
                          @"House Rules",
                          @"Home Screen",
                          @"Calendar",
                          @"Reminders",
+                         @"Sent Reminders",
+                         @"Progress",
                          @"Finances",
                          @"Settings",
-                         @" ",
-                         @" ",
-                         @" ",
-                         @" ",
                          @"Log Out"];
 }
 
@@ -76,8 +73,9 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
         
         [currentController pushViewController:viewController animated:YES];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-    // Features (Separate storyboard)
+        // Features (Separate storyboard)
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Home Screen"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
@@ -101,7 +99,7 @@
         
         [rootView setSelectedIndex:1];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
-    
+        
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Reminders"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
@@ -114,8 +112,14 @@
         [rootView setSelectedIndex:2];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
         
+<<<<<<< HEAD
     // Reminder Subfeatures
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"      Sent Reminders"]) {
+=======
+        // Reminder Subfeatures
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Sent Reminders"]) {
+        
+>>>>>>> master
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
         
@@ -130,7 +134,7 @@
         ReminderViewController *reminderController = (ReminderViewController *)navController.visibleViewController;
         reminderController.segmentIndex = 1;
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
-    
+        
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Finances"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         LGSideMenuController *sideMenuController = [postSearch instantiateViewControllerWithIdentifier:@"PostSearchSideMenuController"];
@@ -142,20 +146,21 @@
         
         [rootView setSelectedIndex:3];
         [currentController presentViewController:sideMenuController animated:YES completion:nil];
-    
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"House Rules"]) {
-        UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
-        // segue to another view controller to see progress
-        UINavigationController *viewController = [postSearch instantiateViewControllerWithIdentifier:@"HouseRules"];
-        [self presentViewController:viewController animated:YES completion:nil];
-        
-    } else if (indexPath.row == [self.titlesArray indexOfObject:@"      Progress"]) {
+        SettingsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RulesViewController"];
+            
+        UITabBarController *tabBarController = (UITabBarController *)mainViewController.rootViewController;
+        UINavigationController *currentController = tabBarController.selectedViewController;
+            
+        [currentController pushViewController:viewController animated:YES];
+
+    } else if (indexPath.row == [self.titlesArray indexOfObject:@"Progress"]) {
         UIStoryboard *postSearch = [UIStoryboard storyboardWithName:@"PostSearch" bundle:nil];
         // segue to another view controller to see progress
         ProgressViewController *progressVC = [postSearch instantiateViewControllerWithIdentifier:@"ProgressVC"];
         [self presentViewController:progressVC animated:YES completion:nil];
         
-    // Settings
+        // Settings
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Settings"]) {
         SettingsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsVC"];
         
@@ -163,6 +168,8 @@
         UINavigationController *currentController = tabBarController.selectedViewController;
         
         [currentController pushViewController:viewController animated:YES];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
     } else if (indexPath.row == [self.titlesArray indexOfObject:@"Log Out"]) {
         [PFUser logOutInBackground];
         
@@ -171,7 +178,7 @@
         [self presentViewController:logInVC animated:YES completion:nil];
     }
     
-
+    
     [mainViewController hideLeftViewAnimated:YES delay:0.0 completionHandler:nil];
     // have to segue for each individual row
 }

@@ -34,7 +34,8 @@
 }
 
 - (void)setCurrentDayTextColor {
-    self.dateLabel.textColor = [CustomColor accentColor:1.0];
+    [self setBackgroundColor:[CustomColor accentColor:1.0]];
+    self.dateLabel.textColor = [UIColor whiteColor];
 }
 
 - (void)drawEventCircle {

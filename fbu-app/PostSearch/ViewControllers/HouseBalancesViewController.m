@@ -32,9 +32,21 @@
 
 @implementation HouseBalancesViewController
 
+UIColor *greenColor;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"Finances";
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
+    
+    greenColor = [UIColor colorWithRed:0.0f/255.0f
+                    green:227.0f/255.0f
+                     blue:0.0f/255.0f
+                    alpha:1.0f];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -98,9 +110,9 @@
             [self setTotals];
         }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
             cell.stateLabel.text = @"owes you";
-            cell.stateLabel.textColor = [UIColor greenColor];
+            cell.stateLabel.textColor = greenColor;
             cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
-            cell.balanceLabel.textColor = [UIColor greenColor];
+            cell.balanceLabel.textColor = greenColor;
             cell.topConstraint.constant = 8;
             [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[self abs:total]];
             [self setTotals];

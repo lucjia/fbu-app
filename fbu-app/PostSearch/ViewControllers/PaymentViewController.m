@@ -7,6 +7,7 @@
 //
 
 #import "PaymentViewController.h"
+#import "CustomColor.h"
 
 @interface PaymentViewController () <UITextFieldDelegate>
 

@@ -7,11 +7,18 @@
 //
 
 #import "EventDetailsViewController.h"
+
 #import "CustomColor.h"
+#import "Event.h"
+#import <Parse/Parse.h>
 
 static NSDateFormatter *dateFormatter;
 
 @interface EventDetailsViewController ()
+{
+    Event *eventDisplayed;
+}
+
 
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventTimeLabel;
@@ -49,10 +56,37 @@ static NSDateFormatter *dateFormatter;
     
     self.eventMemoLabel.text = event.memo;
     self.eventMemoLabel.textColor = [CustomColor darkMainColor:1.0];
+    
+    eventDisplayed = event;
 }
 
 - (IBAction)didTapExit:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)didTapDeleteEvent:(id)sender {
+    [self createAlertController:@"Are you sure?" message:@""];
+}
+
+- (void)createAlertController:(NSString *)title message:(NSString *)msg {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // handle response here.
+        [self->eventDisplayed deleteInBackground];
+        [self.delegate deleteEvent:self->eventDisplayed];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // handle response here.
+    }];
+    // add the OK action to the alert controller
+    [alert addAction:cancel];
+    [alert addAction:confirm];
+    alert.view.tintColor = [CustomColor accentColor:1.0];
+    
+    [self presentViewController:alert animated:YES completion:^{}];
 }
 
 /*

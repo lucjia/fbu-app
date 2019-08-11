@@ -29,6 +29,7 @@
 		6497FFAF22E28B5D002D1996 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFAE22E28B5D002D1996 /* RulesViewController.m */; };
 		6497FFB322E61EFA002D1996 /* SentRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */; };
 		6497FFB622E61F17002D1996 /* SentRequestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6497FFB522E61F17002D1996 /* SentRequestsCell.m */; };
+		64A322E122FE1A9C00795C37 /* Baloo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64A322E022FE1A9C00795C37 /* Baloo-Regular.ttf */; };
 		64B5719722F8DEB900B9200D /* CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B5719622F8DEB900B9200D /* CustomColor.m */; };
 		64BBF3D222DE406100FCCABD /* RoommateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBF3D122DE406100FCCABD /* RoommateCell.m */; };
 		64E9CF6722F7549400568125 /* PostSearchLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9CF6622F7549400568125 /* PostSearchLeftViewController.m */; };
@@ -171,7 +172,7 @@
 		6497FFB222E61EFA002D1996 /* SentRequestsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsViewController.m; sourceTree = "<group>"; };
 		6497FFB422E61F17002D1996 /* SentRequestsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SentRequestsCell.h; sourceTree = "<group>"; };
 		6497FFB522E61F17002D1996 /* SentRequestsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentRequestsCell.m; sourceTree = "<group>"; };
-		64A322DA22FDED0800795C37 /* Baloo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo-Regular.ttf"; path = "../../../../Downloads/Baloo/Baloo-Regular.ttf"; sourceTree = "<group>"; };
+		64A322E022FE1A9C00795C37 /* Baloo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baloo-Regular.ttf"; sourceTree = "<group>"; };
 		64B5719522F8DEB900B9200D /* CustomColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomColor.h; sourceTree = "<group>"; };
 		64B5719622F8DEB900B9200D /* CustomColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomColor.m; sourceTree = "<group>"; };
 		64BBF3D022DE406100FCCABD /* RoommateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoommateCell.h; sourceTree = "<group>"; };
@@ -489,7 +490,7 @@
 		64A322D922FDECEA00795C37 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				64A322DA22FDED0800795C37 /* Baloo-Regular.ttf */,
+				64A322E022FE1A9C00795C37 /* Baloo-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -813,6 +814,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64A322E122FE1A9C00795C37 /* Baloo-Regular.ttf in Resources */,
 				645088C922EB987000319C93 /* PostSearch.storyboard in Resources */,
 				85E7A14B22DD214E006C1F38 /* LaunchScreen.storyboard in Resources */,
 				85E7A14822DD214E006C1F38 /* Assets.xcassets in Resources */,
