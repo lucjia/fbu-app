@@ -432,7 +432,7 @@
             NSInteger firstDayOfMonthWeekday = [dateComponent weekday];
             NSDate *dayBefore = [self previousDayForDate:displayedMonthStartDate];
             dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay fromDate:dayBefore];
-            weekStart = [dateComponent day] - (firstDayOfMonthWeekday - 2);
+            weekStart = [dateComponent day] - [dateComponent weekday] + 1;
             [self changeMonth:1 toMonth:12 changeBy:-1 swipeDirectionAnimation:kCATransitionFromLeft];
         }
     } else {
@@ -500,9 +500,11 @@
         eventDate = [self dateWithYear:currentYear month:currentMonth == 1 ? 12 : currentMonth - 1 day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     } else {
         if (((weekStart == 32 && indexPath.row == 0) || (weekStart == 31 && indexPath.row == 0) || (weekStart == 28 && indexPath.row == 0)) && !weekDirectionBackWards) {
-            currentMonth = currentMonth == 12 ? 1 : ++currentMonth;
-            weekStart = 1;
-            [self setMonthLabelText];
+            if (weekStart > numberOfDays) {
+                currentMonth = currentMonth == 12 ? 1 : ++currentMonth;
+                weekStart = 1;
+                [self setMonthLabelText];
+            }
         }
         eventDate = [self dateWithYear:currentYear month:currentMonth day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     }
