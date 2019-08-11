@@ -1436,6 +1436,7 @@
                         <viewLayoutGuide key="safeArea" id="pVr-aG-FnU"/>
                     </view>
                     <connections>
+                        <outlet property="addBillButton" destination="gVd-bR-jr6" id="F2A-71-Hcy"/>
                         <outlet property="dateField" destination="SST-d4-J2d" id="4a1-BP-WLa"/>
                         <outlet property="datePicker" destination="iDe-hd-Bmj" id="0qf-Wa-aJ3"/>
                         <outlet property="dateView" destination="glH-lV-22p" id="SeI-9S-vLs"/>
@@ -1559,6 +1560,7 @@
                     </view>
                     <connections>
                         <outlet property="payerView" destination="ilH-Da-wIw" id="MAe-Vm-zCm"/>
+                        <outlet property="saveButton" destination="RWm-bB-qse" id="99P-9s-98d"/>
                         <outlet property="tableView" destination="0cI-t0-uQW" id="8Kf-oz-JYL"/>
                     </connections>
                 </viewController>
@@ -1706,10 +1708,11 @@
                         <viewLayoutGuide key="safeArea" id="qKO-fP-yBr"/>
                     </view>
                     <connections>
+                        <outlet property="recordButton" destination="N8q-l7-2jD" id="P0w-3k-Vlw"/>
                         <outlet property="tableView" destination="B4R-vj-xzr" id="Lo4-EZ-f8h"/>
                         <outlet property="totalBalanceLabel" destination="6vp-pw-Pkb" id="1DD-aw-Y2h"/>
                         <outlet property="totalStateLabel" destination="MLc-K1-qhL" id="Gbt-Ts-Agu"/>
-                        <outlet property="totalTopConstraint" destination="Ycd-NG-ys9" id="dMM-N3-4OM"/>
+                        <outlet property="totalTopConstraint" destination="Ycd-NG-ys9" id="ogP-tf-06R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AGv-zo-E4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1928,6 +1931,7 @@
                     <connections>
                         <outlet property="housemateView" destination="PA6-ZC-Vwx" id="Bc2-0b-rbY"/>
                         <outlet property="moneyField" destination="TXD-JT-9IA" id="Ce2-nJ-3Xr"/>
+                        <outlet property="recordButton" destination="PXE-76-ghj" id="viD-XL-LIM"/>
                         <outlet property="textLabel" destination="m79-Uo-v0a" id="caD-pE-ZfS"/>
                         <outlet property="userView" destination="kT8-O7-22s" id="caH-gN-Qep"/>
                     </connections>

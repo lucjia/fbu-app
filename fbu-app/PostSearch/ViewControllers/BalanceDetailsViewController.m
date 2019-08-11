@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalBalanceLabel;
 @property (assign, nonatomic) NSUInteger indexOfHousemate;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalTopConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *recordButton;
 
 @end
 
@@ -34,6 +35,9 @@ UIColor *green;
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    self.recordButton.layer.cornerRadius = 5;
+    self.recordButton.layer.masksToBounds = YES;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];

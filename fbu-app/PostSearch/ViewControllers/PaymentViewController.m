@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *housemateView;
 @property (weak, nonatomic) IBOutlet UIImageView *userView;
 - (IBAction)tapRecordPayment:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *recordButton;
 
 @end
 
@@ -28,6 +29,9 @@
     
     self.moneyField.text = [self formatCurrency:[NSDecimalNumber zero]];
     self.textLabel.text = [@"You paid " stringByAppendingString:[self getName:self.housemate]];
+    
+    self.recordButton.layer.cornerRadius = 5;
+    self.recordButton.layer.masksToBounds = YES;
     
     
     PFFileObject *imageFile = self.housemate.profileImage;

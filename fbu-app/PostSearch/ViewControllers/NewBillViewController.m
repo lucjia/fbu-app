@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIView *payerView;
 - (IBAction)changePayer:(id)sender;
 @property (weak, nonatomic) IBOutlet UIPickerView *payerPicker;
+@property (weak, nonatomic) IBOutlet UIButton *addBillButton;
 
 @end
 
@@ -54,6 +55,9 @@
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
     [[UIBarButtonItem appearance] setTintColor:[CustomColor accentColor:1.0]];
+    
+    self.addBillButton.layer.cornerRadius = 5;
+    self.addBillButton.layer.masksToBounds = YES;
     
     self.payer = [PFUser.currentUser objectForKey:@"persona"];
     [self.payer fetchIfNeeded];
