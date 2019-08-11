@@ -15,8 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *housemateView;
 @property (weak, nonatomic) IBOutlet UIImageView *userView;
-- (IBAction)tapRecordPayment:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
+- (IBAction)tapRecordPayment:(id)sender;
+
 
 @end
 
@@ -52,35 +53,9 @@
     self.userView.layer.cornerRadius = self.userView.frame.size.height /2;
     self.userView.layer.masksToBounds = YES;
     
-    // Do any additional setup after loading the view.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (IBAction)tapRecordPayment:(id)sender {
-
-    if (self.moneyField.text.length > 1) {
-    
-        NSDecimalNumber *paid = [self getPaid];
-        
-        NSArray *debtors = [[NSArray alloc] initWithObjects:self.housemate, nil];
-        NSArray *portions = [[NSArray alloc] initWithObjects:paid, nil];
-        NSString *memo = @"Payment";
-        
-        [Bill createBill:[NSDate date] billMemo:memo payer:self.currentPersona totalPaid:paid debtors:debtors portionLent:portions image:nil isPayment:YES withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        }];
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
 
 - (NSDecimalNumber*)getPaid {
     if ([self.moneyField.text length] > 1){
@@ -130,4 +105,20 @@
 }
 
 
+- (IBAction)tapRecordPayment:(id)sender {
+    
+    if (self.moneyField.text.length > 1) {
+        
+        NSDecimalNumber *paid = [self getPaid];
+        
+        NSArray *debtors = [[NSArray alloc] initWithObjects:self.housemate, nil];
+        NSArray *portions = [[NSArray alloc] initWithObjects:paid, nil];
+        NSString *memo = @"Payment";
+        
+        [Bill createBill:[NSDate date] billMemo:memo payer:self.currentPersona totalPaid:paid debtors:debtors portionLent:portions image:nil isPayment:YES withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        }];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 @end
