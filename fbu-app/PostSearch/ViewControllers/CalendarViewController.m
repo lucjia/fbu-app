@@ -377,7 +377,9 @@
         [self initCollectionViewFromDirection:kCATransitionFromTop];
         [self->tableView removeFromSuperview];
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionDown && isInWeeklyMode) {
+        NSDateComponents *dateComponent = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
         isInWeeklyMode = NO;
+        [self startOfMonthForCalendar:[NSCalendar currentCalendar] dateComponent:dateComponent];
         [collectionView removeFromSuperview];
         [self initCollectionViewFromDirection:kCATransitionFromBottom];
         
@@ -468,8 +470,12 @@
 }
 
 - (IBAction)didTapToday:(id)sender {
-    NSDateComponents *dateComponent = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSDateComponents *dateComponent = [calendar components:NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger year = [dateComponent year];
+    if (isInWeeklyMode) {
+        swipeToChangeWeek = YES;
+        weekStart = [dateComponent day] - [dateComponent weekday] + 1;
+    }
     [self changeMonth:currentMonth toMonth:[dateComponent month] changeBy:currentYear == year ? 0 : year - currentYear swipeDirectionAnimation:kCATransitionFade];
 }
 
@@ -493,7 +499,7 @@
         weekStartForSelectedCell = 0;
         eventDate = [self dateWithYear:currentYear month:currentMonth == 1 ? 12 : currentMonth - 1 day:(isInWeeklyMode ?  weekStart : indexPath.row - monthStartweekday + 2)];
     } else {
-        if (((weekStart == 32 && indexPath.row == 0) || (weekStart == 31 && indexPath.row == 0) || (weekStart == 28 && indexPath.row == 0) || (weekStart == 329 && indexPath.row == 0)) && [self isDate:weekStartDate inSameMonthAsDate:displayedMonthStartDate] == NO) {
+        if (((weekStart == 32 && indexPath.row == 0) || (weekStart == 31 && indexPath.row == 0) || (weekStart == 28 && indexPath.row == 0)) && !weekDirectionBackWards) {
             currentMonth = currentMonth == 12 ? 1 : ++currentMonth;
             weekStart = 1;
             [self setMonthLabelText];
