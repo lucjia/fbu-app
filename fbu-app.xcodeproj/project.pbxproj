@@ -12,6 +12,7 @@
 		53E8D164E2B20B3474018D41 /* Pods_fbu_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF11A48580BE19DA3BF44E01 /* Pods_fbu_app.framework */; };
 		640603BA22DE94BB00C24301 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 640603B922DE94BB00C24301 /* User.m */; };
 		640603BD22E1146500C24301 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640603BC22E1146500C24301 /* DetailsViewController.m */; };
+		6412210A23009E7C0092EFE9 /* HomiLogo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 6412210923009E7C0092EFE9 /* HomiLogo_180x180.png */; };
 		6429400022E26F7F00961F29 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 64293FFF22E26F7F00961F29 /* Request.m */; };
 		6429400322E277D600961F29 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400222E277D600961F29 /* RequestsViewController.m */; };
 		6429400622E2781200961F29 /* RequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6429400522E2781200961F29 /* RequestCell.m */; };
@@ -139,6 +140,7 @@
 		640603B922DE94BB00C24301 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		640603BB22E1146500C24301 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		640603BC22E1146500C24301 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		6412210923009E7C0092EFE9 /* HomiLogo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomiLogo_180x180.png; sourceTree = "<group>"; };
 		64293FFE22E26F7F00961F29 /* Request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
 		64293FFF22E26F7F00961F29 /* Request.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
 		6429400122E277D600961F29 /* RequestsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 				85E7A14922DD214E006C1F38 /* LaunchScreen.storyboard */,
 				85E7A14722DD214E006C1F38 /* Assets.xcassets */,
 				85E7A14C22DD214E006C1F38 /* Info.plist */,
+				6412210923009E7C0092EFE9 /* HomiLogo_180x180.png */,
 				85E7A14D22DD214E006C1F38 /* main.m */,
 				85EAAC4122FC7E6700EAC240 /* Intents.intentdefinition */,
 			);
@@ -814,6 +817,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6412210A23009E7C0092EFE9 /* HomiLogo_180x180.png in Resources */,
 				64A322E122FE1A9C00795C37 /* Baloo-Regular.ttf in Resources */,
 				645088C922EB987000319C93 /* PostSearch.storyboard in Resources */,
 				85E7A14B22DD214E006C1F38 /* LaunchScreen.storyboard in Resources */,
