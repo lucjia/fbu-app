@@ -16,6 +16,7 @@
 
 @interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
+@property (strong, nonatomic) IBOutlet UIView *view;
 @property (weak, nonatomic) IBOutlet UITextField *memoField;
 @property (weak, nonatomic) IBOutlet UITextField *paidField;
 @property (weak, nonatomic) IBOutlet UIImageView *pictureView;
@@ -213,7 +214,12 @@
 
 
 - (IBAction)tapDateField:(id)sender {
-    [self.dateView setHidden:NO];
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.5;
+    [self.dateView.layer addAnimation:animation forKey:nil];
+    
+   self.dateView.hidden = NO;
 }
 
 
@@ -251,7 +257,12 @@
 }
 
 - (IBAction)tapDateDone:(id)sender {
-    [self.dateView setHidden:YES];
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.5;
+    [self.view.layer addAnimation:animation forKey:nil];
+    self.dateView.hidden = YES;
+    
     self.date = self.datePicker.date;
     self.dateField.text = [self formatDate:self.datePicker.date];
 }
@@ -264,7 +275,14 @@
 
 
 - (IBAction)tapPayerDone:(id)sender {
-    [self.payerView setHidden:YES];
+
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.5;
+    [self.view.layer addAnimation:animation forKey:nil];
+    self.payerView.hidden = YES;
+    
+    [self fetchpossibleDebtors];
     self.debtors = nil;
     self.portions = nil;
     [self viewWillAppear:YES];
@@ -272,7 +290,12 @@
 }
 
 - (IBAction)changePayer:(id)sender {
-    [self.payerView setHidden:NO];
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.5;
+    [self.payerView.layer addAnimation:animation forKey:nil];
+    
+    self.payerView.hidden = NO;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
