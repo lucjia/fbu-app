@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalBalanceLabel;
-@property (assign, nonatomic) NSUInteger indexOfHousemate;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 
@@ -41,16 +40,6 @@ UIColor *green;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
-    
-    NSUInteger index = [self.balance.housemates indexOfObject:self.currentPersona];
-    if(index == 0){
-        self.indexOfHousemate = (NSUInteger)1;
-        self.housemate = self.balance.housemates[1];
-    }else{
-        self.indexOfHousemate = (NSUInteger)0;
-        self.housemate = self.balance.housemates[0];
-    }
-    [self.housemate fetchIfNeeded];
     
     self.navigationItem.title = [self getName:self.housemate];
     

@@ -60,40 +60,44 @@
     self.addBillButton.layer.masksToBounds = YES;
     
     self.payer = [PFUser.currentUser objectForKey:@"persona"];
-    [self.payer fetchIfNeeded];
-    
-    [self fetchpossibleDebtors];
-    self.debtors = [self.possibleDebtors mutableCopy];
+    [self.payer fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
+        [self fetchpossibleDebtors];
+    }];
     
     self.dateField.text = [self formatDate:[NSDate date]];
     self.date = [NSDate date];
     
     self.paidField.text = [self formatCurrency:[NSDecimalNumber zero]];
     
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
     [self fetchpossibleDebtors];
-    [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
-    NSMutableArray *debtorNames = [[NSMutableArray alloc] init];
-    for(Persona *debtor in self.debtors) {
-        [debtorNames addObject:[self getName:debtor]];
-    }
-    [self.debtorsButton setTitle:[debtorNames componentsJoinedByString:@", "] forState:UIControlStateNormal];
+    
 }
 
 - (void) fetchpossibleDebtors {
     Persona *persona = [PFUser.currentUser objectForKey:@"persona"];
-    [persona fetchIfNeeded];
-    House *house = [House getHouse:persona];
-    self.housemates = [house objectForKey:@"housemates"];
-    for(Persona* housemate in self.housemates){
-        [housemate fetchIfNeeded];
-    }
-    self.possibleDebtors = [self.housemates mutableCopy];
-    [self.possibleDebtors removeObject:self.payer];
+    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        House *house = [House getHouse:persona];
+        self.housemates = [house objectForKey:@"housemates"];
+        [Persona fetchAllIfNeededInBackground:self.housemates block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            self.possibleDebtors = [self.housemates mutableCopy];
+            [self.possibleDebtors removeObject:self.payer];
+            
+            if(self.debtors == nil){
+                self.debtors = [self.possibleDebtors mutableCopy];
+            }
+            
+            NSMutableArray *debtorNames = [[NSMutableArray alloc] init];
+            for(Persona *debtor in self.debtors) {
+                [debtorNames addObject:[self getName:debtor]];
+            }
+            [self.debtorsButton setTitle:[debtorNames componentsJoinedByString:@", "] forState:UIControlStateNormal];
+        }];
+    }];
 }
 
 - (NSString *) getName:(Persona*)persona {
@@ -261,8 +265,7 @@
 
 - (IBAction)tapPayerDone:(id)sender {
     [self.payerView setHidden:YES];
-    [self fetchpossibleDebtors];
-    self.debtors = [self.possibleDebtors mutableCopy];
+    self.debtors = nil;
     self.portions = nil;
     [self viewWillAppear:YES];
     
@@ -284,6 +287,7 @@ numberOfRowsInComponent:(NSInteger)component {
 - (NSString *)pickerView:(UIPickerView *)thePickerView
              titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     Persona *housemate = self.housemates[row];
+    [housemate fetchIfNeeded];
     return [self getName:housemate];
 }
 

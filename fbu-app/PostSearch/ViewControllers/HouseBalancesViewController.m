@@ -27,7 +27,6 @@
 @property (nonatomic, strong) NSMutableArray *balanceTotals;
 - (IBAction)tapLeftMenu:(id)sender;
 
-
 @end
 
 @implementation HouseBalancesViewController
@@ -35,14 +34,13 @@
 UIColor *greenColor;
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    
     [super viewDidLoad];
     
     self.navigationItem.title = @"Finances";
-    
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
-    
+
     greenColor = [UIColor colorWithRed:0.0f/255.0f
                     green:227.0f/255.0f
                      blue:0.0f/255.0f
@@ -57,6 +55,7 @@ UIColor *greenColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    // Dispatch lengthy stuff on another thread
     [super viewWillAppear:animated];
     [self reloadView];
 }
@@ -83,46 +82,48 @@ UIColor *greenColor;
     Balance *balance = self.balances[indexPath.row];
     [balance fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         
-        [balance.housemates[0] fetchIfNeeded];
-        [balance.housemates[1] fetchIfNeeded];
-        NSUInteger indexOfHousemate = [self getIndex:balance];
-        Persona *housemate = [self getHousemate:balance indexOfHousemate:indexOfHousemate];
-        
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-        
-        NSDecimalNumber* total = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
-
-        cell.nameLabel.text = [[housemate.firstName stringByAppendingString:@" "] stringByAppendingString:housemate.lastName];
-        NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
-        if ([balanceTotal isEqual:[NSDecimalNumber zero]]){
-            cell.stateLabel.text = @"all even";
-            cell.stateLabel.textColor = [UIColor darkGrayColor];
-            cell.topConstraint.constant = 19;
-        }
-        else if([self inDebt:balance indexOfHousemate:indexOfHousemate]){
-            cell.stateLabel.text = @"you owe";
-            cell.stateLabel.textColor = [UIColor redColor];
-            cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
-            cell.balanceLabel.textColor = [UIColor redColor];
-            cell.topConstraint.constant = 8;
-            [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[[self abs:total] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"-1"]]];
-            [self setTotals];
-        }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
-            cell.stateLabel.text = @"owes you";
-            cell.stateLabel.textColor = greenColor;
-            cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
-            cell.balanceLabel.textColor = greenColor;
-            cell.topConstraint.constant = 8;
-            [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[self abs:total]];
-            [self setTotals];
-        }
-        
-        PFFileObject *imageFile = housemate.profileImage;
-        [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-            if (!error) {
-                cell.profileView.image = [UIImage imageWithData:data];
+        [Persona fetchAllIfNeededInBackground:balance.housemates block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            
+            
+            NSUInteger indexOfHousemate = [self getIndex:balance];
+            Persona *housemate = [self getHousemate:balance indexOfHousemate:indexOfHousemate];
+            
+            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+            
+            NSDecimalNumber* total = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
+            
+            cell.nameLabel.text = [[housemate.firstName stringByAppendingString:@" "] stringByAppendingString:housemate.lastName];
+            NSDecimalNumber *balanceTotal = [NSDecimalNumber decimalNumberWithDecimal:[balance.total decimalValue]];
+            if ([balanceTotal isEqual:[NSDecimalNumber zero]]){
+                cell.stateLabel.text = @"all even";
+                cell.stateLabel.textColor = [UIColor darkGrayColor];
+                cell.topConstraint.constant = 19;
             }
+            else if([self inDebt:balance indexOfHousemate:indexOfHousemate]){
+                cell.stateLabel.text = @"you owe";
+                cell.stateLabel.textColor = [UIColor redColor];
+                cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
+                cell.balanceLabel.textColor = [UIColor redColor];
+                cell.topConstraint.constant = 8;
+                [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[[self abs:total] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"-1"]]];
+                [self setTotals];
+            }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
+                cell.stateLabel.text = @"owes you";
+                cell.stateLabel.textColor = greenColor;
+                cell.balanceLabel.text = [numberFormatter stringFromNumber:[self abs:balanceTotal]];
+                cell.balanceLabel.textColor = greenColor;
+                cell.topConstraint.constant = 8;
+                [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[self abs:total]];
+                [self setTotals];
+            }
+            
+            PFFileObject *imageFile = housemate.profileImage;
+            [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                if (!error) {
+                    cell.profileView.image = [UIImage imageWithData:data];
+                }
+            }];
         }];
     }];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.height /2;
@@ -203,6 +204,8 @@ UIColor *greenColor;
         BalanceDetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.balance = balance;
         detailsViewController.currentPersona = self.currentPersona;
+        detailsViewController.indexOfHousemate = [self getIndex:balance];
+        detailsViewController.housemate = balance.housemates[detailsViewController.indexOfHousemate];
     }
 }
      

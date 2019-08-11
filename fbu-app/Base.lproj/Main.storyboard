@@ -1313,7 +1313,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpr-nq-fNG">
-                                <rect key="frame" x="82" y="806" width="250" height="40"/>
+                                <rect key="frame" x="82" y="792" width="250" height="40"/>
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="B1h-Pk-D6B"/>
@@ -1328,7 +1328,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Uqo-Ub-PzM">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="700"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleCell" rowHeight="109" id="cDz-0v-ZvT" customClass="RuleCell">
@@ -1368,8 +1368,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Add a new rule" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qLr-Bu-Xmm">
-                                <rect key="frame" x="36" y="729" width="342" height="60"/>
+                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Add a new rule" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qLr-Bu-Xmm">
+                                <rect key="frame" x="36" y="716" width="342" height="60"/>
                                 <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Alf-YU-qwP"/>
@@ -1381,7 +1381,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="svD-SU-BnS" firstAttribute="bottom" secondItem="Zpr-nq-fNG" secondAttribute="bottom" constant="16" id="4AY-em-8kh"/>
+                            <constraint firstItem="svD-SU-BnS" firstAttribute="bottom" secondItem="Zpr-nq-fNG" secondAttribute="bottom" constant="30" id="4AY-em-8kh"/>
                             <constraint firstItem="Uqo-Ub-PzM" firstAttribute="trailing" secondItem="svD-SU-BnS" secondAttribute="trailing" id="EiR-Sm-Jfd"/>
                             <constraint firstItem="Zpr-nq-fNG" firstAttribute="top" secondItem="qLr-Bu-Xmm" secondAttribute="bottom" constant="16" id="K1u-3h-gbq"/>
                             <constraint firstItem="svD-SU-BnS" firstAttribute="trailing" secondItem="qLr-Bu-Xmm" secondAttribute="trailing" constant="36" id="QsN-uN-y3N"/>
