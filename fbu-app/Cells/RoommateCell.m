@@ -41,7 +41,7 @@
 }
 
 - (void)updateProperties:(Persona *)persona {
-    self.sendButtonView.layer.cornerRadius = 5;
+    self.sendButtonView.layer.cornerRadius = 3;
     
     [[persona objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
         NSData *imageData = data;

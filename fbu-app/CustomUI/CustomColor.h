@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)midToneTwo:(CGFloat)colorAlpha;
 + (UIColor *)accentColor:(CGFloat)colorAlpha;
 + (UIColor *)lightGrey:(CGFloat)colorAlpha;
++ (UIColor *)accentColorTeal:(CGFloat)colorAlpha;
 
 @end
 

@@ -43,6 +43,9 @@
     
     [self setYourProgress];
     [self findHousematesAndSetProgress];
+    
+    self.keyButton.layer.cornerRadius = 8;
+    self.keyButton.layer.masksToBounds = YES;
 }
 
 - (IBAction)didPressBack:(id)sender {

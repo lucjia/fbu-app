@@ -30,4 +30,8 @@
     return [UIColor colorWithRed:(111 / 255.0) green: (113 / 255.0) blue:(121 / 255.0) alpha:colorAlpha];
 }
 
++ (UIColor *)accentColorTeal:(CGFloat)colorAlpha {
+    return [UIColor colorWithRed:(0 / 255.0) green: (129 / 255.0) blue:(138 / 255.0) alpha:colorAlpha];
+}
+
 @end
