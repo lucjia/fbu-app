@@ -1446,6 +1446,7 @@
                         <outlet property="payerPicker" destination="Qrw-4X-dht" id="34z-Jm-s2B"/>
                         <outlet property="payerView" destination="ilH-Da-wIw" id="3fg-ni-UKD"/>
                         <outlet property="pictureView" destination="JNh-qj-eB0" id="l7S-is-ju7"/>
+                        <outlet property="view" destination="EKG-7S-Kzf" id="3Ya-TN-bmT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y5b-QL-NFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
