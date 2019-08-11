@@ -538,11 +538,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EOA-0o-M1s">
-                                <rect key="frame" x="40" y="188" width="334" height="440"/>
+                                <rect key="frame" x="40" y="188" width="334" height="494"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="440" id="4l6-gR-YXG"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainRoomateCell" rowHeight="150" id="l6h-PD-M3Z" customClass="PlainRoomateCell">
                                         <rect key="frame" x="0.0" y="28" width="334" height="150"/>
@@ -589,12 +586,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UP5-Gi-dw0">
-                                <rect key="frame" x="40" y="668" width="334" height="55"/>
+                                <rect key="frame" x="82" y="722" width="250" height="40"/>
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="jQE-lT-KXt"/>
+                                    <constraint firstAttribute="width" constant="250" id="Z95-gA-7r5"/>
+                                    <constraint firstAttribute="height" constant="40" id="jQE-lT-KXt"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Add Housemates">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -603,7 +601,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuC-ki-iXm">
-                                <rect key="frame" x="128" y="731" width="158" height="29"/>
+                                <rect key="frame" x="128" y="770" width="158" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Remove Me From House">
                                     <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -615,15 +613,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="UP5-Gi-dw0" firstAttribute="top" secondItem="EOA-0o-M1s" secondAttribute="bottom" constant="40" id="6aP-xd-YFu"/>
+                            <constraint firstItem="UP5-Gi-dw0" firstAttribute="centerX" secondItem="EOA-0o-M1s" secondAttribute="centerX" id="CNt-nQ-VfK"/>
                             <constraint firstItem="u0g-qs-k0H" firstAttribute="top" secondItem="GVu-Ad-OMf" secondAttribute="top" constant="50" id="CX5-ZH-iHd"/>
                             <constraint firstItem="EOA-0o-M1s" firstAttribute="top" secondItem="GVu-Ad-OMf" secondAttribute="top" constant="100" id="F2e-Ko-veb"/>
                             <constraint firstItem="GVu-Ad-OMf" firstAttribute="trailing" secondItem="EOA-0o-M1s" secondAttribute="trailing" constant="40" id="FCU-cP-jTf"/>
                             <constraint firstItem="EOA-0o-M1s" firstAttribute="leading" secondItem="GVu-Ad-OMf" secondAttribute="leading" constant="40" id="Q4n-5T-d4G"/>
-                            <constraint firstItem="GVu-Ad-OMf" firstAttribute="trailing" secondItem="UP5-Gi-dw0" secondAttribute="trailing" constant="40" id="WVh-iT-gt3"/>
                             <constraint firstItem="GuC-ki-iXm" firstAttribute="centerX" secondItem="UP5-Gi-dw0" secondAttribute="centerX" id="WWO-jC-tjr"/>
-                            <constraint firstItem="UP5-Gi-dw0" firstAttribute="top" secondItem="EOA-0o-M1s" secondAttribute="bottom" constant="40" id="iLR-L9-Edm"/>
                             <constraint firstItem="GuC-ki-iXm" firstAttribute="top" secondItem="UP5-Gi-dw0" secondAttribute="bottom" constant="8" id="jXT-aq-g9R"/>
-                            <constraint firstItem="UP5-Gi-dw0" firstAttribute="leading" secondItem="GVu-Ad-OMf" secondAttribute="leading" constant="40" id="vsv-JF-UKZ"/>
+                            <constraint firstItem="GVu-Ad-OMf" firstAttribute="bottom" secondItem="UP5-Gi-dw0" secondAttribute="bottom" constant="100" id="uKQ-bp-gIz"/>
                             <constraint firstItem="u0g-qs-k0H" firstAttribute="centerX" secondItem="GVu-Ad-OMf" secondAttribute="centerX" id="wVU-rx-Z9b"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GVu-Ad-OMf"/>
@@ -647,26 +645,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wz6-gf-0jz">
-                                <rect key="frame" x="40" y="668" width="334" height="55"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="Cit-6t-jXB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapAddHousemates:" destination="hqy-69-VI0" eventType="touchUpInside" id="YmZ-rW-nZ0"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4pM-Oo-Meh">
-                                <rect key="frame" x="40" y="188" width="334" height="440"/>
+                                <rect key="frame" x="40" y="188" width="334" height="494"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="440" id="OaL-iW-cdF"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainRoomateCell" rowHeight="89" id="61a-1y-oyc" customClass="PlainRoomateCell">
                                         <rect key="frame" x="0.0" y="28" width="334" height="89"/>
@@ -712,22 +693,37 @@
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uvg-Vv-stN">
+                                <rect key="frame" x="82" y="722" width="250" height="40"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Ith-rp-bVg"/>
+                                    <constraint firstAttribute="width" constant="250" id="rFn-XK-AWS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapAddHousemates:" destination="hqy-69-VI0" eventType="touchUpInside" id="1Dv-as-tpl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="wz6-gf-0jz" firstAttribute="leading" secondItem="0Ew-tu-c7e" secondAttribute="leading" constant="40" id="3pP-aJ-Guo"/>
-                            <constraint firstItem="0Ew-tu-c7e" firstAttribute="trailing" secondItem="wz6-gf-0jz" secondAttribute="trailing" constant="40" id="56e-YT-PXH"/>
                             <constraint firstItem="0Ew-tu-c7e" firstAttribute="trailing" secondItem="4pM-Oo-Meh" secondAttribute="trailing" constant="40" id="5iy-DV-ktZ"/>
+                            <constraint firstItem="Uvg-Vv-stN" firstAttribute="centerX" secondItem="0Ew-tu-c7e" secondAttribute="centerX" id="Mgt-FB-fU7"/>
+                            <constraint firstItem="0Ew-tu-c7e" firstAttribute="bottom" secondItem="Uvg-Vv-stN" secondAttribute="bottom" constant="100" id="Wwk-nQ-Ppl"/>
                             <constraint firstItem="4pM-Oo-Meh" firstAttribute="leading" secondItem="0Ew-tu-c7e" secondAttribute="leading" constant="40" id="a2w-02-Zbv"/>
+                            <constraint firstItem="Uvg-Vv-stN" firstAttribute="top" secondItem="4pM-Oo-Meh" secondAttribute="bottom" constant="40" id="aSZ-4Q-Cv5"/>
                             <constraint firstItem="jJ3-aI-yFw" firstAttribute="centerX" secondItem="0Ew-tu-c7e" secondAttribute="centerX" id="cl6-kV-IUN"/>
-                            <constraint firstItem="wz6-gf-0jz" firstAttribute="top" secondItem="4pM-Oo-Meh" secondAttribute="bottom" constant="40" id="iTW-ux-DVw"/>
                             <constraint firstItem="4pM-Oo-Meh" firstAttribute="top" secondItem="0Ew-tu-c7e" secondAttribute="top" constant="100" id="oay-xg-ztj"/>
                             <constraint firstItem="jJ3-aI-yFw" firstAttribute="top" secondItem="0Ew-tu-c7e" secondAttribute="top" constant="40" id="sVf-wi-Cxe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0Ew-tu-c7e"/>
                     </view>
                     <connections>
-                        <outlet property="houseButton" destination="wz6-gf-0jz" id="F2K-3r-OfD"/>
+                        <outlet property="houseButton" destination="Uvg-Vv-stN" id="UBk-fz-cfX"/>
                         <outlet property="tableView" destination="4pM-Oo-Meh" id="T46-gu-keR"/>
                     </connections>
                 </viewController>
@@ -1315,10 +1311,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpr-nq-fNG">
-                                <rect key="frame" x="60" y="806" width="294" height="40"/>
+                                <rect key="frame" x="82" y="792" width="250" height="40"/>
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="B1h-Pk-D6B"/>
+                                    <constraint firstAttribute="width" constant="250" id="L6o-QB-HV1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Add Rule">
@@ -1329,7 +1326,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Uqo-Ub-PzM">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="700"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleCell" rowHeight="109" id="cDz-0v-ZvT" customClass="RuleCell">
@@ -1369,8 +1366,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Add a new rule" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qLr-Bu-Xmm">
-                                <rect key="frame" x="36" y="729" width="342" height="60"/>
+                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Add a new rule" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qLr-Bu-Xmm">
+                                <rect key="frame" x="36" y="716" width="342" height="60"/>
                                 <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Alf-YU-qwP"/>
@@ -1382,21 +1379,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="svD-SU-BnS" firstAttribute="bottom" secondItem="Zpr-nq-fNG" secondAttribute="bottom" constant="16" id="4AY-em-8kh"/>
+                            <constraint firstItem="svD-SU-BnS" firstAttribute="bottom" secondItem="Zpr-nq-fNG" secondAttribute="bottom" constant="30" id="4AY-em-8kh"/>
                             <constraint firstItem="Uqo-Ub-PzM" firstAttribute="trailing" secondItem="svD-SU-BnS" secondAttribute="trailing" id="EiR-Sm-Jfd"/>
                             <constraint firstItem="Zpr-nq-fNG" firstAttribute="top" secondItem="qLr-Bu-Xmm" secondAttribute="bottom" constant="16" id="K1u-3h-gbq"/>
                             <constraint firstItem="svD-SU-BnS" firstAttribute="trailing" secondItem="qLr-Bu-Xmm" secondAttribute="trailing" constant="36" id="QsN-uN-y3N"/>
+                            <constraint firstItem="Zpr-nq-fNG" firstAttribute="centerX" secondItem="svD-SU-BnS" secondAttribute="centerX" id="YUS-xk-M4s"/>
                             <constraint firstItem="Uqo-Ub-PzM" firstAttribute="leading" secondItem="svD-SU-BnS" secondAttribute="leading" id="d5Y-Cd-DJK"/>
                             <constraint firstItem="qLr-Bu-Xmm" firstAttribute="leading" secondItem="svD-SU-BnS" secondAttribute="leading" constant="36" id="fkJ-k0-lca"/>
                             <constraint firstItem="qLr-Bu-Xmm" firstAttribute="top" secondItem="Uqo-Ub-PzM" secondAttribute="bottom" constant="16" id="l36-cp-YaB"/>
-                            <constraint firstItem="Zpr-nq-fNG" firstAttribute="leading" secondItem="svD-SU-BnS" secondAttribute="leading" constant="60" id="rMQ-gz-Zvo"/>
                             <constraint firstItem="Uqo-Ub-PzM" firstAttribute="top" secondItem="hJf-Yz-Tcn" secondAttribute="top" id="sFG-EU-SIO"/>
-                            <constraint firstItem="svD-SU-BnS" firstAttribute="trailing" secondItem="Zpr-nq-fNG" secondAttribute="trailing" constant="60" id="y6f-QV-k8n"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="svD-SU-BnS"/>
                     </view>
                     <navigationItem key="navigationItem" title="House Rules" id="hij-pW-iJ0"/>
                     <connections>
+                        <outlet property="addRuleButton" destination="Zpr-nq-fNG" id="lgI-Fv-qWs"/>
                         <outlet property="ruleField" destination="qLr-Bu-Xmm" id="ptW-tk-cqJ"/>
                         <outlet property="tableView" destination="Uqo-Ub-PzM" id="79W-Le-9Ei"/>
                     </connections>
