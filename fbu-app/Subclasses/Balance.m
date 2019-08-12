@@ -47,6 +47,7 @@
 - (void) deleteBalance {
     
     NSArray *housemates = [self objectForKey:@"housemates"];
+    [Bill deleteAllInBackground:self.bills];
     [Persona fetchAllIfNeededInBackground:housemates block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         for(Persona *housemate in housemates){
             [housemate removeObject:self forKey:@"balances"];
@@ -74,6 +75,17 @@
         newTotal = [newTotal decimalNumberByAdding:bill.portions[index]];
     }else if([bill.payer isEqual:self.housemates[1]]){
         newTotal = [newTotal decimalNumberBySubtracting:bill.portions[index]];
+    }
+    [self setObject:newTotal forKey:@"total"];
+}
+
+- (void) updateBalanceDeleteBill:(Bill*)bill indexOfDebtor:(int)index{
+    NSDecimalNumber *newTotal = [NSDecimalNumber decimalNumberWithDecimal:[self.total decimalValue]];
+    NSDecimalNumber *portion = [NSDecimalNumber decimalNumberWithDecimal:[bill.portions[index] decimalValue]];
+    if([bill.payer isEqual:self.housemates[0]]){
+        newTotal = [newTotal decimalNumberBySubtracting:portion];
+    }else if([bill.payer isEqual:self.housemates[1]]){
+        newTotal = [newTotal decimalNumberByAdding:portion];
     }
     [self setObject:newTotal forKey:@"total"];
 }

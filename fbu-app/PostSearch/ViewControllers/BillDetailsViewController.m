@@ -15,7 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *memoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *datelabel;
 @property (weak, nonatomic) IBOutlet UILabel *paidLabel;
+- (IBAction)tapDeleteBill:(id)sender;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
 @end
 
@@ -29,6 +31,9 @@ NSDecimalNumber *sumDebt;
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    self.deleteButton.layer.cornerRadius = 5;
+    self.deleteButton.layer.masksToBounds = YES;
     
     self.memoLabel.text = self.bill.memo;
     self.datelabel.text = [@"Paid on " stringByAppendingString:[self formatDate:self.bill.date]];
@@ -150,4 +155,11 @@ NSDecimalNumber *sumDebt;
     }
 }
 
+- (IBAction)tapDeleteBill:(id)sender {
+    [self.bill deleteBill];
+    [self.balance fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
+}
 @end

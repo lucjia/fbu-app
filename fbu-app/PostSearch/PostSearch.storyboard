@@ -1468,7 +1468,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0cI-t0-uQW">
-                                <rect key="frame" x="0.0" y="145" width="414" height="548"/>
+                                <rect key="frame" x="0.0" y="145" width="414" height="528"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SplitDebtorCell" rowHeight="104" id="XOJ-Cb-Y1p" customClass="SplitDebtorCell">
@@ -1531,7 +1531,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWm-bB-qse">
-                                <rect key="frame" x="82" y="733" width="250" height="40"/>
+                                <rect key="frame" x="82" y="713" width="250" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.50588235290000005" blue="0.54117647059999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="eBM-WH-8Xg"/>
@@ -1555,7 +1555,7 @@
                             <constraint firstItem="dVp-H5-eaw" firstAttribute="trailing" secondItem="V4e-dc-ov7" secondAttribute="trailing" constant="25" id="jLw-d7-Nwv"/>
                             <constraint firstItem="0cI-t0-uQW" firstAttribute="top" secondItem="V4e-dc-ov7" secondAttribute="bottom" constant="4" id="mWV-U2-EKV"/>
                             <constraint firstItem="RWm-bB-qse" firstAttribute="centerX" secondItem="dVp-H5-eaw" secondAttribute="centerX" id="nFx-dW-rBw"/>
-                            <constraint firstItem="dVp-H5-eaw" firstAttribute="bottom" secondItem="RWm-bB-qse" secondAttribute="bottom" constant="40" id="qXh-eQ-4FK"/>
+                            <constraint firstItem="dVp-H5-eaw" firstAttribute="bottom" secondItem="RWm-bB-qse" secondAttribute="bottom" constant="60" id="qXh-eQ-4FK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dVp-H5-eaw"/>
                     </view>
@@ -1747,7 +1747,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HvA-Hw-M5g">
-                                <rect key="frame" x="50" y="184" width="314" height="712"/>
+                                <rect key="frame" x="50" y="184" width="314" height="489"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DebtorCell" rowHeight="76" id="Jhs-8S-0y3" customClass="DebtorCell">
@@ -1828,11 +1828,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTU-Yg-rnt">
+                                <rect key="frame" x="82" y="713" width="250" height="40"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="Ih2-Jl-hks"/>
+                                    <constraint firstAttribute="height" constant="40" id="kHf-9H-xMS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Delete bill">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapDeleteBill:" destination="atQ-dx-NX2" eventType="touchUpInside" id="iKp-v1-Pe0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HHy-Ia-8jl" firstAttribute="leading" secondItem="SFI-7p-U0N" secondAttribute="leading" id="6CI-AU-63J"/>
-                            <constraint firstAttribute="bottom" secondItem="HvA-Hw-M5g" secondAttribute="bottom" id="Bhk-L9-Rux"/>
+                            <constraint firstItem="gTU-Yg-rnt" firstAttribute="top" secondItem="HvA-Hw-M5g" secondAttribute="bottom" constant="40" id="BZv-Qj-A6B"/>
                             <constraint firstItem="SFI-7p-U0N" firstAttribute="leading" secondItem="5Ye-kG-w92" secondAttribute="leading" constant="30" id="EUe-Gy-eJE"/>
                             <constraint firstItem="1HC-b1-WLn" firstAttribute="leading" secondItem="SFI-7p-U0N" secondAttribute="trailing" constant="8" id="IMs-Wr-Btg"/>
                             <constraint firstItem="HHy-Ia-8jl" firstAttribute="top" secondItem="SFI-7p-U0N" secondAttribute="bottom" id="KHE-m3-HNd"/>
@@ -1840,13 +1855,16 @@
                             <constraint firstItem="5Ye-kG-w92" firstAttribute="trailing" secondItem="1HC-b1-WLn" secondAttribute="trailing" constant="30" id="S69-XE-cZQ"/>
                             <constraint firstItem="HvA-Hw-M5g" firstAttribute="trailing" secondItem="5Ye-kG-w92" secondAttribute="trailing" constant="-50" id="Wqr-dd-JMy"/>
                             <constraint firstItem="HvA-Hw-M5g" firstAttribute="top" secondItem="1HC-b1-WLn" secondAttribute="bottom" constant="20" id="ZMg-oD-WYA"/>
+                            <constraint firstItem="5Ye-kG-w92" firstAttribute="bottom" secondItem="gTU-Yg-rnt" secondAttribute="bottom" constant="60" id="dFV-EE-laF"/>
                             <constraint firstItem="SFI-7p-U0N" firstAttribute="top" secondItem="5Ye-kG-w92" secondAttribute="top" constant="30" id="en7-N1-FRN"/>
+                            <constraint firstItem="gTU-Yg-rnt" firstAttribute="centerX" secondItem="HvA-Hw-M5g" secondAttribute="centerX" id="iqF-FF-RWw"/>
                             <constraint firstItem="1HC-b1-WLn" firstAttribute="firstBaseline" secondItem="HHy-Ia-8jl" secondAttribute="firstBaseline" id="slI-Sb-qF5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Ye-kG-w92"/>
                     </view>
                     <connections>
                         <outlet property="datelabel" destination="HHy-Ia-8jl" id="1uK-hK-zo1"/>
+                        <outlet property="deleteButton" destination="gTU-Yg-rnt" id="7qc-B9-HZi"/>
                         <outlet property="memoLabel" destination="SFI-7p-U0N" id="Erk-hk-85b"/>
                         <outlet property="paidLabel" destination="1HC-b1-WLn" id="Q99-gq-e36"/>
                         <outlet property="pictureView" destination="Rb2-VV-Ofl" id="ExW-7k-LXk"/>
