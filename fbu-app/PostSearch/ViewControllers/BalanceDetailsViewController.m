@@ -15,8 +15,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalBalanceLabel;
-@property (assign, nonatomic) NSUInteger indexOfHousemate;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalTopConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *recordButton;
 
 @end
 
@@ -35,18 +35,11 @@ UIColor *green;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    self.recordButton.layer.cornerRadius = 5;
+    self.recordButton.layer.masksToBounds = YES;
+    
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
-    
-    NSUInteger index = [self.balance.housemates indexOfObject:self.currentPersona];
-    if(index == 0){
-        self.indexOfHousemate = (NSUInteger)1;
-        self.housemate = self.balance.housemates[1];
-    }else{
-        self.indexOfHousemate = (NSUInteger)0;
-        self.housemate = self.balance.housemates[0];
-    }
-    [self.housemate fetchIfNeeded];
     
     self.navigationItem.title = [self getName:self.housemate];
     
@@ -87,43 +80,42 @@ UIColor *green;
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
         
-        [bill.payer fetchIfNeeded];
-        cell.payerLabel.text = [self getName:bill.payer];
-        cell.payerLabel.text = [cell.payerLabel.text stringByAppendingString:@" paid "];
-        cell.payerLabel.text = [cell.payerLabel.text stringByAppendingString:[numberFormatter stringFromNumber:bill.paid]];
-        
-        NSDateFormatter *monthFormatter = [[NSDateFormatter alloc]init];
-        monthFormatter.dateFormat = @"MMM";
-        cell.monthLabel.text = [[monthFormatter stringFromDate:bill.date] uppercaseString];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        dateFormatter.dateFormat = @"d";
-        cell.dateLabel.text = [dateFormatter stringFromDate:bill.date];
-        
-        cell.moneyLabel.text = [numberFormatter stringFromNumber:bill.paid];
-        cell.memoLabel.text = bill.memo;
-        
-        [bill.payer fetchIfNeeded];
-        if (![self.currentPersona isEqual:bill.payer]){
-            if(bill.payment == YES) {
-                cell.stateLabel.text = @"they paid";
-            }else{
-                cell.stateLabel.text = @"you borrowed";
+        [bill.payer fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            cell.payerLabel.text = [self getName:bill.payer];
+            cell.payerLabel.text = [cell.payerLabel.text stringByAppendingString:@" paid "];
+            cell.payerLabel.text = [cell.payerLabel.text stringByAppendingString:[numberFormatter stringFromNumber:bill.paid]];
+            
+            NSDateFormatter *monthFormatter = [[NSDateFormatter alloc]init];
+            monthFormatter.dateFormat = @"MMM";
+            cell.monthLabel.text = [[monthFormatter stringFromDate:bill.date] uppercaseString];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+            dateFormatter.dateFormat = @"d";
+            cell.dateLabel.text = [dateFormatter stringFromDate:bill.date];
+            
+            cell.moneyLabel.text = [numberFormatter stringFromNumber:bill.paid];
+            cell.memoLabel.text = bill.memo;
+            
+            if (![self.currentPersona isEqual:bill.payer]){
+                if(bill.payment == YES) {
+                    cell.stateLabel.text = @"they paid";
+                }else{
+                    cell.stateLabel.text = @"you borrowed";
+                }
+                cell.stateLabel.textColor = [UIColor redColor];
+                cell.moneyLabel.textColor = [UIColor redColor];
+                cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getBorrowed:bill]];
+            }else if([self.currentPersona isEqual:bill.payer]){
+                if(bill.payment == YES) {
+                    cell.stateLabel.text = @"you paid";
+                }else{
+                    cell.stateLabel.text = @"you lent";
+                }
+                cell.stateLabel.textColor = green;
+                cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getLent:bill]];
+                cell.moneyLabel.textColor = green;
             }
-            cell.stateLabel.textColor = [UIColor redColor];
-            cell.moneyLabel.textColor = [UIColor redColor];
-            cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getBorrowed:bill]];
-        }else if([self.currentPersona isEqual:bill.payer]){
-            if(bill.payment == YES) {
-                cell.stateLabel.text = @"you paid";
-            }else{
-                cell.stateLabel.text = @"you lent";
-            }
-            cell.stateLabel.textColor = green;
-            cell.moneyLabel.text = [numberFormatter stringFromNumber:[self getLent:bill]];
-            cell.moneyLabel.textColor = green;
-        }
-        
+        }];
     }];
     
     return cell;

@@ -22,6 +22,7 @@
 @property (strong, nonatomic) House *house;
 @property (weak, nonatomic) IBOutlet UITextField *ruleField;
 - (IBAction)tapAddRule:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *addRuleButton;
 
 @end
 
@@ -35,6 +36,9 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    self.addRuleButton.layer.cornerRadius = 5;
+    self.addRuleButton.layer.masksToBounds = YES;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
@@ -85,6 +89,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.rules removeObjectAtIndex:indexPath.row];
+        [self.house setObject:self.rules forKey:@"rules"];
+        [self.house saveInBackground];
         [self reloadView];
     }
 }

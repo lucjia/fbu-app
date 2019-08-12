@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *arrayCells;
 - (IBAction)tapSplitEqually:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 
 @end
@@ -32,6 +33,9 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    self.saveButton.layer.cornerRadius = 5;
+    self.saveButton.layer.masksToBounds = YES;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];

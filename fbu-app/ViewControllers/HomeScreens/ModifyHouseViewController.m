@@ -35,6 +35,9 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    self.houseButton.layer.cornerRadius = 5;
+    self.houseButton.layer.masksToBounds = YES;
+    
     [self reloadView];
 
     // Do any additional setup after loading the view.

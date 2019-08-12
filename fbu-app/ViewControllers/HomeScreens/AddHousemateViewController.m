@@ -40,6 +40,9 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    self.houseButton.layer.cornerRadius = 5;
+    self.houseButton.layer.masksToBounds = YES;
+    
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         self.currentPersona = (Persona*) object;
