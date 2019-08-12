@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestButton;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIView *sendButtonView;
+@property (weak, nonatomic) IBOutlet UIView *cellView;
 
 @end
 
@@ -42,6 +43,10 @@
 
 - (void)updateProperties:(Persona *)persona {
     self.sendButtonView.layer.cornerRadius = 3;
+    
+    
+    self.cellView.layer.cornerRadius = 15;
+    [self setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     
     [[persona objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
         NSData *imageData = data;

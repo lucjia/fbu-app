@@ -29,6 +29,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="158.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8KA-xr-yXc">
+                                                    <rect key="frame" x="9" y="6.5" width="396" height="145.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PQ7-AQ-tbj">
                                                     <rect key="frame" x="20" y="14" width="80" height="80"/>
                                                     <constraints>
@@ -71,6 +75,8 @@
                                                 <constraint firstItem="Lzg-SQ-Tb4" firstAttribute="centerX" secondItem="PQ7-AQ-tbj" secondAttribute="centerX" id="56I-eZ-mR3"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="bottom" secondItem="PHv-bA-pFV" secondAttribute="bottom" id="7Gg-q3-kmC"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="leading" secondItem="Lzg-SQ-Tb4" secondAttribute="leading" id="7X6-nb-w2C"/>
+                                                <constraint firstAttribute="bottom" secondItem="8KA-xr-yXc" secondAttribute="bottom" constant="6.5" id="8i6-CR-hJS"/>
+                                                <constraint firstItem="8KA-xr-yXc" firstAttribute="top" secondItem="76J-Cf-fnf" secondAttribute="top" constant="6.5" id="9fY-Ux-2hm"/>
                                                 <constraint firstItem="PQ7-AQ-tbj" firstAttribute="top" secondItem="76J-Cf-fnf" secondAttribute="top" constant="14" id="E3D-Rw-2oV"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="top" secondItem="PHv-bA-pFV" secondAttribute="top" id="ErP-5S-moS"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="leading" secondItem="76J-Cf-fnf" secondAttribute="leading" constant="20" id="GNg-wE-zcB"/>
@@ -81,12 +87,14 @@
                                                 <constraint firstItem="dea-z6-EEa" firstAttribute="top" secondItem="PQ7-AQ-tbj" secondAttribute="top" id="Nn7-62-0M0"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kyo-QC-6WI" secondAttribute="bottom" constant="13" id="SVN-Jq-ZES"/>
                                                 <constraint firstItem="Lzg-SQ-Tb4" firstAttribute="top" secondItem="PQ7-AQ-tbj" secondAttribute="bottom" constant="8" id="Vdm-Uv-RZl"/>
+                                                <constraint firstItem="8KA-xr-yXc" firstAttribute="leading" secondItem="76J-Cf-fnf" secondAttribute="leading" constant="9" id="ahj-0d-Hso"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tAu-cL-Z46" secondAttribute="bottom" constant="12.5" id="bc8-SY-c4c"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="trailing" secondItem="PHv-bA-pFV" secondAttribute="trailing" id="dmO-bS-lo7"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="centerY" secondItem="PHv-bA-pFV" secondAttribute="centerY" id="eNT-Ug-dQZ"/>
                                                 <constraint firstItem="dea-z6-EEa" firstAttribute="leading" secondItem="PQ7-AQ-tbj" secondAttribute="trailing" constant="24" id="gw3-Ns-bg4"/>
                                                 <constraint firstItem="kyo-QC-6WI" firstAttribute="trailing" secondItem="dea-z6-EEa" secondAttribute="trailing" id="k5u-9O-Xxc"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="centerX" secondItem="PHv-bA-pFV" secondAttribute="centerX" id="oWT-Dg-vOn"/>
+                                                <constraint firstAttribute="trailing" secondItem="8KA-xr-yXc" secondAttribute="trailing" constant="9" id="rdE-Ee-DVt"/>
                                                 <constraint firstAttribute="trailing" secondItem="dea-z6-EEa" secondAttribute="trailing" constant="24" id="sqL-0g-iUV"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="leading" secondItem="PHv-bA-pFV" secondAttribute="leading" id="tpM-Sl-JbH"/>
                                                 <constraint firstItem="tAu-cL-Z46" firstAttribute="centerX" secondItem="PQ7-AQ-tbj" secondAttribute="centerX" id="uCD-Qm-CX9"/>
@@ -97,6 +105,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="bioLabel" destination="kyo-QC-6WI" id="hVF-wM-7OY"/>
+                                            <outlet property="cellView" destination="8KA-xr-yXc" id="eoE-NF-luK"/>
                                             <outlet property="locationLabel" destination="Lzg-SQ-Tb4" id="WqF-Ph-9oa"/>
                                             <outlet property="profileImage" destination="PQ7-AQ-tbj" id="I3W-yD-3sm"/>
                                             <outlet property="sendButtonView" destination="PHv-bA-pFV" id="Cqc-FV-Y2F"/>
@@ -1433,6 +1442,6 @@
         <segue reference="dbJ-VM-uVd"/>
         <segue reference="kFA-SJ-iRa"/>
         <segue reference="H70-ju-lxV"/>
-        <segue reference="kil-6z-1zJ"/>
+        <segue reference="N8j-jp-Paw"/>
     </inferredMetricsTieBreakers>
 </document>
