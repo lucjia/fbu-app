@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalBalanceLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIView *venmoView;
 
 @end
 
@@ -37,6 +38,9 @@ UIColor *green;
     
     self.recordButton.layer.cornerRadius = 5;
     self.recordButton.layer.masksToBounds = YES;
+    
+    self.venmoView.layer.cornerRadius = 5;
+    self.venmoView.layer.masksToBounds = YES;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
