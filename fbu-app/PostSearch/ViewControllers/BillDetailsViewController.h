@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BillDetailsViewController : UIViewController
 
 @property (strong, nonatomic) Bill *bill;
+@property (strong, nonatomic) Balance *balance;
 @property (strong, nonatomic) Persona *currentPersona;
 
 @end

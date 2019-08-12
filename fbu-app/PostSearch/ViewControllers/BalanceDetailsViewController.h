@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BalanceDetailsViewController : UIViewController
 
-@property (strong, nonatomic) NSArray *bills;
+@property (strong, nonatomic) NSMutableArray *bills;
 @property (strong, nonatomic) Persona *housemate;
 @property (strong, nonatomic) Persona *currentPersona;
 @property (strong, nonatomic) Balance *balance;

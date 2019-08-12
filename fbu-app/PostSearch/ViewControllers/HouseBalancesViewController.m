@@ -80,10 +80,9 @@ UIColor *greenColor;
     HousemateBalanceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HousemateBalanceCell"];
     
     Balance *balance = self.balances[indexPath.row];
-    [balance fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+    [balance fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         
         [Persona fetchAllIfNeededInBackground:balance.housemates block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-            
             
             NSUInteger indexOfHousemate = [self getIndex:balance];
             Persona *housemate = [self getHousemate:balance indexOfHousemate:indexOfHousemate];
@@ -107,7 +106,6 @@ UIColor *greenColor;
                 cell.balanceLabel.textColor = [UIColor redColor];
                 cell.topConstraint.constant = 8;
                 [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[[self abs:total] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"-1"]]];
-                [self setTotals];
             }else if(![self inDebt:balance indexOfHousemate:indexOfHousemate]){
                 cell.stateLabel.text = @"owes you";
                 cell.stateLabel.textColor = greenColor;
@@ -115,9 +113,9 @@ UIColor *greenColor;
                 cell.balanceLabel.textColor = greenColor;
                 cell.topConstraint.constant = 8;
                 [self.balanceTotals replaceObjectAtIndex:indexPath.row withObject:[self abs:total]];
-                [self setTotals];
+                
             }
-            
+            [self setTotals];
             PFFileObject *imageFile = housemate.profileImage;
             [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
                 if (!error) {
@@ -134,6 +132,7 @@ UIColor *greenColor;
 }
 
 -(void) setTotals {
+    
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     
@@ -147,6 +146,7 @@ UIColor *greenColor;
             negative = [negative decimalNumberBySubtracting:total];
         }
     }
+
     
     self.negativeLabel.text = [numberFormatter stringFromNumber:negative];
     self.positiveLabel.text = [numberFormatter stringFromNumber:positive];

@@ -79,7 +79,14 @@
 }
 
 - (void) deleteBill {
-    
+    for(int i = 0; i < self.debtors.count; i++){
+        Persona *debtor = self.debtors[i];
+        Balance *balance = [Balance getBalance:self.payer housemateTwo:debtor];
+        [balance removeObject:self forKey:@"bills"];
+        [balance updateBalanceDeleteBill:self indexOfDebtor:i];
+        [balance save];
+    }
+    [self deleteInBackground];
 }
 
 @end

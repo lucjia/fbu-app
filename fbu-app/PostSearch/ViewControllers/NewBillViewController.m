@@ -12,7 +12,7 @@
 #import "ChangeSplitViewController.h"
 #import "Parse/Parse.h"
 #import "CustomColor.h"
-
+#import "Balance.h"
 
 @interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -43,6 +43,8 @@
 @end
 
 @implementation NewBillViewController
+
+NSDecimalNumber *paid;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -130,7 +132,16 @@
                 return NO;
         }
     }
-
+    NSString *replacement = [self.paidField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    if(![replacement isEqualToString:self.paidField.text]){
+        if ([self.paidField.text length] > 1){
+            paid = [NSDecimalNumber decimalNumberWithString:[replacement substringFromIndex:1]];
+        }else{
+            paid = [NSDecimalNumber zero];
+        }
+        self.portions = nil;
+    }
     return YES;
 }
 
@@ -205,10 +216,10 @@
 }
 
 - (NSDecimalNumber*)getPaid {
-    if ([self.paidField.text length] > 1){
-        return [NSDecimalNumber decimalNumberWithString:[self.paidField.text substringFromIndex:1]];
-    }else{
+    if (paid == nil){
         return [NSDecimalNumber zero];
+    }else{
+        return paid;
     }
 }
 

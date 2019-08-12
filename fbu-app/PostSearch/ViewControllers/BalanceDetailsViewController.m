@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalBalanceLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIView *venmoView;
 
 @end
 
@@ -37,6 +38,9 @@ UIColor *green;
     
     self.recordButton.layer.cornerRadius = 5;
     self.recordButton.layer.masksToBounds = YES;
+    
+    self.venmoView.layer.cornerRadius = 5;
+    self.venmoView.layer.masksToBounds = YES;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
@@ -60,7 +64,8 @@ UIColor *green;
 
 - (void) fetchBills {
     self.bills = self.balance.bills;
-    self.bills = [[self.bills reverseObjectEnumerator] allObjects];
+    self.bills = (NSMutableArray*)[[(NSArray*)self.bills reverseObjectEnumerator] allObjects];
+    
     //self.bills = [self.bills subarrayWithRange:NSMakeRange(0, MIN(10, self.bills.count))];
 }
 
@@ -207,6 +212,7 @@ UIColor *green;
         
         BillDetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.bill = bill;
+        detailsViewController.balance = self.balance;
         detailsViewController.currentPersona = self.currentPersona;
     }else if ([segue.identifier isEqualToString:@"makePayment"]){
         PaymentViewController *controller = (PaymentViewController *)segue.destinationViewController;
@@ -231,10 +237,14 @@ UIColor *green;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Bill *bill = self.bills[indexPath.row];
-        //[bill deleteBill];
-        [self reloadView];
+        [bill deleteBill];
+        [self.balance fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            [self reloadView];
+        }];
     }
 }
+
+
 
 
 @end
