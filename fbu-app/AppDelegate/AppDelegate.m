@@ -21,6 +21,7 @@
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 #import "MainViewController.h"
+#import "BraintreeCore.h"
 
 @interface AppDelegate () <UIApplicationDelegate, UNUserNotificationCenterDelegate> {
     NSArray *receivedReminders;
@@ -56,6 +57,7 @@
         }];
     }
     
+    [BTAppSwitch setReturnURLScheme:@"com.fbu.homi.payments"];
     return YES;
 }
 
@@ -214,6 +216,27 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if ([url.scheme localizedCaseInsensitiveCompare:@"com.fbu.homi.payments"] == NSOrderedSame) {
+        return [BTAppSwitch handleOpenURL:url options:options];
+    }
+    return NO;
+}
+
+// If you support iOS 8, add the following method.
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    if ([url.scheme localizedCaseInsensitiveCompare:@"com.fbu.homi.payments"] == NSOrderedSame) {
+        return [BTAppSwitch handleOpenURL:url sourceApplication:sourceApplication];
+    }
+    return NO;
 }
 
 @end

@@ -14,6 +14,9 @@ target 'fbu-app' do
   pod 'AFNetworking'
   pod 'SVProgressHUD'
   pod 'LGSideMenuController'
+  pod 'Braintree'
+  pod 'Braintree/Venmo'
+  pod 'BraintreeDropIn'
 
   target 'fbu-appTests' do
     inherit! :search_paths
