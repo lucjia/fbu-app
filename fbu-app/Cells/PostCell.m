@@ -37,6 +37,7 @@
     [Accessibility largeTextCompatibilityWithLabel:self.posterLabel style:UIFontTextStyleTitle3];
     [Accessibility largeTextCompatibilityWithLabel:self.textLabel style:UIFontTextStyleBody];
     [Accessibility largeTextCompatibilityWithLabel:self.dateLabel style:UIFontTextStyleFootnote];
+    [Accessibility largeTextCompatibilityWithLabel:self.deleteButton.titleLabel style:UIFontTextStyleSubheadline];
     
     // shadow
     self.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -45,6 +46,10 @@
     self.layer.shadowOpacity = 0.8f;
     self.layer.masksToBounds = NO;
     self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.contentView.layer.cornerRadius].CGPath;
+}
+
+- (IBAction)didTapDelete:(id)sender {
+    [self.delegate deletePost:self.post];
 }
 
 @end

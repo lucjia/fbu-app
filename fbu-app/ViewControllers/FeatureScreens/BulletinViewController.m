@@ -18,7 +18,7 @@
 #import "CustomColor.h"
 #import "MapViewController.h"
 
-@interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ComposePostViewControllerDelegate> {
+@interface BulletinViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ComposePostViewControllerDelegate, PostCellDelegate> {
     NSMutableArray *posts;
     NSLayoutConstraint *heightConstraint;
     UIRefreshControl *refreshControl;
@@ -115,6 +115,8 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PostCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PostCell" forIndexPath:indexPath];
     cell.post = posts[indexPath.row];
+    
+    cell.delegate = self;
     [cell setCell];
     
     return cell;
@@ -174,6 +176,12 @@
             [self didPressItemAtIndexPath:indexPath];
         }
     }
+}
+
+- (void) deletePost:(Post *)post {
+    [posts removeObject:post];
+    [post deleteInBackground];
+    [self.collectionView reloadData];
 }
 
 @end
