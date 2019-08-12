@@ -41,7 +41,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self.tableView setBackgroundColor:[UIColor whiteColor]];
+    [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     [SVProgressHUD show];
