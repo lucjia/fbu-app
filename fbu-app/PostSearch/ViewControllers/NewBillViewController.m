@@ -12,7 +12,7 @@
 #import "ChangeSplitViewController.h"
 #import "Parse/Parse.h"
 #import "CustomColor.h"
-
+#import "Balance.h"
 
 @interface NewBillViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeSplitViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
