@@ -168,14 +168,31 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvI-BA-jm6">
                                                             <rect key="frame" x="20" y="278" width="277" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
-                                                            <color key="textColor" red="0.0" green="0.50588235290000005" blue="0.54117647059999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5h-M5-896">
                                                             <rect key="frame" x="0.0" y="0.0" width="317" height="40"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIf-SO-4yK">
+                                                                    <rect key="frame" x="261" y="5" width="46" height="30"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                                    <state key="normal" title="Delete">
+                                                                        <color key="titleColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="didPressDelete:" destination="2Lw-TE-DW8" eventType="touchUpInside" id="NuK-um-tge"/>
+                                                                        <action selector="didPressDelete:" destination="dZl-My-BbR" eventType="touchUpInside" id="ift-qB-eYt"/>
+                                                                        <action selector="didPressDeletePost:" destination="dZl-My-BbR" eventType="touchUpInside" id="H6J-aZ-hGu"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
                                                             <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="ZIf-SO-4yK" secondAttribute="trailing" constant="10" id="NLO-Dg-m2x"/>
+                                                                <constraint firstAttribute="bottom" secondItem="ZIf-SO-4yK" secondAttribute="bottom" constant="5" id="Q3t-Zi-ZGV"/>
                                                                 <constraint firstAttribute="height" constant="40" id="QPn-u3-HYS"/>
+                                                                <constraint firstItem="ZIf-SO-4yK" firstAttribute="top" secondItem="M5h-M5-896" secondAttribute="top" constant="5" id="nqt-sf-MHg"/>
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlQ-Ql-KEG">
@@ -224,6 +241,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="dateLabel" destination="EvI-BA-jm6" id="zKR-xy-HLW"/>
+                                            <outlet property="deleteButton" destination="ZIf-SO-4yK" id="WXf-YZ-kxZ"/>
                                             <outlet property="postImage" destination="Gfl-lq-bdS" id="qwe-ER-dza"/>
                                             <outlet property="posterLabel" destination="GlQ-Ql-KEG" id="v8a-qE-siC"/>
                                             <outlet property="textLabel" destination="XdG-0G-ajh" id="G82-y9-co6"/>
