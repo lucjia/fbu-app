@@ -208,6 +208,7 @@ UIColor *green;
         
         BillDetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.bill = bill;
+        detailsViewController.balance = self.balance;
         detailsViewController.currentPersona = self.currentPersona;
     }else if ([segue.identifier isEqualToString:@"makePayment"]){
         PaymentViewController *controller = (PaymentViewController *)segue.destinationViewController;
