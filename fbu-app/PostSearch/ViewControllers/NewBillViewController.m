@@ -229,7 +229,7 @@ NSDecimalNumber *paid;
     animation.type = kCATransitionFade;
     animation.duration = 0.5;
     [self.dateView.layer addAnimation:animation forKey:nil];
-    
+    self.addBillButton.hidden = YES;
    self.dateView.hidden = NO;
 }
 
@@ -273,6 +273,7 @@ NSDecimalNumber *paid;
     animation.duration = 0.5;
     [self.view.layer addAnimation:animation forKey:nil];
     self.dateView.hidden = YES;
+    self.addBillButton.hidden = NO;
     
     self.date = self.datePicker.date;
     self.dateField.text = [self formatDate:self.datePicker.date];
