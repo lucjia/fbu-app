@@ -67,7 +67,8 @@ UIColor *green;
 
 - (void) fetchBills {
     self.bills = self.balance.bills;
-    self.bills = [[self.bills reverseObjectEnumerator] allObjects];
+    self.bills = (NSMutableArray*)[[(NSArray*)self.bills reverseObjectEnumerator] allObjects];
+    
     //self.bills = [self.bills subarrayWithRange:NSMakeRange(0, MIN(10, self.bills.count))];
 }
 
@@ -239,10 +240,14 @@ UIColor *green;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Bill *bill = self.bills[indexPath.row];
-        //[bill deleteBill];
-        [self reloadView];
+        [bill deleteBill];
+        [self.balance fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            [self reloadView];
+        }];
     }
 }
+
+
 
 
 @end

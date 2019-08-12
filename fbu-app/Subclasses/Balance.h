@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) deleteBalance;
 + (Balance *) getBalance:(Persona *)housemateOne housemateTwo:(Persona *)housemateTwo;
 - (void) updateBalance:(Bill*)bill indexOfDebtor:(int)index;
+- (void) updateBalanceDeleteBill:(Bill*)bill indexOfDebtor:(int)index;
 
 @end
 
