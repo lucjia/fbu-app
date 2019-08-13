@@ -39,6 +39,7 @@
 - (IBAction)changePayer:(id)sender;
 @property (weak, nonatomic) IBOutlet UIPickerView *payerPicker;
 @property (weak, nonatomic) IBOutlet UIButton *addBillButton;
+- (IBAction)tapCost:(id)sender;
 
 @end
 
@@ -73,10 +74,9 @@ NSDecimalNumber *paid;
         [self fetchpossibleDebtors];
     }];
     
-    self.dateField.text = [self formatDate:[NSDate date]];
+    self.dateField.placeholder = [self formatDate:[NSDate date]];
     self.date = [NSDate date];
     
-    self.paidField.text = [self formatCurrency:[NSDecimalNumber zero]];
     
 }
 
@@ -343,4 +343,7 @@ numberOfRowsInComponent:(NSInteger)component {
     [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
 }
 
+- (IBAction)tapCost:(id)sender {
+    self.paidField.text = @"$";
+}
 @end
