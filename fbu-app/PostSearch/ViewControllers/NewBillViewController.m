@@ -81,6 +81,10 @@ NSDecimalNumber *paid;
     
 }
 
+- (IBAction)didTapOut:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (void) fetchpossibleDebtors {
     Persona *persona = [PFUser.currentUser objectForKey:@"persona"];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
@@ -324,6 +328,13 @@ numberOfRowsInComponent:(NSInteger)component {
     Persona *housemate = self.housemates[row];
     [housemate fetchIfNeeded];
     return [self getName:housemate];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if ([textField isEqual:self.dateField]) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView

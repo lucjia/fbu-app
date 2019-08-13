@@ -1360,9 +1360,6 @@
                                     <constraint firstAttribute="height" constant="80" id="anW-0Q-v1g"/>
                                     <constraint firstAttribute="width" constant="80" id="k84-VT-Rc6"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="fxa-wd-Dtu" appends="YES" id="5ey-0E-Kyo"/>
-                                </connections>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lmB-zD-i2y">
                                 <rect key="frame" x="130" y="124" width="215" height="30"/>
@@ -1424,6 +1421,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ij4-TM-gdI" firstAttribute="leading" secondItem="BOO-bU-vXr" secondAttribute="trailing" constant="12" id="2eJ-RS-duC"/>
                             <constraint firstItem="lmB-zD-i2y" firstAttribute="top" secondItem="JNh-qj-eB0" secondAttribute="top" id="5sh-nW-c0w"/>
@@ -1455,6 +1453,9 @@
                             <constraint firstItem="pVr-aG-FnU" firstAttribute="trailing" secondItem="lmB-zD-i2y" secondAttribute="trailing" constant="30" id="zal-VP-Bzc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pVr-aG-FnU"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="19L-vc-BPX" appends="YES" id="V4S-xo-xsz"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="addBillButton" destination="gVd-bR-jr6" id="F2A-71-Hcy"/>
@@ -1472,9 +1473,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y5b-QL-NFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="fxa-wd-Dtu">
+                <tapGestureRecognizer id="19L-vc-BPX">
                     <connections>
-                        <action selector="tapAddImage:" destination="t5K-h7-cgS" id="iVO-wC-xAG"/>
+                        <action selector="didTapOut:" destination="t5K-h7-cgS" id="Ry9-fw-d5I"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
