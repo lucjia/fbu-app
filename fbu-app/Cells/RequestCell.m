@@ -49,6 +49,11 @@
     
     NSString *senderUsername = [user objectForKey:@"username"];
     self.senderOfRequestLabel.text = [NSString stringWithFormat:@"%@ has sent you a request!", senderUsername];
+    
+    self.acceptButton.layer.cornerRadius = 5;
+    self.acceptButton.layer.masksToBounds = YES;
+    self.rejectButton.layer.cornerRadius = 5;
+    self.rejectButton.layer.masksToBounds = YES;
 }
 
 - (IBAction)didTapAccept:(id)sender {

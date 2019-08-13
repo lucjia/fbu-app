@@ -93,18 +93,17 @@
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         House *house = [persona objectForKey:@"house"];
-        [house fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            [query whereKey:@"postSender" containedIn:house.housemates];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *fetchedPosts, NSError *error) {
-                if (fetchedPosts != nil) {
-                    self->posts = (NSMutableArray *)fetchedPosts;
-                    [self.collectionView reloadData];
-                } else {
-                    NSLog(@"%@", error.localizedDescription);
-                }
-            }];
-            [self->refreshControl endRefreshing];
+        [house fetchIfNeeded];
+        [query whereKey:@"postSender" containedIn:house.housemates];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *fetchedPosts, NSError *error) {
+            if (fetchedPosts != nil) {
+                self->posts = (NSMutableArray *)fetchedPosts;
+                [self.collectionView reloadData];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
         }];
+        [self->refreshControl endRefreshing];
     }];
 }
 
