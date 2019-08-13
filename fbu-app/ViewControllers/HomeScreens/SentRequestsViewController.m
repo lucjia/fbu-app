@@ -15,6 +15,10 @@
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 
 @interface SentRequestsViewController () <UITableViewDelegate, UITableViewDataSource>
+{
+    UIRefreshControl *refreshControl;
+}
+
 
 @property (strong, nonatomic) NSMutableArray *receiversArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -36,6 +40,12 @@
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
     [self fetchSentRequestTimeline];
+    
+    // Refresh control for "pull to refresh"
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventValueChanged];
+    refreshControl.layer.zPosition = -1;
+    [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
 - (void) fetchSentRequestTimeline {
@@ -58,7 +68,12 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self->refreshControl endRefreshing];
     }];
+}
+
+- (void)refreshView {
+    [self fetchSentRequestTimeline];
 }
 
 - (IBAction)didTapLeftMenu:(id)sender {

@@ -24,6 +24,9 @@
 @end
 
 @implementation RequestsViewController
+{
+    UIRefreshControl *refreshControl;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,6 +40,12 @@
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
     [self fetchRequestTimeline];
+    
+    // Refresh control for "pull to refresh"
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventValueChanged];
+    refreshControl.layer.zPosition = -1;
+    [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
 - (void) fetchRequestTimeline {
@@ -59,7 +68,13 @@
             self.sendersArray = [NSMutableArray arrayWithArray:requests];
             [self.tableView reloadData];
         }
+        
+        [self->refreshControl endRefreshing];
     }];
+}
+
+- (void)refreshView {
+    [self fetchRequestTimeline];
 }
 
 
