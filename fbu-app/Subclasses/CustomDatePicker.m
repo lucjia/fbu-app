@@ -60,7 +60,10 @@
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [toolBar setItems:[NSArray arrayWithObjects:clearBtn, space, doneBtn, nil]];
     toolBar.userInteractionEnabled = YES;
+    toolBar.tintColor = [CustomColor accentColor:1.0];
     [textField setInputAccessoryView:toolBar];
+    
+    self.datePicker.tintColor = [CustomColor accentColor:1.0];
     
     return self.datePicker;
 }
