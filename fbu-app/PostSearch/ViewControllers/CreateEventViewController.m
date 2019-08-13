@@ -40,6 +40,13 @@
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnView:)];
+    
+    // Optionally set the number of required taps, e.g., 2 for a double click
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tapGestureRecognizer];
+    
     CustomDatePicker *startDatePicker = [[CustomDatePicker alloc] init];
     self.startDatePicker = [startDatePicker initializeDatePickerWithDatePicker:self.startDatePicker textField:self.startDateSelectionTextField];
     
@@ -148,6 +155,10 @@
      EventLocationViewController *eventLocationViewController = (EventLocationViewController *)[segue destinationViewController];
      eventLocationViewController.delegate = self;
  }
+
+- (IBAction)didTapOnView:(UITapGestureRecognizer *)sender {
+    [self.view endEditing:YES];
+}
 
 
 @end
