@@ -55,6 +55,10 @@
     SEL removeSelector = @selector(removeEndDate);
     self.endDatePicker = [endDatePicker initializeDatePickerWithDatePicker:self.endDatePicker textField:self.endDateSelectionTextField selector:showSelector secondSelector:removeSelector];
     
+    // set tint color of all text fields and views
+    [[UITextField appearance] setTintColor:[CustomColor accentColor:1.0]];
+    [[UITextView appearance] setTintColor:[CustomColor accentColor:1.0]];
+    
     [self initializeTextView];
 }
 
@@ -114,6 +118,7 @@
 }
 
 - (IBAction)didTapBack:(id)sender {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

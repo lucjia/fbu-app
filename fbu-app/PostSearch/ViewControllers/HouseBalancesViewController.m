@@ -49,13 +49,12 @@ UIColor *greenColor;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    self.currentPersona = [PFUser.currentUser objectForKey:@"persona"];
-    [self.currentPersona fetchIfNeeded];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     // Dispatch lengthy stuff on another thread
+    self.currentPersona = [PFUser.currentUser objectForKey:@"persona"];
+    [self.currentPersona fetch];
     [super viewWillAppear:animated];
     [self reloadView];
 }
@@ -84,6 +83,7 @@ UIColor *greenColor;
         
         [Persona fetchAllIfNeededInBackground:balance.housemates block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
             
+            balance.housemates = objects;
             NSUInteger indexOfHousemate = [self getIndex:balance];
             Persona *housemate = [self getHousemate:balance indexOfHousemate:indexOfHousemate];
             

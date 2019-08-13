@@ -55,7 +55,7 @@
         self.profileImage.layer.masksToBounds = YES;
     }];
     
-    self.usernameLabel.text = [persona objectForKey:@"username"];
+    self.usernameLabel.text = [[[persona objectForKey:@"firstName"] stringByAppendingString:@" "] stringByAppendingString:[persona objectForKey:@"lastName"]];
     self.bioLabel.text = [persona objectForKey:@"bio"];
     self.locationLabel.text = [persona objectForKey:@"city"];
     self.userInCell = persona;
