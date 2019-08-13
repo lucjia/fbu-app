@@ -330,6 +330,13 @@ numberOfRowsInComponent:(NSInteger)component {
     return [self getName:housemate];
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if ([textField isEqual:self.dateField]) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)pickerView:(UIPickerView *)thePickerView
       didSelectRow:(NSInteger)row
        inComponent:(NSInteger)component {
