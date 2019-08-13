@@ -47,7 +47,6 @@
 - (void) deleteBalance {
     
     NSArray *housemates = [self objectForKey:@"housemates"];
-    [Bill deleteAllInBackground:self.bills];
     [Persona fetchAllIfNeededInBackground:housemates block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         for(Persona *housemate in housemates){
             [housemate removeObject:self forKey:@"balances"];
