@@ -16,6 +16,7 @@
 @property (strong, nonatomic) Request *currentRequest;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *waitingLabel;
+@property (weak, nonatomic) IBOutlet UIView *cellView;
 
 @end
 
@@ -35,6 +36,9 @@
 
 - (void)updateProperties:(Request *)request {
     self.currentRequest = request;
+    
+    self.cellView.layer.cornerRadius = 15;
+    [self setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     
     PFUser *user = [request objectForKey:@"receiver"];
     [[user objectForKey:@"profileImage"] getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {

@@ -37,7 +37,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self.tableView setBackgroundColor:[UIColor whiteColor]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     
     [self fetchSentRequestTimeline];
     
