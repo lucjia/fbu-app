@@ -106,6 +106,7 @@ static NSString * const clientSecret = @"3VJ2WHVGZ4GHBVFBYOXVN2FGNILHHDU4YJBISVQ
 - (IBAction)didPressLocation:(id)sender {
     // access user's current location and create post based on that
     [locationManager startUpdatingLocation];
+    self.shareLocationButton.titleLabel.text = @"Sharing Location";
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {

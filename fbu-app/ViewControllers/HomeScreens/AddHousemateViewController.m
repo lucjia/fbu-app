@@ -44,7 +44,7 @@
     self.houseButton.layer.masksToBounds = YES;
     
     Persona *persona = [[PFUser currentUser] objectForKey:@"persona"];
-    [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+    [persona fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         self.currentPersona = (Persona*) object;
         self.currentHouse = [House getHouse:self.currentPersona];
         if(self.currentHouse != nil){
