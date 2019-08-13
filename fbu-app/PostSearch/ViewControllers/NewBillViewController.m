@@ -39,6 +39,7 @@
 - (IBAction)changePayer:(id)sender;
 @property (weak, nonatomic) IBOutlet UIPickerView *payerPicker;
 @property (weak, nonatomic) IBOutlet UIButton *addBillButton;
+- (IBAction)tapCost:(id)sender;
 
 @end
 
@@ -54,6 +55,11 @@ NSDecimalNumber *paid;
     
     self.paidField.delegate = self;
     
+    UIView* dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    self.dateField.inputView = dummyView;
+    self.dateField.inputAccessoryView = dummyView;
+    self.dateField.tintColor =  self.dateField.backgroundColor;
+    
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
@@ -68,10 +74,9 @@ NSDecimalNumber *paid;
         [self fetchpossibleDebtors];
     }];
     
-    self.dateField.text = [self formatDate:[NSDate date]];
+    self.dateField.placeholder = [self formatDate:[NSDate date]];
     self.date = [NSDate date];
     
-    self.paidField.text = [self formatCurrency:[NSDecimalNumber zero]];
     
 }
 
@@ -330,13 +335,6 @@ numberOfRowsInComponent:(NSInteger)component {
     return [self getName:housemate];
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if ([textField isEqual:self.dateField]) {
-        return NO;
-    }
-    return YES;
-}
-
 - (void)pickerView:(UIPickerView *)thePickerView
       didSelectRow:(NSInteger)row
        inComponent:(NSInteger)component {
@@ -345,4 +343,7 @@ numberOfRowsInComponent:(NSInteger)component {
     [self.payerButton setTitle:[self getName:self.payer] forState:UIControlStateNormal];
 }
 
+- (IBAction)tapCost:(id)sender {
+    self.paidField.text = @"$";
+}
 @end

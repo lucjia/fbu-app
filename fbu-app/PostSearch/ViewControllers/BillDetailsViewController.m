@@ -151,7 +151,7 @@ NSDecimalNumber *sumDebt;
     if([persona isEqual:self.currentPersona]){
         return @"You";
     }else{
-        return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+        return persona.firstName;
     }
 }
 
