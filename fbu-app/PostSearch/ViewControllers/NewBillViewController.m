@@ -81,6 +81,10 @@ NSDecimalNumber *paid;
     
 }
 
+- (IBAction)didTapOut:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (void) fetchpossibleDebtors {
     Persona *persona = [PFUser.currentUser objectForKey:@"persona"];
     [persona fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
