@@ -54,6 +54,11 @@ NSDecimalNumber *paid;
     
     self.paidField.delegate = self;
     
+    UIView* dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    self.dateField.inputView = dummyView;
+    self.dateField.inputAccessoryView = dummyView;
+    self.dateField.tintColor =  self.dateField.backgroundColor;
+    
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
     
@@ -328,13 +333,6 @@ numberOfRowsInComponent:(NSInteger)component {
     Persona *housemate = self.housemates[row];
     [housemate fetchIfNeeded];
     return [self getName:housemate];
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if ([textField isEqual:self.dateField]) {
-        return NO;
-    }
-    return YES;
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView
