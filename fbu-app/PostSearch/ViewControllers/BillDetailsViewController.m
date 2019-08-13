@@ -42,6 +42,7 @@ NSDecimalNumber *sumDebt;
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     self.paidLabel.text = [numberFormatter stringFromNumber:self.bill.paid];
     
+    
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[CustomColor darkMainColor:1.0]}];
 
@@ -151,7 +152,7 @@ NSDecimalNumber *sumDebt;
     if([persona isEqual:self.currentPersona]){
         return @"You";
     }else{
-        return [[persona.firstName stringByAppendingString:@" "] stringByAppendingString:persona.lastName];
+        return persona.firstName;
     }
 }
 
