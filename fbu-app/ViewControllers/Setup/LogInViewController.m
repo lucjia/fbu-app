@@ -24,8 +24,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UILabel *logInLabel;
-@property (strong, nonatomic) UIButton *logInButton;
-@property (strong, nonatomic) UIButton *registerButton;
+@property (weak, nonatomic) IBOutlet UIButton *logInButton;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
 
 @end
 
@@ -33,43 +33,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createUsernameField];
-    [self createPasswordField];
-    [self createLogInRegisterButtons];
-    [self createLabel];
+    
+    self.logInButton.layer.cornerRadius = 5;
+    self.logInButton.layer.masksToBounds = YES;
+    
+    self.registerButton.layer.cornerRadius = 5;
+    self.registerButton.layer.masksToBounds = YES;
 }
 
 - (IBAction)didTap:(id)sender {
     [self.view endEditing:YES];
-}
-
-- (void) createUsernameField {
-    self.usernameField.delegate = self;
-    self.usernameField.borderStyle = UITextBorderStyleRoundedRect;
-    self.usernameField.placeholder = @"Username";
-}
-
-- (void) createPasswordField {
-    self.passwordField.delegate = self;
-    self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
-    self.passwordField.placeholder = @"Password";
-    self.passwordField.secureTextEntry = YES;
-}
-
-- (void) createLogInRegisterButtons {
-    CustomButton *button = [[CustomButton alloc] init];
-    self.logInButton = [button styledBackgroundButtonWithOrigin:CGPointMake(160, 500) text:@"Log In"];
-    [self.logInButton addTarget:self action:@selector(logInUser) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.logInButton];
-    
-    self.registerButton = [button styledBackgroundButtonWithOrigin:CGPointMake(160, 600) text:@"Register Here"];
-    [self.registerButton addTarget:self action:@selector(segueToRegister) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.registerButton];
-}
-
-- (void) createLabel {
-    [[self logInLabel] setFont: [UIFont systemFontOfSize:24]];
-    self.logInLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)logInUser {
@@ -113,6 +86,14 @@
             }];
         }
     }];
+}
+
+- (IBAction)didPressLogIn:(id)sender {
+    [self logInUser];
+}
+
+- (IBAction)didPressRegister:(id)sender {
+    [self segueToRegister];
 }
 
 - (void)segueToRegister {
