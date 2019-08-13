@@ -31,10 +31,9 @@
     if (!house.events) {
         house.events = [[NSMutableArray alloc] init];
     }
-    [house saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        [persona setObject:house forKey:@"house"];
-        [persona save];
-    }];
+    [house save];
+    [persona setObject:house forKey:@"house"];
+    [persona save];
     
 }
 
@@ -67,6 +66,7 @@
     
     [persona removeObjectForKey:@"house"];
     [persona save];
+    
 }
 
 - (void) deleteHouse {
