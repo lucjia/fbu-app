@@ -2115,19 +2115,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a title" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jqU-4z-pTR">
-                                <rect key="frame" x="20" y="96" width="335" height="30"/>
+                                <rect key="frame" x="20" y="96" width="335" height="36"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="AFh-B1-z1p"/>
+                                </constraints>
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UoE-wE-ijC">
-                                <rect key="frame" x="306" y="148" width="51" height="31"/>
+                                <rect key="frame" x="306" y="154" width="51" height="31"/>
                                 <color key="onTintColor" red="0.039215686270000001" green="0.45882352939999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </switch>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wEB-5o-7h2">
-                                <rect key="frame" x="20" y="236.5" width="335" height="149"/>
+                                <rect key="frame" x="20" y="242.5" width="335" height="131"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="tintColor" red="0.92941176469999998" green="0.070588235289999995" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -2135,8 +2138,8 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a memo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0B-Vy-KXg">
-                                <rect key="frame" x="20" y="202.5" width="115" height="26"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Memo:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0B-Vy-KXg">
+                                <rect key="frame" x="20" y="208.5" width="121" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -2148,7 +2151,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NrM-ab-eHv">
-                                <rect key="frame" x="20" y="146" width="64" height="25.5"/>
+                                <rect key="frame" x="20" y="152" width="64" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -2176,7 +2179,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nra-DS-8nf">
-                                <rect key="frame" x="294" y="393.5" width="61" height="33"/>
+                                <rect key="frame" x="294" y="392" width="61" height="33"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <state key="normal" title="Change">
                                     <color key="titleColor" red="0.039215686270000001" green="0.45882352939999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2197,9 +2200,9 @@
                             <constraint firstItem="Ftm-6G-B8W" firstAttribute="top" secondItem="YJH-dl-CaJ" secondAttribute="bottom" constant="8" id="Mz1-PB-MqO"/>
                             <constraint firstItem="HQ6-qL-hTU" firstAttribute="trailing" secondItem="wEB-5o-7h2" secondAttribute="trailing" constant="20" id="OsC-rp-YEw"/>
                             <constraint firstItem="HQ6-qL-hTU" firstAttribute="trailing" secondItem="Nra-DS-8nf" secondAttribute="trailing" constant="20" id="Oyr-hG-HSU"/>
+                            <constraint firstItem="Nra-DS-8nf" firstAttribute="centerY" secondItem="YJH-dl-CaJ" secondAttribute="centerY" id="Sk2-FH-ymq"/>
                             <constraint firstItem="YJH-dl-CaJ" firstAttribute="leading" secondItem="HQ6-qL-hTU" secondAttribute="leading" constant="20" id="TPM-S8-yM0"/>
-                            <constraint firstItem="YJH-dl-CaJ" firstAttribute="top" secondItem="wEB-5o-7h2" secondAttribute="bottom" constant="10" id="X9W-v2-6KN"/>
-                            <constraint firstItem="Nra-DS-8nf" firstAttribute="top" secondItem="wEB-5o-7h2" secondAttribute="bottom" constant="8" id="aHi-CB-cqv"/>
+                            <constraint firstItem="YJH-dl-CaJ" firstAttribute="top" secondItem="wEB-5o-7h2" secondAttribute="bottom" constant="22" id="X9W-v2-6KN"/>
                             <constraint firstItem="Ftm-6G-B8W" firstAttribute="leading" secondItem="HQ6-qL-hTU" secondAttribute="leading" constant="20" id="bVd-Pv-NEF"/>
                             <constraint firstItem="wEB-5o-7h2" firstAttribute="leading" secondItem="HQ6-qL-hTU" secondAttribute="leading" constant="20" id="c6p-t8-1ny"/>
                             <constraint firstItem="kmS-1c-Zw9" firstAttribute="leading" secondItem="HQ6-qL-hTU" secondAttribute="leading" constant="20" id="ckn-UI-OGa"/>
@@ -2211,7 +2214,6 @@
                             <constraint firstItem="HQ6-qL-hTU" firstAttribute="trailing" secondItem="jqU-4z-pTR" secondAttribute="trailing" constant="20" id="oL0-qs-gwY"/>
                             <constraint firstItem="jqU-4z-pTR" firstAttribute="leading" secondItem="HQ6-qL-hTU" secondAttribute="leading" constant="20" id="ohF-3S-fKI"/>
                             <constraint firstItem="wEB-5o-7h2" firstAttribute="top" secondItem="f0B-Vy-KXg" secondAttribute="bottom" constant="8" id="qny-K7-woa"/>
-                            <constraint firstItem="Nra-DS-8nf" firstAttribute="top" secondItem="wEB-5o-7h2" secondAttribute="bottom" constant="8" id="s2d-wH-c0m"/>
                             <constraint firstItem="kmS-1c-Zw9" firstAttribute="top" secondItem="7XO-vd-PWx" secondAttribute="bottom" constant="29" id="u9a-gR-ak4"/>
                             <constraint firstItem="HQ6-qL-hTU" firstAttribute="trailing" secondItem="7XO-vd-PWx" secondAttribute="trailing" constant="20" id="wnM-BF-9bv"/>
                         </constraints>
