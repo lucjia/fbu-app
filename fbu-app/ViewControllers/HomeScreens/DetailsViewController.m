@@ -40,6 +40,9 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.viewInScrollView setBackgroundColor:[UIColor whiteColor]];
     
+    self.sendRequestButton.layer.cornerRadius = 4;
+    self.sendRequestButton.layer.masksToBounds = YES;
+    
     [self updateProperties];
     
 }
