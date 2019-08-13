@@ -39,6 +39,8 @@
     
     self.registerButton.layer.cornerRadius = 5;
     self.registerButton.layer.masksToBounds = YES;
+    
+    self.passwordField.secureTextEntry = YES;
 }
 
 - (IBAction)didTap:(id)sender {
