@@ -171,17 +171,16 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bob has sent you a request! " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OME-x3-Trs">
-                                                            <rect key="frame" x="76" y="15" width="217.5" height="20.5"/>
+                                                            <rect key="frame" x="80" y="19" width="261" height="14"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.015686274510000001" green="0.1843137255" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72m-bP-qNl">
-                                                            <rect key="frame" x="100" y="57" width="75" height="19"/>
+                                                            <rect key="frame" x="116" y="48" width="75" height="28"/>
                                                             <color key="backgroundColor" red="0.039215686270000001" green="0.45882352939999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="75" id="E8C-Um-eEt"/>
-                                                                <constraint firstAttribute="height" constant="19" id="piZ-3j-Ykb"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                             <state key="normal" title="Accept">
@@ -192,10 +191,10 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QjE-3W-4BW">
-                                                            <rect key="frame" x="190" y="57" width="78" height="19"/>
+                                                            <rect key="frame" x="206" y="48" width="78" height="28"/>
                                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="19" id="Ljy-Qx-t9J"/>
+                                                                <constraint firstAttribute="height" constant="28" id="Ljy-Qx-t9J"/>
                                                                 <constraint firstAttribute="width" constant="78" id="h9p-Im-30s"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
@@ -210,15 +209,19 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QjE-3W-4BW" secondAttribute="bottom" constant="12.5" id="2Ir-lf-m51"/>
+                                                        <constraint firstItem="QjE-3W-4BW" firstAttribute="bottom" secondItem="72m-bP-qNl" secondAttribute="bottom" id="E8t-S4-ra7"/>
                                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="72m-bP-qNl" secondAttribute="bottom" constant="12.5" id="NeK-Fl-th5"/>
-                                                        <constraint firstItem="OME-x3-Trs" firstAttribute="leading" secondItem="89v-QY-I5n" secondAttribute="trailing" constant="8" id="RUL-DC-g7A"/>
-                                                        <constraint firstItem="72m-bP-qNl" firstAttribute="leading" secondItem="89v-QY-I5n" secondAttribute="trailing" constant="32" id="S1P-AW-urA"/>
-                                                        <constraint firstItem="OME-x3-Trs" firstAttribute="top" secondItem="89v-QY-I5n" secondAttribute="top" id="Yn0-Yy-SIK"/>
+                                                        <constraint firstItem="OME-x3-Trs" firstAttribute="leading" secondItem="89v-QY-I5n" secondAttribute="trailing" constant="12" id="RUL-DC-g7A"/>
+                                                        <constraint firstItem="72m-bP-qNl" firstAttribute="leading" secondItem="89v-QY-I5n" secondAttribute="trailing" constant="48" id="S1P-AW-urA"/>
+                                                        <constraint firstItem="OME-x3-Trs" firstAttribute="top" secondItem="89v-QY-I5n" secondAttribute="top" constant="4" id="Yn0-Yy-SIK"/>
                                                         <constraint firstItem="89v-QY-I5n" firstAttribute="top" secondItem="05b-4b-yNu" secondAttribute="top" constant="15" id="ZOu-QY-hPL"/>
                                                         <constraint firstItem="89v-QY-I5n" firstAttribute="leading" secondItem="05b-4b-yNu" secondAttribute="leading" constant="8" id="ayO-Mr-poR"/>
                                                         <constraint firstItem="QjE-3W-4BW" firstAttribute="top" secondItem="72m-bP-qNl" secondAttribute="top" id="fv3-Gy-myn"/>
+                                                        <constraint firstItem="QjE-3W-4BW" firstAttribute="top" secondItem="72m-bP-qNl" secondAttribute="top" id="ic7-Ae-H2r"/>
                                                         <constraint firstItem="QjE-3W-4BW" firstAttribute="leading" secondItem="72m-bP-qNl" secondAttribute="trailing" constant="15" id="il2-fm-KY9"/>
-                                                        <constraint firstItem="72m-bP-qNl" firstAttribute="top" secondItem="OME-x3-Trs" secondAttribute="bottom" constant="21.5" id="y9t-3E-kKf"/>
+                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="89v-QY-I5n" secondAttribute="bottom" constant="13.5" id="leb-qw-GH9"/>
+                                                        <constraint firstItem="72m-bP-qNl" firstAttribute="top" secondItem="OME-x3-Trs" secondAttribute="bottom" constant="15" id="y9t-3E-kKf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="OME-x3-Trs" secondAttribute="trailing" constant="16" id="yhx-hf-CGl"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
