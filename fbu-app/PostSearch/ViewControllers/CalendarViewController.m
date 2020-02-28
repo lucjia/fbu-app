@@ -14,10 +14,9 @@
 @property NSInteger currentDay;
 @property NSInteger currentMonth;
 @property NSInteger currentYear;
-@property NSInteger weekday; // weekday of start of month
+@property NSInteger weekday; // weekday of start of month (can be 1 - 7)
 @property (strong, nonatomic) NSDate *numberOfDays; // in month
 @property (strong, nonatomic) NSCalendar *calendar;
-@property (strong, nonatomic) NSArray *months;
 @property (strong, nonatomic) UICollectionView *collectionView;
 
 @end
@@ -103,14 +102,22 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     CalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CalendarCell" forIndexPath:indexPath];
         
-    cell.backgroundColor = [UIColor greenColor];
+    if (indexPath.item <= self.weekday - 2) {
+        [cell setHidden:YES];
+    } else {
+        [cell setHidden:NO];
+        cell.backgroundColor = [UIColor greenColor];
+        
+        [cell initDateLabelInCell:(indexPath.row - self.weekday + 2)];
+    }
     
-    [cell initDateLabelInCell:(indexPath.row + 1)];
     return cell;
 }
 
+// returns the number of days in the current month + the day of the week the month starts on - 1 (for indexing starting at 0)
+// additional cells are created in order to have cells displayed on the calendar on the correct day of the week. ex: july starts on monday not sunday
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self numberDaysInMonthFromDate:[NSDate date]];
+    return [self numberDaysInMonthFromDate:[NSDate date]] + (self.weekday - 1);
 }
 
 @end
